@@ -9,7 +9,7 @@ Let's go through all the steps:
 3. Inside `py-blog` start application `blog`.
 4. Inside `blog/models.py` create models according to this diagram:
 
-![models-diagram](../../../../../var/folders/1v/lc6bhtr544s1nxpg4l2jh6y80000gp/T/TemporaryItems/NSIRD_screencaptureui_FnPxQj/Снимок экрана 2022-11-19 в 23.41.05.png)
+![models-diagram](https://mate-academy-images.s3.eu-central-1.amazonaws.com/py-forms-diagram-for-test-task.png)
 
 5. Edit `admin.py`:
     - Register all your models in the admin.
@@ -40,6 +40,7 @@ the post. Make the post's title a link to the detailed page, which you would imp
 
 **Please note**: only authorized users can post comments. If an anonymous user tries to 
 create a new comment, the form must be invalid.
+
 20. Use crispy forms in your forms to make the website more beautiful. 
 21. Use `python manage.py test` to run tests.
 22. Don't forget to add the `.gitignore` file before pushing. Don't push a lot of extra files(`venv`, `pycache`, `.idea`, etc.).
