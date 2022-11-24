@@ -9,11 +9,11 @@ Let's go through all the steps:
 3. Inside `py-blog` start application `blog`.
 4. Inside `blog/models.py` create models according to this diagram:
 
-   ![models-diagram](https://mate-academy-images.s3.eu-central-1.amazonaws.com/py-forms-diagram-for-test-task.png)
+   ![models-diagram](https://mate-academy-images.s3.eu-central-1.amazonaws.com/py-drf-forms-blog-task-2.png)
 
 5. Edit `admin.py`:
     - Register all your models in the admin.
-    - Unregister `Group`.
+    - Unregister `Group` (you can make it with `admin.site.unregister(Group)` by importing `Group` from `django.contrib.auth.models`).
     - Do the filtering and searching in any way you think is logical.
 6. Make migrations and migrate.
 7. Use `python manage.py test` to run tests.
@@ -29,7 +29,7 @@ Let's go through all the steps:
 14. Create a template for the main page. On this page, make it so that a list of all posts is displayed. The title and content were displayed, the author was visible when this post was created and the number of comments on the post. Make the post's title a link to the detailed page, which you would implement further.
 15.  Add pagination for the main page. Set **5** posts on one page by default.
 16. Create a `PostDetailViewset` view that returns detailed information about the post by the `id` field.
-17. Add a template for this page and url with a path `posts/pk/`.
+17. Add a template for this page and url with a path `posts/pk/` and name `post-detail`.
 18. On the post detail page, display a list of post comments below this post.
 19. Under the list of comments, add a form that allows you to create a new comment to the post. 
 
@@ -43,3 +43,11 @@ Let's go through all the steps:
 ### Note: Attach screenshots of all created or modified pages to pull request.
 1. Attach screenshots to the comment, NOT in the commit.
 2. It's important to attach images not links to them. 
+
+## Example of the post detailed page
+
+**Notice**: that example is not a reference! You can make this page in another way. 
+
+![post-detailed-page-reference-1](https://mate-academy-images.s3.eu-central-1.amazonaws.com/py-reference-of-the-post-detailed-page_3.png)
+![post-detailed-page-reference-2](https://mate-academy-images.s3.eu-central-1.amazonaws.com/py-reference-of-the-post-detailed-page_2.png)
+![post-detailed-page-reference-3](https://mate-academy-images.s3.eu-central-1.amazonaws.com/py-reference-of-the-post-detailed-page_1.png)
