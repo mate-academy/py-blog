@@ -12,24 +12,6 @@ class AdminSiteBlogTests(TestCase):
             password="testdata123456",
         )
         self.client.force_login(self.admin_user)
-        self.user = get_user_model().objects.create_user(
-            username="test.user",
-            password="testpassword13579"
-        )
-        self.user_2 = get_user_model().objects.create_user(
-            username="test.user_2",
-            password="testpassword24680"
-        )
-        self.post = Post.objects.create(
-            owner=self.user,
-            title="Test post",
-            content="Some test content"
-        )
-        self.comment = Commentary.objects.create(
-            user=self.user_2,
-            post=self.post,
-            content="Agree"
-        )
 
     def test_post_registered_in_admin(self):
         url = reverse("admin:blog_post_changelist")
