@@ -2,7 +2,6 @@ import os
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
-from blog.models import Post, Commentary
 
 
 class AdminSiteBlogTests(TestCase):
