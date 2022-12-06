@@ -1,0 +1,31 @@
+<ul class="navbar-nav ml-auto">
+  <li class="nav-item active">
+    {% url 'blog:index' as url_index %}
+    <a class="nav-link"
+       {% if url_index == request.path %}active{% endif %}
+       href="{{ url_index }}">Home page</a>
+  </li>
+
+  {% if request.user.is_authenticated %}
+    <li class="nav-item">
+      {% url 'blog:logout-page' as url_logout_page %}
+      <a class="nav-link btn-danger ml-5" href="{{ url_logout_page }}" >Sign out</a>
+    </li>
+
+    {% else %}
+    <li class="nav-item">
+    {% url 'blog:register-page' as url_register_page %}
+    <a class="nav-link"
+       {% if url_register_page == request.path %}active{% endif %}
+       href="{{ url_register_page }}">Registration</a>
+    </li>
+
+
+    <li class="nav-item">
+    {% url 'blog:login-page' as url_login_page %}
+    <a class="nav-link"
+       {% if url_login_page == request.path %}active{% endif %}
+       href="{{ url_login_page }}">Sign in</a>
+    </li>
+  {% endif %}
+</ul>

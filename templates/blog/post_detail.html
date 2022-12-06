@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <br>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <h2>{{ post_list.title }}</h2>
+        <br>
+        <p><em>{{ post_list.owner }} at {{ post_list.created_time }}</em></p>
+        <h5>{{ post_list.content }}</h5>
+        <br><br>
+
+        <p><em>{{ post_list.commentary_set.count }} comment{{ post_list.commentary_set.count|pluralize }}</em></p>
+        <br>
+        <h4><bold><em>Comments:</em></bold></h4>
+        <hr>
+
+        {% for commentary in post_list.commentary_set.all %}
+            <p><small><em>{{ commentary.user }} at {{ commentary.created_time }}</em></small></p>
+            <hr>
+            <p>{{ commentary.content }}</p>
+            <hr>
+            <br>
+            <hr>
+
+          {% empty %}
+          <p>There are no comments yet</p>
+
+        {% endfor %}<br>
+
+          {% if request.user.is_authenticated %}
+            <h5><em>Add a new comment:</em></h5>
+            <div class="col-4">
+              <form action="" id="add_form" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+              </form>
+              <button form="add_form" type="submit" class="btn btn-primary">Add comment</button>
+            </div>
+
+            {% else %}
+            <br>
+            <h6 style="font-size: large; color: red">Only registered and authorized users can leave comments</h6>
+          {% endif %}
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
