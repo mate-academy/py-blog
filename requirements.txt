@@ -11,4 +11,3 @@ sqlparse==0.4.3
 tomli==2.0.1
 tzdata==2022.6
 django-crispy-forms==1.14.0
-flake8==6.0.0
