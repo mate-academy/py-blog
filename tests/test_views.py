@@ -3,7 +3,7 @@ from django.urls import reverse
 from blog.models import Post, Commentary
 
 MAIN_PAGE_URL = reverse("blog:index")
-PAGINATION = 5
+PAGINATION = 6
 
 
 class PostListTest(TestCase):
