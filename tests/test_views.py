@@ -3,7 +3,7 @@ from django.urls import reverse
 from blog.models import Post, Commentary
 
 MAIN_PAGE_URL = reverse("blog:index")
-PAGINATION = 6
+PAGINATION = 5
 
 
 class PostListTest(TestCase):
@@ -20,7 +20,7 @@ class PostListTest(TestCase):
         response = self.client.get(MAIN_PAGE_URL)
 
         self.assertEqual(
-            len(response.context["post_list"]), PAGINATION
+            len(response.context["page_obj"]), PAGINATION
         )
 
     def test_main_page_ordered_by_created_time(self):
