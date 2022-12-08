@@ -1,6 +1,3 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.paginator import Paginator
-from django.shortcuts import render
 from django.urls import reverse
 from django.views import generic
 from django.views.generic.edit import FormMixin
