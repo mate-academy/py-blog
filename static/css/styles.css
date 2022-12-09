@@ -1,0 +1,32 @@
+body html {
+    width: 100%;
+    height: 100%;
+    font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
+}
+
+h1 {
+    padding-top: 20px;
+    text-align: center;
+}
+
+.navbar-nav li {
+    padding-right: 20px;
+}
+
+.nav-link {
+    font-size: 1.1em !important;
+}
+
+.col-sm-12 {
+    background-color: #F0F8FF;
+    border-radius: 20px;
+    text-align: justify;
+}
+
+.page-link {
+    background-color: #87CEEB;
+}
+
+img {
+    width: 50px;
+}
