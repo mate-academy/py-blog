@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <div class="content">
+    <div class="container">
+      <div class="row">
+        <div>
+          {% for post in post_list %}
+            <div class="post-preview">
+              <a href="{{ post.get_absolute_url }}">
+                <h2 class="post-title">
+                  {{ post.title }}
+                </h2>
+              </a>
+              <p class="post-meta">Posted by
+                {{ post.owner.first_name }} {{ post.owner.last_name }}
+                on {{ post.created_time }}
+              </p>
+              <p>Number of comments: {{ post.num_comments }}</p>
+              <br>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
