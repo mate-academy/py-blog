@@ -23,7 +23,7 @@ class Post(models.Model):
 
     @property
     def num_comments(self):
-        return len(self.commentaries.all())
+        return self.commentaries.count()
 
     def get_absolute_url(self):
         return reverse("blog:post-detail", kwargs={"pk": self.pk})
