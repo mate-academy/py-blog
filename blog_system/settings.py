@@ -20,8 +20,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = \
-    "django-insecure-r$a+3-$oz1##9gxk@7t*+-nv501(_2vx9-*clz6$f_@1bc4&qs"
+SECRET_KEY = "django" \
+             "-insecure-r$a+3-$oz1##9gxk@7t*+-nv501(_2vx9-*clz6$f_@1bc4&qs"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -95,20 +95,24 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth."
-                "password_validation.UserAttributeSimilarityValidator",
+        "NAME":
+            "django."
+            "contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
     {
-        "NAME": "django.contrib.auth."
-                "password_validation.MinimumLengthValidator",
+        "NAME":
+            "django."
+            "contrib.auth.password_validation.MinimumLengthValidator",
     },
     {
-        "NAME": "django.contrib.auth."
-                "password_validation.CommonPasswordValidator",
+        "NAME":
+            "django."
+            "contrib.auth.password_validation.CommonPasswordValidator",
     },
     {
-        "NAME": "django.contrib.auth."
-                "password_validation.NumericPasswordValidator",
+        "NAME":
+            "django."
+            "contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
 
