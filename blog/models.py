@@ -27,3 +27,9 @@ class Commentary(models.Model):
                              related_name="comments",)
     created_time = models.DateTimeField(auto_now_add=True)
     content = models.CharField(max_length=255)
+
+    class Meta:
+        ordering = ["-created_time"]
+
+    def __str__(self):
+        return "{}".format(self.description)

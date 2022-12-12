@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load crispy_forms_filters %}
 
 {% block content %}
   <h1>{{ post.title }}</h1>
@@ -19,10 +18,9 @@
   {% else %}
     No comments!
   {% endif %}
-<form action="" method="post" novalidate>
-    {% csrf_token %}
-    {{ form|crispy }}
-
-    <input class="btn btn-primary" type="submit" value="Submit">
-</form>
+  {% if user.is_authenticated %}
+    <p><a href = "{% url 'blog:commentary-create' post.id %}">Add a new comment</a></p>
+  {% else %}
+    <p>not authorized vizitors can't leave comments</p>
+  {% endif %}
 {% endblock %}
