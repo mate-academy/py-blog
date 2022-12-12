@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+
 class User(AbstractUser):
 
     class Meta:
@@ -9,6 +10,7 @@ class User(AbstractUser):
 
     def __str__(self):
         return f"{self.username} ({self.first_name} {self.last_name})"
+
 
 class Post(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL,
