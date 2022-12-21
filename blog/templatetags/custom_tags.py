@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from django import template
 
 register = template.Library()
@@ -9,15 +7,15 @@ register = template.Library()
 def url_reparse(request, **kwargs):
     params = request.GET.copy()
 
-    for k, v in kwargs.items():
-        if v:
-            params[k] = v
+    for key, value in kwargs.items():
+        if value:
+            params[key] = value
         else:
-            params.pop(k)
+            params.pop(key)
 
     result = request.path
 
     if len(params):
-        result += '?' + params.urlencode()
+        result += "?" + params.urlencode()
 
     return result

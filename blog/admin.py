@@ -8,7 +8,7 @@ from blog.models import Post, Commentary
 class PostAdmin(admin.ModelAdmin):
     list_display = ("title", "owner", "created_time",)
     list_filter = ("owner",)
-    search_fields = ['content']
+    search_fields = ["content"]
     ordering = ("-created_time",)
 
 
@@ -17,7 +17,7 @@ class CommentaryAdmin(admin.ModelAdmin):
     list_display = ("id", "post", "user", "created_time",)
     list_filter = ("post", "user")
     list_select_related = ("post",)
-    search_fields = ['content']
+    search_fields = ["content"]
     ordering = ("-created_time",)
 
 
