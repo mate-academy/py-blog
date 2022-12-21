@@ -1,6 +1,12 @@
 from django.urls import path
 
-from .views import *
+from blog.views import (
+    login_view,
+    logout_view,
+    PostListView,
+    PostDetailView,
+    AddCommentView,
+)
 
 app_name = "blog"
 

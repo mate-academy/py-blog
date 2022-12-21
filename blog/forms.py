@@ -1,7 +1,6 @@
 from django import forms
-from django.forms import Textarea
 
-from .models import *
+from blog.models import Commentary
 
 
 class AddCommentForm(forms.ModelForm):

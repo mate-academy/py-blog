@@ -1,7 +1,7 @@
 from django.contrib import admin
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, User
 
-from blog.models import *
+from blog.models import Post, Commentary
 
 
 @admin.register(Post)

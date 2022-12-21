@@ -1,11 +1,11 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.views import generic
 
-from .forms import *
-from .models import *
+from blog.models import Post
+from blog.forms import AddCommentForm
 
 LOGIN_CURL = "login_curl"
 LOGIN_ERROR = "login_error"
