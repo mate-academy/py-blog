@@ -28,6 +28,7 @@ class PostDetailView(generic.DetailView):
         new_comment = Commentary(content=request.POST.get('content'),
                                  user=self.request.user,
                                  post=self.get_object(),
-                                 created_time=datetime.now().strftime("%m-%d-%Y, %H:%M:%S"))
+                                 created_time=datetime.now().strftime(
+                                     "%m-%d-%Y, %H:%M:%S"))
         new_comment.save()
         return self.get(self, request, *args, **kwargs)
