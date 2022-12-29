@@ -46,4 +46,3 @@ class Commentary(models.Model):
         ordering = ["created_time"]
         verbose_name = "commentary"
         verbose_name_plural = "commentaries"
-

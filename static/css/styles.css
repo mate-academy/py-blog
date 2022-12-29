@@ -53,7 +53,8 @@ body {
     border-radius: 4px;
 }
 
-.input-field {
+.text-field {
+    font-size: 90%;
     width: 50%;
     height: 100px;
 }
