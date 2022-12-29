@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+
+	<div>
+		<p class="post-detail-author-name">{{ post.owner.first_name }} {{ post.owner.last_name }}</p>
+		<p class="post-detail-date">{{ post.created_time }}</p>
+	</div>
+
+	<div class="post-detail-content">
+			{{ post.content }}
+	</div>
+
+	<div>
+		<strong>{{ post.num_of_comments }} comment{{ post.num_of_comments|pluralize }}</strong>
+		{% if comment_list %}
+			<ul class="post-detail-comments-block">
+				{% for comment in comment_list %}
+					<li  class="post-detail-comment">
+						<div class="comment-username">{{ comment.user.first_name }} {{ comment.user.last_name }}</div>
+						<div class="comment-date">{{ comment.created_time }}</div>
+						<div class="comment-content">{{ comment.content }}</div>
+					</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+	</div>
+
+	<div class="log_form">
+		{% if user.is_authenticated %}
+			<div>
+				<p><strong>Leave a comment:</strong></p>
+				<form action="" method="post">
+					{% csrf_token %}
+					<p><textarea class="text-field" name="content"></textarea></p>
+					<p><input type="submit" value="ADD"></p>
+				</form>
+			</div>
+	  {% else %}
+			<div>You need to <a href="{% url 'login' %}?next={{request.path}}">login</a> if you want to leave a comment.</div>
+		{% endif %}
+	</div>
+{% endblock %}
