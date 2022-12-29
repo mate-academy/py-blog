@@ -17,18 +17,17 @@ class PostDetailView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
-
-        comments_connected = Commentary.objects.all()
-        data["comments"] = comments_connected
         if self.request.user.is_authenticated:
-            data["comment_form"] = CommentForm(instance=self.request.user)
+            data["form"] = CommentForm(
+                initial={"post": self.object, "user": self.request.user})
         return data
 
     def post(self, request, *args, **kwargs):
-        new_comment = Commentary(content=request.POST.get("content"),
+        new_comment = Commentary(content=request.POST.get('content'),
                                  user=self.request.user,
                                  post=self.get_object(),
                                  created_time=datetime.now().strftime(
-                                     "%m-%d-%Y, %H:%M:%S"))
+                                     "%m-%d-%Y, %H:%M:%S")
+                                 )
         new_comment.save()
         return self.get(self, request, *args, **kwargs)

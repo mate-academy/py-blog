@@ -23,7 +23,8 @@
     <form method="POST">
       {% csrf_token %}
       <div class="form-group">
-        {{ comment_form|crispy }}
+{#        {{ comment_form|crispy }}#}
+          {{ form|crispy }}
         <button class="btn btn-info" type="submit">Add comment <i class="fas fa-comments"></i></button>
       </div>
     </form>
