@@ -23,7 +23,7 @@ class PostDetailView(generic.DetailView):
         return data
 
     def post(self, request, *args, **kwargs):
-        new_comment = Commentary(content=request.POST.get('content'),
+        new_comment = Commentary(content=request.POST.get("content"),
                                  user=self.request.user,
                                  post=self.get_object(),
                                  created_time=datetime.now().strftime(
