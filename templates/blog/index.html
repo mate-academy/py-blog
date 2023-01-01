@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Blog Home</h1>
+  <p>Welcome to the most interesting blog!</p>
+
+  {% if post_list %}
+    <p>Take a look at our most recent posts:</p>
+
+    <ul class="post_list">
+      {% for post in post_list %}
+        <li>
+          <h3><a href={% url "blog:post-detail" pk=post.id %}>{{ post.title }}</a></h3>
+          <p><em>by {{ post.owner }} - {{ post.created_time }}</em></p>
+          <p>{{ post.content }}</p>
+          <p><em>({{ post.num_comments }} comment{{ post.num_comments|pluralize:",s" }})</em></p>
+          <hr>
+        </li>
+
+      {% endfor %}
+    </ul>
+
+
+  {% endif %}
+
+{% endblock %}
