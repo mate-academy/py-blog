@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p><em>by {{ post.owner.username }} - {{ post.created_time }}</em></p>
+
+  <p>{{ post.content }}</p>
+  {% if post.commentaries.count != 0 %}
+    <h4>Comments:</h4>
+    <ul>
+      {% for comment in post.commentaries.all %}
+        <p><strong>User:</strong> {{ comment.user.username }}</p>
+        <p><em>Posted: {{ comment.created_time }}</em></p>
+        <p>{{ comment.content }}</p>
+        <hr>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if user.is_authenticated %}
+
+    <form action="" method="post" novalidate>
+      {% csrf_token %}
+      {{ form|crispy }}
+
+      <input class="btn btn-primary" type="submit" value="Post">
+
+    </form>
+  {% else %}
+    <p><a href="{% url "login" %}?next={% firstof request.path '/' %}">Login</a> to add a comment.</p>
+  {% endif %}
+
+{% endblock %}
