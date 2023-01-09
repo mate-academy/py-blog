@@ -1,0 +1,43 @@
+body {
+    background-color: ghostwhite;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+.detail-page{
+    text-align: center;
+    padding: 30px;
+    margin: auto;
+    background-color: gainsboro;
+    border-radius: 10px;
+}
+.post-content{
+    font-size: large;
+    max-width: 600px;
+    text-align: justify;
+
+}
+.comment{
+    text-align: center;
+}
+.comment-element{
+    max-width: 600px;
+    font-size: medium;
+    border: 3px solid black;
+    display: block;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    background-color: beige;
+}
+
+input[type=text] {
+  height: 100px;
+  width: 90%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
