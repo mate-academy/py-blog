@@ -10,7 +10,7 @@ class Index(generic.ListView):
     paginate_by = 5
     template_name = "blog/index.html"
     context_object_name = "post_list"
-    queryset = (Post.objects.all().select_related("owner")
+    queryset = (Post.objects.select_related("owner")
                 .prefetch_related("commentaries"))
 
 
