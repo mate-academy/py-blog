@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>blog posts</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  {% load static %}
+  <link href="{% static 'css/styles.css' %}" rel="stylesheet"/>
+  <style>
+    body { background: url({% static "image/vivid-blurred-colorful-background.jpg" %}); }
+  </style>
+</head>
+<body>
+  {% block content %}
+    <h1 class="title2">{{ post.title}}</h1>
+    <p style="color: brown; padding-left: 5px" >{{ post.owner }} at {{ post.created_time }}</p>
+    <hr>
+    <div class="content2">
+      {{ post.content }}
+    </div>
+    <br>
+
+    <h5 style="padding-left: 5px">Comments</h5>
+    <hr>
+     {% if post.commentaries.all %}
+       {% for comment in post.commentaries.all %}
+         <div style="padding-left: 50px">
+           <div style="color: coral">{{ comment.user }}</div>
+           <div style="font-size: 13px">{{ comment.created_time }}</div>
+           <div style="padding-right: 200px; font-size: 18px">{{ comment.content }}</div>
+         </div>
+         <hr>
+       {% endfor %}
+     {% else %}
+       No comments!
+     {% endif %}
+    <br>
+    {% if user.is_authenticated %}
+     <h3 style="padding-left: 5px">Leave the comment</h3>
+     {% if error %}
+       <p>{{ error }}</p>
+     {% endif %}
+     <form action="" method="post" >
+       {% csrf_token %}
+       <label style="padding-left: 5px">
+         <input type="text" name="content" id="input1" class="shadow_input">
+         <textarea style="" oninput = "document.querySelector('input#input1').value = this.value;" placeholder="Comments..."></textarea>
+       </label>
+       <br>
+       <input class="btn btn-success" type="submit" value="Comment">
+     </form>
+   {% else %}
+      <a href="{% url "blog:index" %}"><h5>Login to write comments</h5></a>
+   {% endif %}
+  {% endblock %}
+</body>
+</html>

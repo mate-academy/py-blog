@@ -1,0 +1,37 @@
+.title1 {
+    color: coral ;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.info {
+    color: coral;
+    text-align: center;
+}
+
+.title2 {
+    text-align: center;
+    color: coral;
+}
+
+textarea {
+  width:600px;
+  resize: vertical;
+  padding:15px;
+  border-radius:15px;
+  border:0;
+  box-shadow:4px 4px 10px rgba(0,0,0,0.06);
+  height:150px;
+}
+
+.shadow_input {
+    display: none;
+}
+
+.list {
+    color: red;
+}
+
+body {
+    font-family: Helvetica, sans-serif;
+}
