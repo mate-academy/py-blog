@@ -28,7 +28,11 @@ def post_detail_view(request, pk):
                 user=request.user, content=content
             )
             comment.save()
-            return HttpResponseRedirect(reverse("blog:post-detail", args=[str(pk)]))
+            return HttpResponseRedirect(
+                reverse(
+                    "blog:post-detail", args=[str(pk)]
+                )
+            )
 
         else:
             post = Post.objects.get(id=pk)
