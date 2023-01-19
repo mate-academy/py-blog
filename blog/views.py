@@ -25,7 +25,8 @@ def post_detail_view(request, pk):
             content = request.POST.get("content")
             comment = Commentary.objects.create(
                 post=Post.objects.get(id=pk),
-                user=request.user, content=content
+                user=request.user,
+                content=content
             )
             comment.save()
             return HttpResponseRedirect(
