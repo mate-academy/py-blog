@@ -28,7 +28,8 @@ class PostDetailView(generic.DetailView, FormMixin):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["comments"] = Commentary.objects.filter(post=self.kwargs["pk"])
+        context["comments"] = Commentary.objects.filter(
+            post=self.kwargs["pk"])
         context["count_comments"] = Commentary.objects.filter(
             post=self.kwargs["pk"]
         ).aggregate(count=Count("content"))
@@ -48,4 +49,5 @@ class AddCommentView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy("blog:post-detail", kwargs={"pk": self.kwargs["pk"]})
+        return reverse_lazy("blog:post-detail",
+                            kwargs={"pk": self.kwargs["pk"]})
