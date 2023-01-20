@@ -5,10 +5,10 @@
   <h1 class="post-content">  {{ post.title }}</h1>
   <p class="post-owner">by {{ post.owner.username }} - {{ post.created_time }}</p>
   <h4 class="post-content">{{ post.content }}</h4>
-  {% if post.commentaries.all %}
+  {% if post %}
   <h4>comments:</h4>
   <ul>
-      {% for comment in post.commentaries.all %}
+      {% for comment in post.commentaries.select_related %}
         <p><strong>{{ comment.user.username }}</strong></p>
         <p class="post-owner"><em>Posted: {{ comment.created_time }}</em></p>
         <p class="post-content">{{ comment.content }}</p>

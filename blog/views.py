@@ -8,13 +8,13 @@ from blog.models import Post, Commentary
 
 
 class PostListView(generic.ListView):
-    model = Post
     paginate_by = 5
+    queryset = Post.objects.select_related("owner").prefetch_related("commentaries")
 
 
 def post_detail_view(request, pk):
+    post = Post.objects.get(id=pk)
     if request.method == "GET":
-        post = Post.objects.get(id=pk)
         context = {"post": post, "form": CommentaryForm()}
         return render(request, "blog/post_detail.html", context=context)
 
@@ -30,7 +30,6 @@ def post_detail_view(request, pk):
             return HttpResponseRedirect(reverse("blog:index"))
 
         else:
-            post = Post.objects.get(id=pk)
             context = {
                 "error": "Comment should not be empty!",
                 "post": post,
