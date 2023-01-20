@@ -9,7 +9,11 @@ from blog.models import Post, Commentary
 
 class PostListView(generic.ListView):
     paginate_by = 5
-    queryset = Post.objects.select_related("owner").prefetch_related("commentaries")
+    queryset = Post.objects.select_related(
+        "owner"
+    ).prefetch_related(
+        "commentaries"
+    )
 
 
 def post_detail_view(request, pk):
