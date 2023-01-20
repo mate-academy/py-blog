@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% load crispy_forms_filters %}
+  <h1 class="post-content">  {{ post.title }}</h1>
+  <p class="post-owner">by {{ post.owner.username }} - {{ post.created_time }}</p>
+  <h4 class="post-content">{{ post.content }}</h4>
+  {% if post.commentaries.all %}
+  <h4>comments:</h4>
+  <ul>
+      {% for comment in post.commentaries.all %}
+        <p><strong>{{ comment.user.username }}</strong></p>
+        <p class="post-owner"><em>Posted: {{ comment.created_time }}</em></p>
+        <p class="post-content">{{ comment.content }}</p>
+        <hr>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if user.is_authenticated %}
+    <form action="" method="post" novalidate>
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input class="btn btn-primary" type="submit" value="Post">
+    </form>
+  {% else %}
+        <h4>Only authenticated users can post the comments. Please sign in</h4>
+  {% endif %}
+{% endblock %}
