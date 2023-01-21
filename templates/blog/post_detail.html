@@ -19,6 +19,7 @@
 
   {% if user.is_authenticated %}
     <form action="" method="post" novalidate>
+{#    <form action="" method="post">  # only frontend check#}
       {% csrf_token %}
       {{ form|crispy }}
       <input class="btn btn-primary" type="submit" value="Post">

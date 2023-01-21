@@ -7,6 +7,7 @@
       {% for post in page_obj.object_list %}
         <li>
           <div><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></div>
+{#          <div><a href="{% url 'blog:post-detail' pk=post.pk %}">{{ post.title }}</a></div>#}
           <hr>
           <div>Content: {{ post.content }}</div>
           <hr>
