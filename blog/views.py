@@ -1,3 +1,4 @@
+from django.db.models import Count
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -13,7 +14,7 @@ class PostListView(generic.ListView):
         "owner"
     ).prefetch_related(
         "commentaries"
-    )
+    ).annotate(num_comments=Count("commentaries"))
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -44,7 +45,6 @@ def post_detail_view(request, pk):
 
         else:
             context = {
-                "error": "Comment should not be empty!",
                 "post": post,
                 "form": form,
             }
