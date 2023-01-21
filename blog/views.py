@@ -15,6 +15,15 @@ class PostListView(generic.ListView):
         "commentaries"
     )
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if "num_visits" in self.request.session:
+            self.request.session["num_visits"] += 1
+        else:
+            self.request.session["num_visits"] = 1
+        context["num_visits"] = self.request.session.get("num_visits", 1)
+        return context
+
 
 def post_detail_view(request, pk):
     post = Post.objects.get(id=pk)
@@ -27,7 +36,7 @@ def post_detail_view(request, pk):
         if form.is_valid():
             content = request.POST.get("content")
             Commentary.objects.create(
-                post=Post.objects.get(id=pk),
+                post=post,
                 user=request.user,
                 content=content
             )
