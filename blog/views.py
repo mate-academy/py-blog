@@ -29,7 +29,8 @@ class PostDetailView(generic.DetailView, FormMixin):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["comments"] = Commentary.objects.filter(
-            post=self.kwargs["pk"])
+            post=self.kwargs["pk"]
+        )
         context["count_comments"] = Commentary.objects.filter(
             post=self.kwargs["pk"]
         ).aggregate(count=Count("content"))
