@@ -61,7 +61,8 @@ class PostDetailView(FormMixin, ProcessFormView, generic.DetailView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        self.object.post = Post.objects.get(pk=self.get_object().id)
+        # self.object.post = Post.objects.get(pk=self.get_object().id)
+        self.object.post = Post.objects.get(pk=self.kwargs["pk"])
         self.object.user = self.request.user
         self.object.save()
         return super().form_valid(form)
@@ -75,6 +76,6 @@ class PostDetailView(FormMixin, ProcessFormView, generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super(PostDetailView, self).get_context_data(**kwargs)
         # context["form"] = CommentaryForm(initial={"post": self.object})
-        context["post"] = Post.objects.get(pk=self.get_object().id)
+        context["post"] = Post.objects.get(pk=self.kwargs["pk"])
         context["user"] = self.request.user
         return context
