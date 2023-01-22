@@ -60,11 +60,14 @@ class PostDetailView(FormMixin, ProcessFormView, generic.DetailView):
     #         return self.form_invalid(form)
 
     def form_valid(self, form):
-        self.object = form.save(commit=False)
+        # self.object = form.save(commit=False)
         # self.object.post = Post.objects.get(pk=self.get_object().id)
-        self.object.post = Post.objects.get(pk=self.kwargs["pk"])
-        self.object.user = self.request.user
-        self.object.save()
+        form.instance.post_id = self.kwargs["pk"]
+        form.instance.user = self.request.user
+        form.save()
+        # self.object.post = Post.objects.get(pk=self.kwargs["pk"])
+        # self.object.user = self.request.user
+        # self.object.save()
         return super().form_valid(form)
 
     # def get_context_data(self, **kwargs):
