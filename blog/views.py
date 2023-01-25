@@ -27,7 +27,7 @@ def post_detail_and_add_commentary(request, pk):
                 content=form.cleaned_data["content"]
             )
             new_comm.save()
-            url = reverse("blog:post-detail", kwargs={'pk': post.id})
+            url = reverse("blog:post-detail", kwargs={"pk": post.id})
             return HttpResponseRedirect(url)
     else:
         form = CommentaryAddForm()
@@ -36,31 +36,4 @@ def post_detail_and_add_commentary(request, pk):
             request,
             "blog/post_detail.html",
             context={"form": form, "post": post}
-    )
-
-# def post_detail_and_add_commentary(request, pk):
-#     if request.method == "GET":
-#         post = Post.objects.get(id=pk)
-#         context = {"post": post}
-#         return render(request, "blog/post_detail.html", context=context)
-#
-#     if request.method == "POST":
-#         creation_form = CommentaryAddForm(request.POST or None)
-#         if creation_form.is_valid():
-#             content = request.POST.get("content")
-#             comment = Commentary.objects.create(
-#                 post=Post.objects.get(id=pk),
-#                 user=request.user,
-#                 content=content
-#             )
-#             comment.save()
-#             return HttpResponseRedirect(
-#                 reverse(
-#                     "blog:post-detail", args=[str(pk)]
-#                 )
-#             )
-#
-#         else:
-#             post = Post.objects.get(id=pk)
-#             context = {"error": "Comment should not be empty!", "post": post}
-#             return render(request, "blog/post_detail.html", context=context)
+        )
