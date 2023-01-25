@@ -17,10 +17,13 @@
       <p class="comment-content">{{ comment.content }}</p>
     </div>
   {% endfor %}
-
+  {% if user.is_authenticated %}
   <form action="" method="post" >
     {% csrf_token %}
     {{ form|crispy }}
     <input type="submit" value="Submit" class="btn btn-primary">
   </form>
+  {% else %}
+    <a href="{% url 'login' %}">Login </a> first if you want to leave a comment
+  {% endif %}
 {% endblock %}
