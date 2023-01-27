@@ -25,7 +25,6 @@ def post_detail_and_add_commentary(request, pk):
                 post=post,
                 content=form.cleaned_data["content"]
             )
-            new_comm.save()
             url = reverse("blog:post-detail", kwargs={"pk": post.id})
             return HttpResponseRedirect(url)
     else:
