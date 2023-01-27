@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 
@@ -10,14 +11,7 @@
 
   <form method="post"  action="{% url 'login' %}">
     {% csrf_token %}
-    <label>Username:
-      <input type="text" name="username">
-    </label>
-    <br>
-    <label>Password:
-      <input type="password" name="password">
-    </label>
-    <br>
+    {{ form|crispy }}
     <input type="submit" name="submit">
   </form>
 
