@@ -20,7 +20,7 @@ def post_detail_and_add_commentary(request, pk):
         form = CommentaryAddForm(request.POST)
 
         if form.is_valid():
-            new_comm = Commentary.objects.create(
+            Commentary.objects.create(
                 user=request.user,
                 post=post,
                 content=form.cleaned_data["content"]
