@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<ul class="sidebar-nav" style="list-style: none">
+{% if user.is_authenticated %}
+	<li>User: {{ user.username }}</li>
+	<a href="{% url 'logout' %}">Logout</a>
+	{% else %}
+		<li><a href="{% url 'login' %}"> Login </a></li>
+{% endif %}
+</ul>
+<br>
+
+<div class="main_block">
+<h1 class="title">Blog posts</h1>
+{% for post in post_list %}
+	<div class="post">
+			<h5 class="post_title">
+				<a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a>
+			</h5>
+			<p class="username_time p-style">
+				{{ post.owner.username }} at {{ post.created_time }}
+			</p>
+			<p class="commentaries_count p-style">
+				{{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}
+			</p>
+			<p class="post_content p-style">
+				{{ post.content }}
+			</p>
+	</div>
+{% endfor %}
+</div>
+{% endblock %}
