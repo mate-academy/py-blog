@@ -19,10 +19,7 @@ class PostListView(generic.ListView):
 
 def post_detail_view(request, pk):
     post = Post.objects.get(pk=pk)
-    context = {
-        "post": post,
-        "form": CommentaryForm()
-    }
+    context = {"post": post, "form": CommentaryForm()}
     if request.method == "GET":
         return render(request, "blog/post_detail.html", context=context)
 
@@ -32,5 +29,6 @@ def post_detail_view(request, pk):
             Commentary.objects.create(
                 user=request.user,
                 post=post,
-                content=form.cleaned_data["content"])
+                content=form.cleaned_data["content"]
+            )
         return render(request, "blog/post_detail.html", context=context)
