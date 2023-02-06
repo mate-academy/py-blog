@@ -29,7 +29,14 @@
         <h4>No commentaries</h4>
       {% endif %}
       <h3>Leave comment</h3>
-      {% include "blog/commentary_form.html" %}
+      {% if user.is_authenticated %}
+        <form action="{% url 'blog:post-add-comment' post.pk %}" method="post" novalidate>
+          {% csrf_token %}
+          <label for="content" class="form-label"><strong>Add a new comment</strong></label>
+          <textarea class="form-control mb-2" style="height: 100px" name="content"></textarea>
+          <input class="btn btn-primary" type="submit" value="Add comment">
+        </form>
+      {% endif %}
     </div>
   </div>
 {% endblock %}
