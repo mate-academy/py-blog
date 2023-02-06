@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="container">
+    <h1>{{ post.title }}</h1>
+    <hr>
+    <h5>
+      <i class="fa-regular fa-user"></i> {{ post.owner }},
+      <i class="fa-regular fa-clock"></i> {{ post.created_time }}
+    </h5>
+    <p>{{ post.content }}</p>
+    <br>
+    <h3><i class="fa-regular fa-comment-dots"></i> Comments:</h3>
+    <br>
+    <div class="container">
+      {% if post.commentaries.all %}
+        {% for comments in post.commentaries.all %}
+          <hr>
+          <p>{{ comments.content }}</p>
+          <h5>
+            <i class="fa-regular fa-user"></i> {{ comments.user.username }},
+            <i class="fa-regular fa-clock"></i> {{ comments.created_time }}
+          </h5>
+          <hr>
+          <br>
+        {% endfor %}
+        {% else %}
+        <h4>No commentaries</h4>
+      {% endif %}
+      <h3>Leave comment</h3>
+      {% include "blog/commentary_form.html" %}
+    </div>
+  </div>
+{% endblock %}
