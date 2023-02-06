@@ -6,7 +6,7 @@ from blog.models import User, Post, Commentary
 
 
 @admin.register(User)
-class PostAdmin(UserAdmin):
+class UserAdmin(UserAdmin):
     add_fieldsets = UserAdmin.add_fieldsets + (
         ("Additional info", {"fields": ("first_name", "last_name")}),
     )
@@ -20,7 +20,7 @@ class PostAdmin(admin.ModelAdmin):
 
 
 @admin.register(Commentary)
-class PostAdmin(admin.ModelAdmin):
+class CommentaryAdmin(admin.ModelAdmin):
     list_display = ["id", "post", "user", "created_time"]
     list_filter = ["user"]
     search_fields = ["post__title"]

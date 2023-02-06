@@ -28,14 +28,18 @@
         {% else %}
         <h4>No commentaries</h4>
       {% endif %}
-      <h3>Leave comment</h3>
+      <h4>Leave comment</h4>
       {% if user.is_authenticated %}
         <form action="{% url 'blog:post-add-comment' post.pk %}" method="post" novalidate>
           {% csrf_token %}
-          <label for="content" class="form-label"><strong>Add a new comment</strong></label>
-          <textarea class="form-control mb-2" style="height: 100px" name="content"></textarea>
+          <label  style="height: 100px; width: 100%">
+            <textarea class="form-control mb-2" style="height: 100px" name="content"></textarea>
+          </label>
           <input class="btn btn-primary" type="submit" value="Add comment">
         </form>
+      <br><br>
+        {% else %}
+        <p>Please <a href="{% url 'login' %}">Login</a> to write new comment.</p>
       {% endif %}
     </div>
   </div>
