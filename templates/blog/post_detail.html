@@ -30,13 +30,17 @@
       {% endif %}
       <h4>Leave comment</h4>
       {% if user.is_authenticated %}
-        <form action="{% url 'blog:post-add-comment' post.pk %}" method="post" novalidate>
+{#        <form action="{% url 'blog:post-add-comment' post.pk %}" method="post" novalidate>#}
+{#          {% csrf_token %}#}
+{#          <label  style="height: 100px; width: 100%">#}
+{#            <textarea class="form-control mb-2" style="height: 100px" name="content"></textarea>#}
+{#          </label>#}
+          <form action="{% url "blog:post-add-comment" post.pk %}" enctype="multiparty/form-data" method="post">
           {% csrf_token %}
-          <label  style="height: 100px; width: 100%">
-            <textarea class="form-control mb-2" style="height: 100px" name="content"></textarea>
-          </label>
+          {{ form.as_p }}
+          </form>
           <input class="btn btn-primary" type="submit" value="Add comment">
-        </form>
+{#        </form>#}
       <br><br>
         {% else %}
         <p>Please <a href="{% url 'login' %}">Login</a> to write new comment.</p>
