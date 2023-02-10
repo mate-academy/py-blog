@@ -12,10 +12,7 @@ def index(request):
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
-    context = {
-        "post_list": paginator.get_page(page_number),
-        "page_obj": page_obj
-    }
+    context = {"post_list": paginator.get_page(page_number), "page_obj": page_obj}
 
     return render(request, "blog/index.html", context=context)
 
@@ -30,8 +27,10 @@ class PostDetailView(generic.DetailView):
         return data
 
     def post(self, request, pk=None):
-        new_comment = Commentary(content=request.POST.get("content"),
-                                 user=self.request.user,
-                                 post=self.get_object())
+        new_comment = Commentary(
+            content=request.POST.get("content"),
+            user=self.request.user,
+            post=self.get_object(),
+        )
         new_comment.save()
         return self.get(self, request)
