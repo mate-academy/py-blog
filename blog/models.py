@@ -41,7 +41,7 @@ class Commentary(models.Model):
     )
 
     def __str__(self):
-        return f"comment to " \
-               f"{self.post} by " \
-               f"{self.user} from " \
-               f"{self.created_time}"
+        return (f"comment to "
+                f"{self.post} by "
+                f"{self.user} from "
+                f"{self.created_time}")
