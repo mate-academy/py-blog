@@ -1,8 +1,9 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views import generic
+from django.views.generic.edit import FormMixin
 
-from blog.models import Post, Commentary
+from blog.forms import CommentCreateForm
+from blog.models import Post
 
 
 class PostListView(generic.ListView):
@@ -16,23 +17,33 @@ class PostListView(generic.ListView):
     paginate_by = 5
 
 
-class PostDetailView(generic.DetailView):
+class PostDetailView(FormMixin, generic.DetailView):
     model = Post
-    template_name = "blog/post_detail.html"
+    form_class = CommentCreateForm
+    queryset = Post.objects.prefetch_related("commentaries__user")
 
-
-class CommentCreateView(LoginRequiredMixin, generic.CreateView):
-    model = Commentary
-    fields = ["content"]
-    template_name = "blog/comment_create.html"
+    def __init__(self, **kwargs):
+        super(PostDetailView, self).__init__(**kwargs)
+        self.object = None
 
     def get_success_url(self):
-        return reverse_lazy("blog:post-detail",
-                            kwargs={"pk": self.request.GET["pk"]})
+        return reverse_lazy("blog:post-detail", kwargs={"pk": self.object.id})
+
+    def get_context_data(self, **kwargs):
+        context = super(PostDetailView, self).get_context_data(**kwargs)
+        context["form"] = CommentCreateForm(initial={"post": self.object})
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
 
     def form_valid(self, form):
-        content = form.save(commit=False)
-        content.user = self.request.user
-        content.post = Post.objects.get(id=self.request.GET["pk"])
-        content.save()
+        form.instance.post_id = self.kwargs["pk"]
+        form.instance.user = self.request.user
+        form.save()
         return super().form_valid(form)

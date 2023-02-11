@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 
 {% block content %}
   <h1>
@@ -22,11 +23,13 @@
 
   {% if user.is_authenticated %}
   <h2>Create comment</h2>
-  <form action="{% url 'blog:comment-create' %}?pk={{ post.id }}" method="post" novalidate>
+    <form action="" method="post" novalidate>
       {% csrf_token %}
-      <textarea class="form-control ml-1 shadow-none textarea" type="text" name="content"></textarea>
-      <input class="btn btn-primary float-right" type="submit" value="Add comment">
-  </form>
+      {{ form|crispy }}
+
+      <input class="btn btn-primary" type="submit" value="Add comment">
+
+    </form>
     {% else %}
     <li class="list-group-item"><a href="{% url 'login'%}?next={{request.path}}">Login</a> Please, login to add comment</li>
   {% endif %}
