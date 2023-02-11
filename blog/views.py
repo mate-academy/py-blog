@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic.edit import FormMixin, ProcessFormView
@@ -6,13 +7,13 @@ from blog.forms import CommentaryForm
 from blog.models import Post, Commentary
 
 
-class PostListView(generic.ListView):
+class PostListView(LoginRequiredMixin, generic.ListView):
     model = Post
     template_name = "blog/post_list.html"
     paginate_by = 5
 
 
-class PostDetailView(FormMixin, ProcessFormView, generic.DetailView):
+class PostDetailView(LoginRequiredMixin, FormMixin, ProcessFormView, generic.DetailView):
     form_class = CommentaryForm
     model = Commentary
     template_name = "blog/post_detail.html"
