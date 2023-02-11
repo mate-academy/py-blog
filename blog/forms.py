@@ -1,5 +1,10 @@
 from django import forms
 
+from blog.models import Commentary
 
-class CommentaryForm(forms.Form):
-    content = forms.CharField(required=True)
+
+class CommentaryForm(forms.ModelForm):
+    class Meta:
+        model = Commentary
+        fields = ["content"]
+        labels = {"content": "Add your comment:"}

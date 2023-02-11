@@ -1,20 +1,17 @@
-{% extends "base.html" %}
-
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <div class="main_block">
-	<h1 class="text-center">Login:</h1>
+  <h1 class="text-center">Login:</h1>
 
-	{% if form.errors %}
-		<p style="color: red">Invalid credentials!</p>
-	{% endif %}
+  {% if form.errors %}
+  <p style="color: red;">Invalid credentials!</p>
+  {% endif %}
 
-	<form method="post" action="{% url 'login' %}" class="text-center">
-	{% csrf_token %}
-		{{ form.as_p }}
+  <form method="post" action="{% url 'login' %}" class="text-center">
+    {% csrf_token %} {{ form.as_p }}
 
-		<div>
-			<input type="submit" value="submit" style="margin-left: 80px">
-		</div>
-	</form>
+    <div>
+      <input type="submit" value="submit" style="margin-left: 80px;" />
+    </div>
+  </form>
 </div>
 {% endblock %}

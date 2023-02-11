@@ -1,51 +1,44 @@
-{% extends "base.html" %}
-{% load crispy_forms_filters %}
-
-{% block content %}
+{% extends "base.html" %} {% load crispy_forms_filters %} {% block content %}
 
 <div class="main_block">
-	<h4 style="margin-top: 50px">{{ post.title }}</h4>
-	<div>
-		<p class="username_time p-style">{{ post.owner.username }} at {{ post.created_time }}</p>
-		<p class="p-style" style="margin-top: 10px">{{ post.content }}</p>
-		<br>
-		<p class="commentaries_count p-style">
-			{{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}
-		</p>
-	</div>
+    <h4 style="margin-top: 50px;">{{ post.title }}</h4>
+    <div>
+        <p class="username_time p-style">{{ post.owner.username }} at {{ post.created_time }}</p>
+        <p class="p-style" style="margin-top: 10px;">{{ post.content }}</p>
+        <br />
+        <p class="commentaries_count p-style">
+            {{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}
+        </p>
+    </div>
 
-	{% for comment in post.commentaries.all %}
-		<div style="border: 1px #BBB solid">
-			<table class="table">
-				<tr>
-					<th>{{ comment.user.username }} <span style="font-size: small">{{ comment.created_time }}</span></th>
-				</tr>
-				<tr>
-					<th>{{ comment.content }}</th>
-				</tr>
-			</table>
-		</div>
+    {% for comment in post.commentaries.all %}
+    <div style="border: 1px #bbb solid;">
+        <table class="table">
+            <tr>
+                <th>{{ comment.user.username }} <span style="font-size: small;">{{ comment.created_time }}</span></th>
+            </tr>
+            <tr>
+                <th>{{ comment.content }}</th>
+            </tr>
+        </table>
+    </div>
 
-		<br>
-		{% empty %}
-		<p>There are no comments yet.</p>
-	{% endfor %}
+    <br />
+    {% empty %}
+    <p>There are no comments yet.</p>
+    {% endfor %}
 </div>
-	
+
 {% if user.is_authenticated %}
-<div class="main_block">
-	<p><strong>Add new comment</strong> </p>
-	<form action="" method="post" novalidate>
-	{% csrf_token %}
-	<div style="height: 100px">
-		{{ form|crispy }}
-	</div>
-		<input class="btn-group" type="submit" value="Add comment">
-	</form>
-</div>
+<form action="" method="post" novalidate class="main_block">
+    {% csrf_token %} {{ form|crispy }}
+    <input class="btn btn-primary" type="submit" value="Comment" />
+</form>
+{% else %}
+<h4>Only authenticated users can post the comments. Please sign in</h4>
 {% endif %}
 
-<div class="main_block" style="text-align: center">
-		<a href="{% url 'blog:index' %}">Back to all posts</a>
+<div class="main_block" style="text-align: center;">
+    <a href="{% url 'blog:index' %}">Back to all posts</a>
 </div>
 {% endblock %}

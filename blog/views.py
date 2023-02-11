@@ -1,11 +1,6 @@
-from django.contrib.auth import authenticate
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.models import User
-from django.contrib.messages.storage import session
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.views import generic
+from django.views.generic.edit import FormMixin, ProcessFormView
 
 from blog.forms import CommentaryForm
 from blog.models import Post, Commentary
@@ -17,18 +12,24 @@ class PostListView(generic.ListView):
     paginate_by = 5
 
 
-def post_detail_view(request, pk):
-    post = Post.objects.get(pk=pk)
-    context = {"post": post, "form": CommentaryForm()}
-    if request.method == "GET":
-        return render(request, "blog/post_detail.html", context=context)
+class PostDetailView(FormMixin, ProcessFormView, generic.DetailView):
+    form_class = CommentaryForm
+    model = Commentary
+    template_name = "blog/post_detail.html"
+    success_url = reverse_lazy("blog:index")
 
-    elif request.method == "POST":
-        form = CommentaryForm(request.POST)
-        if form.is_valid():
-            Commentary.objects.create(
-                user=request.user,
-                post=post,
-                content=form.cleaned_data["content"]
-            )
-        return render(request, "blog/post_detail.html", context=context)
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.object = None
+
+    def form_valid(self, form):
+        form.instance.post_id = self.kwargs["pk"]
+        form.instance.user = self.request.user
+        form.save()
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super(PostDetailView, self).get_context_data(**kwargs)
+        context["post"] = Post.objects.get(pk=self.kwargs["pk"])
+        context["user"] = self.request.user
+        return context
