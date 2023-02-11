@@ -29,7 +29,10 @@
       {% endif %}
       <h4>Leave comment</h4>
       {% if user.is_authenticated %}
-        <form method="post">
+        {% if error %}
+          <p style="font-weight: bold; color: red;">{{ error }}</p>
+        {% endif %}
+        <form action="" method="post" novalidate>
           {% csrf_token %}
           {{ comment_form|crispy }}
 

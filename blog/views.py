@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.shortcuts import redirect, get_object_or_404
+from django.http import HttpResponse
+from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse
 from django.views import generic
 
@@ -37,11 +38,21 @@ class PostDetailView(generic.DetailView):
         form = CommentForm(request.POST)
 
         if form.is_valid():
+            Commentary.objects.create(**form.cleaned_data)
             obj = form.save(commit=False)
             obj.post = post
             obj.user = self.request.user
             obj.save()
             return redirect("blog:post-detail", post.pk)
+
+        else:
+            post = Post.objects.get(id=post.pk)
+            context = {
+                "error": "Comment section should not be empty!",
+                "post": post,
+                "comment_form": CommentForm()
+            }
+            return render(request, "blog/post_detail.html", context=context)
 
 
 class CommentaryCreateView(
