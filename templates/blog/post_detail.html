@@ -5,10 +5,10 @@
   <div class="container">
     <h1>{{ post.title }}</h1>
     <hr>
-    <h5>
+    <h6>
       <i class="fa-regular fa-user"></i> {{ post.owner }},
       <i class="fa-regular fa-clock"></i> {{ post.created_time }}
-    </h5>
+    </h6>
     <p>{{ post.content }}</p>
     <br>
     <h3><i class="fa-regular fa-comment-dots"></i> Comments:</h3>
@@ -16,12 +16,11 @@
     <div class="container">
       {% if post.commentaries.all %}
         {% for comments in post.commentaries.all %}
-          <hr>
-          <p>{{ comments.content }}</p>
-          <h5>
+          <h6>
             <i class="fa-regular fa-user"></i> {{ comments.user.username }},
             <i class="fa-regular fa-clock"></i> {{ comments.created_time }}
-          </h5>
+          </h6>
+          <p>{{ comments.content }}</p>
           <hr>
           <br>
         {% endfor %}
@@ -30,19 +29,14 @@
       {% endif %}
       <h4>Leave comment</h4>
       {% if user.is_authenticated %}
-{#        <form action="{% url 'blog:post-add-comment' post.pk %}" method="post" novalidate>#}
-{#          {% csrf_token %}#}
-{#          <label  style="height: 100px; width: 100%">#}
-{#            <textarea class="form-control mb-2" style="height: 100px" name="content"></textarea>#}
-{#          </label>#}
-          <form action="{% url "blog:post-add-comment" post.pk %}" enctype="multiparty/form-data" method="post">
+        <form method="post">
           {% csrf_token %}
-          {{ form.as_p }}
-          </form>
+          {{ comment_form|crispy }}
+
           <input class="btn btn-primary" type="submit" value="Add comment">
-{#        </form>#}
-      <br><br>
-        {% else %}
+        </form>
+        <br><br>
+      {% else %}
         <p>Please <a href="{% url 'login' %}">Login</a> to write new comment.</p>
       {% endif %}
     </div>

@@ -34,7 +34,7 @@ class Commentary(models.Model):
         on_delete=models.CASCADE
     )
     created_time = models.DateTimeField(auto_now_add=True)
-    content = models.CharField(max_length=500)
+    content = models.TextField()
 
     class Meta:
         verbose_name_plural = "commentaries"

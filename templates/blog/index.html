@@ -8,11 +8,11 @@
       <div class="container">
         <hr>
       <h2><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h2>
-      <h5>
+      <h6>
         <i class="fa-regular fa-user"></i> {{ post.owner }},
         <i class="fa-regular fa-clock"></i> {{ post.created_time }},
         <i class="fa-regular fa-comment-dots"></i> Comments({{ post.commentaries.count }})
-      </h5>
+      </h6>
       <p>{{ post.content }}</p>
       <br><br>
       </div>

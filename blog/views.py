@@ -1,12 +1,10 @@
-from urllib.request import Request
-
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect
+from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect, get_object_or_404
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse
 from django.views import generic
 
-# from blog.forms import CommentForm
+from blog.forms import CommentForm
 from blog.models import Post, Commentary
 
 
@@ -26,26 +24,40 @@ class PostDetailView(generic.DetailView):
     ).prefetch_related("commentaries__user")
     template_name = "blog/post_detail.html"
 
+    def get_success_url(self):
+        return reverse('blog:post-detail', kwargs={'pk': self.object.id})
 
-class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
+    def get_context_data(self, **kwargs):
+        context = super(PostDetailView, self).get_context_data(**kwargs)
+        context['comment_form'] = CommentForm()
+        return context
+
+    def post(self, request, pk):
+        post = get_object_or_404(Post, pk=pk)
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.post = post
+            obj.user = self.request.user
+            obj.save()
+            return redirect('blog:post-detail', post.pk)
+
+
+class CommentaryCreateView(LoginRequiredMixin, SuccessMessageMixin, generic.CreateView):
     model = Commentary
-    fields = "__all__"
-    template_name = "blog/commentary_form.html"
-    success_url = reverse_lazy("blog:post-detail")
+    form_class = CommentForm
+    success_message = "Comment was created successfully"
 
+    def get_context_data(self, **kwargs):
+        context = super(CommentaryCreateView, self).get_context_data(**kwargs)
+        context['post'] = get_object_or_404(Post, pk=self.kwargs['pk'])
+        return context
 
-    # def post(self, request, *args, **kwargs):
-    #     post_id = kwargs["pk"]
-    #     post_url = reverse("blog:post-detail", kwargs={"pk": post_id})
-    #     form = CommentForm(request.POST)
-    #
-    #     if form.is_valid():
-    #         content = form.cleaned_data["content"]
-    #
-    #         if post_id and content:
-    #             form.instance.user_id = self.request.user.pk
-    #             form.instance.post_id = post_id
-    #             self.success_url = post_url
-    #             return super().form_valid(form)
-    #
-    #     return HttpResponseRedirect(post_url)
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.post = get_object_or_404(Post, pk=self.kwargs['pk'])
+        return super(CommentaryCreateView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse('blog:post-detail', kwargs={'pk': self.kwargs['pk'], })
