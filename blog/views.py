@@ -22,10 +22,6 @@ class PostDetailView(FormMixin, generic.DetailView):
     form_class = CommentCreateForm
     queryset = Post.objects.prefetch_related("commentaries__user")
 
-    def __init__(self, **kwargs):
-        super(PostDetailView, self).__init__(**kwargs)
-        self.object = None
-
     def get_success_url(self):
         return reverse_lazy("blog:post-detail", kwargs={"pk": self.object.id})
 
@@ -39,8 +35,7 @@ class PostDetailView(FormMixin, generic.DetailView):
         form = self.get_form()
         if form.is_valid():
             return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
+        return self.form_invalid(form)
 
     def form_valid(self, form):
         form.instance.post_id = self.kwargs["pk"]
