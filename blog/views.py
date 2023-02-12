@@ -45,14 +45,13 @@ class PostDetailView(generic.DetailView):
             obj.save()
             return redirect("blog:post-detail", post.pk)
 
-        else:
-            post = Post.objects.get(id=post.pk)
-            context = {
-                "error": "Comment section should not be empty!",
-                "post": post,
-                "comment_form": CommentForm()
-            }
-            return render(request, "blog/post_detail.html", context=context)
+        post = Post.objects.get(id=post.pk)
+        context = {
+            "error": "Comment section should not be empty!",
+            "post": post,
+            "comment_form": CommentForm()
+        }
+        return render(request, "blog/post_detail.html", context=context)
 
 
 class CommentaryCreateView(
