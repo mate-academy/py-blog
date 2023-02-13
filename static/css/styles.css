@@ -1,0 +1,14 @@
+.post-list {
+    margin: 5% 15%;
+}
+
+.post-item {
+    border: 1px solid gray;
+    margin: 10px;
+}
+
+.comment{
+    border: 1px solid gray;
+    margin: 10px auto;
+    padding: 5px;
+}

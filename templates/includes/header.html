@@ -1,0 +1,22 @@
+<header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+  <a href="{% url 'blog:index' %}" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+    <span class="fs-4">Home</span>
+  </a>
+
+  <ul class="nav nav-pills">
+    {% if user.is_authenticated %}
+      <li class="nav-item">
+        <span class="nav-link">User: {{ user.get_username }}</span>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="{% url 'logout'%}?next={{request.path}}">
+          Logout
+        </a>
+      </li>
+    {% else %}
+      <a class="nav-link active" href="{% url 'login'%}?next={{request.path}}">
+        Login
+      </a>
+    {% endif %}
+  </ul>
+</header>

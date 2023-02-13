@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% for post in post_list %}
+      <div class="post-item">
+        <a href="{% url 'blog:post-detail' pk=post.id %}">
+          <strong>{{ post.title }}</strong><br>
+        </a>
+        Created by: {{ post.owner }} at {{ post.created_time }}<br>
+        {{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}<br>
+        {{ post.content }}
+      </div>
+    {% empty %}
+      There are no posts!
+    {% endfor %}
+{% endblock %}
