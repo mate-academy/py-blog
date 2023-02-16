@@ -1,0 +1,69 @@
+.post {
+    background-color: rgb(240, 240, 240);
+    margin: 10px auto;
+    padding: 20px;
+    width: 80%;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.content {
+    text-align: justify;
+}
+
+.comments {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.header {
+    top: 0;
+    position: sticky;
+    background-color: rgb(240, 240, 240);
+    border-radius: 10px;
+    margin: 0 auto;
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.name {
+    display: inline-block;
+    font-size: 30px;
+    margin-left: 30px;
+}
+
+.nav {
+    display: inline-block;
+    line-height: 50px;
+
+}
+
+.nav_link {
+    padding: 15px;
+    text-decoration: none;
+    color: black;
+}
+
+.nav_link:hover {
+    color: black;
+}
+
+.pagination {
+    margin: 0;
+    line-height: 50px;
+}
+
+.nav_page {
+    color: black;
+    padding: 3px 4px;
+    margin: 3px 4px;
+    border: black solid 1px;
+    border-radius: 5px;
+}
+
+textarea {
+    width: 100%;
+    height: 35%;
+}
