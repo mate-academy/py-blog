@@ -35,7 +35,7 @@ class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
         form = CommentaryFrom(request.POST)
         if form.is_valid():
             content = form.cleaned_data["content"]
-            if post_id and content:
+            if content:
                 form.instance.user_id = self.request.user.pk
                 form.instance.post_id = post_id
                 self.success_url = post_url
