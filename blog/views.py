@@ -15,7 +15,7 @@ def post_detail_view(request, pk):
     comments = Commentary.objects.filter(post_id=pk)
 
     if request.method == "POST":
-        content = request.POST["content"]
+        content = request.POST.get("content")
         Commentary.objects.create(
             user=request.user,
             post_id=pk,
