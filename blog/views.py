@@ -1,5 +1,4 @@
-from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.shortcuts import render, get_object_or_404
 from django.views import generic
 
 from blog.models import Post, Commentary
@@ -12,7 +11,7 @@ class PostsListView(generic.ListView):
 
 
 def post_detail_view(request, pk):
-    post = Post.objects.get(pk=pk)
+    post = get_object_or_404(Post, pk=pk)
     comments = Commentary.objects.filter(post_id=pk)
 
     if request.method == "POST":
