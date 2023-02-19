@@ -1,10 +1,12 @@
+from typing import Any
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
 
 from .models import Post
-from .forms import CommentaryFrom
+from .forms import CommentaryForm
 
 
 class PostListView(generic.ListView):
@@ -19,20 +21,20 @@ class PostDetailView(generic.DetailView):
     queryset = Post.objects.select_related(
         "owner").prefetch_related("commentaries__user")
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs: Any) -> Any:
         context = super(PostDetailView, self).get_context_data(**kwargs)
-        context["form"] = CommentaryFrom()
+        context["form"] = CommentaryForm()
         return context
 
 
 class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
-    form_class = CommentaryFrom
+    form_class = CommentaryForm
     template_name = "blog/post_detail.html"
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request: Any, *args: Any, **kwargs: Any) -> Any:
         post_id = kwargs["pk"]
         post_url = reverse("blog:post-detail", kwargs={"pk": post_id})
-        form = CommentaryFrom(request.POST)
+        form = CommentaryForm(request.POST)
         if form.is_valid():
             content = form.cleaned_data["content"]
             if content:
