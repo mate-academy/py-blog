@@ -8,9 +8,9 @@
   <p>{{ post.content }}</p>
   <br>
   <ul>
-    {% if post.comment.all %}
+    {% if post.comments.all %}
       <h3>Comments:</h3>
-      {% for post_comment in post.comment.all %}
+      {% for post_comment in post.comments.all %}
         <li>
           <strong>{{ post_comment.user.first_name }} {{ post_comment.user.last_name }}</strong>:
           <br>
