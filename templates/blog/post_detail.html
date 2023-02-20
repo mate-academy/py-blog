@@ -8,9 +8,9 @@
   <p>{{ post.content }}</p>
   <br>
   <ul>
-    {% if post.comments.all %}
+    {% if post.commentaries.all %}
       <h3>Comments:</h3>
-      {% for post_comment in post.comments.all %}
+      {% for post_comment in post.commentaries.all %}
         <li>
           <strong>{{ post_comment.user.first_name }} {{ post_comment.user.last_name }}</strong>:
           <br>
@@ -29,7 +29,7 @@
     <form action="" method="post">
       {% csrf_token %}
       {{ form|crispy }}
-      <input type="text" size="70">
+      <input name="content" type="text" size="70">
       <input class="btn btn-primary" type="submit" value="Add comment">
     </form>
   {% else %}

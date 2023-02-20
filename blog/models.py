@@ -28,7 +28,7 @@ class Commentary(models.Model):
     post = models.ForeignKey(
         Post,
         on_delete=models.CASCADE,
-        related_name="comments"
+        related_name="commentaries"
     )
     created_time = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
@@ -36,4 +36,3 @@ class Commentary(models.Model):
     class Meta:
         ordering = ["-created_time"]
         verbose_name_plural = "commentaries"
-

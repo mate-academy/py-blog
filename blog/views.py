@@ -13,23 +13,19 @@ class PostListView(generic.ListView):
 
 def post_detail_view(request, pk):
     post = get_object_or_404(
-        Post.objects.select_related("owner").prefetch_related("comments__user"),
+        Post.objects.select_related("owner").
+        prefetch_related("commentaries__user"),
         pk=pk
     )
-    # commentaries = Commentary.objects.filter(post_id=pk)
 
     if request.method == "POST":
         content = request.POST.get("content")
-        comment = Commentary.objects.create(
+        Commentary.objects.create(
             user=request.user,
             post_id=pk,
             content=content
         )
-        comment.save()
 
-    context = {
-        "post": post,
-        # "commentaries": commentaries,
-    }
+    context = {"post": post}
 
     return render(request, "blog/post_detail.html", context=context)
