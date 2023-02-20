@@ -9,7 +9,8 @@ from blog.models import Post
 
 class PostListView(generic.ListView):
     model = Post
-    queryset = Post.objects.select_related("owner").prefetch_related("comments")
+    queryset = Post.objects.select_related("owner"
+                                           ).prefetch_related("comments")
     template_name = "blog/index.html"
     context_object_name = "post_list"
     ordering = ["-created_time"]
