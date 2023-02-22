@@ -7,7 +7,7 @@ class User(AbstractUser):
     class Meta:
         ordering = ["username"]
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.username} ({self.first_name} {self.last_name})"
 
 
@@ -24,7 +24,7 @@ class Post(models.Model):
     class Meta:
         ordering = ["-created_time"]
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.title
 
 
