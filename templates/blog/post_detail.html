@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}
+  <title>Blog | {{ post.title }}</title>
+{% endblock %}
+{% block content %}
+  <div class="container">
+    <h1>{{ post.title }}</h1>
+    <p class="font-italic">Created by {{ post.owner.username }} on {{ post.created_time }}</p>
+    <p>{{ post.content }}</p>
+    <p class="font-weight-bold">{{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}</p>
+    {% if post.commentaries.all %}
+      {% for comment in post.commentaries.all %}
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item font-italic">{{ comment.user.username }} at {{ comment.created_time }}</li>
+          <li class="list-group-item">{{ comment.content }}</li>
+        </ul>
+      {% endfor %}
+    {% endif %}
+    {% load crispy_forms_filters %}
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="submit" value="Create comment" class="btn btn-primary">
+      {% if login_error %}
+        <p class="text-danger">{{ login_error }}</p>
+      {% endif %}
+    </form>
+  </div>
+{% endblock %}
