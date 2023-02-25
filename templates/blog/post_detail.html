@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <center><h1>{{ post.title }}</h1></center>
+  <hr>
+  <p><strong>Author:</strong> {{ post.owner.last_name }} {{ post.owner.first_name }} ({{post.owner.username}})</p>
+  <p><strong>Created at:</strong> {{post.created_time}}</p>
+  <hr>
+  <p><strong>Post:</strong></p>
+  <p class="content">{{ post.content }}</p>
+  <hr>
+  {% if post.commentaries.all %}
+  <p><strong>Comments:</strong></p>
+  {% for comment in post.commentaries.all %}
+  <p><strong>by</strong> {{ comment.user.username }} <strong>added</strong> {{ comment.created_time }}</p>
+  <p class="comment">{{ comment.content }}</p>
+  <hr>
+  {% endfor %}
+  {% else %}
+    <p>No comments now, but you can be first!</p>
+  {% endif %}
+  {% if user.is_authenticated %}
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Add comment</button>
+    </form>
+  {% endif %}
+{% endblock %}
