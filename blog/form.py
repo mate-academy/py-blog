@@ -5,4 +5,5 @@ from .models import Commentary
 class CommentaryForm(forms.ModelForm):
     class Meta:
         model = Commentary
-        fields = ["content"]
+        fields = ["content", "id"]
+
