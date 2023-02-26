@@ -1,6 +1,8 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count
-from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse_lazy, reverse
 from django.views import generic
 from django.views.generic.edit import FormMixin, CreateView, ProcessFormView
 
@@ -21,38 +23,25 @@ class Index(generic.ListView):
         return queryset
 
 
-class PostDetailView(FormMixin, generic.DetailView):
+class PostDetailView(generic.DetailView):
     model = Post
     form_class = CommentaryForm
 
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.object = None
 
-    def get_success_url(self):
-      #  print("TEST get_success_url!!!!!!!!!!!!!!!")
-       return reverse_lazy("blog:post-detail", kwargs={"pk": self.get_object().id})
+class CreateCommentaryView(LoginRequiredMixin, generic.CreateView):
 
-    def get_context_data(self, **kwargs):
-        context = super(PostDetailView, self).get_context_data(**kwargs)
-        context["post"] = Post.objects.get(pk=self.kwargs["pk"])
-        context["user"] = self.request.user
-        context["comments"] = Commentary.objects.filter(post=self.object)
-        return context
+    def post(self, request, *args, **kwargs):
+        post_id = kwargs["pk"]
+        post_url = reverse("blog:post-detail", kwargs={"pk": post_id})
+        form = CommentaryForm(request.POST)
 
-    def post(self, request, **kwargs):
-        form = self.get_form()
         if form.is_valid():
-            print("!!!!!!!!!!!!!!!!!!!!TEST def post()!!!!!!!!!!!!!!!!!!!")
-            return self.form_valid(form)
-        return self.form_invalid(form)
+            content = form.cleaned_data["content"]
 
-    def form_valid(self, form):
-        print("##########111111111111##########")
-        form.instance.post = self.object
-        print("##########2222221111111##########")
-        form.instance.author = self.request.user
-        print("##########13333333111111##########")
-        form.save()
-        print("!!!!!!!!!!!!!!!!!!!TEST!!!!!!!!!!!!! form_valid")
-        return super(PostDetailView, self).form_valid(form)
+            if post_id and content:
+                form.instance.user_id = self.request.user.pk
+                form.instance.post_id = post_id
+                self.success_url = post_url
+                return super().form_valid(form)
+
+        return HttpResponseRedirect(post_url)

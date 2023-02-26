@@ -20,10 +20,13 @@
     <p>No comments now, but you can be first!</p>
   {% endif %}
   {% if user.is_authenticated %}
-    <form action="" method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">Add comment</button>
+    <form action="{% url 'blog:create-comment' post.pk %}" method="post" novalidate>
+        {% csrf_token %}
+        <label class="form-label"><strong>Add comment</strong></label>
+        <textarea class="form-control mb-3" style="height: 100px" name="content"></textarea>
+        <input class="btn btn-primary" type="submit" value="Add comment">
     </form>
+  {% else %}
+    <p><a href="{% url 'login' %}">Click here to login</a></p>
   {% endif %}
 {% endblock %}
