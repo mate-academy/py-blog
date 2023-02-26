@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container">
+      <div class="row">
+          <!-- Blog Entries Column -->
+          <div class="col-md-11 left">
+
+              {% for post in post_list %}
+              <div class="card mb-2">
+                  <div class="card-body">
+                      <h2 class="card-title">
+                        <a href="{% url "blog:post-detail"  pk=post.id %}">{{ post.title }} &rarr;</a>
+                      </h2>
+                      <p class="card-text text-muted h6">{{ post.owner }} | {{ post.created_time}} </p>
+                      <p class="card-text">{{post.content|slice:":200" }}</p>
+                      <p class="card-text" style="float: right">
+                        <strong>comments: {{post.comments.count }}</strong>
+                      </p>
+                  </div>
+              </div>
+              {% endfor %}
+          </div>
+      </div>
+  </div>
+{% endblock %}
+
+
