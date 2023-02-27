@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count
 from django.http import HttpResponseRedirect
-from django.urls import  reverse
+from django.urls import reverse
 from django.views import generic
 
 from blog.form import CommentaryForm
