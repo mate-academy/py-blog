@@ -8,3 +8,8 @@ exclude =
     **migrations
     venv
     tests
+    settings.py
+    manage.py
+    asgi.py
+    apps.py
+    wsgi.py
