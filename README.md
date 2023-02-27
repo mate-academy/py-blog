@@ -51,3 +51,22 @@ Let's go through all the steps:
 ![post-detailed-page-reference-1](https://mate-academy-images.s3.eu-central-1.amazonaws.com/py-reference-of-the-post-detailed-page_3.png)
 ![post-detailed-page-reference-2](https://mate-academy-images.s3.eu-central-1.amazonaws.com/py-reference-of-the-post-detailed-page_2.png)
 ![post-detailed-page-reference-3](https://mate-academy-images.s3.eu-central-1.amazonaws.com/py-reference-of-the-post-detailed-page_1.png)
+
+# Note
+Follow these steps if you need to use `crispy_forms` v2.0 with Python 3.11:
+
+1. Add `CRISPY_TEMPLATE_PACK` to `settings.py`:
+
+```python
+CRISPY_TEMPLATE_PACK="bootstrap4"
+```
+
+2. Add these apps to `INSTALLED_APPS` and install them corresponding to the `CRISPY_TEMPLATE_PACK` bootstrap version:
+
+```python
+INSTALLED APPS = [
+   ...,
+   "crispy_bootstrap4",
+   "crispy_forms",
+]
+```
