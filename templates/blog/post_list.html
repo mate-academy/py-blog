@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Blog</h1>
+  {% if page_obj %}
+    <ul>
+      {% for post in page_obj.object_list %}
+        <li>
+          <div><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></div>
+          <hr>
+          <div>Content: {{ post.content }}</div>
+          <hr>
+          <div>Author: {{ post.owner }} created this post {{ post.created_time }}</div>
+          <hr>
+          <div>Count of commentaries: {{ post.num_comments }}</div>
+          <p></p>
+          <br>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  <p>You have visited this page
+    {{ num_visits }} time{{ num_visits|pluralize }}.
+  </p>
+{% endblock %}

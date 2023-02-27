@@ -1,0 +1,7 @@
+body {
+    margin-top: 20px;
+    background-image: url(/static/image/vivid-blurred-colorful-background.jpg);
+    background-size: cover;
+    color: red;
+    font-weight: bold;
+}
