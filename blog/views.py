@@ -39,7 +39,7 @@ def post_detail_view(request, pk):
                 kwargs={"pk": pk}
             ))
 
-        login_error = "Only authorized users can post comments"
+        login_error = "Only authorized users can post comments."
 
         context = {
             "form": form,
