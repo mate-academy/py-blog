@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block title %} <title>Post</title>{% endblock %}
+
+{% block content %}
+  <h1>{{ post.title }} </h1>
+  <p><small><strong>Created by {{ post.owner }} on {{ post.created_time }} | {{ post.commentaries.count }} comments</strong></small></p>
+  <p>{{ post.content }}</p>
+  <hr>
+  <h2>Comments</h2>
+  {% if post.commentaries.count %}
+    <ul>
+      {% for comment in post.commentaries.all %}
+        <li>
+          <strong>{{ comment.user }}:</strong> {{ comment.content }}
+          <br>
+          <small>Posted on {{ comment.created_time }}</small>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no comments on this post.</p>
+  {% endif %}
+  <h2>Add a comment</h2>
+  <form method="post" action="{% url 'blog:add_comment' post.pk %}">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit">Submit</button>
+  </form>
+{% endblock %}

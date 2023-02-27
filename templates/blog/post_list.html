@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>All Posts</h1>
+  {% if post_list %}
+  <ul style="list-style: none;">
+    {% for post in post_list %}
+      <li>
+        <h2><a href="{% url 'blog:post-detail' pk=post.pk %}">{{ post.title }}</a></h2>
+        <p>{{ post.content|slice:":135" }}...</p>
+        <small><strong>Created by {{ post.owner }} on {{ post.created_time }} | {{ post.commentaries.count }} comments</strong></small>
+      </li>
+      <hr>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no post in the blog.</p>
+  {% endif %}
+{% endblock %}
