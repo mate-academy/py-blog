@@ -1,20 +1,18 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
-from django.urls import reverse_lazy, reverse
+from django.urls import  reverse
 from django.views import generic
-from django.views.generic.edit import FormMixin, CreateView, ProcessFormView
 
 from blog.form import CommentaryForm
-from blog.models import Post, Commentary
+from blog.models import Post
 
 
-class Index(generic.ListView):
+class PostListView(generic.ListView):
     model = Post
     template_name = "blog/index.html"
     ordering = "-created_time"
-    queryset = Post.objects.all().select_related("owner")
+    queryset = Post.objects.select_related("owner")
     paginate_by = 5
 
     def get_queryset(self):

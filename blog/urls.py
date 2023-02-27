@@ -1,15 +1,15 @@
 from django.urls import path
 
-from blog.views import Index, PostDetailView, CreateCommentaryView
+from blog.views import PostListView, PostDetailView, CreateCommentaryView
 
 urlpatterns = [
     path(
         "",
-        Index.as_view(),
+        PostListView.as_view(),
         name="index"
     ),
     path(
-        "post/<int:pk>",
+        "post/<int:pk>/",
         PostDetailView.as_view(),
         name="post-detail"
     ),
