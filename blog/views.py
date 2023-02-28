@@ -1,5 +1,4 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
 from django.urls import reverse
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -8,7 +7,7 @@ from blog.forms import CommentaryCreateForm
 from blog.models import Post
 
 
-class IndexView(generic.ListView):
+class PostListView(generic.ListView):
     model = Post
     paginate_by = 5
     template_name = "blog/index.html"
@@ -19,7 +18,7 @@ class PostDetailView(generic.DetailView):
 
 
 class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
-    def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs) -> HttpResponseRedirect:
         post_id = kwargs["pk"]
         post_url = reverse("blog:post-detail", kwargs={"pk": post_id})
         form = CommentaryCreateForm(request.POST)
