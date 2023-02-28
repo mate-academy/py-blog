@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+  {% if post_list %}
+    <div class="container-fluid">
+      <div class="row">
+        <ul class="col-2 list-group list-group-flush rounded">
+          {% if user.is_authenticated %}
+            <li class="list-group-item">Hello, {{ user.username }}.</li>
+            <li class="list-group-item bg-primary"><a href="{% url 'logout' %}" class="text-light">Logout</a></li>
+          {% else %}
+            <li class="list-group-item">Hello, blog reader.</li>
+            <li class="list-group-item bg-primary">
+              <a href="{% url 'login' %}?next={{ request.path }}" class="text-light">
+                Login
+              </a>
+            </li>
+          {% endif %}
+        </ul>
+        <div class="col-8 m-lg-5">
+          <h1 class="text-center">Posts</h1>
+          {% for post in post_list %}
+            <a href="{% url 'blog:post-detail' pk=post.id %}"><h2>{{ post.title }}</h2></a>
+            <p class="font-italic">Created by {{ post.owner.username }} on {{ post.created_time }}</p>
+            <p>{{ post.content }}</p>
+            <p class="font-weight-bold small">{{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}</p>
+            <hr>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% else %}
+    <p>There are no posts.</p>
+  {% endif %}
+{% endblock %}
