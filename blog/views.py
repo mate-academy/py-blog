@@ -15,7 +15,7 @@ class PostListView(generic.ListView):
     queryset = Post.objects.select_related("owner")
     paginate_by = 5
 
-    def get_queryset(self):
+    def get_queryset(self) -> queryset:
         queryset = super().get_queryset()
         queryset = queryset.annotate(comment_count=Count("commentaries"))
         return queryset
@@ -28,7 +28,7 @@ class PostDetailView(generic.DetailView):
 
 class CreateCommentaryView(LoginRequiredMixin, generic.CreateView):
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs) -> HttpResponseRedirect:
         post_id = kwargs["pk"]
         post_url = reverse("blog:post-detail", kwargs={"pk": post_id})
         form = CommentaryForm(request.POST)
