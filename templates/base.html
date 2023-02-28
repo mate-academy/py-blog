@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  {% load static %}
+    <link rel="stylesheet" href="{% static "styles.css" %}" />
+  <title>Title</title>
+</head>
+<body>
+  <header class="nav">
+    {% block header %}
+      {% include "includes/header.html" %}
+    {% endblock %}
+  </header>
+
+  <main class="main">
+    {% block content %}
+    {% endblock %}
+  </main>
+  {% if is_paginated %}
+    {% block pagination %}
+      {% include "includes/pagination.html" %}
+    {% endblock %}
+  {% endif %}
+
+  {% block footer %}
+    {% include "includes/footer.html" %}
+  {% endblock %}
+
+</body>
+</html>
