@@ -23,8 +23,10 @@ class Post(models.Model):
         ordering = ["owner"]
 
     def __str__(self) -> str:
-        return f"({self.owner} add '{self.title}')" \
-               f"( at ({self.created_time.strftime('%d-%m-%Y %H:%M:%S')}))"
+        return (
+            f"{self.owner} add '{self.title}'"
+            f" at ({self.created_time.strftime('%d-%m-%Y %H:%M:%S')})"
+        )
 
 
 class Commentary(models.Model):
@@ -46,6 +48,8 @@ class Commentary(models.Model):
         verbose_name_plural = "commentaries"
 
     def __str__(self) -> str:
-        return f"({self.user} comments )" \
-               f"({self.post.title} at )" \
-               f"(({self.created_time.strftime('%d-%m-%Y %H:%M:%S')}))"
+        return (
+            f"{self.user} comments "
+            f"{self.post.title} at "
+            f"({self.created_time.strftime('%d-%m-%Y %H:%M:%S')})"
+        )

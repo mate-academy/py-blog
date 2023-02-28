@@ -1,5 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Count
+from django.db.models import Count, QuerySet
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
@@ -15,7 +15,7 @@ class PostListView(generic.ListView):
     queryset = Post.objects.select_related("owner")
     paginate_by = 5
 
-    def get_queryset(self) -> queryset:
+    def get_queryset(self) -> QuerySet:
         queryset = super().get_queryset()
         queryset = queryset.annotate(comment_count=Count("commentaries"))
         return queryset
