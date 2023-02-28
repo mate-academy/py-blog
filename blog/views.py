@@ -1,5 +1,5 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views import generic
 
@@ -20,7 +20,7 @@ def post_detail_view(request, pk):
     if request.method == "GET":
         context = {
             "form": CommentaryForm(),
-            "post": Post.objects.get(pk=pk)
+            "post": get_object_or_404(Post, pk=pk)
         }
         return render(request, "blog/post_detail.html", context=context)
 
@@ -43,7 +43,7 @@ def post_detail_view(request, pk):
 
         context = {
             "form": form,
-            "post": Post.objects.get(pk=pk),
+            "post": get_object_or_404(Post, pk=pk),
             "login_error": login_error if not user_id else None
         }
 
