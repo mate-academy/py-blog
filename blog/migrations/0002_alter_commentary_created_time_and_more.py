@@ -5,20 +5,23 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('blog', '0001_initial'),
+        ("blog", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='commentary',
-            name='created_time',
-            field=models.DateTimeField(default=datetime.datetime(2023, 2, 27, 16, 46, 45, 167946)),
+            model_name="commentary",
+            name="created_time",
+            field=models.DateTimeField(
+                default=datetime.datetime(2023, 2, 27, 16, 46, 45, 167946)
+            ),
         ),
         migrations.AlterField(
-            model_name='post',
-            name='created_time',
-            field=models.DateTimeField(default=datetime.datetime(2023, 2, 27, 16, 46, 45, 166953)),
+            model_name="post",
+            name="created_time",
+            field=models.DateTimeField(
+                default=datetime.datetime(2023, 2, 27, 16, 46, 45, 166953)
+            ),
         ),
     ]
