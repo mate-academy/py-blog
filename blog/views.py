@@ -34,7 +34,13 @@ class PostCreateView(LoginRequiredMixin, generic.CreateView):
     model = Post
     template_name = "blog/post_form.html"
     fields = ["title", "content"]
-    success_url = reverse_lazy("/")
+    success_url = reverse_lazy("blog:index")
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.owner = self.request.user
+        post.save()
+        return super().form_valid(form)
 
 
 class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
@@ -46,9 +52,12 @@ class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
     def form_valid(self, form):
         comment = form.save(commit=False)
         comment.user = self.request.user
-        comment.post = Post.objects.get(id=self.request.GET["pk"])
+        comment.post = Post.objects.get(id=self.kwargs["pk"])
         comment.save()
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy("blog:post-detail", kwargs={"pk": self.request.GET["pk"]})
+        return reverse_lazy(
+            "blog:post-detail",
+            kwargs={"pk": self.kwargs["pk"]}
+        )

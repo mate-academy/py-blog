@@ -13,7 +13,11 @@ urlpatterns = [
     path("post/<int:pk>/", PostDetailView.as_view(), name="post-detail"),
     path("accounts/", include('django.contrib.auth.urls')),
     path("post/create", PostCreateView.as_view(), name="post-create"),
-    path("post/<int:pk>/comment/", CommentaryCreateView.as_view(), name="post-add-comment"),
+    path(
+        "post/<int:pk>/comment/",
+        CommentaryCreateView.as_view(),
+        name="post-add-comment"
+    ),
 
 ]
 
