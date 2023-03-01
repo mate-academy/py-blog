@@ -1,5 +1,8 @@
+from typing import Any
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
@@ -36,7 +39,7 @@ class PostCreateView(LoginRequiredMixin, generic.CreateView):
     fields = ["title", "content"]
     success_url = reverse_lazy("blog:index")
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> HttpResponse:
         post = form.save(commit=False)
         post.owner = self.request.user
         post.save()
@@ -49,14 +52,14 @@ class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
     template_name = "blog/commentary_form.html"
     success_url = reverse_lazy("blog:post-detail")
 
-    def form_valid(self, form):
+    def form_valid(self, form) -> HttpResponse:
         comment = form.save(commit=False)
         comment.user = self.request.user
         comment.post = Post.objects.get(id=self.kwargs["pk"])
         comment.save()
         return super().form_valid(form)
 
-    def get_success_url(self):
+    def get_success_url(self) -> Any:
         return reverse_lazy(
             "blog:post-detail",
             kwargs={"pk": self.kwargs["pk"]}
