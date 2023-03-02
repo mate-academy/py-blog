@@ -1,24 +1,9 @@
-from typing import Any
-
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
 from blog.models import Post, Commentary
-
-
-# @login_required
-# def index(request):
-#     post_list = Post.objects.all().order_by("-created_at")
-#
-#     context = {
-#         "post_list": post_list
-#     }
-#
-#     return render(request, "blog/index.html", context=context)
 
 
 class PostListView(generic.ListView):
@@ -59,7 +44,7 @@ class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
         comment.save()
         return super().form_valid(form)
 
-    def get_success_url(self) -> Any:
+    def get_success_url(self) -> str:
         return reverse_lazy(
             "blog:post-detail",
             kwargs={"pk": self.kwargs["pk"]}
