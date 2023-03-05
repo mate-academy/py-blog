@@ -18,7 +18,7 @@ class PostListView(generic.ListView):
 
 def post_detail_view(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    comments = Commentary.objects.select_related("user").filter(post=post)
+    comments = Commentary.objects.filter(post=post).select_related("user")
     user = request.user
     form = CommentaryForm(request.POST or None)
 

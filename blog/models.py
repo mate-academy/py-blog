@@ -19,7 +19,7 @@ class Post(models.Model):
     content = models.TextField()
     created_time = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return self.title
 
 
