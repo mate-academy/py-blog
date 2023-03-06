@@ -1,0 +1,23 @@
+body {
+    background: beige;
+
+}
+
+.container-fluid {
+    background: beige;
+}
+
+.row {
+    padding-top: 10px;
+
+}
+
+.list-group-item {
+    background: bisque;
+    border-radius: 10px ;
+}
+
+.card-body {
+    background: azure;
+    border-radius: 50px;
+}

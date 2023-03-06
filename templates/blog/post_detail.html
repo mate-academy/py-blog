@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="col-md-10 left">
+    <h3>{{ post.title }}</h3>
+    <h5><i>{{ post.owner }} | {{ post.created_time }}</i></h5>
+    <p>{{ post.content }}</p>
+
+    <hr style="border-top: double">
+
+    <h4>Comments:</h4>
+
+    {% for comment in post.comments.all %}
+      <div class="container my-2 text-dark">
+        <div class="row d-flex justify-content-center">
+              <div class="card-body p-4">
+                <div class="">
+                  <h5>{{ comment.user }}</h5>
+                  <p class="small"><i>{{ comment.created_time}}</i></p>
+                  <p>{{ comment.content }}</p>
+              </div>
+            </div>
+        </div>
+      </div>
+    {% empty %}
+      <p>No comments yet!</p>
+    {% endfor %}
+  </div>
+    {% if user.is_authenticated %}
+      <form action="{% url 'blog:post-create-comment' post.pk %}" method="post" novalidate>
+        {% csrf_token %}
+        <label for="content" class="form-label"><strong>Add a new comment</strong></label>
+        <textarea class="form-control mb-2" style="height: 100px" name="content"></textarea>
+        <input class="btn btn-primary" type="submit" value="Add comment">
+      </form>
+    {% else %}
+      <a href="{% url 'login' %}">Login to add comments!</a>
+    {% endif %}
+{% endblock %}
