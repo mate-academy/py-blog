@@ -15,7 +15,6 @@ class PostListView(generic.ListView):
     paginate_by = 5
 
 
-
 def post_detail_view(request, pk: int):
     if request.method == "GET":
         post = Post.objects.get(id=pk)
