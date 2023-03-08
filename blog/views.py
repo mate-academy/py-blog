@@ -1,11 +1,11 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import generic
 
 from blog.forms import CommentaryForm
-from blog.models import Post, Commentary, User
+from blog.models import Post, Commentary
 
 
 class PostListView(generic.ListView):

@@ -5,7 +5,7 @@ from django.db import models
 
 class User(AbstractUser):
     class Meta:
-        ordering = ["username", ]
+        ordering = ["username"]
 
 
 class Post(models.Model):
@@ -14,14 +14,12 @@ class Post(models.Model):
         related_name="posts",
         on_delete=models.CASCADE
     )
-    title = models.TextField()
+    title = models.CharField(max_length=255)
     content = models.TextField()
     created_time = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = [
-            "-created_time",
-        ]
+        ordering = ["-created_time"]
 
     def __str__(self) -> str:
         return self.title
@@ -42,8 +40,7 @@ class Commentary(models.Model):
     content = models.CharField(max_length=255)
 
     class Meta:
-        ordering = ["-created_time", ]
-        verbose_name = "commentary"
+        ordering = ["-created_time"]
         verbose_name_plural = "comments"
 
     def __str__(self) -> str:
