@@ -14,8 +14,8 @@ class Post(models.Model):
         related_name="posts",
         on_delete=models.CASCADE
     )
-    title = models.CharField(max_length=100)
-    content = models.CharField(max_length=255)
+    title = models.TextField()
+    content = models.TextField()
     created_time = models.DateTimeField(auto_now_add=True)
 
     class Meta:
