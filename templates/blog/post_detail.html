@@ -43,7 +43,7 @@
       <div>{{ error }}</div>
     {% endif %}
 
-    <form action="" method="post">
+    <form action="{% url 'blog:add-commentary' pk=post.id %}" method="post">
       {% csrf_token %}
       <label>
         <input type="text" style="width: 600px;" name="content">

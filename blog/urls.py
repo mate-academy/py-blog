@@ -1,12 +1,16 @@
 from django.urls import path
-from django.conf import settings
-from django.conf.urls.static import static
 
-from blog.views import post_detail_view, PostListView
+
+from blog.views import PostDetailView, PostListView, AddCommentaryView
 
 urlpatterns = [
     path("", PostListView.as_view(), name="index"),
-    path("post/<int:pk>/", post_detail_view, name="post-detail"),
+    path("post/<int:pk>/", PostDetailView.as_view(), name="post-detail"),
+    path(
+        "post/<int:pk>/add-comentary/",
+        AddCommentaryView.as_view(),
+        name="add-commentary"
+    )
 ]
 
 app_name = "blog"
