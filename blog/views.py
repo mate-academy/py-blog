@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.views import generic
 
@@ -13,7 +14,7 @@ class PostListView(generic.ListView):
     paginate_by = 5
 
 
-def post_detail_view(request, pk):
+def post_detail_view(request, pk) -> HttpResponse:
     post = get_object_or_404(
         Post.objects.select_related("owner").
         prefetch_related("comments__user"),
