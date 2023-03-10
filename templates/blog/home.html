@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>
+    Newest blogs:
+    <a type="button" class="btn btn-primary btn-sm ml-3" href="{% url 'blog:post-create' %}">+ new post</a>
+  </h1>
+  {% if post_list %}
+    <ul>
+      {% for post in post_list %}
+        <li>
+          <h3>
+            <a href="{% url 'blog:post-detail' pk=post.id %}">
+              {{ post.title }}
+            </a>
+          </h3>
+          <p>{{ post.created_time }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+
+{% endblock %}
