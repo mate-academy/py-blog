@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+    <h1 class="alert alert-primary" role="alert">{{ post_detail.title }}</h1>
+    <div>
+        <div class="alert alert-success" role="alertdialog">
+            <h4>Author: {{ post_detail.owner.first_name }} {{ post_detail.owner.last_name }}</h4>
+                {{ post_detail.created_time }}
+                <p><br>
+                    {{ post_detail.content }}
+                </p>
+        </div>
+    </div>
+    <ol class="list-group">
+        <li class="list-group-item active" aria-current="true">
+            {{ post_detail.commentaries.count }} commentaries:
+        </li>
+        {%  for commentary in post_detail.commentaries.all %}
+            <li class="list-group-item">
+                <p class="alert alert-secondary" role="alert">
+                    {{ commentary.user.username }}
+                    <br><span style="font-size: smaller">{{ commentary.created_time }}</span>
+                </p>
+                <p>{{ commentary.content }}</p>
+            </li>
+        {% endfor %}
+        <br>
+    </ol>
+    {% if user.id %}
+    <form method="post" action="" style="padding: 10px 30px">
+        {% csrf_token %}
+        {{ form|crispy }}
+    <button type="submit" class="btn btn-primary">Add Comment</button>
+    </form>
+    {% endif %}
+
+{% endblock %}
