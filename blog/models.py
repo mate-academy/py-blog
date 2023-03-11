@@ -20,14 +20,14 @@ class Post(models.Model):
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name="post"
+        related_name="posts"
     )
 
     class Meta:
         ordering = ["-created_time"]
 
     def __str__(self) -> str:
-        return f"{self.title}"
+        return self.title
 
 
 class Commentary(models.Model):
@@ -35,7 +35,7 @@ class Commentary(models.Model):
     content = models.TextField()
     post = models.ForeignKey(
         Post, on_delete=models.CASCADE,
-        related_name="commentaries"
+        related_name="comments"
     )
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -44,4 +44,4 @@ class Commentary(models.Model):
 
     class Meta:
         ordering = ["created_time"]
-        verbose_name_plural = "commentaries"
+        verbose_name_plural = "comments"

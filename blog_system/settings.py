@@ -34,7 +34,7 @@ INTERNAL_IPS = [
 
 SETTINGS_PATH = os.path.dirname(os.path.dirname(__file__))
 
-LOGIN_REDIRECT_URL = ""
+LOGIN_REDIRECT_URL = "/"
 
 # Application definition
 

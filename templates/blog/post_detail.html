@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
   {% block title %}
     <title>Post detail</title>
   {% endblock %}
@@ -10,37 +11,31 @@
       {{ post.content }}
     </div>
     <br>
-
+    <strong> {{ post.comments.count }} comments</strong>
     <h5 style="padding-left: 5px">Comments</h5>
-    <hr>
-    <h6>{{ post.commentaries.count }} comments:</h6>
-     {% if post.commentaries.all %}
-       {% for comment in post.commentaries.all %}
-         <div style="padding-left: 50px">
-           <div style="color: coral">{{ comment.user }}</div>
-           <div style="font-size: 13px">{{ comment.created_time }}</div>
-           <div style="padding-right: 200px; font-size: 18px">{{ comment.content }}</div>
-         </div>
-         <hr>
-       {% endfor %}
-     {% else %}
-       There are no comments yet!
-     {% endif %}
-    <br>
+   {% for comment in post.comments.all %}
+      <hr>
+      <p class="text-muted"><strong>{{ comment.user.username }}</strong></p>
+      <p class="text-muted">
+        <strong>Posted:</strong>
+        {{ comment.created_time }}
+      </p>
+      <p>
+        {{ comment.content }}
+      </p>
+    {% empty %}
+      <p>No comments!</p>
+    {% endfor %}
+{#    <h4><a href="{% url 'blog:comment-create'%}">Add comment</a></h4>#}
     {% if user.is_authenticated %}
-     <h3 style="padding-left: 5px">Add a new comment</h3>
-     {% if error %}
-       <p>{{ error }}</p>
-     {% endif %}
-     <form action="" method="post" >
-       {% csrf_token %}
-       <label style="padding-left: 5px">
-         <input type="text" name="content" id="input1" class="shadow_input">
-       </label>
-       <br>
-       <input class="btn btn-success" type="submit" value="Comment">
-     </form>
-   {% else %}
-      <a href="{% url "blog:index" %}"><h5>Login for writing comments</h5></a>
-   {% endif %}
+      <form action="{% url 'blog:post-add-comment' post.pk %}" method="post" novalidate>
+        {% csrf_token %}
+        <label for="content" class="form-label"><strong>Add a new comment</strong></label>
+        <textarea class="form-control mb-2" style="height: 100px" name="content"></textarea>
+        <input class="btn btn-primary" type="submit" value="Add comment">
+      </form>
+    {% else %}
+      <a href="{% url 'login' %}">Login to add comments!</a>
+    {% endif %}
+
   {% endblock %}

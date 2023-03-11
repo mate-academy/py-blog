@@ -2,9 +2,24 @@
 
 {% block content %}
   <h2 style="color: red" >List of posts</h2>
-  {% for post in post_list %}
+
+  {% if post_list %}
     <ul>
-      <li><h3><a class="list" href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h3></li>
+      {% for post in post_list %}
+        <li>
+          <h3><a class="list" href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h3>
+          <br>
+            Author <i>{{ post.owner.username }}
+            ({{ post.owner.first_name}} {{post.owner.last_name }})</i>
+            created this post <i>{{ post.created_time }}</i>
+            <br>
+            <strong>Comments:</strong> {{ post.comments.count }}
+            <hr>
+        </li>
+
+      {% endfor %}
     </ul>
-  {% endfor %}
+  {% else %}
+      <p>There are no posts in blog!</p>
+  {% endif %}
 {% endblock %}

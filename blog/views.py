@@ -1,41 +1,38 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
 from django.urls import reverse
 from django.views import generic
 
 from blog.form import CommentForm
-from blog.models import Post, Commentary
+from blog.models import Post
 
 
 class PostListView(generic.ListView):
     model = Post
-    queryset = Post.objects.all()
+    queryset = Post.objects.select_related(
+        "owner").prefetch_related("comments")
     template_name = "blog/index.html"
     paginate_by = 5
 
 
-def post_detail_view(request, pk):
-    if request.method == "GET":
-        post = Post.objects.get(id=pk)
-        context = {"post": post}
-        return render(request, "blog/post_detail.html", context=context)
-    if request.method == "POST":
-        creation_form = CommentForm(request.POST or None)
-        if creation_form.is_valid():
-            content = request.POST.get("content")
-            comment = Commentary.objects.create(
-                post=Post.objects.get(id=pk),
-                user=request.user,
-                content=content
-            )
-            comment.save()
-            return HttpResponseRedirect(
-                reverse(
-                    "blog:post-detail", args=[str(pk)]
-                )
-            )
+class PostDetailView(generic.DetailView):
+    model = Post
+    template_name = "blog/post_detail.html"
 
-        else:
-            post = Post.objects.get(id=pk)
-            context = {"error": "Comment should not be empty!", "post": post}
-            return render(request, "blog/post_detail.html", context=context)
+
+class AddCommentView(LoginRequiredMixin, generic.CreateView):
+    def post(self, request, *args, **kwargs):
+        post_id = kwargs["pk"]
+        post_url = reverse("blog:post-detail", kwargs={"pk": post_id})
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            content = form.cleaned_data["content"]
+
+            if post_id and content:
+                form.instance.user_id = self.request.user.pk
+                form.instance.post_id = post_id
+                self.success_url = post_url
+                return super().form_valid(form)
+
+        return HttpResponseRedirect(post_url)
