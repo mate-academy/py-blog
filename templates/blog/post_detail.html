@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+  {% block title %}
+    <title>Post detail</title>
+  {% endblock %}
+  {% block content %}
+    <h1 class="title2">{{ post.title}}</h1>
+    <p style="color: brown; padding-left: 5px" >{{ post.owner }} at {{ post.created_time }}</p>
+    <hr>
+    <div style="padding: 0 200px; font-size: 20px">
+      {{ post.content }}
+    </div>
+    <br>
+
+    <h5 style="padding-left: 5px">Comments</h5>
+    <hr>
+    <h6>{{ post.commentaries.count }} comments:</h6>
+     {% if post.commentaries.all %}
+       {% for comment in post.commentaries.all %}
+         <div style="padding-left: 50px">
+           <div style="color: coral">{{ comment.user }}</div>
+           <div style="font-size: 13px">{{ comment.created_time }}</div>
+           <div style="padding-right: 200px; font-size: 18px">{{ comment.content }}</div>
+         </div>
+         <hr>
+       {% endfor %}
+     {% else %}
+       There are no comments yet!
+     {% endif %}
+    <br>
+    {% if user.is_authenticated %}
+     <h3 style="padding-left: 5px">Add a new comment</h3>
+     {% if error %}
+       <p>{{ error }}</p>
+     {% endif %}
+     <form action="" method="post" >
+       {% csrf_token %}
+       <label style="padding-left: 5px">
+         <input type="text" name="content" id="input1" class="shadow_input">
+       </label>
+       <br>
+       <input class="btn btn-success" type="submit" value="Comment">
+     </form>
+   {% else %}
+      <a href="{% url "blog:index" %}"><h5>Login for writing comments</h5></a>
+   {% endif %}
+  {% endblock %}

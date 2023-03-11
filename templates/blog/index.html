@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2 style="color: red" >List of posts</h2>
+  {% for post in post_list %}
+    <ul>
+      <li><h3><a class="list" href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h3></li>
+    </ul>
+  {% endfor %}
+{% endblock %}
