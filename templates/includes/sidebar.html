@@ -1,0 +1,21 @@
+<div class="sidebar">
+  <nav class="navbar navbar-dark bg-dark">
+    <ul class="sidebar-nav">
+      {% if user.username %}
+        <spnan class="badge badge-info">
+          Hi, {{ user.username }}!
+          </spnan>
+
+      {% else %}
+        <spnan class="badge badge-warning">
+          <a href="{% url "blog:login" %}">Login to view content</a>
+        </spnan>
+      {% endif %}
+      <br>
+
+      <span class="badge badge-light">
+        <a href="{% url "blog:logout" %}">logout</a>
+      </span>
+    </ul>
+  </nav>
+</div>
