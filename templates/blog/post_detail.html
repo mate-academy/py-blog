@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+  {% block title %}
+    <title>Post detail</title>
+  {% endblock %}
+  {% block content %}
+    <h1 class="title2">{{ post.title}}</h1>
+    <p style="color: brown; padding-left: 5px" >{{ post.owner }} at {{ post.created_time }}</p>
+    <hr>
+    <div style="padding: 0 200px; font-size: 20px">
+      {{ post.content }}
+    </div>
+    <br>
+    <strong> {{ post.comments.count }} comments</strong>
+    <h5 style="padding-left: 5px">Comments</h5>
+   {% for comment in post.comments.all %}
+      <hr>
+      <p class="text-muted"><strong>{{ comment.user.username }}</strong></p>
+      <p class="text-muted">
+        <strong>Posted:</strong>
+        {{ comment.created_time }}
+      </p>
+      <p>
+        {{ comment.content }}
+      </p>
+    {% empty %}
+      <p>No comments!</p>
+    {% endfor %}
+{#    <h4><a href="{% url 'blog:comment-create'%}">Add comment</a></h4>#}
+    {% if user.is_authenticated %}
+      <form action="{% url 'blog:post-add-comment' post.pk %}" method="post" novalidate>
+        {% csrf_token %}
+        <label for="content" class="form-label"><strong>Add a new comment</strong></label>
+        <textarea class="form-control mb-2" style="height: 100px" name="content"></textarea>
+        <input class="btn btn-primary" type="submit" value="Add comment">
+      </form>
+    {% else %}
+      <a href="{% url 'login' %}">Login to add comments!</a>
+    {% endif %}
+
+  {% endblock %}
