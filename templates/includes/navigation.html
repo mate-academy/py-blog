@@ -1,0 +1,23 @@
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark" role="Navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="{% url 'blog:index' %}">IT Blog</a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <li class="nav-item">
+        <a href="{% url 'blog:index' %}" class="nav-link">Home</a>
+      </li>
+      {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a href="{% url 'logout' %}" class="nav-link">User: {{ user.username }}</a></li>
+        <li class="nav-item">
+          <a href="{% url 'logout' %}" class="nav-link btn btn-danger">Logout</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a href="{% url 'login' %}" class="nav-link">Login</a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>
