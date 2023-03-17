@@ -1,23 +1,8 @@
-{#<form method="post" action="{% url 'blog:commentary-create' %}">#}
-{#  {% csrf_token %}#}
-{#  {{ form.as_form }}#}
-{##}
-{#  <label> Your comment:#}
-{#    <input type="text">#}
-{#  </label>#}
-{##}
-{#  <input type="submit" value="submit">#}
-{#</form>#}
-{##}
-{#{% extends 'base.html' %}#}
 
 {% block content %}
-    <form method="post" action="{% url 'blog:commentary-create' pk=post.pk%}">
-        {% csrf_token %}
-        {{ form.as_p }}
-      <label>add comment
-        <input type="text">
-      </label>
-      <input type="submit" value="Create comment">
-    </form>
+  <form method="post" action="{% url 'blog:commentary-create' pk=post.id %}">
+      {% csrf_token %}
+      {{ form.as_p }}
+    <input type="submit" value="Create comment">
+  </form>
 {% endblock %}

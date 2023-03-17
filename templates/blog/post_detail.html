@@ -23,7 +23,11 @@
   <strong>Comments:</strong>
     <ol type="1">
       {% for commentary in post.commentary_set.all %}
-        <li>{{ commentary }}</li>
+        <li>
+          <h5>{{ commentary }}</h5>
+          
+          ({{ commentary.created_time }})
+        </li>
 
       {% endfor %}
     </ol>
@@ -31,7 +35,7 @@
     <strong>No comments yet</strong>
   {% endif %}
   <br><br>
-  <strong>Write your comment below:</strong>
+
   {% include "includes/commentary_form.html" %}
 
 {% endblock %}
