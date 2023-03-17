@@ -7,7 +7,6 @@ from blog.forms import CommentaryCreateForm
 from blog.models import Post
 
 
-# Create your views here.
 class PostListView(generic.ListView):
     model = Post
     queryset = Post.objects.select_related(
@@ -18,7 +17,7 @@ class PostListView(generic.ListView):
     paginate_by = 5
 
 
-class PostListDetail(generic.DetailView):
+class PostDetailView(generic.DetailView):
     context_object_name = "post_detail"
     model = Post
     queryset = Post.objects.prefetch_related(

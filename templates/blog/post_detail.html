@@ -32,8 +32,10 @@
         <input class="btn btn-primary" type="submit" value="Add comment">
       </form>
   {% else %}
-    <a href="{% url 'login' %}">Login to add comments!</a>
+    <br>
+    <a href="{% url 'login' %}" class="btn btn-primary">Login to add comments!</a>
   {% endif %}
+    <br><br><br>
 
   </section>
 
