@@ -1,0 +1,20 @@
+.post {
+    padding: 5px;
+    border: groove black;
+}
+
+.post-content {
+    padding-top: 10px;
+}
+
+.title {
+    text-align: center;
+}
+
+.comments {
+    margin-top: 20px;
+}
+
+.comment {
+    border-bottom: dotted black;
+}
