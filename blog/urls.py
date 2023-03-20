@@ -1,4 +1,5 @@
 from django.urls import path
+
 from blog.views import index, post_detail_retrieve_view, commentary_create_view
 
 urlpatterns = [

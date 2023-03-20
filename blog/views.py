@@ -33,6 +33,7 @@ def post_detail_retrieve_view(request, *args, **kwargs):
 
 @login_required
 def commentary_create_view(request, *args, **kwargs):
+
     if request.method == "POST":
         Commentary.objects.create(
             user_id=request.user.id,
