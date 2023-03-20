@@ -9,7 +9,8 @@ from blog.forms import CommentCreateForm
 
 class PostList(generic.ListView):
     model = Post
-    queryset = Post.objects.all().select_related("owner").prefetch_related("commentary")
+    queryset = Post.objects.all().select_related("owner")
+    queryset.prefetch_related("commentary")
     paginate_by = 5
 
 
@@ -17,7 +18,8 @@ class PostDetailView(generic.DetailView):
     model = Post
 
     def get_queryset(self):
-        queryset = Post.objects.select_related("owner").prefetch_related("commentary")
+        queryset = Post.objects.select_related("owner")
+        queryset.prefetch_related("commentary")
         queryset.filter(id=self.kwargs.get(self.pk_url_kwarg))
 
         return queryset
