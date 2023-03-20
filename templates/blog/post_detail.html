@@ -8,12 +8,12 @@
 {% block content %}
   <div>
     <h3 class="title">{{ post.title }}</h3>
-    <h>{{ post.owner }} at {{ post.created_time }}</h>
+    <h>{{ owner.username }} at {{ post.created_time }}</h>
     <h4 class="post-content">{{ post.content }}</h4>
   </div>
   <div class="comments">
-    <h4  class="count">{{ post.commentary.count }} comment{{ post.commentary.count|pluralize }}</h4>
-    {% for comment in post.commentary.all %}
+    <h4 class="count">{{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}</h4>
+    {% for comment in post.commentaries.all %}
       <br>
       <div class="comment">
         <h>{{ comment.user.username }} at {{ comment.created_time }}</h>

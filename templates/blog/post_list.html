@@ -5,9 +5,9 @@
   {% for post in post_list %}
     <div class="post">
       <a href="{% url 'blog:post-detail' pk=post.id %}"><h3>{{ post.title }}</h3></a>
-      <h>{{ post.owner }} at {{ post.created_time }}</h>
+      <h>{{ post.owner.username }} at {{ post.created_time }}</h>
       <h4 class="post-content">{{ post.content }}</h4>
-      <h>{{ post.commentary.count }} comment{{ post.commentary.count|pluralize }}</h>
+      <h>{{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}</h>
     </div>
     <br>
   {% endfor %}
