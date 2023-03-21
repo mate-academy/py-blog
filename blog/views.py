@@ -1,3 +1,11 @@
 from django.shortcuts import render
 
-# Create your views here.
+from blog.models import Post
+
+
+def index(request):
+    context = {
+        "num_posts": Post.objects.count()
+    }
+
+    return render(request, "index.html")

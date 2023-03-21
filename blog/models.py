@@ -9,7 +9,7 @@ class User(AbstractUser):
 class Post(models.Model):
 
     class Meta:
-        ordering = ["created_time"]
+        ordering = ["-created_time"]
 
     owner = models.ForeignKey(
         to=User, on_delete=models.SET_DEFAULT, default="Author unknown"
@@ -30,4 +30,3 @@ class Commentary(models.Model):
     post = models.ForeignKey(to=Post, on_delete=models.CASCADE)
     created_time = models.DateTimeField()
     content = models.TextField()
-
