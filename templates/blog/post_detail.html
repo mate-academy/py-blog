@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+<h2>
+    {{ post.title }}
+  </h2>
+  <div class="detail">{{ post.owner }} at {{ post.created_time }}</div>
+  <br>
+
+  <div class="post">
+    {{ post.content }}
+    <br>
+    <br>
+      <div> Comments: {{post.comment.all.count}}  </div>
+  </div>
+  <br>
+  <br>
+
+{% for comment in post.comment.all %}
+<table class="table">
+  <tr>
+    <th>{{ comment.user }} {{ comment.created_time }}</th>
+  </tr>
+
+  <tr>
+    <td>
+      {{ comment }}
+    </td>
+  </tr>
+</table>
+{% endfor %}
+
+<p>
+  <a href="{% url 'blog:comment-create' %}" class="btn btn-primary">
+    Add comment
+  </a>
+</p>
+<br>
+<br>
+{% endblock %}

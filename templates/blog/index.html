@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<br>
+{% block search %}
+{% include "includes/search.html" %}
+{% endblock %}
+
+<br>
+{% for post in post_list %}
+  <h2>
+    <a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a>
+  </h2>
+  <div class="detail">{{ post.owner }} at {{ post.created_time }}</div>
+  <br>
+
+  <div class="post">
+    {{ post.content }}
+    <br>
+    <br>
+      <div> Comments: {{post.comment.all.count}}  </div>
+  </div>
+  <br>
+  <br>
+
+{% endfor %}
+{% endblock %}
