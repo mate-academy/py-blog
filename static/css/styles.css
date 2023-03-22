@@ -60,3 +60,9 @@ th {
     font-size: 15px;
     color: grey;
 }
+
+.add {
+    font-size: 20px;
+    font-weight: 550;
+    color: #89CFF0;
+}

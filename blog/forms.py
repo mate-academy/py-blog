@@ -12,12 +12,6 @@ class PostSearchForm(forms.Form):
     )
 
 
-class CommentaryForm(forms.Form):
-    class Meta:
-        model = Commentary
-        fields = "__all__"
-
-
 class UserCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
