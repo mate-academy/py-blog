@@ -33,7 +33,7 @@
 
 {% if user.is_authenticated %}
 <div class="add">{{ object|yesno:"Add,Update" }} a new comment</div>
-<form action="{% url 'blog:commentary-create' %}" method="post" novalidate>
+<form action="{% url 'blog:commentary-create' pk=post.id %}" method="post" novalidate>
   {% csrf_token %}
   {{ form|crispy }}
   <input type="text" name="content" size="">
