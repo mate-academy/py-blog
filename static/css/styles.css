@@ -1,0 +1,27 @@
+html {
+    background-color: azure;
+}
+
+body {
+    margin: 40px;
+}
+
+.posts_header {
+    text-align: center;
+    background-color: lightgray;
+    border: 2px cadetblue;
+    border-radius: 6px;
+}
+
+.welcome_title {
+    text-align: center;
+    background-color: antiquewhite;
+    border: 2px cadetblue;
+    border-radius: 6px;
+}
+
+.index_pagination {
+    margin: 20px auto;
+    padding-bottom: 20px;
+    width: 12em
+}
