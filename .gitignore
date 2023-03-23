@@ -5,3 +5,5 @@ db.sqlite3
 .env
 venv/
 **__pycache__/
+preffered_changes.txt
+.gitignore

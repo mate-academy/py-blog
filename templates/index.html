@@ -8,17 +8,18 @@
 
     {% if posts%}
       <table class="table">
-        <tr>
+        <tr style="font-size: 25px">
           <th><strong>Author</strong></th>
           <th><strong>Topic</strong></th>
           <th><strong>Content</strong></th>
+          <th><strong>Actions</strong></th>
         </tr>
         {% for post in posts %}
             <tr>
               <td>
                 <strong>Username:</strong> <br>
                 <p style="color: grey">{{ post.owner }}</p>
-                <strong>Posted in:</strong> <br>
+                <strong>Posted at:</strong> <br>
                 <p style="color: grey">{{ post.created_time|date:'d-m-Y G:i' }}</p>
               </td>
               <td>
@@ -26,6 +27,20 @@
               </td>
               <td>
                   {{ post.content }}
+              </td>
+              <td>
+                <a href="{% url "blog:commentary" pk=post.id %}">
+                  <button class="buttons button_comments">See comments</button>
+                </a>
+                <a href="{% url "blog:commentary" pk=post.id %}">
+                  <button class="buttons button_details">See details</button>
+                </a>
+                <a href="{% url "blog:commentary" pk=post.id %}">
+                  <button class="buttons button_update">Update</button>
+                </a>
+                <a href="{% url "blog:commentary" pk=post.id %}">
+                  <button class="buttons button_delete">Delete</button>
+                </a>
               </td>
         {% endfor %}
       </table>

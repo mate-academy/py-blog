@@ -3,7 +3,7 @@ html {
 }
 
 body {
-    margin: 40px;
+    margin: 100px;
 }
 
 .posts_header {
@@ -25,3 +25,29 @@ body {
     padding-bottom: 20px;
     width: 12em
 }
+
+
+.buttons {
+    border: solid 1px;
+    border-radius: 6px;
+    width: 150px;
+    margin-bottom: 5px;
+}
+
+.button_comments {
+    color: grey;
+}
+
+.button_details {
+    color: green;
+}
+
+.button_update {
+    color: cornflowerblue;
+}
+
+.button_delete {
+    color: red;
+}
+
+
