@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views import generic
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
@@ -18,12 +19,39 @@ def index(request):
         posts = paginator.page(paginator.num_pages)
 
     context = {
-        "posts": posts
+        "post_list": posts
     }
 
-    return render(request, "index.html", context=context)
+    return render(request, "blog/index.html", context=context)
 
 
-class CommentaryListView(generic.ListView):
+class PostCreateView(generic.CreateView):
+    model = Post
+    fields = "__all__"
+    success_url = reverse_lazy("blog:index")
+    template_name = "blog/create_update_post.html"
+
+
+class PostUpdateView(generic.UpdateView):
+    model = Post
+    fields = "__all__"
+    success_url = reverse_lazy("blog:index")
+    template_name = "blog/create_update_post.html"
+
+
+class PostDeleteView(generic.DeleteView):
+    model = Post
+    template_name = "blog/confirm_delete.html"
+    success_url = reverse_lazy("blog:index")
+
+
+class PostDetailView(generic.DetailView):
+    model = Post
+    template_name = "blog/post_detail.html"
+
+
+class CommentaryCreateView(generic.CreateView):
     model = Commentary
-    template_name = "commentary.html"
+    fields = "__all__"
+    success_url = reverse_lazy("blog:index")
+    template_name = "blog/create_update_commentary.html"

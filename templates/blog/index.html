@@ -1,12 +1,13 @@
-{% extends "base.html" %}
+{% extends "blog/base.html" %}
+{% load crispy_forms_filters %}
 
 
 {% block content %}
-    <h2 class="posts_header">
+    <h2 class="posts_header posts_blocks">
       <span>Posts list</span>
     </h2>
 
-    {% if posts%}
+    {% if post_list%}
       <table class="table">
         <tr style="font-size: 25px">
           <th><strong>Author</strong></th>
@@ -14,7 +15,7 @@
           <th><strong>Content</strong></th>
           <th><strong>Actions</strong></th>
         </tr>
-        {% for post in posts %}
+        {% for post in post_list %}
             <tr>
               <td>
                 <strong>Username:</strong> <br>
@@ -26,40 +27,42 @@
                   {{ post.title }}
               </td>
               <td>
-                  {{ post.content }}
+                  <i>{{ post.content }}</i>
               </td>
               <td>
-                <a href="{% url "blog:commentary" pk=post.id %}">
-                  <button class="buttons button_comments">See comments</button>
+                <a href="{{ post.get_absolute_url }}">
+                  <button class="buttons button_details">See details & comments</button>
                 </a>
-                <a href="{% url "blog:commentary" pk=post.id %}">
-                  <button class="buttons button_details">See details</button>
-                </a>
-                <a href="{% url "blog:commentary" pk=post.id %}">
+                <a href="{% url "blog:update-post" pk=post.id %}">
                   <button class="buttons button_update">Update</button>
                 </a>
-                <a href="{% url "blog:commentary" pk=post.id %}">
+                <a href="{% url "blog:delete-post" pk=post.id %}">
                   <button class="buttons button_delete">Delete</button>
                 </a>
               </td>
+            </tr>
         {% endfor %}
       </table>
     {% else %}
         <p>There are no posts in your service.</p>
     {% endif %}
+    <h2 class="posts_create posts_blocks">
+      <a href="{% url 'blog:create-post' %}" class="posts_blocks">Create post</a>
+    </h2>
+
     <div class="index_pagination">
       <ul class="pagination">
-        {% if posts.has_previous %}
+        {% if post_list.has_previous %}
           <li class="page-item">
-            <a href="?page= {{ posts.previous_page_number }}" class="page-link">prev</a>
+            <a href="?page= {{ post_list.previous_page_number }}" class="page-link">prev</a>
           </li>
         {% endif %}
         <li class="page-item active">
-          <span class="page-link">{{ posts.number }} of {{ posts.paginator.num_pages }}</span>
+          <span class="page-link">{{ post_list.number }} of {{ post_list.paginator.num_pages }}</span>
         </li>
-        {% if posts.has_next %}
+        {% if post_list.has_next %}
           <li class="page-item">
-            <a href="?page= {{ posts.next_page_number }}" class="page-link">next</a>
+            <a href="?page= {{ post_list.next_page_number }}" class="page-link">next</a>
           </li>
         {% endif %}
       </ul>

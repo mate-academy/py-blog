@@ -6,11 +6,20 @@ body {
     margin: 100px;
 }
 
-.posts_header {
+.posts_blocks {
     text-align: center;
-    background-color: lightgray;
     border: 2px cadetblue;
     border-radius: 6px;
+    color: black;
+    font-size: 30px;
+}
+
+.posts_header {
+    background-color: lightgray;
+}
+
+.posts_create {
+    background-color: cornflowerblue;
 }
 
 .welcome_title {
@@ -34,10 +43,6 @@ body {
     margin-bottom: 5px;
 }
 
-.button_comments {
-    color: grey;
-}
-
 .button_details {
     color: green;
 }
@@ -48,6 +53,10 @@ body {
 
 .button_delete {
     color: red;
+}
+
+.modal-content {
+    padding: 20px;
 }
 
 
