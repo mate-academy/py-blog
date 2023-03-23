@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 class="text-center">Post list:</h1>
+
+  <div class="text-center">
+    <a href="{% url "blog:post-create" %}">
+      <h1 class="badge badge btn-warning">
+        Tap to add post
+      </h1>
+    </a>
+  </div>
+
+  {% for post in post_list %}
+    <ul>
+    <a href="{% url "blog:post-detail" pk=post.id %}">
+      <h3>{{ post.title }}</h3>
+    </a>
+    post owner: {{ post.owner }}
+      <br>
+    post created_time: {{ post.created_time }}
+      <br>
+   {{ post.commentary_set.count }} comments
+    </ul>
+  {% endfor %}
+
+
+
+  <br>
+  {% include "includes/pagintations.html" %}
+
+
+{% endblock %}
