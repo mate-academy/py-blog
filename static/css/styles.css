@@ -1,3 +1,15 @@
-body {
-    margin: 20px;
+.pagination {
+    margin-left: 120px;
+}
+.commentary-zone{
+    margin-left: 35px;
+}
+
+.space-end {
+    margin-bottom: 100px;
+}
+
+.content {
+    background-color: darkgray;
+    border-radius: 30px;
 }

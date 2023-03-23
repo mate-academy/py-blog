@@ -11,7 +11,7 @@
     </a>
   </div>
 
-  {% for post in index %}
+  {% for post in post_list %}
     <ul>
     <a href="{% url "blog:post-detail" pk=post.id %}">
       <h3>{{ post.title }}</h3>
@@ -23,6 +23,8 @@
    {{ post.commentary_set.count }} comments
     </ul>
   {% endfor %}
+
+
 
   <br>
   {% include "includes/pagintations.html" %}

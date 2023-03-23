@@ -1,9 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
-from django.urls import reverse_lazy
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse_lazy, reverse
 from django.views import generic
-from blog.models import Post, Commentary
+
+from blog.forms import CommentaryForm
+from blog.models import Post
 
 
 class PostCreateView(LoginRequiredMixin, generic.CreateView):
@@ -20,8 +21,8 @@ class PostCreateView(LoginRequiredMixin, generic.CreateView):
 class PostListView(generic.ListView):
     model = Post
     template_name = "blog/post_list.html"
-    context_object_name = "index"
     paginate_by = 5
+    ordering = "-created_time"
 
 
 class PostDetailView(generic.DetailView):
@@ -30,19 +31,18 @@ class PostDetailView(generic.DetailView):
 
 
 class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
-    model = Commentary
-    fields = ["content"]
-    template_name = "blog/post_detail.html"
-    success_url = reverse_lazy("blog:index")
+    def post(self, request, *args, **kwargs):
+        post_id = kwargs["pk"]
+        post_url = reverse("blog:post-detail", kwargs={"pk": post_id})
+        form = CommentaryForm(request.POST)
 
-    def form_valid(self, form) -> HttpResponse:
-        form.instance.user = self.request.user
-        form.instance.post = get_object_or_404(Post, pk=self.kwargs.get("pk"))
-        form.save()
-        return super().form_valid(form)
+        if form.is_valid():
+            content = form.cleaned_data["content"]
 
-    def get_context_data(self, **kwargs) -> dict[str: any]:
-        context = super().get_context_data(**kwargs)
-        context["user"] = self.request.user
-        context["post"] = get_object_or_404(Post, pk=self.kwargs.get("pk"))
-        return context
+            if post_id and content:
+                form.instance.user_id = self.request.user.pk
+                form.instance.post_id = post_id
+                self.success_url = post_url
+                return super().form_valid(form)
+
+        return HttpResponseRedirect(post_url)
