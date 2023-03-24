@@ -5,7 +5,7 @@ from blog.models import User, Post, Commentary
 
 
 @admin.register(User)
-class UserAdmin(admin.ModelAdmin):
+class PostAdmin(admin.ModelAdmin):
     list_display = ["username", "email", "first_name", "last_name"]
 
 
