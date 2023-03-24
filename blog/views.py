@@ -6,6 +6,7 @@ from django.core.paginator import Paginator
 
 from blog.models import Post, Commentary
 
+
 @login_required()
 def index(request):
     post_list = Post.objects.select_related("owner").all()
