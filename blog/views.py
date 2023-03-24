@@ -11,7 +11,7 @@ class PostList(generic.ListView):
     model = Post
     queryset = (
         Post.objects
-        .all().select_related("owner")
+        .select_related("owner")
         .prefetch_related("commentaries")
     )
     paginate_by = 5
