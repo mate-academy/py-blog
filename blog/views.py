@@ -10,6 +10,7 @@ from blog.models import Post
 class PostListView(ListView):
     model = Post
     context_object_name = "post_list"
+    ordering = ["-created_time"]
     queryset = Post.objects.select_related(
         "owner").prefetch_related("commentaries")
     paginate_by = 5
