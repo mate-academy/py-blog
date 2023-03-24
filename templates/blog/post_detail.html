@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p><i>{{ post.owner }} at {{ post.created_time }}</i></p>
+  <p>{{ post.content }}</p>
+
+  <p>{{ post.commentaries.all.count }} comment{{ post.commentaries.all.count|pluralize }}</p>
+  {% if post.commentaries.all.count == 0 %}
+    <p>There are no comments yet.</p>
+  {% endif %}
+
+  {% for post in post.commentaries.all %}
+
+    <table  style="width: 500px; background-color: lightgrey" class="table table-bordered">
+      <thead>
+        <tr>
+          <th>{{ post.user }} <i>{{ post.created_time }}</i></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>{{ post.content }}</td>
+        </tr>
+      </tbody>
+
+    </table>
+  {% endfor %}
+
+  {% if user.is_authenticated %}
+    <form action="" method="post">
+    {% csrf_token %}
+      <label for="content"><b>Add a new comment</b></label>
+      <br>
+      <textarea id="content" name="content" cols="50" rows="5"></textarea>
+
+      <br>
+      <input class="btn btn-primary" type="submit" value="Add comment">
+    </form>
+  {% else %}
+    <p><a href="{% url 'login' %}">Login</a> to add comments :)</p>
+  {% endif %}
+
+{% endblock %}
