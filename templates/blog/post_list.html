@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Post List </h1>
+    {% for post in post_list %}
+      <div class="alert alert-success" style="color: black">
+        <h2><a style="text-decoration: none" href="{% url 'blog:post-detail' pk=post.id%}">{{ post.title }}</a></h2>
+        <p>{{ post.owner }}<i> at {{ post.created_time }}</i></p>
+        <p>{{ post.content }}</p>
+        <p>Comments number: {{ post.commentaries.all.count }}</p>
+      </div>
+    {% endfor %}
+{% endblock %}
