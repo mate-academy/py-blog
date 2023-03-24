@@ -12,7 +12,7 @@
           <strong>
             Created by {{ post.owner }} on {{ post.created_time }} |
             {% if post.commentaries.count %}
-              {{ post.commentaries.count }} comments
+              {{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}
               | Last comment: {{ post.commentaries.last.created_time }}
             {% else %}
               No comments yet
