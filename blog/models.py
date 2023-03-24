@@ -37,3 +37,8 @@ class Commentary(models.Model):
     post = models.ForeignKey(to=Post, on_delete=models.CASCADE)
     created_time = models.DateTimeField()
     content = models.TextField()
+
+    def __str__(self):
+        return f"{self.user.username}'s comment"
+
+
