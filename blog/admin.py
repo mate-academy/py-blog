@@ -6,4 +6,3 @@ from blog.models import Post, Commentary
 admin.site.unregister(Group)
 admin.site.register(Post)
 admin.site.register(Commentary)
-

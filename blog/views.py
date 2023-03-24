@@ -1,25 +1,21 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.core.paginator import Paginator
 
 from blog.models import Post, Commentary
 
-
+@login_required()
 def index(request):
-    posts_list = Post.objects.select_related("owner").all()
-    page = request.GET.get("page", 1)
-    paginator = Paginator(posts_list, 5)
-
-    try:
-        posts = paginator.page(page)
-    except PageNotAnInteger:
-        posts = paginator.page(1)
-    except EmptyPage:
-        posts = paginator.page(paginator.num_pages)
+    post_list = Post.objects.select_related("owner").all()
+    paginator = Paginator(post_list, 5)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
 
     context = {
-        "post_list": posts
+        "post_list": paginator.get_page(page_number),
+        "page_obj": page_obj
     }
 
     return render(request, "blog/index.html", context=context)

@@ -14,8 +14,22 @@
 </head>
 
 <body>
-  <div class="welcome_title">
-    <h1>Welcome to our blog</h1>
+  <div class="top_block">
+    <div class="welcome_title">
+      <h1 style="padding-top: 3px">Welcome to our blog</h1>
+    </div>
+    <div class="registration">
+      {% if user.is_authenticated %}
+      <ul style="padding-top: 5px">
+        <li>User: <a href="{{ user.get_absolute_url }}">{{ user.get_username }}</a></li>
+        <li ><a href="{% url 'logout' %}?next={{request.path}}">Logout</a></li>
+      </ul>
+      {% else %}
+        <ul style="padding-top: 17px">
+          <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
+        </ul>
+      {% endif %}
+    </div>
   </div>
   <div class="content">
     {% block content %}{% endblock %}
