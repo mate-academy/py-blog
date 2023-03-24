@@ -1,11 +1,22 @@
 {% extends "base.html" %}
 {% load crispy_forms_filters %}
 
-{% block title %} <title>Post</title>{% endblock %}
+{% block title %} <title>{{ post.title }}</title>{% endblock %}
 
 {% block content %}
   <h1>{{ post.title }} </h1>
-  <p><small><strong>Created by {{ post.owner }} on {{ post.created_time }} | {{ post.commentaries.count }} comments</strong></small></p>
+  <p>
+    <small>
+    <strong>
+      Created by {{ post.owner }} on {{ post.created_time }} |
+      {% if post.commentaries.count %}
+      {{ post.commentaries.count }} comments
+    {% else %}
+      No comments yet
+    {% endif %}
+    </strong>
+  </small>
+  </p>
   <p>{{ post.content }}</p>
   <hr>
   <h2>Comments</h2>
@@ -22,10 +33,17 @@
   {% else %}
     <p>There are no comments on this post.</p>
   {% endif %}
-  <h2>Add a comment</h2>
-  <form method="post" action="{% url 'blog:add_comment' post.pk %}">
-    {% csrf_token %}
-    {{ form|crispy }}
-    <button type="submit">Submit</button>
-  </form>
+  {% if user.is_authenticated %}
+    <form method="post" action="{% url 'blog:add-comment' pk=post.pk %}" novalidate>
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button type="submit" class="btn btn-primary">Submit comment</button>
+    </form>
+  {% else %}
+    <br>
+    <a href="{% url 'login' %}?next={{ request.path }}"
+       class="btn btn-primary">
+      Login to add comments
+    </a>
+  {% endif %}
 {% endblock %}

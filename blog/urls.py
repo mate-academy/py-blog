@@ -8,7 +8,7 @@ urlpatterns = [
     path(
         "posts/<int:pk>/add_comment/",
         AddCommentView.as_view(),
-        name="add_comment"),
+        name="add-comment"),
 ]
 
 app_name = "blog"

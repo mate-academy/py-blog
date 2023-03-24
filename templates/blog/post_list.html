@@ -8,7 +8,17 @@
       <li>
         <h2><a href="{% url 'blog:post-detail' pk=post.pk %}">{{ post.title }}</a></h2>
         <p>{{ post.content|slice:":135" }}...</p>
-        <small><strong>Created by {{ post.owner }} on {{ post.created_time }} | {{ post.commentaries.count }} comments</strong></small>
+        <small>
+          <strong>
+            Created by {{ post.owner }} on {{ post.created_time }} |
+            {% if post.commentaries.count %}
+              {{ post.commentaries.count }} comments
+              | Last comment: {{ post.commentaries.last.created_time }}
+            {% else %}
+              No comments yet
+            {% endif %}
+          </strong>
+        </small>
       </li>
       <hr>
     {% endfor %}
