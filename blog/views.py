@@ -19,6 +19,7 @@ class PostDetailView(generic.DetailView):
     queryset = Post.objects.prefetch_related("commentaries__user")
 
 
+@login_required
 def commentary_create_view(request, *args, **kwargs):
     if request.method == "POST":
         Commentary.objects.create(
