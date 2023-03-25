@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <h3>Post by {{ post.owner.username }}</h3>
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        {% if post.comments.all %}
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Comment</th>
+                <th>Created at</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for comment in post.comments.all %}
+                <tr>
+                  <td>{{ comment.user.username }}</td>
+                  <td>{{ comment.content }}</td>
+                  <td>{{ comment.created_time }}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <h3>There are no comments</h3>
+        {% endif %}
+        <form method="POST">
+          <p><strong>Add new comment</strong></p>
+          {% csrf_token %}
+          <div class="form-group">
+            <textarea name="content" class="form-control" rows="5"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Add comment</button>
+        </form>
+      </div>
+      <div class="col-md-4">
+        <a href="{% url 'blog:index' %}" class="btn btn-secondary btn-block mb-3">Back to main page</a>
+        <div class="card">
+          <div class="card-header">
+            <h5 class="card-title">Post Details</h5>
+          </div>
+          <div class="card-body">
+            <p class="card-text"><strong>Title:</strong> {{ post.title }}</p>
+            <p class="card-text"><strong>Content:</strong> {{ post.content }}</p>
+            <p class="card-text"><strong>Author:</strong> {{ post.owner.username }}</p>
+            <p class="card-text"><strong>Creation Time:</strong> {{ post.created_time }}</p>
+            <p class="card-text"><strong>Amount of Comments:</strong> {{ post.comments.count }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
