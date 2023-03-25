@@ -4,10 +4,7 @@ from django.db import models
 
 
 class User(AbstractUser):
-    class Meta:
-        default_related_name = "users"
-        verbose_name = "user"
-        verbose_name_plural = "users"
+    pass
 
 
 class Post(models.Model):

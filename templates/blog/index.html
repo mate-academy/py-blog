@@ -34,7 +34,7 @@
               <td>{{ post.content }}</td>
               <td>{{ post.owner.username }}</td>
               <td><span class="text-muted">{{ post.created_time|date:"F j, Y, g:i a" }}</span></td>
-              <td><span class="badge bg-secondary">{{ post.comments.count }}</span></td>
+              <td><span class="badge bg-light" style="font-size: 12px">{{ post.comments_count }}</span></td>
             </tr>
           {% endfor %}
         </tbody>
