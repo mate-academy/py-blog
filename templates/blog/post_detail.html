@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <h3>Created date: {{ post.created_time }}</h3>
+  <h3>Commentaries:</h3>
+  <hr>
+  {% if commentaries %}
+    {% for comment in commentaries %}
+      <h5>
+        User: {{ comment.user }} {{ comment.created_time }}
+        <br>
+        Comment: {{ comment.content }}
+      </h5>
+      <hr>
+    {% endfor %}
+
+  {% endif %}
+
+  <form action="" method="post">
+    {% csrf_token %}
+    <label for="my-input">New comment
+      <input type="text" class="my-input" id="my-input" name="comment">
+    </label>
+    <br>
+    <input type="submit" class="btn btn-primary" value="Submit">
+  </form>
+
+{% endblock %}
