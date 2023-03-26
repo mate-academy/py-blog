@@ -17,6 +17,7 @@ class PostListView(generic.ListView):
 class PostDetailView(FormMixin, generic.DetailView):
     model = Post
     form_class = CommentForm
+    queryset = Post.objects.select_related("owner").prefetch_related("commentaries")
 
     def get_context_data(self, **kwargs):
         context = super(PostDetailView, self).get_context_data(**kwargs)
