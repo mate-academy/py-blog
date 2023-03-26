@@ -1,8 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from django.urls import reverse_lazy
 from django.views import generic
-from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import User, Post, Commentary
 from django.views.generic.edit import FormMixin
 
@@ -52,7 +50,6 @@ class PostListView(generic.ListView):
 class PostDetailView(FormMixin, generic.DetailView):
     model = Post
     template_name = "blog/post_detail.html"
-    form_class = Commentary
 
     def post(self, request):
         form = self.get_form()

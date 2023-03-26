@@ -1,7 +1,6 @@
 from django.urls import path
 
 from .views import (
-    index,
     PostListView,
     PostDetailView,
     CommentaryListView,
@@ -10,7 +9,7 @@ from .views import (
 
 urlpatterns = [
 
-    path("", index, name="index"),
+    path("", PostListView.as_view(), name="index"),
     path(
         "posts/",
         PostListView.as_view(),
