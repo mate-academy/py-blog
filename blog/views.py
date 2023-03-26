@@ -2,7 +2,6 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.views import generic
 from .models import User, Post, Commentary
-from django.views.generic.edit import FormMixin
 
 
 @login_required
@@ -47,17 +46,6 @@ class PostListView(generic.ListView):
     paginate_by = 5
 
 
-class PostDetailView(FormMixin, generic.DetailView):
+class PostDetailView(generic.DetailView):
     model = Post
-    template_name = "blog/post_detail.html"
-
-    def post(self, request):
-        form = self.get_form()
-        if form.is_valid():
-            commentary = form.save(commit=False)
-            commentary.post = self.object
-            commentary.user = request.user
-            commentary.save()
-            return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
+    queryset = Post.objects.prefetch_related("commentaries__user")

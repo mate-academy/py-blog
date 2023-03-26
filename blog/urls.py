@@ -30,6 +30,6 @@ urlpatterns = [
         CommentaryDetailView.as_view(),
         name="commentary-detail",
     ),
-    ]
+]
 
 app_name = "blog"
