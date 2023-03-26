@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>
+      Commentary List
+      <a style="float: right" href="{% url 'blog:commentary-create' %}">Submit</a>
+    </h1>
+
+    {% if commentary_list %}
+      <table class="table">
+        <tr>
+          <th>ID</th>
+          <th>User</th>
+          <th>Create_time</th>
+          <th>Content</th>
+          <th>Create</th>
+          <th>Update</th>
+          <th>Delete</th>
+
+        </tr>
+
+        {% for commentary in commentary_list %}
+            <tr>
+              <td>
+                  {{ commentary.id }}
+              </td>
+              <td>
+                  {{ commentary.user }}
+              </td>
+              <td>
+                  {{ commentary.created_time }}
+              </td>
+              <td>
+                  {{ commentary.content }}
+              </td>
+              <td>
+                  <a href ="{% url "blog:commentary-update" pk=commentary.id %}">Update</a>
+              </td>
+              <td>
+                  <a href ="{% url "blog:commentary-delete" pk=commentary.id %}">Delete</a>
+              </td>
+          </tr>
+        {% endfor %}
+      </table>
+
+    {% else %}
+        <p>There are no commentaries in the blog.</p>
+    {% endif %}
+{% endblock %}

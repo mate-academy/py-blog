@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>User List
+    </h1>
+
+    {% if user_list %}
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>First name</th>
+        <th>Last name</th>
+
+      </tr>
+    {% for user in user_list %}
+      <tr>
+        <td>{{ user.id }}</td>
+        <td><a href="{{ user.get_absolute_url }}">{{ user.username }}</a></td>
+        <td>{{ user.first_name }}</td>
+        <td>{{ user.last_name }}</td>
+
+      </tr>
+    {% endfor %}
+
+    </table>
+    {% else %}
+      <p>There are no users in the service.</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>
+    Username: {{ user.username }}
+  </h1>
+
+  <p><strong>First name:</strong> {{ user.first_name }}</p>
+  <p><strong>Last name:</strong> {{ user.last_name }}</p>
+  <p><strong>Email:</strong> {{ user.email }}</p>
+
+
+  <div class="ml-3">
+    <h4>Posts</h4>
+
+    {% for post in user.posts.all %}
+        <hr>
+        <p><strong>Title:</strong> {{ post.title }}</p>
+        <p><strong>Owner:</strong> {{ post.owner.username }}</p>
+        <p class="text-muted"><strong>Id:</strong> {{post.id}}</p>
+
+    {% empty %}
+      <p>No posts!</p>
+    {% endfor %}
+  </div>
+{% endblock %}

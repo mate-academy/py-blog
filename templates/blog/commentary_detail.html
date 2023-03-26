@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <p>Commentary: ({{ post.commentary.user }}</p>
+  <h1>Users</h1>
+  <hr>
+  <ul>
+  {% for user in post.users.all %}
+    <li>{{ user.username }} ({{ user.first_name }} {{ user.last_name }})</li>
+  {% endfor %}
+  </ul>
+{% endblock %}
