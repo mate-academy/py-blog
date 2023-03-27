@@ -1,0 +1,10 @@
+<ul class="sidebar-nav list-group">
+	{% if user.is_authenticated %}
+		<li class="list-group-item">User: {{ user.first_name }}</li>
+		<li class="list-group-item"><a class="nav-link" href="{% url 'logout' %}">Log out</a></li>
+	{% else %}
+		<li class="list-group-item"><a class="nav-link" href="{% url 'login' %}">Log in</a></li>
+	{% endif %}
+	<br>
+	<li class="list-group-item"><a class="nav-link" href="{% url 'blog:index' %}">Home</a></li>
+</ul>

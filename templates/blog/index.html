@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+  <div class="row justify-content-lg-around-center">
+    <div class="col-md-10">
+      <h1 class="my-4">Blog</h1>
+      {% if post_list %}
+        {% for post in post_list %}
+          <div class="card mb-4">
+            <div class="card-body">
+              <h2 class="card-title">{{ post.title }}</h2>
+              <p class="card-text">{{ post.content }}</p>
+              <p class="card-text">{{ post.created_time }}</p>
+              <p class="card-text font-italic">{{ post.owner }}</p>
+              <p class="card-text">Number of commentaries: {{ post.comments.count }}</p>
+              <a href="{% url 'blog:post-detail' pk=post.id %}" class="btn btn-primary">Read More &rarr;</a>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="alert alert-info" role="alert">
+          No posts yet.
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}
