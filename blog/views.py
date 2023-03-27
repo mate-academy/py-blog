@@ -6,7 +6,7 @@ from blog.models import Post, Commentary
 
 
 def index(request):
-    posts = Post.objects.all().select_related(
+    posts = Post.objects.select_related(
         "owner"
     ).order_by("-created_time")
     paginator = Paginator(posts, 5)
@@ -26,7 +26,7 @@ def index(request):
 
 def post_detail_retrieve_view(request, *args, **kwargs):
     post = Post.objects.select_related("owner").get(**kwargs)
-    commentaries = post.commentaries.all().select_related("user")
+    commentaries = post.commentaries.select_related("user")
     context = {"post": post, "commentaries": commentaries}
     return render(request, "blog/post_detail.html", context=context)
 

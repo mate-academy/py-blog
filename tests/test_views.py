@@ -25,7 +25,7 @@ class PostListTest(TestCase):
 
     def test_main_page_ordered_by_created_time(self):
         response = self.client.get(MAIN_PAGE_URL)
-        post_list = Post.objects.all().order_by("-created_time")
+        post_list = Post.objects.order_by("-created_time")
         post_context = response.context["post_list"]
 
         self.assertEqual(
