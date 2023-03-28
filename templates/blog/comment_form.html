@@ -1,0 +1,7 @@
+{% load crispy_forms_filters %}
+<h2>Add a Comment</h2>
+<form method="post" novalidate>
+  {% csrf_token %}
+  {{ form|crispy }}
+  <button type="submit" class="btn btn-success">Save Comment</button>
+</form>
