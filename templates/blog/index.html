@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+  <h2>Blog main page</h2>
+   {% if posts %}
+    <ul>
+      {% for post in posts %}
+        <li>
+          <h3><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h3>
+          <p>{{ post.content|truncatechars:100 }}</p>
+          <p>Author: {{ post.owner.username }}</p>
+{#          <p>Comments: {{ post.comment_set.count }}</p>#}
+        </li>
+      {% endfor %}
+    </ul>
+    <div class="pagination">
+      <span class="step-links">
+          {% if posts.has_previous %}
+              <a href="?page=1">&laquo; first</a>
+              <a href="?page={{ posts.previous_page_number }}">previous</a>
+          {% endif %}
+
+          <span class="current-page">
+              Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+          </span>
+
+          {% if posts.has_next %}
+              <a href="?page={{ posts.next_page_number }}">next</a>
+              <a href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
+          {% endif %}
+      </span>
+    </div>
+  {% else %}
+    <p>No posts are available.</p>
+  {% endif %}
+  {% block pagination %}
+        {% include "includes/pagination.html" %}
+      {% endblock %}
+
+
+{% endblock %}

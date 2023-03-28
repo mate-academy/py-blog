@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+  <h1>{{ post.title }}</h1>
+  <p>Author: {{ post.owner }}</p>
+  <p>Created on: {{ post.created_time }}</p>
+  <p>Content: {{ post.content }}</p>
+  <p>Number of comments: {{ post.commentary_set.count }}</p>
+
+  <h2>Comments</h2>
+  <ul>
+    {% for comment in post.commentary_set.all %}
+      <li>{{ comment.content }} - {{ comment.user }} - {{ comment.created_time }}</li>
+    {% empty %}
+      <li>No comments yet.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
+
+
+{% block comment_form %}
+{% include "blog/comment_form.html" %}
+{% endblock %}
+

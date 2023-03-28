@@ -1,0 +1,9 @@
+body{
+    margin-top: 40px;
+    margin-left: 40px;
+}
+.comment-field {
+  border: 1px solid #ccc;
+  padding: 8px;
+  border-radius: 4px;
+}
