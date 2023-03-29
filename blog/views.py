@@ -10,13 +10,13 @@ from blog.models import Post
 class PostListView(generic.ListView):
     model = Post
     paginate_by = 5
-    queryset = Post.objects.all().select_related("owner")
+    queryset = Post.objects.select_related("owner")
 
 
 class PostDetailView(generic.DetailView):
     model = Post
     context_object_name = "post_detail"
-    queryset = Post.objects.all().select_related("owner")
+    queryset = Post.objects.select_related("owner")
 
 
 class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
