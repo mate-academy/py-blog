@@ -20,7 +20,7 @@ class Post(models.Model):
         ordering = ["created_time"]
 
     def __str__(self) -> str:
-        return f"{self.title}"
+        return self.title
 
 
 class Commentary(models.Model):
