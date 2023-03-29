@@ -1,27 +1,17 @@
-{% if post_list.has_other_pages %}
-  <nav>
-    <ul class="pagination justify-content-center">
-      {% if post_list.has_previous %}
-        <li class="page-item">
-          <a class="page-link" href="?page={{ post_list.previous_page_number }}">
-            prev
-          </a>
-        </li>
-      {% endif %}
-
-      {% for p in post_list.paginator.page_range %}
-        {% if post_list.number == p %}
-          <li class="page-item"><a class="page-link">{{ p }}</a></li>
-        {% endif %}
-      {% endfor %}
-
-      {% if post_list.has_next %}
-        <li class="page-item">
-          <a class="page-link" href="?page={{ post_list.next_page_number }}">
-            next
-          </a>
-        </li>
-      {% endif %}
+{% if is_paginated %}
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a href="?page= {{ page_obj.previous_page_number }}" class="page-link">prev</a>
+      </li>
+    {% endif %}
+    <li class="page-item active">
+      <span class="page-link">{{ page_obj.number }} of {{ paginator.num_pages }}</span>
+    </li>
+    {% if page_obj.has_next %}
+      <li class="page-item">
+        <a href="?page= {{ page_obj.next_page_number }}" class="page-link">next</a>
+      </li>
+    {% endif %}
   </ul>
-  </nav>
 {% endif %}
