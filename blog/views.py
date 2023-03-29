@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.shortcuts import render
@@ -10,19 +11,11 @@ from blog.forms import CommentaryForm
 from blog.models import Post
 
 
-def index(request):
-    posts = Post.objects.order_by("created_time")
-    paginator = Paginator(object_list=posts, per_page=5)
-
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
-
-    context = {
-        "post_list": posts,
-        "page_obj": page_obj,
-    }
-
-    return render(request, "blog/index.html", context=context)
+class PostListView(generic.ListView):
+    model = Post
+    paginate_by = 5
+    queryset = Post.objects.order_by("created_time")
+    template_name = "blog/index.html"
 
 
 class PostDetailViewWithComment(generic.DetailView, generic.CreateView):
