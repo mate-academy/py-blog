@@ -14,7 +14,6 @@ class PostListView(generic.ListView):
     queryset = Post.objects.select_related(
         "owner"
     ).prefetch_related("commentaries")
-    template_name = "blog/post_list.html"
 
 
 class PostDetailView(generic.DetailView):
@@ -22,7 +21,6 @@ class PostDetailView(generic.DetailView):
     queryset = Post.objects.select_related(
         "owner"
     ).prefetch_related("commentaries__user")
-    template_name = "blog/post_detail.html"
     context_object_name = "post"
 
     def get_context_data(self, **kwargs):

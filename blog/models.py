@@ -52,6 +52,7 @@ class Commentary(models.Model):
         verbose_name_plural = "commentaries"
 
     def __str__(self):
-        return (f"{self.user} commented on "
-                f"'{self.post.title}': {self.content}..."
-                )
+        return (
+            f"{self.user} commented on "
+            f"'{self.post.title}': {self.content}..."
+        )
