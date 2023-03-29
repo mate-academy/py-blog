@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h2>{{ post.title }}</h2>
+  <span>
+    {{ post.owner.first_name }} {{ post.owner.last_name }} at {{ post.created_time }}
+  </span>
+  <br>
+  <div class="post-content">{{ post.content }}</div>
+  <div class="comments-number">
+    {{ post.commentary_set.count }} comment{{ post.commentary_set.count|pluralize }}
+  </div>
+  {% for commentary in post.commentary_set.all %}
+    <div class="commentary">
+      <span>
+        {{ commentary.user.first_name }}
+        {{ commentary.user.last_name }}
+        {{ commentary.created_time }}
+      </span>
+      <hr>
+      <span>{{ commentary.content }}</span>
+    </div>
+  {% endfor %}
+  <div class="comment-add"><span><strong>Add new comment:</strong></span></div>
+  <br>
+  {% if user.id %}
+    <div class="container">
+      <form class="comment-form" method="post" action="">
+          {% csrf_token %}
+          {{ form|crispy }}
+      <button type="submit" class="btn btn-primary">Add Comment</button>
+      </form>
+    </div>
+    {% else %}
+    <span class="warning">You must log in to leave comments</span>
+    {% endif %}
+{% endblock %}
