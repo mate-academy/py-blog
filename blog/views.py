@@ -12,7 +12,7 @@ from blog.models import Post
 
 def index(request):
     posts = Post.objects.order_by("created_time")
-    paginator = Paginator(object_list=posts, per_page=2)
+    paginator = Paginator(object_list=posts, per_page=5)
 
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
@@ -31,10 +31,16 @@ class PostDetailViewWithComment(generic.DetailView, generic.CreateView):
     form_class = CommentaryForm
 
     def get_success_url(self):
-        return reverse_lazy("blog:post-detail", kwargs={"pk": self.kwargs["pk"]})
+        return reverse_lazy(
+            "blog:post-detail", kwargs={"pk": self.kwargs["pk"]}
+        )
 
     def form_valid(self, form):
-        form.instance.post = Post.objects.get(pk=self.kwargs['pk'])
+        form.instance.post = Post.objects.get(
+            pk=self.kwargs["pk"]
+        )
         form.instance.user = self.request.user
-        form.instance.created_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        form.instance.created_time = (
+            datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        )
         return super().form_valid(form)

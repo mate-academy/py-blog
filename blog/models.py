@@ -9,8 +9,14 @@ class User(AbstractUser):
 
 
 class Post(models.Model):
-    owner = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="posts")
-    title = models.CharField(max_length=64)
+    owner = models.ForeignKey(
+        to=settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="posts"
+    )
+    title = models.CharField(
+        max_length=64
+    )
     content = models.CharField(max_length=255)
     created_time = models.CharField(max_length=64)
 
@@ -22,8 +28,14 @@ class Post(models.Model):
 
 
 class Commentary(models.Model):
-    user = models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="commentaries")
-    post = models.ForeignKey(to=Post, on_delete=models.CASCADE, related_name="commentaries")
+    user = models.ForeignKey(
+        to=settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="commentaries",
+    )
+    post = models.ForeignKey(
+        to=Post, on_delete=models.CASCADE, related_name="commentaries"
+    )
     created_time = models.CharField(max_length=64)
     content = models.CharField(max_length=255)
 

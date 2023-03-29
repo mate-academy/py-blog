@@ -7,7 +7,7 @@ from blog.models import User, Post, Commentary
 
 class PostAdmin(admin.ModelAdmin):
     search_fields = ["title"]
-    list_display = ["title", "created_time",  "owner"]
+    list_display = ["title", "created_time", "owner"]
     list_filter = ["owner__username", "created_time"]
 
 
