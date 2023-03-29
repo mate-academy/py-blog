@@ -72,6 +72,7 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = "blog_system.wsgi.application"
 
 
@@ -91,9 +92,9 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth."
-        "password_validation."
-        "UserAttributeSimilarityValidator",
+        "NAME": "django.contrib."
+                "auth.password_validation."
+                "UserAttributeSimilarityValidator",
     },
     {
         "NAME": "django.contrib."
@@ -106,9 +107,9 @@ AUTH_PASSWORD_VALIDATORS = [
                 "CommonPasswordValidator",
     },
     {
-        "NAME": "django.contrib.auth."
-                "password_validation."
-        "NumericPasswordValidator",
+        "NAME": "django.contrib."
+                "auth.password_validation."
+                "NumericPasswordValidator",
     },
 ]
 

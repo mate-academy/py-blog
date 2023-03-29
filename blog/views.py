@@ -1,20 +1,16 @@
-from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
-from django.shortcuts import render, redirect
-from django.views.generic import DetailView
+from django.shortcuts import redirect
+from django.views.generic import DetailView, ListView
 
 from blog.models import Post
 from .forms import CommentForm
 
 
-@login_required
-def index(request):
-    post_list = Post.objects.all().order_by("-created_time")
-    paginator = Paginator(post_list, 5)
-    page = request.GET.get("page")
-    posts = paginator.get_page(page)
-    context = {"post_list": posts}
-    return render(request, "blog/index.html", context)
+class PostListView(ListView):
+    model = Post
+    template_name = "blog/index.html"
+    context_object_name = "post_list"
+    paginate_by = 5
+    ordering = ["-created_time"]
 
 
 class PostDetailView(DetailView):
@@ -34,6 +30,7 @@ class PostDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        post = self.get_object()
         context["form"] = CommentForm()
-        context["comments"] = self.object.commentary_set.all()
+        context["comments"] = post.commentary_set.all()
         return context
