@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <h6 class="text-justify">{{ post.content }}</h6>
+  <p class="text-muted">{{ post.created_time }}</p>
+  <p>Author: {{ post.owner.first_name }}, {{ post.owner.last_name }} ({{ post.owner.username }})</p>
+
+  <hr>
+  <h5>Comments:</h5>
+
+  {% if post.comments.all %}
+    {% for comment in post.comments.all %}
+      <li class="command_mode">
+       {{ comment.id }} {{ comment.content }} ({{ comment.user }}) {{ comment.created_time }}
+      </li>
+    {% endfor %}
+  {% else %}
+    No comments!
+  {% endif %}
+  {% if user.is_authenticated %}
+    <p><a href = "{% url 'blog:commentary-create' post.id %}">Add a new comment</a></p>
+  {% else %}
+    <p>not authorized vizitors can't leave comments</p>
+  {% endif %}
+{% endblock %}
