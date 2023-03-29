@@ -32,5 +32,3 @@ class PostDetailView(generic.DetailView):
                 user_id=self.request.user.id
             )
             return redirect("blog:post-detail", pk=self.object.pk)
-        else:
-            return render(request, "")
