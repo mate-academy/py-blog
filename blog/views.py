@@ -17,23 +17,38 @@ class PostListView(generic.ListView):
     )
 
 
-def post_detail_view(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    comments = Commentary.objects.filter(post=post).select_related("user")
-    user = request.user
-    form = CommentaryForm(request.POST or None)
+class PostDetailView(generic.View):
+    template_name = "blog/post_detail.html"
 
-    if request.method == "POST":
+    def get(self, request, pk):
+        post = get_object_or_404(Post, pk=pk)
+        comments = Commentary.objects.filter(post=post).select_related("user")
+        form = CommentaryForm()
+
+        context = {
+            "post": post,
+            "comments": comments,
+            "form": form,
+        }
+
+        return render(request, self.template_name, context=context)
+
+    def post(self, request, pk):
+        post = get_object_or_404(Post, pk=pk)
+        comments = Commentary.objects.filter(post=post).select_related("user")
+        user = request.user
+        form = CommentaryForm(request.POST or None)
+
         if form.is_valid():
             comment = form.save(commit=False)
             comment.post = post
             comment.user = user
             comment.save()
 
-    context = {
-        "post": post,
-        "comments": comments,
-        "form": form,
-    }
+        context = {
+            "post": post,
+            "comments": comments,
+            "form": form,
+        }
 
-    return render(request, "blog/post_detail.html", context=context)
+        return render(request, self.template_name, context=context)
