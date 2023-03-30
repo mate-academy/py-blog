@@ -1,4 +1,7 @@
 venv
 pycache
 .idea
-.sqlite3
+db.sqlite3
+*.pyc
+*~
+*.swp
