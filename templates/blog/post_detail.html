@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div style="background-color: white; border: 0;" class="post">
+
+    <div class="post-title">
+      <h1>{{ post.title }}</h1>
+      <p><strong>@{{ post.owner.username }} </strong> at {{ post.created_time }}</p>
+    </div>
+
+    <div class="post-content">
+      <p>{{ post.content }}</p>
+    </div>
+
+    <br>
+
+    <div class="post-comments">
+      <strong style="color: #484545">{{ post.commentary_set.count }} comment{{ post.commentary_set.count|pluralize }}</strong>
+    </div>
+
+    <div class="comments">
+      {% for comment in post.commentary_set.all %}
+        <div class="comment">
+          <p><strong> {{ comment.user.username }} </strong> {{ comment.created_time }}</p>
+          <div class="line"></div>
+          <p>{{ comment.content }}</p>
+        </div>
+      {% endfor %}
+    </div>
+
+    <br><br><br>
+
+    <div class="leave_comment">
+      <strong>Add new comment</strong>
+      {% if user.is_authenticated %}
+        <form method="POST">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <input type="hidden" value="{{ post.id }}" name="post_id">
+          <input type="hidden" value="{{ user.id }}" name="user_id">
+
+          <input type="submit" value="Submit">
+
+          <br><br><br><br>
+        </form>
+      {% else %}
+        <br><br>
+        <p>To leave your comment you have to log in <a href="{% url "login" %}">Login</a></p>
+        <br><br><br><br>
+      {% endif %}
+
+    </div>
+
+  </div>
+
+
+{% endblock %}
