@@ -39,9 +39,7 @@ class PostCreateView(LoginRequiredMixin, generic.CreateView):
     success_url = reverse_lazy("blog:index")
 
     def form_valid(self, form) -> HttpResponse:
-        # post = form.save(commit=False)
         form.instance.owner = self.request.user
-        # post.save()
         return super().form_valid(form)
 
 
