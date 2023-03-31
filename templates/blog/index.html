@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+<br>
+{% block search %}
+{% include "includes/search.html" %}
+{% endblock %}
+<br>
+{% if user.is_authenticated %}
+<a href="{% url 'blog:post-create' %}"
+     class="btn btn-primary">
+    <strong> Create post </strong>
+</a>
+<br>
+<br>
+{% else %}
+<div>
+  <a href="{% url 'login' %}">Please log in to create a new post</a>
+</div>
+<br>
+{% endif %}
+
+<br>
+{% for post in post_list %}
+<h2>
+  <a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a>
+</h2>
+<div class="detail">{{ post.owner }} at {{ post.created_time }}</div>
+<br>
+
+<div class="post">
+  {{ post.content }}
+  <br>
+  <br>
+  <div> Comments: {{post.comment.all.count}}</div>
+</div>
+<br>
+<br>
+{% endfor %}
+{% endblock %}

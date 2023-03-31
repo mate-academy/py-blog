@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {% block title %}<title>Blog</title>{% endblock %}
+  <link rel="icon" type="image/x-icon" href="https://i.postimg.cc/MTZgQwdB/smiley1.jpg">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+        crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=fire">
+  <!-- Add additional CSS in static file -->
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body id="page-top">
+<header class="header sticky-top">
+      <span class="logo font-effect-fire">
+        Blog
+        <a href="{% url 'blog:index' %}" class="nav__link">
+        <img src="https://i.postimg.cc/0yzCK0jY/homie.jpg" alt="home_page">
+      </a>
+      </span>
+      <span class="space">more extra</span>
+      {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}?next={{ request.path }}">Log out </a>
+        <img src="https://i.postimg.cc/dQdffv9M/exit.jpg" alt="home_page">
+      {% else %}
+        <a href="{% url 'blog:user-create' %}" class="nav__link">Sign Up</a>
+      {% endif %}
+
+</header>
+
+<main class="main">
+  <br>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-1">
+      </div>
+      <div class="col-sm-5">
+
+        {% block content %}{% endblock %}
+
+        {% block pagination %}
+          {% include "includes/pagination.html" %}
+        {% endblock %}
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="footer fixed-bottom">
+  Discover ideas!
+</footer>
+</body>
+</html>
