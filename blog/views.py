@@ -1,3 +1,4 @@
+from blog.forms import CommentaryForm
 from blog.models import Post, Commentary
 from django.views import generic
 from django.urls import reverse_lazy
@@ -14,6 +15,7 @@ class PostDetailView(generic.DetailView):
 
 
 class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
+    form_class = CommentaryForm
     model = Commentary
-    fields = "__all__"
+    fields = "content"
     success_url = reverse_lazy("blog:post-detail")
