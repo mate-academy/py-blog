@@ -6,9 +6,9 @@ urlpatterns = [
     path("", PostListView.as_view(), name="index"),
     path("posts/<int:pk>/", PostDetailView.as_view(), name="post-detail"),
     path(
-        "comments/create/",
+        "posts/<int:pk>/comment/",
         CommentaryCreateView.as_view(),
-        name="commentary-create"
+        name="post-comment"
     ),
 ]
 

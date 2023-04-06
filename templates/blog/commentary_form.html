@@ -1,0 +1,16 @@
+{% load crispy_forms_filters %}
+
+{% if user.is_authenticated %}
+  <div class="card mt-4">
+    <div class="card-header bg-primary text-white">
+      <h4>Add a new comment</h4>
+    </div>
+    <div class="card-body">
+      <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary mt-2">Add Comment</button>
+      </form>
+    </div>
+  </div>
+{% endif %}
