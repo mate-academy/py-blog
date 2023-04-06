@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block body_class %}bg-light{% endblock %}
+
+{% block content %}
+  <h1 class="display-5 text-center my-4">Posts</h1>
+<div class="row mx-auto">
+    <div class="col-md-1">
+        <h1 class="display-4 mb-4">{{ post.title }}</h1>
+        <p>{{ post.content }}</p>
+    </div>
+    <div class="col-md-10">
+        {% for post in post_list %}
+        <div class="card shadow mb-3 bg-light">
+            <div class="card-body">
+                <h5 class="card-title">{{ post.title }}</h5>
+                <p class="card-text text-secondary">
+                    Posted by <strong>{{ post.owner }}</strong> at {{ post.created_time|date:"F j, Y, g:i a" }}
+                </p>
+                <p class="card-text">{{ post.content|truncatechars:100 }}</p>
+                <a href="{% url 'blog:post-detail' pk=post.id %}" class="btn btn-primary">Read more</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
