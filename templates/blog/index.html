@@ -7,45 +7,33 @@
 
 
 {% block content %}
-  <h1>Welcome to Blog</h1>
-  <br>
-  <h4>Last posted:</h4>
-  <hr>
+  <div class="column">
   {% if post_list %}
     <div class="post_list-list">
       {% for post in post_list %}
-          <h3>
+        <div class="box">
+          <h3 class="title is-3">
             <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
           </h3>
           <h5>
             by <a href="{{ post.owner.get_absolute_url }}">{{ post.owner.username }}</a>
-            {% if post.owner == user %}(you){% endif %}
+            {% if post.owner == user %} - you {% endif %}
+            <span class="is-small has-text-grey-light">
+              ({{ post.created_time }})
+            </span>
           </h5>
-          <p class="text-muted">publish date: {{ post.created_time }}</p>
+          <hr>
           <p>{{ post.content|truncatewords:50 }}</p>
           <br>
-          <p>{{ post.comments__count }} comment{{ post.comments__count|pluralize }}</p>
-          <hr>
+          <span class="is-small has-text-grey-light">
+            {{ post.comments__count }} comment{{ post.comments__count|pluralize }}
+          </span>
+        </div>
       {% endfor %}
     </div>
-    {% if post_list.has_other_pages %}
-      <ul class="pagination justify-content-center">
-        {% if post_list.has_previous %}
-          <li class="page-item">
-            <a href="?page= {{ post_list.previous_page_number }}" class="page-link">prev</a>
-          </li>
-        {% endif %}
-        <li class="page-item active">
-          <span class="page-link">{{ post_list.number }} of {{ post_list.paginator.num_pages }}</span>
-        </li>
-        {% if post_list.has_next %}
-          <li class="page-item">
-            <a href="?page= {{ post_list.next_page_number }}" class="page-link">next</a>
-          </li>
-        {% endif %}
-      </ul>
-  {% endif %}
     {% else %}
       <p>There are no posts yet.</p>
   {% endif %}
+  
+</div>
 {% endblock %}

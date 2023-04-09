@@ -1,53 +1,71 @@
 {% extends "base.html" %}
-{% load crispy_forms_tags %}
 
 {% block title %}
   Post {{ post.id }}: {{ post.title }}
 {% endblock %}
 
 {% block content %}
-  <p class="text-muted">post # {{ post.id }}</p>
-  <h2>{{ post.title }}</h2>
-  <p>
+<div class="column">
+  <div class="box">
+  <p>post # {{ post.id }}</p>
+  <br>
+  <h1 class="title">{{ post.title }}</h1>
+  <h2 class="subtitle-4">
+    by
     {% if post.owner == user %}
-      You posted
+      You
     {% else %}
-      Posted by <a href="{{ post.owner.get_absolute_url }}">{{ post.owner }}</a>
+      <a href="{{ post.owner.get_absolute_url }}">{{ post.owner }}</a>
     {% endif %}
-  </p>
-  <p>on: {{ post.created_time }}</p>
+     on: {{ post.created_time }}
+  </h2>
   <hr>
   <p>{{ post.content }}</p>
-  <hr>
-  <p>{{ post.comments__count }} comment{{ post.comments__count|pluralize }}</p>
+</div>
+
+<p>{{ post.comments__count }} comment{{ post.comments__count|pluralize }}</p>
+<hr>
   {% if comments %}
-    <ul>
-      {% for comment in comments %}
-      <li>
-        <li class="list-group-item">
-          #{{ comment.id }} by 
-          {% if comment.user == user %}
-            <strong>You </strong>
-          {% else %}
-            <a href="{{ comment.user.get_absolute_url }}">{{ comment.user.username }}</a> 
-          {% endif %}
-          {{ comment.created_time }}
-        </li>
-        <li class="list-group-item">{{ comment.content }}</li>
-      </li>
-      {% endfor %}
-    </ul>
+    {% for comment in comments %}
+      <div class="box">
+        <article class="media">
+          <div class="media-left">
+            <figure class="image is-64x64">
+              <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
+            </figure>
+          </div>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong>
+                  {% if comment.user == user %}
+                    You
+                  {% else %}
+                    <a href="{{ comment.user.get_absolute_url }}">{{ comment.user.username }}</a> 
+                  {% endif %}
+                </strong> <small>{{ comment.created_time }}</small>
+                <br>
+                {{ comment.content }}
+              </p>
+          </div>
+        </article>
+      </div>
+    {% endfor %}
   {% else %}
     <p>There are no comments yet.</p>
+    <br>
   {% endif %}
-  {% if user.is_authenticated %}
-    <p><strong>Add a new comment</strong></p>
-    <form method="post">
-      {% csrf_token %}
-      {{ form|crispy }}
-      <input type="submit" value="add comment" class="btn btn-primary">
-    </form>
-  {% else %}
-    <p>You need to <a href="{% url 'login' %}">log in</a> to post comments!</p>
-  {% endif %}
+  <div class="block">
+    {% if user.is_authenticated %}
+      <p><strong>Add a new comment</strong></p>
+      <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="add comment" class="button is-success">
+      </form>
+    {% else %}
+      <p>You need to <a href="{% url 'login' %}">log in</a> to post comments!</p>
+    {% endif %}
+  </div>
+</div>
 {% endblock %}
