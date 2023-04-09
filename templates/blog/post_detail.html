@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+  Post {{ post.id }}: {{ post.title }}
+{% endblock %}
+
+{% block content %}
+  <p class="text-muted">post # {{ post.id }}</p>
+  <h2>{{ post.title }}</h2>
+  <p>
+    {% if post.owner == user %}
+      You posted
+    {% else %}
+      Posted by <a href="{{ post.owner.get_absolute_url }}">{{ post.owner }}</a>
+    {% endif %}
+  </p>
+  <p>on: {{ post.created_time }}</p>
+  <hr>
+  <p>{{ post.content }}</p>
+  <hr>
+  <p>{{ post.comments__count }} comment{{ post.comments__count|pluralize }}</p>
+  {% if comments %}
+    <ul>
+      {% for comment in comments %}
+      <li>
+        <li class="list-group-item">
+          #{{ comment.id }} by 
+          {% if comment.user == user %}
+            <strong>You </strong>
+          {% else %}
+            <a href="{{ comment.user.get_absolute_url }}">{{ comment.user.username }}</a> 
+          {% endif %}
+          {{ comment.created_time }}
+        </li>
+        <li class="list-group-item">{{ comment.content }}</li>
+      </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no comments yet.</p>
+  {% endif %}
+  {% if user.is_authenticated %}
+    <p><strong>Add a new comment</strong></p>
+    <form method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="submit" value="add comment" class="btn btn-primary">
+    </form>
+  {% else %}
+    <p>You need to <a href="{% url 'login' %}">log in</a> to post comments!</p>
+  {% endif %}
+{% endblock %}
