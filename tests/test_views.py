@@ -5,7 +5,6 @@ from blog.models import Post, Commentary
 MAIN_PAGE_URL = reverse("blog:index")
 PAGINATION = 5
 
-
 class PostListTest(TestCase):
     fixtures = [
         "blog_system_db_data.json",
