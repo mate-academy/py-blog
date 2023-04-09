@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load crispy_forms_filters %}
 {% block content %}
 	<div class="container-fluid">
 		<h2 class="text-center">{{ post.title }}</h2>
@@ -25,7 +24,7 @@
 	<br>
 	<form action="{% url 'blog:post-detail' post.id %}" method="post">
 		{% csrf_token %}
-		{{ form|crispy }}
+		{{ form.as_p }}
 		<input type="submit" value="Add comment" class="btn btn-primary">
 	</form>
 {% endblock %}
