@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
 from django.db.models import Count
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 
@@ -17,21 +17,15 @@ def index(request: HttpRequest) -> HttpResponse:
         Post.objects.select_related("owner")
         .annotate(Count("comments")).order_by("-created_time")
     )
-    page = request.GET.get("page", 1)
     paginator = Paginator(posts_list, 5)
-
-    try:
-        posts = paginator.page(page)
-    except PageNotAnInteger:
-        posts = paginator.page(1)
-    except EmptyPage:
-        posts = paginator.page(paginator.num_pages)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
     context = {
         "num_users": num_users,
         "num_posts": num_posts,
         "num_comments": num_comments,
-        "post_list": posts,
+        "post_list": page_obj,
     }
 
     return render(request, "blog/index.html", context)
