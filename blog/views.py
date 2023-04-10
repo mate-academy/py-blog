@@ -33,5 +33,6 @@ class PostDetailView(DetailView):
             Commentary.objects.create(
                 user_id=request.user.id,
                 content=request.POST["content"],
-                post_id=kwargs["pk"])
+                post_id=kwargs["pk"]
+            )
         return redirect("blog:post-detail", pk=kwargs["pk"])
