@@ -1,0 +1,21 @@
+{% if post_list.has_other_pages %}
+<div class="column is-half is-offset-one-quarter">
+  <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+    {% if post_list.has_previous %}
+      <a class="pagination-previous" href="?page= {{ post_list.previous_page_number }}">Previous</a>
+    {% else %}
+      <a class="pagination-previous is-disabled">Previous</a>
+    {% endif %}
+    {% if post_list.has_next %}
+      <a class="pagination-next" href="?page= {{ post_list.next_page_number }}">Next page</a>
+    {% else %}
+      <a class="pagination-next is-disabled">Next page</a>
+    {% endif %}
+    <ul class="pagination-list">
+      <li class="page-item active">
+        <span class="page-link">{{ post_list }}</span>
+      </li>
+    </ul>
+  </nav>
+</div>
+{% endif %}
