@@ -8,7 +8,7 @@ from blog_system import settings
 class User(AbstractUser):
 
     def __str__(self) -> str:
-        return f"{self.username}"
+        return self.username
 
     def get_absolute_url(self):
         return reverse("blog:user-detail", kwargs={"pk": self.pk})
@@ -25,7 +25,7 @@ class Post(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
-        return f"{self.title}"
+        return self.title
 
     def get_absolute_url(self):
         return reverse("blog:post-detail", kwargs={"pk": self.pk})
