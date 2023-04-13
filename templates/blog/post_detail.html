@@ -1,0 +1,25 @@
+{% extends "base.html"%}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h2><b>{{ post.title }}</b></h2>
+  <p>{{ post.owner }} {{ post.created_time }}</p>
+  <h5>{{ post.content }}</h5>
+  <br>
+  <p>{{ num_commentaries}} comment{{ num_commentaries|pluralize }}</p>
+  {% for comment in post.commentaries.all %}
+    <p>{{ comment.user }} {{ comment.created_time }}</p>
+    <p>{{ comment.content }}</p>
+  {% endfor %}
+  {% if add_comment_form %}
+  <b>Add a new comment</b>
+  <form action="{% url 'blog:add-comment' pk=post.id %}" method="post">
+    {% csrf_token %}
+    {{ add_comment_form|crispy }}
+    <input type="submit" value="Add comment" class="btn btn-primary">
+  </form>
+  {% else %}
+    <b>Only authorized users can post comments</b>
+  {% endif %}
+
+{% endblock %}
