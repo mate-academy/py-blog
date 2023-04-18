@@ -18,16 +18,14 @@ class PostDetailView(LoginRequiredMixin, generic.DetailView):
 
     def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data()
-        context['commentary_form'] = CommentaryForm()
+        context["commentary_form"] = CommentaryForm()
 
         return context
 
     def post(self, request: HttpRequest, pk: int) -> redirect:
         if self.request.method == "POST":
             Commentary.objects.create(
-                user=request.user,
-                post_id=pk,
-                content=request.POST["content"]
+                user=request.user, post_id=pk, content=request.POST["content"]
             )
         return redirect("blog:post-detail", pk=pk)
 
