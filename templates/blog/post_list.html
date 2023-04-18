@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Blog</title>
+{% endblock %}
+
+{% block content %}
+  <h1>Welcome to the Blog</h1>
+  <br>
+  {% for post in post_list %}
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title"><a href="{% url 'blog:post-detail' pk=post.pk %}">
+          {{ post.title }}
+        </a></h5>
+        <p class="card-text">{{ post.content }}</p>
+        <p class="text-muted">By {{ post.owner }} ({{ post.created_time }})</p>
+        <p class="text-muted">Commentaries: {{ post.comments.count }}</p>
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}

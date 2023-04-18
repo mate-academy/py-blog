@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>{{ object.title }}</h1>
+  <p>{{ object.content }}</p>
+  <hr>
+  <h5>Comments</h5>
+  <ul>
+    {% for comment in object.comments.all %}
+      <div class="card">
+        <div class="card-body">
+          <p>{{ comment.user.username }}</p>
+          <p class="card-text">{{ comment.content }}</p>
+          <p class="text-muted">{{ comment.created_time }}</p>
+        </div>
+      </div>
+    {% empty %}
+      <p>No comments yet.</p>
+    {% endfor %}
+  </ul>
+  <hr>
+  <h5>Add a comment</h5>
+  <form method="post">
+    {% csrf_token %}
+    {{ commentary_form|crispy }}
+    <br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+{% endblock %}

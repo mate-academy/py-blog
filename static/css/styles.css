@@ -1,0 +1,17 @@
+body {
+    margin: 20px;
+}
+
+.nav-ul {
+    list-style: none;
+    padding: 0;
+}
+
+.card {
+    margin: 15px 0;
+}
+
+.post-info {
+    font-style: italic;
+    text-decoration: underline;
+}
