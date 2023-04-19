@@ -26,23 +26,15 @@ class PostDetailView(FormMixin, generic.DetailView):
 
     def post(self, request, *args, **kwargs) -> render:
         self.object = self.get_object()
-        if request.method == "GET":
-            return render(
-                request,
-                "blog/post_detail.html",
-                context=self.get_context_data()
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            Commentary.objects.create(
+                user_id=request.POST["user_id"],
+                post_id=request.POST["post_id"],
+                content=request.POST["content"],
             )
-
-        if request.method == "POST":
-            form = CommentForm(request.POST)
-            if form.is_valid():
-                Commentary.objects.create(
-                    user_id=request.POST["user_id"],
-                    post_id=request.POST["post_id"],
-                    content=request.POST["content"],
-                )
-            return render(
-                request,
-                "blog/post_detail.html",
-                context=self.get_context_data(**kwargs)
-            )
+        return render(
+            request,
+            "blog/post_detail.html",
+            context=self.get_context_data(**kwargs)
+        )
