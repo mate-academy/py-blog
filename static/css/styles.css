@@ -1,0 +1,16 @@
+body {
+    margin: 20px;
+}
+
+.card {
+    margin: 10px auto;
+    padding-top: 10px;
+}
+
+.pagination {
+   justify-content: center;
+}
+
+.extra-p {
+    padding: 5px 0 0 20px;
+}
