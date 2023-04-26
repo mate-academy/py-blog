@@ -27,29 +27,10 @@ class PostDetailView(generic.DetailView):
         context["form"] = self.form_class()
         return context
 
-    # def post(self, request, *args, **kwargs):
-    #     self.success_url = reverse_lazy(
-    #     "blog:post-detail", kwargs={"pk": kwargs["pk"]})
-    #     # form = self.form_class(request.POST)
-    #     # if form.is_valid():
-    #     #     return self.form_valid(form)
-    #     return super().post(request, *args, **kwargs)
-
-    # def form_valid(self, form):
-    #     # commentary = form.save(commit=False)
-    #     # commentary.user = self.request.user
-    #     # commentary.post = self.get_object()
-    #     # commentary.save()
-    #     # super().form_valid(form)
-    #     form.initial["user"] = self.request.user
-    #     form.initial["post"] = self.get_object()
-    #     return super().form_valid(form)
-
 
 class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
     model = Commentary
     form_class = CommentaryForm
-    # template_name = "blog/commentary_form.html"
     queryset = Commentary.objects.all().prefetch_related("user__posts")
 
     def post(self, request, *args, **kwargs):
