@@ -7,15 +7,15 @@ from blog.forms import CommentaryForm
 from blog.models import Post, Commentary
 
 
-class PostListView(LoginRequiredMixin, generic.ListView):
+class PostListView(generic.ListView):
     model = Post
-    context_object_name = "post_list"
     template_name = "blog/index.html"
-    paginate_by = 5
+    context_object_name = "post_list"
     queryset = Post.objects.all().prefetch_related("owner__commentaries")
+    paginate_by = 5
 
 
-class PostDetailView(LoginRequiredMixin, generic.DetailView):
+class PostDetailView(generic.DetailView):
     model = Post
     form_class = CommentaryForm
     template_name = "blog/post_detail.html"
@@ -23,12 +23,13 @@ class PostDetailView(LoginRequiredMixin, generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(PostDetailView, self).get_context_data(**kwargs)
-        if self.request.user.is_authenticated:
-            context["form"] = self.form_class()
+        # if self.request.user.is_authenticated:
+        context["form"] = self.form_class()
         return context
 
     # def post(self, request, *args, **kwargs):
-    #     self.success_url = reverse_lazy("blog:post-detail", kwargs={"pk": kwargs["pk"]})
+    #     self.success_url = reverse_lazy(
+    #     "blog:post-detail", kwargs={"pk": kwargs["pk"]})
     #     # form = self.form_class(request.POST)
     #     # if form.is_valid():
     #     #     return self.form_valid(form)
@@ -48,7 +49,7 @@ class PostDetailView(LoginRequiredMixin, generic.DetailView):
 class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
     model = Commentary
     form_class = CommentaryForm
-    template_name = "blog/commentary_form.html"
+    # template_name = "blog/commentary_form.html"
     queryset = Commentary.objects.all().prefetch_related("user__posts")
 
     def post(self, request, *args, **kwargs):
@@ -59,4 +60,7 @@ class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
             comment.user = user
             comment.post = Post.objects.get(id=kwargs["pk"])
             comment.save()
+        return redirect(reverse("blog:post-detail", args=[kwargs["pk"]]))
+
+    def get(self, request, *args, **kwargs):
         return redirect(reverse("blog:post-detail", args=[kwargs["pk"]]))

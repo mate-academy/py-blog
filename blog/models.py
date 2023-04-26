@@ -24,7 +24,11 @@ class Post(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField()
     created_time = models.DateTimeField(auto_now=True)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
+    owner = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="posts"
+    )
 
     class Meta:
         ordering = ["-created_time"]
@@ -32,7 +36,8 @@ class Post(models.Model):
     def __str__(self):
         return (
             f"Owner: {self.owner.username}\n"
-            f"(Title: {self.title}, created time: {self.created_time.strftime('%d.%m.%Y (%H:%M)')})"
+            f"(Title: {self.title}, created time: "
+            f"{self.created_time.strftime('%d.%m.%Y (%H:%M)')})"
         )
 
     def get_absolute_url(self):
@@ -40,8 +45,12 @@ class Post(models.Model):
 
 
 class Commentary(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="commentaries")
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="commentaries")
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="commentaries"
+    )
+    post = models.ForeignKey(
+        Post, on_delete=models.CASCADE, related_name="commentaries"
+    )
     created_time = models.DateTimeField(auto_now=True)
     content = models.TextField(verbose_name="Comment")
 
@@ -54,10 +63,10 @@ class Commentary(models.Model):
     def __str__(self):
         return (
             f"Post: {self.post.title}\n"
-            f"(Who: {self.user.username}, created time: {self.created_time.strftime('%d/%m/%y (%H:%M)')})\n"
+            f"(Who: {self.user.username}, created time: "
+            f"{self.created_time.strftime('%d/%m/%y (%H:%M)')})\n"
             f"({self.content})"
         )
 
     def get_absolute_url(self):
         return reverse("blog:post-detail", kwargs={"pk": self.post.pk})
-

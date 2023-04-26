@@ -25,7 +25,10 @@ class UserBlogAdmin(UserAdmin):
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     search_fields = ("title",)
-    list_filter = ("created_time", "owner", )
+    list_filter = (
+        "created_time",
+        "owner",
+    )
 
 
 @admin.register(Commentary)
