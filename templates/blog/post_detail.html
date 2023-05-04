@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>{{ post.title }} </h1>
+  <h6>
+    Posted by {{ post.owner }} on
+    {{ post.created_time }}
+  </h6>
+  <p>{{ post.content }}</p>
+  <h5>{{ post.comments.count }} comments:</h5>
+  {% if post.comments %}
+    {% for comment in post.comments.all %}
+      <li style="border-radius: 8px" class="list-group-item"><strong>User:</strong> {{ comment.user }} <date>{{ comment.created_time }}</date>
+        <br>{{ comment.content }} </li>
+    <br>
+    {% endfor %}
+    {% if user.is_authenticated %}
+      <form method="post" >
+        {% csrf_token %}
+        {{ commentary_form|crispy }}
+        <input type="submit" class="btn btn-primary">
+      </form>
+      {% else %}
+      <strong>To leave a comment, please log in first</strong>
+    {% endif %}
+    <br>
+  {% endif %}
+{% endblock %}
