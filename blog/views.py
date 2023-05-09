@@ -11,7 +11,7 @@ class PostListView(generic.ListView):
     template_name = "blog/index.html"
     context_object_name = "post_list"
     paginate_by = 5
-    queryset = Post.objects.all().select_related("owner")
+    queryset = Post.objects.select_related("owner")
 
 
 class PostDetailView(generic.DetailView):
