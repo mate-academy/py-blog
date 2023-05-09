@@ -1,0 +1,16 @@
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark fixed-top justify-content-between">
+  <ul class="navbar-nav">
+    <li class="nav-item active">
+      <a class="nav-link" href="{% url 'blog:index' %}"><h3>Home</h3></a>
+    </li>
+  </ul>
+
+  <ul class="sidebar-nav list-group list-group-horizontal">
+  {% if user.is_authenticated %}
+    <li class="list-group-item">User: <a href="{{ user.get_absolute_url }}">{{ user.get_username }}</a></li>
+    <li class="list-group-item"><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+  {% else %}
+    <li class="list-group-item"><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+  {% endif %}
+  </ul>
+</nav>
