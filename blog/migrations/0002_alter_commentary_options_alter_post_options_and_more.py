@@ -6,60 +6,71 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('blog', '0001_initial'),
+        ("blog", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='commentary',
-            options={'ordering': ['created_time']},
+            name="commentary",
+            options={"ordering": ["created_time"]},
         ),
         migrations.AlterModelOptions(
-            name='post',
-            options={'ordering': ['created_time']},
+            name="post",
+            options={"ordering": ["created_time"]},
         ),
         migrations.RemoveField(
-            model_name='commentary',
-            name='users',
+            model_name="commentary",
+            name="users",
         ),
         migrations.AddField(
-            model_name='commentary',
-            name='created_time',
+            model_name="commentary",
+            name="created_time",
             field=models.CharField(default=345, max_length=255),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='commentary',
-            name='user',
-            field=models.ForeignKey(default=1988, on_delete=django.db.models.deletion.CASCADE, related_name='commentaries', to=settings.AUTH_USER_MODEL),
+            model_name="commentary",
+            name="user",
+            field=models.ForeignKey(
+                default=1988,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="commentaries",
+                to=settings.AUTH_USER_MODEL,
+            ),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='post',
-            name='created_time',
+            model_name="post",
+            name="created_time",
             field=models.CharField(default=1980, max_length=255),
             preserve_default=False,
         ),
         migrations.AlterField(
-            model_name='commentary',
-            name='content',
+            model_name="commentary",
+            name="content",
             field=models.TextField(blank=True, null=True),
         ),
         migrations.AlterField(
-            model_name='commentary',
-            name='post',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='commentaries', to='blog.post'),
+            model_name="commentary",
+            name="post",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="commentaries",
+                to="blog.post",
+            ),
         ),
         migrations.AlterField(
-            model_name='post',
-            name='content',
+            model_name="post",
+            name="content",
             field=models.TextField(),
         ),
         migrations.AlterField(
-            model_name='post',
-            name='owner',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            model_name="post",
+            name="owner",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]

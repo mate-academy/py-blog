@@ -22,6 +22,7 @@ def index(request):
 
     return render(request, "blog/index.html", context=context)
 
+
 class PostDetailView(generic.DetailView):
     model = Post
 
@@ -29,14 +30,18 @@ class PostDetailView(generic.DetailView):
 class CommentaryDetailView(generic.DetailView):
     model = Commentary
 
+
 class PostListView(generic.ListView):
     model = Post
-    queryset = Post.objects.all().select_related("owner").prefetch_related("commentaries")
+    queryset = (
+        Post.objects.all()
+        .select_related("owner")
+        .prefetch_related("commentaries")
+    )
     paginate_by = 5
 
 
 class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
-
     def post(self, request, *args, **kwargs):
         post_id = kwargs["pk"]
         post_url = reverse("blog:post-detail", kwargs={"pk": post_id})
