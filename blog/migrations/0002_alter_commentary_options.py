@@ -4,14 +4,16 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('blog', '0001_initial'),
+        ("blog", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='commentary',
-            options={'verbose_name': 'Commentary', 'verbose_name_plural': 'Commentaries'},
+            name="commentary",
+            options={
+                "verbose_name": "Commentary",
+                "verbose_name_plural": "Commentaries",
+            },
         ),
     ]

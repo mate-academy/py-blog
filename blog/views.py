@@ -10,7 +10,11 @@ from blog.models import Post, Commentary
 
 
 def index(request):
-    posts = Post.objects.all().prefetch_related("commentaries").order_by("-created_time")
+    posts = (
+        Post.objects.all().prefetch_related(
+            "commentaries"
+        ).order_by("-created_time")
+    )
 
     paginator = Paginator(posts, 5)
     page_number = request.GET.get("page")
@@ -21,7 +25,11 @@ def index(request):
         "page_obj": page_obj,
     }
 
-    return render(request=request, template_name="blog/index.html", context=context)
+    return render(
+        request=request,
+        template_name="blog/index.html",
+        context=context
+    )
 
 
 class PostDetailView(FormMixin, DetailView):
@@ -29,7 +37,7 @@ class PostDetailView(FormMixin, DetailView):
     form_class = CommentCreate
 
     def get_success_url(self):
-        return reverse('blog:post-detail', kwargs={'pk': self.object.pk})
+        return reverse("blog:post-detail", kwargs={"pk": self.object.pk})
 
     def post(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
