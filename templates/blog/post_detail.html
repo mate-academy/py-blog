@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p>Author: {{ post.owner }}</p>
+  <p>Created at: {{ post.created_time }}</p>
+  <p class="post-text">
+    {{ post.content }}
+  </p>
+  <br>
+  <h3>Comments:</h3>
+  {% for comment in post.commentaries.all %}
+    <table>
+      <tr>
+        <td>
+          <span class="comment-author">Author: {{ comment.user }}</span>, posted on {{ comment.created_time }}
+        </td>
+      </tr>
+      <tr>
+        <td>{{ comment.content }}</td>
+      </tr>
+    </table>
+  {% endfor %}
+
+  <form action="" method="post" class="comment-add">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="Add comment">
+  </form>
+{% endblock %}
