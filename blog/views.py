@@ -8,19 +8,19 @@ from blog.forms import CommentaryCreateForm
 from blog.models import Commentary, Post
 
 
-def index(request):
-    post_list = Post.objects.all()
-    num_commentary = Commentary.objects.count()
-    num_visits = request.session.get("num_visits", 0)
-    request.session["num_visits"] = num_visits + 1
-
-    context = {
-        "post_list": post_list,
-        "num_commentary": num_commentary,
-        "num_visits": num_visits + 1,
-    }
-
-    return render(request, "blog/index.html", context=context)
+# def index(request):
+#     post_list = Post.objects.all()
+#     num_commentary = Commentary.objects.count()
+#     num_visits = request.session.get("num_visits", 0)
+#     request.session["num_visits"] = num_visits + 1
+#
+#     context = {
+#         "post_list": post_list,
+#         "num_commentary": num_commentary,
+#         "num_visits": num_visits + 1,
+#     }
+#
+#     return render(request, "blog/index.html", context=context)
 
 
 class PostDetailView(generic.DetailView):
