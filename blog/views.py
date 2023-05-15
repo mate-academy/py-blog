@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.views import generic
+from django.shortcuts import get_object_or_404
 
 from blog.forms import CommentForm
 from blog.models import Post
@@ -12,7 +13,7 @@ class PostList(generic.ListView):
 
 
 def post_detail(request, pk):
-    post = Post.objects.get(pk=pk)
+    post = get_object_or_404(Post, pk=pk)
     form = CommentForm(request.POST or None)
     context = {
         "post": post,
