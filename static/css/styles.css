@@ -1,0 +1,53 @@
+.sidebar-nav {
+    padding: 0;
+    list-style: none;
+}
+
+h1,
+.helper {
+    text-align: center;
+}
+
+.post_link {
+    text-decoration: none;
+    color: black;
+}
+
+.post_link:hover {
+    text-decoration: none;
+    color: #111;
+}
+
+.post {
+    padding: 20px;
+    border-left: 7px solid #111;
+    border-bottom: 1px dotted #111;
+    margin: 20px 10px;
+    text-align: center;
+}
+
+.post:hover {
+    background-color: #f0f0f5;
+    border: none;
+    border-radius: 20px;
+}
+
+.pagination {
+    margin-left: 45%;
+}
+
+.post-content {
+    text-align: center;
+}
+
+.post-author-date {
+    text-align: center;
+}
+
+.comment-content {
+    text-align: center;
+}
+
+.comment-block {
+    text-align: right;
+}
