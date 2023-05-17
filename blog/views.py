@@ -40,8 +40,7 @@ class PostDetailView(FormMixin, DetailView):
                 post_id=kwargs["pk"]
             )
             return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
+        return self.form_invalid(form)
 
     def form_valid(self, form):
         return super().form_valid(form)
