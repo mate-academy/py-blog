@@ -1,0 +1,50 @@
+{% extends "base.html"%}
+
+{% block content %}
+  <div class="alert alert-success" role="alert">
+    <h2>{{ post.title }}</h2>
+    <hr>
+
+    <p>
+      <b>
+        Created by: {{ post.owner }}.
+        Created at: {{ post.created_time }}
+      </b>
+    </p>
+    <hr>
+
+    <h6>{{ post.content }}</h6>
+    <br><br><hr>
+  </div>
+
+  <div class="d-flex justify-content-center">
+    <div class="col-sm-8">
+      <div class="alert alert-secondary" role="alert">
+        <hr>
+        <p>
+          <b>
+            Number of commentaries: {{ post.commentaries.count }}
+          </b>
+        </p>
+        <hr>
+
+        {% for comment in post.commentaries.all %}
+          <p>By: {{ comment.user }} at {{ comment.created_time }}</p>
+
+          <div class="alert alert-light" role="alert">
+            <p>
+              {{ comment.content }}
+            </p>
+            <hr>
+          </div>
+        {% endfor %}
+
+        {% block comment %}
+          {% include "includes/commentary_form.html" %}
+        {% endblock %}
+
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
