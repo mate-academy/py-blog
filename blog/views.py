@@ -14,19 +14,18 @@ class PostListView(generic.ListView):
 
 class PostDetailView(generic.DetailView):
     model = Post
-    queryset = Post.objects.prefetch_related("comments")
+    fields = ["content"]
 
-    def get_context_data(self, **kwargs):
-        context = super(PostDetailView, self).get_context_data(**kwargs)
-        context["commentary_form"] = CommentaryCreateForm()
+    def get_context_data(self, *args, **kwargs) -> dict:
+        context = super().get_context_data(**kwargs)
+        context["form"] = CommentaryCreateForm()
         return context
 
     def post(self, request, **kwargs):
-        content = request.POST.get("content")
-        pk = kwargs.get("pk")
-        Commentary.objects.create(
-            user=request.user,
-            post_id=pk,
-            content=content
-        )
-        return redirect("blog:post-detail", pk)
+        if self.request.method == "POST":
+            Commentary.objects.create(
+                user_id=request.user.id,
+                content=request.POST["content"],
+                post_id=kwargs["pk"]
+            )
+        return redirect("blog:post-detail", pk=kwargs["pk"])

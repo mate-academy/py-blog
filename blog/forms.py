@@ -4,5 +4,6 @@ from blog.models import Commentary
 
 
 class CommentaryCreateForm(forms.Form):
-    model = Commentary
-    fields = ["content"]
+    class Meta:
+        model = Commentary
+        fields = ["content"]
