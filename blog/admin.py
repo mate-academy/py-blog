@@ -19,5 +19,3 @@ class CommentaryAdmin(admin.ModelAdmin):
     list_display = ["user", "post", "created_time", "content"]
     list_filter = ["created_time", "user"]
     search_fields = ["content", "post"]
-
-
