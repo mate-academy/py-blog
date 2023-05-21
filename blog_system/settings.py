@@ -28,7 +28,7 @@ ALLOWED_HOSTS = []
 
 DEVELOPED_APPS = [
     "crispy_forms",
-    "crispy_bootstrap4",
+
     "blog",
 ]
 
