@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>My blog</h1>
+  <p class="helper">
+    <em>Welcome to the great blog!</em>
+  </p>
+  <hr>
+
+  {% for post in post_list %}
+    <a href="{% url "blog:post-detail" pk=post.id %}" class="post_link">
+      <div class="post">
+        <h4>{{ post.title }}</h4>
+        <br>
+        <span>{{ post.content }}</span>
+        <br>
+        <br>
+        <span><strong>{{ post.owner }}</strong></span>
+        <br>
+        <span><em>{{ post.created_time }}</em></span>
+        <br>
+        <br>
+        <span>
+          {% if post.comments.count %}
+            <p>This post has {{ post.comments.count }} comment{{ post.comments.count|pluralize }}</p>
+          {% else %}
+            <p>No comments for this post yet</p>
+          {% endif %}
+        </span>
+      </div>
+    </a>
+  {% endfor %}
+{% endblock %}
