@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{%  block title %}<title>Home</title>{% endblock %}
+
+
+{% block content %}
+  <h1>
+    Blog of Python course students
+    <a style="float: right" href="{% url 'blog:post-create' %}">Create Post</a>
+  </h1>
+  <h2>Welcome to the Python Blog</h2>
+  <p>Effective communication in a circle of like-minded people</p>
+  <p>Information </p>
+  <ul>
+    <li><strong>Users:</strong> {{ num_users }}</li>
+    <li><strong>Posts:</strong> {{ num_posts }}</li>
+
+  </ul>
+    {% for post in post_list %}
+      <form action="" method="post">
+      <fieldset style="background-color: whitesmoke" >
+        <a href="{% url "blog:post-detail" pk=post.id %}"><legend>{{ post.pk }}.  {{ post.title }}</legend></a>
+        <li>Post created by {{ post.owner }}
+        <br>
+{#          <textarea name="comments">#}
+            {{ post.content }}
+          {{ post.created_time }}
+{#          </textarea>#}
+        </li>
+      </fieldset>
+      </form>
+    {% empty %}
+      <p>There are no posts in blog</p>
+    {% endfor %}
+
+{% endblock%}
