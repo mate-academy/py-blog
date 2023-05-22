@@ -12,8 +12,6 @@ class Index(generic.ListView):
 
     model = Post
     queryset = Post.objects.all().select_related("owner")
-    num_posts = Post.objects.all().count()
-    num_users = User.objects.count()
     template_name = "blog/index.html"
     paginate_by = 5
 

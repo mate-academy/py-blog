@@ -22,10 +22,8 @@
         <a href="{% url "blog:post-detail" pk=post.id %}"><legend>{{ post.pk }}.  {{ post.title }}</legend></a>
         <li>Post created by {{ post.owner }}
         <br>
-{#          <textarea name="comments">#}
             {{ post.content }}
           {{ post.created_time }}
-{#          </textarea>#}
         </li>
       </fieldset>
       </form>
