@@ -1,0 +1,10 @@
+<ul class="side">
+  <li><strong><a href="{% url "blog:index" %}">Home</a></strong></li>
+  <hr>
+  {% if user.is_authenticated %}
+    <li>User: {{ user.username }}</li>
+  {% else %}
+    <li><a href="{% url "blog:login" %}">Login</a></li>
+    <li><a href="{% url "blog:logout" %}">Log out</a></li>
+  {% endif %}
+</ul>
