@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+<div class="bg-white border rounded-lg p-4 mb-4 shadow">
+  <h3>{{ post.title }}</h3>
+  <span class="text-muted">{{ post.owner }}</span>
+  <span class="text-muted">{{ post.created_time }}</span>
+  <p>{{ post.content }}</p>
+</div>
+<span><b>{{post.commentaries.count}} comment{{ post.commentaries.count|pluralize }}</b></span>
+{% for comment in post.commentaries.all %}
+  <ul class="list-group mb-4">
+    <li class="list-group-item disabled">{{ comment.user }} <small>{{ comment.created_time }}</small></li>
+    <li class="list-group-item">{{ comment.content}}</li>
+  </ul>
+{% empty %}
+  <p>There is no comments yet.</p>
+{% endfor %}
+{% if user.is_authenticated %}
+{% block commentform %}
+  {% include "includes/comment_form.html" %}
+{% endblock %}
+{% else %}
+<span><em>You need to <a href="{% url 'login'%}?next={{request.path}}">Login</a> for comment that post</em></span>
+{% endif %}
+{% endblock %}
