@@ -9,19 +9,23 @@
   <p>{{ post.content }}</p>
 </div>
 <span><b>{{post.commentaries.count}} comment{{ post.commentaries.count|pluralize }}</b></span>
-{% for comment in post.commentaries.all %}
+<div class="mb-5">
+  {% for comment in post.commentaries.all %}
   <ul class="list-group mb-4">
     <li class="list-group-item disabled">{{ comment.user }} <small>{{ comment.created_time }}</small></li>
     <li class="list-group-item">{{ comment.content}}</li>
   </ul>
-{% empty %}
+  {% empty %}
   <p>There is no comments yet.</p>
-{% endfor %}
-{% if user.is_authenticated %}
-{% block commentform %}
-  {% include "includes/comment_form.html" %}
-{% endblock %}
-{% else %}
-<span><em>You need to <a href="{% url 'login'%}?next={{request.path}}">Login</a> for comment that post</em></span>
-{% endif %}
+  {% endfor %}
+
+  {% if user.is_authenticated %}
+  {% block commentform %}
+    {% include "includes/comment_form.html" %}
+  {% endblock %}
+
+  {% else %}
+  <span><em>You need to <a href="{% url 'login'%}?next={{request.path}}">Login</a> for comment that post</em></span>
+  {% endif %}
+</div>
 {% endblock %}
