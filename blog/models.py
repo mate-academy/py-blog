@@ -7,14 +7,14 @@ class User(AbstractUser):
 
 
 class Post(models.Model):
-    users = models.ForeignKey("User", on_delete=models.CASCADE)
+    owner = models.ForeignKey("User", on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     content = models.TextField()
     created_time = models.DateTimeField(auto_now_add=True)
 
 
 class Commentary(models.Model):
-    users = models.ForeignKey("User", on_delete=models.CASCADE)
+    user = models.ForeignKey("User", on_delete=models.CASCADE)
     post = models.ForeignKey("Post", on_delete=models.CASCADE)
     created_time = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
