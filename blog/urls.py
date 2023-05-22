@@ -1,13 +1,10 @@
-from django.urls import path, include
-from blog.views import PostListView, PostDetailView
+from django.urls import path
 
-post_urls = [
-    path("<int:pk>/", PostDetailView.as_view(), name="post-detail"),
-]
+from blog.views import PostDetailView, PostListView
 
 urlpatterns = [
     path("", PostListView.as_view(), name="index"),
-    path("posts/", include(post_urls)),
+    path("post/<int:pk>/", PostDetailView.as_view(), name="post-detail"),
 ]
 
 app_name = "blog"
