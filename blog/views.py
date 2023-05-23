@@ -20,11 +20,11 @@ class PostDetailView(generic.DetailView):
         context["commentary_form"] = CommentaryCreateForm()
         return context
 
-    def post(self, request, **kwargs):
-        if self.request.method == "POST":
-            Commentary.objects.create(
-                user_id=request.user.id,
-                content=request.POST["content"],
-                post_id=kwargs["pk"]
-            )
-        return redirect("blog:post-detail", pk=kwargs["pk"])
+    def post(self, request, pk):
+        comment = Commentary.objects.create(
+            user_id=request.user.id,
+            content=request.POST["content"],
+            post_id=pk
+        )
+
+        return redirect("blog:post-detail", pk=comment.pk)
