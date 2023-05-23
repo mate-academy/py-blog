@@ -1,0 +1,8 @@
+<ul class="posts">
+  {% if user.is_authenticated %}
+    <li class="list-group-item">User: <a href="{{ user.username }}">{{ user.username }}</a></li>
+  {% endif %}
+  <br>
+
+  <li class="list-group-item"><a href="{% url 'blog:index' %}">Home</a></li>
+</ul>
