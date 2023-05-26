@@ -19,6 +19,7 @@ def index(request):
 
     context = {
         "post_list": page_obj,
+        "page_obj": page_obj,
     }
 
     return render(request, "blog/index.html", context)

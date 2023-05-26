@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1 class="text-center">Recently publisher posts</h1>
+  <h1 class="text-center">Recently published posts</h1>
    {% if user.is_authenticated %}
     <li class="list-group-item">User: <a href="{{ user.get_absolute_url }}">{{ user.get_username }}</a></li>
     <li class="list-group-item"><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
