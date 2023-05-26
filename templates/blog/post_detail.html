@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+ {% block content %}
+       <div class="row justify-content-center">
+         <div class="col-lg-10">
+           <h1 class="text-center">
+             {{ post.title }}
+           </h1>
+           <p>{{ post.content }}</p>
+          <h4>Comments:</h4>
+           <ul class="list-unstyled text-start mt-3">
+             {% for comment in post.comments.all %}
+               <p class="font-weight-bold">{{ comment.user.username }} posted at <a class="font-weight-light text-muted">{{ comment.created_time }}</a></p>
+               <p>{{ comment.content }}</p>
+               <hr>
+             {% endfor %}
+           </ul>
+         <form method="post" action="{% url 'blog:create-comment' post.pk %}">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="comment_content" class="font-weight-bold mt-3">Add new comment</label>
+              <textarea class="form-control" id="comment_content" name="content" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Post</button>
+          </form>
+         </div>
+       </div>
+ {% endblock %}
