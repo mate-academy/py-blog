@@ -6,12 +6,12 @@ from .forms import CommentaryCreateForm
 from .models import Post, Commentary
 
 
-class PostListView(LoginRequiredMixin, ListView):
+class PostListView(ListView):
     model = Post
     paginate_by = 5
 
 
-class PostDetailView(LoginRequiredMixin, DetailView):
+class PostDetailView(DetailView):
     model = Post
     queryset = Post.objects.prefetch_related("comments")
 
