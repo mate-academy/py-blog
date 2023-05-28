@@ -9,7 +9,7 @@ admin.site.unregister(Group)
 @admin.register(User)
 class UserAdmin(UserAdmin):
     search_fields = ["username"]
-    
+
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
