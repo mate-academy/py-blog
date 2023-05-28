@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <p class="text-center">
+    <span><strong>Users:</strong> {{ num_users }}</span>
+    <span><strong>Posts:</strong> {{ num_posts }}</span>
+  </p>
+  <p class="text-center" >Welcome to Our blog!</p>
+  <h1 class="text-center">Posts</h1>
+
+  {% if post_list %}
+    <ul>
+      {% for post in post_list %}
+        <div class="content_post">
+          <p class="title_post">
+            <a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a>
+          </p>
+          <p class="detail">{{ post.owner }}, {{ post.created_time }}</p>
+          <div class="post-details comment_detail">
+            {{ post.content|truncatechars_html:100 }}
+            <p>...</p>
+            <p class="comment_btn">
+            <a href="{% url 'blog:post-detail' pk=post.id %}" class="read-more-btn">Read more</a>
+            {% if post.comments %}
+              <p class="count_comment">
+                {{ post.comments.count }} comment{{ post.comments.count|pluralize }}
+              </p>
+            {% else %}
+              <p>0 comment</p>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no post in blog</p>
+  {% endif %}
+{% endblock %}

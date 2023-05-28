@@ -1,0 +1,21 @@
+ <ul class="sidebar-nav">
+   {% if user.is_authenticated %}
+    <p>
+      <strong>
+        User: <a style="color:green" >{{ user.get_username }}</a>
+      </strong>
+    </p>
+    <p>
+      <strong>
+        <a style="color: brown" href="{% url 'logout'%}?next={{request.path}}">Logout</a>
+      </strong>
+    </p>
+   {% else %}
+    <p>
+      <strong>
+        <a style="color:green" href="{% url 'login'%}?next={{request.path}}">Login</a>
+      </strong>
+    </p>
+   {% endif %}
+   <p><a href="{% url 'blog:index' %}">Home page</a></p>
+ </ul>
