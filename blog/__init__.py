@@ -1,2 +1,0 @@
-def forms():
-    return None

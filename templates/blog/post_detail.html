@@ -10,13 +10,9 @@
   </div>
   <div>
     <br>
-    {% if comment_count %}
+    {% if post.comments.count %}
       <p class="count_comment">
-        {{ comment_count }} comment{{ comment_count|pluralize }}
-      </p>
-    {% elif comment_count %}
-      <p class="count_comment">
-        {{ comment_count_add1 }} comment{{ comment_count_add1|pluralize }}
+        {{ post.comments.count }} comment{{ post.comments.count|pluralize }}
       </p>
     {% else %}
       <p>0 comment</p>
@@ -25,23 +21,21 @@
   <div>
     {% if user.is_authenticated %}
       <p>Add comment</p>
-      {% if user.is_authenticated %}
       <div class="comment_user">
         <p class="commentator"> {{ user.username }}</p>
       </div>
-    {% endif %}
-    <div class="content_post comment_margin">
-    <form method="POST" action="{% url 'blog:post-detail' pk=post.pk %}">
-     {% csrf_token %}
-     {{ form|crispy }}
-     <button type="submit" class="update_color_btn">Add Comment</button>
-    </form>
-  </div>
+      <div class="content_post comment_margin">
+      <form method="post" action="">
+       {% csrf_token %}
+       {{ form|crispy }}
+       <button type="submit" class="update_color_btn">Add Comment</button>
+      </form>
+    </div>
   {% else %}
     <p>You need to <a href="{% url 'login' %}">log in</a> to post comments!</p>{% endif %}
     <br>
-    {% if comment_to_post %}
-      {% for comment in comment_to_post %}
+    {% if post.comments.all %}
+      {% for comment in post.comments.all %}
         <div class="comment_user">
           <p class="commentator"> {{ comment.user }}, {{ comment.created_time }}</p>
         </div>

@@ -1,6 +1,10 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import Http404
+from django.http import Http404, HttpResponseForbidden
 from django.shortcuts import render, redirect
+from django.urls import reverse
+from django.views import generic
+from django.views.generic import DetailView
+from django.views.generic.edit import FormMixin
 
 from blog.models import Post, Commentary, User
 from blog.forms import CommentaryForm
@@ -34,37 +38,29 @@ def index(request):
     return render(request, "blog/index.html", context=context)
 
 
-def post_detail_view(request, pk):
-    try:
-        post = Post.objects.get(pk=pk)
+class PostDetailView(FormMixin, DetailView):
+    model = Post
+    form_class = CommentaryForm
 
-        comment_to_post = Commentary.objects.filter(post=post)
-        comment_count = Commentary.objects.filter(post=post).count()
-        if request.method == "POST":
-            if request.user.is_authenticated:
-                form = CommentaryForm(request.POST)
-                if form.is_valid():
-                    comment = form.save(commit=False)
-                    comment.user = request.user
-                    comment.post = post
-                    comment.save()
-                    return redirect("blog:post-detail", pk=pk)
+    def get_success_url(self):
+        return reverse("blog:post-detail", kwargs={
+            "pk": self.object.id
+        })
 
-            else:
-                form = CommentaryForm()
-                form.add_error(
-                    None,
-                    "Only authorized users can post comments."
-                )
-        else:
-            form = CommentaryForm()
-    except Post.DoesNotExist:
-        raise Http404("Posts does not exist")
-    context = {
-        "post": post,
-        "comment_count": comment_count,
-        "comment_to_post": comment_to_post,
-        "form": form,
-    }
+    def post(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseForbidden()
 
-    return render(request, "blog/post_detail.html", context=context)
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            Commentary.objects.create(
+                user=request.user,
+                content=request.POST["content"],
+                post_id=kwargs["pk"]
+            )
+            return self.form_valid(form)
+        return self.form_invalid(form)
+
+    def form_valid(self, form):
+        return super().form_valid(form)

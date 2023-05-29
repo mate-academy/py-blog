@@ -1,12 +1,12 @@
 from django.urls import path
 
-from blog.views import index, post_detail_view
+from blog.views import index, PostDetailView
 
 urlpatterns = [
     path("", index, name="index"),
     path(
         "posts/<int:pk>/",
-        post_detail_view,
+        PostDetailView.as_view(),
         name="post-detail"
     ),
 
