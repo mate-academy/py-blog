@@ -17,10 +17,6 @@ class PostDetailView(generic.DetailView):
     model = Post
 
 
-class CommentaryListView(generic.ListView):
-    model = Commentary
-
-
 class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
     model = Commentary
     fields = ["content"]
