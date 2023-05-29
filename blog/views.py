@@ -1,6 +1,5 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import Http404, HttpResponseForbidden
-from django.shortcuts import render, redirect
+from django.http import HttpResponseForbidden
 from django.urls import reverse
 from django.views import generic
 from django.views.generic import DetailView
@@ -10,32 +9,33 @@ from blog.models import Post, Commentary, User
 from blog.forms import CommentaryForm
 
 
-def index(request):
-    post_list = Post.objects.order_by("-created_time")
+class PostList(generic.ListView):
+    model = Post
+    template_name = "blog/index.html"
+    context_object_name = "post_list"
+    paginate_by = 5
 
-    # info about blog
-    num_users = User.objects.count()
-    num_posts = Post.objects.count()
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.order_by("-created_time")
 
-    if "page" in request.GET:
-        page = request.GET["page"]
-    else:
-        page = 1
-    paginator = Paginator(post_list, 5)
-    try:
-        post_list = paginator.page(page)
-    except PageNotAnInteger:
-        post_list = paginator.page(1)
-    except EmptyPage:
-        post_list = paginator.page(paginator.num_pages)
-    context = {
-        "post_list": post_list,
-        "num_users": num_users,
-        "num_posts": num_posts,
-        "page": page
-    }
-
-    return render(request, "blog/index.html", context=context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        num_users = User.objects.count()
+        num_posts = Post.objects.count()
+        page = self.request.GET.get("page", 1)
+        paginator = Paginator(self.object_list, self.paginate_by)
+        try:
+            post_list = paginator.page(page)
+        except PageNotAnInteger:
+            post_list = paginator.page(1)
+        except EmptyPage:
+            post_list = paginator.page(paginator.num_pages)
+        context["num_users"] = num_users
+        context["num_posts"] = num_posts
+        context["page"] = page
+        context["post_list"] = post_list
+        return context
 
 
 class PostDetailView(FormMixin, DetailView):
@@ -61,6 +61,3 @@ class PostDetailView(FormMixin, DetailView):
             )
             return self.form_valid(form)
         return self.form_invalid(form)
-
-    def form_valid(self, form):
-        return super().form_valid(form)
