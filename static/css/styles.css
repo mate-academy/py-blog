@@ -1,0 +1,25 @@
+body {
+    margin-top: 20px;
+}
+
+li {
+    list-style: none;
+}
+
+form {
+    max-width: 80%;
+}
+
+.text-content {
+    font-size: 20px;
+    max-width: 80%;
+    text-align: justify;
+}
+
+.comment {
+    max-width: 80%;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 20px;
+}

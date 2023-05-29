@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+ {% if post_list %}
+   <ul>
+   {% for post in post_list %}
+     <li>
+       <h1><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h1>
+       <p>{{ post.owner.username }} {{ post.created_time }}</p>
+       <p class="text-content">{{ post.content }}</p>
+     </li>
+   {% endfor %}
+   </ul>
+ {% endif %}
+{% endblock %}
