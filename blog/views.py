@@ -25,16 +25,12 @@ class PostList(generic.ListView):
         num_posts = Post.objects.count()
         page = self.request.GET.get("page", 1)
         paginator = Paginator(self.object_list, self.paginate_by)
-        try:
+        if page:
             post_list = paginator.page(page)
-        except PageNotAnInteger:
-            post_list = paginator.page(1)
-        except EmptyPage:
-            post_list = paginator.page(paginator.num_pages)
+            context["post_list"] = post_list
         context["num_users"] = num_users
         context["num_posts"] = num_posts
         context["page"] = page
-        context["post_list"] = post_list
         return context
 
 
