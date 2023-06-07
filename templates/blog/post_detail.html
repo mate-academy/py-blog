@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h2>Author: {{ post.owner.username }} ({{ post.owner.first_name }} {{ post.owner.last_name }})</h2>
+  <br>
+  <p class="post-content">{{ post.content }}</p>
+  {% if post.commentary_set.all %}
+          <br>
+          {{ post.commentary_set.count }} comment{{ post.commentary_set.count|pluralize }}:
+          <ul class="comment-list">
+            {% for comment in post.commentary_set.all %}
+              <li>
+                <div class="comment-item">
+                   <p style="display: inline;">
+                     <span class="comment-username">{{ comment.user.username }}</span>
+                     <span class="posting-time"> at {{ comment.created_time }}</span>
+                     <br>
+                     {{ comment.content }}
+                   </p>
+                </div>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <br>
+          No comments left to this post.
+        {% endif %}
+  {% include 'includes/add_comment_form.html' %}
+{% endblock %}
