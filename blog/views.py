@@ -7,12 +7,12 @@ from .forms import CommentaryForm
 from .models import User, Post, Commentary
 
 
-class PostListView(LoginRequiredMixin, generic.ListView):
+class PostListView(generic.ListView):
     model = Post
-    paginate_by = 5
-    queryset = Post.objects.all()
+    queryset = Post.objects.all().order_by("-created_time")
     template_name = "blog/index.html"
     context_object_name = "post_list"
+    paginate_by = 5
 
 
 class PostDetailView(generic.DetailView):
