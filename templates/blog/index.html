@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+ <h1>Blog</h1>
+  <br>
+
+ <h3 style="text-align: center">List of posts:</h3>
+  <br>
+  {% if posts %}
+    <ul class="list-group">
+    {% for post in posts %}
+      <li class="list-group-item">
+        <div>
+          <a href="#" style="display: block;text-align: center;"><strong>{{ post.title }}</strong></a>
+        </div>
+        <div style="padding: 10px 0; text-align: center">{{ post.content }}</div>
+        <p><span>{{ post.owner.username }} at {{ post.created_time }}</span></p>
+      </li>
+    {% endfor %}
+    </ul>
+  <div class="container">
+    <div class="posts-list">
+      {% for post in posts %}
+          <h4><a href="#" style="display: block;text-align: center;"><strong>{{ post.title }}</strong></a></h4>
+          <p>Publish date: <span style="color: #808080;">{{ post.created }}</span></p>
+          <p>Author: <span style="color: #808080;">{{ post.owner.username }}</span></p>
+          <p style="padding: 10px 0; text-align: center">{{ post.content|truncatewords:50 }}</p>
+          <hr>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endblock %}
