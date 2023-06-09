@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container" style="margin-top: 30px">
+
+    <h1 style="text-align: center">{{ post_detail.title }}</h1>
+    <hr>
+    <p>Publish date: <span style="color: #808080;">{{ post_detail.created_time }}</span></p>
+    <p>Author: <span style="color: #808080;">{{ post_detail.owner.username }}</span></p>
+    <p style="padding: 10px 0; text-align: center">{{ post_detail.content }}</p>
+    {% if post_detail.comments %}
+    <p>
+      <span style="color: #808080;">{{ post_detail.comments.count }}
+        comment{{ post_detail.comments.count|pluralize }}
+      </span>
+    </p>
+
+    {% for comment in post_detail.comments.all %}
+      <hr>
+      <p><span style="color: #808080;">{{ comment.user.username }} <small><i>{{ comment.created_time }}</i></small></span></p>
+      <p>{{ comment.content }}</p>
+
+    {% endfor %}
+  {% endif %}
+
+    <br><br>
+    <a href="{% url "blog:add-comment" pk=post_detail.id %}">Add comment</a>
+
+
+  </div>
+{% endblock %}
