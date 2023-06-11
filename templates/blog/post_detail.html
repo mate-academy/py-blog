@@ -37,11 +37,6 @@
     {% endfor %}
 
     <p class="text-muted"><em>Add a new comment</em></p>
-    {% if error %}
-      <div class="alert alert-danger" role="alert">
-        Please, fill out this field.
-      </div>
-    {% endif %}
 
     {% if request.user.is_authenticated %}
       <form action="" method="post" novalidate id="comment-form">

@@ -1,8 +1,10 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import render
+from django.urls import reverse
 from django.views import generic
+from django.views.generic.edit import FormMixin
 
 from .forms import CommentForm
-from .models import Commentary, Post
+from .models import Post
 
 
 class Index(generic.ListView):
@@ -14,26 +16,30 @@ class Index(generic.ListView):
     queryset = Post.objects.select_related("owner")
 
 
-def post_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    comments = post.comments.select_related("user")
-    form = CommentForm()
-    context = {
-        "post": post,
-        "comments": comments,
-        "form": form,
-    }
+class PostDetailView(FormMixin, generic.DetailView):
+    model = Post
+    form_class = CommentForm
 
-    if request.method == "POST":
-        form = CommentForm(request.POST)
+    def get_success_url(self) -> str:
+        return reverse("blog:post-detail", kwargs={"pk": self.object.pk})
 
+    def get_context_data(self, **kwargs: any) -> dict[str, any]:
+        context = super().get_context_data(**kwargs)
+        context["form"] = CommentForm()
+        context["comments"] = self.object.comments.select_related("user")
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
         if form.is_valid():
-            Commentary.objects.create(
-                **form.cleaned_data,
-                post=post,
-                user=request.user,
-            )
+            return self.form_valid(form)
         else:
-            context["error"] = True
+            return self.form_invalid(form)
 
-    return render(request, "blog/post_detail.html", context=context)
+    def form_valid(self, form):
+        comment = form.save(commit=False)
+        comment.post = self.object
+        comment.user = self.request.user
+        comment.save()
+        return super().form_valid(form)
