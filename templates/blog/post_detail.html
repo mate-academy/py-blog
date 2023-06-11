@@ -51,7 +51,7 @@
       </form>
     {% else %}
       <div class="alert alert-light" role="alert">
-        You need to be <a href="{% url "login" %}">logged in</a> to be able to post comments
+        You need to be <a href="{% url "login" %}?next={{ request.path }}">logged in</a> to be able to post comments
       </div>
     {% endif %}
   </div>
