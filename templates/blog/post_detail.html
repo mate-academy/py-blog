@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block title %}
+  {{ post.title }}
+{% endblock %}
+
+{% block content %}
+  <div class="post_detail card shadow-sm">
+    <div class="card-header">
+      <h3>{{ post.title }}</h3>
+      <span class="time text-muted"><strong>{{ post.created_time }}</strong></span>
+      <span class="text-muted"><strong>{{ post.owner }}</strong></span>
+    </div>
+
+    <div class="card-body">
+      <span>{{ post.content }}</span>
+    </div>
+  </div>
+
+  <div>
+    <p class="text-muted">{{ comments.count }} comments</p>
+  
+    {% for comment in comments %}
+      <div class="card mb-3 shadow-sm">
+        <div class="card-header bg-transparent">
+          {{ comment.user }}
+          <span class="time text-muted">{{ comment.created_time }}</span>
+        </div>
+
+        <div class="card-body">
+          {{ comment.content }}
+        </div>
+      </div>
+    {% empty %}
+      <p><em>There are no comments yet</em></p>
+    {% endfor %}
+
+    <p class="text-muted"><em>Add a new comment</em></p>
+    {% if error %}
+      <div class="alert alert-danger" role="alert">
+        Please, fill out this field.
+      </div>
+    {% endif %}
+
+    {% if logged_in %}
+      <form action="" method="post" novalidate id="comment-form">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" class="btn btn-light" value="Add a comment" />
+      </form>
+    {% else %}
+      <div class="alert alert-light" role="alert">
+        You need to be <a href="{% url "login" %}">logged in</a> to be able to post comments
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

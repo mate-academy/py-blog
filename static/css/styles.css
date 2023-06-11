@@ -1,0 +1,36 @@
+body {
+    background-color: #e3f3e0;
+}
+
+main {
+    width: 70%;
+    margin: 50px;
+}
+
+.pagination {
+    margin: 50px;
+}
+
+.auth_button:link {
+    margin-left: 10px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.post_title:link {
+    color: #343a40;
+    text-decoration: none;
+}
+
+.time {
+    float: right;
+}
+
+.post_link:link {
+    text-decoration: none;
+}
+
+.post_detail {
+    margin-bottom: 30px;
+}
