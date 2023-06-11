@@ -5,4 +5,5 @@
   {% else %}
     <li class="list-group-item"><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
   {% endif %}
+  <li class="list-group-item"><a href="{% url 'blog:index' %}">Home page</a></li>
 </ul>
