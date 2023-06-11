@@ -23,9 +23,8 @@ class PostDetailView(FormMixin, generic.DetailView):
     def get_success_url(self) -> str:
         return reverse("blog:post-detail", kwargs={"pk": self.object.pk})
 
-    def get_context_data(self, **kwargs: any) -> dict[str, any]:
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["form"] = CommentForm()
         context["comments"] = self.object.comments.select_related("user")
         return context
 
@@ -33,13 +32,9 @@ class PostDetailView(FormMixin, generic.DetailView):
         self.object = self.get_object()
         form = self.get_form()
         if form.is_valid():
+            form.instance.post = self.object
+            form.instance.user = request.user
+            form.save()
             return self.form_valid(form)
         else:
             return self.form_invalid(form)
-
-    def form_valid(self, form):
-        comment = form.save(commit=False)
-        comment.post = self.object
-        comment.user = self.request.user
-        comment.save()
-        return super().form_valid(form)
