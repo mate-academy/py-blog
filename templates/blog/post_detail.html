@@ -33,7 +33,7 @@
       <button class="btn btn-primary btn block" type="submit">Add comment</button>
     </form>
     {% else %}
-      <p><i>You must register to add a comment</i></p>
+      <p><i>You must register to add a comment...</i></p>
       <li class="btn btn-primary btn block">
         <a href="{% url 'login'%}?next={{request.path}}" style="color: white">Login</a>
       </li>
