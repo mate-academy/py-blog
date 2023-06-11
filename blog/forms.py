@@ -5,8 +5,11 @@ from .models import Commentary
 class CommentaryForm(forms.ModelForm):
     class Meta:
         model = Commentary
-        fields = ['content']
+        fields = ["content"]
         widgets = {
-            "content": forms.Textarea(attrs={"class": "form-control"}),
+            "content": forms.Textarea(attrs={
+                "rows": "4",
+                "placeholder": "Comment here...",
+                "class": "md-textarea form-control"
+            }),
         }
-

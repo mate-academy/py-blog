@@ -22,10 +22,22 @@
 
     {% endfor %}
   {% endif %}
+   <br>
+    {% if user.is_authenticated %}
 
-    <br><br>
-    <a href="{% url "blog:add-comment" pk=post_detail.id %}">Add comment</a>
-
-
+    <form action=" {% url 'blog:post-detail' pk=post_detail.pk %}" method="POST">
+      {% csrf_token %}
+      <div class="form-group">
+        {{ form.as_p}}
+      </div>
+      <button class="btn btn-primary btn block" type="submit">Add comment</button>
+    </form>
+    {% else %}
+      <p><i>You must register to add a comment</i></p>
+      <li class="btn btn-primary btn block">
+        <a href="{% url 'login'%}?next={{request.path}}" style="color: white">Login</a>
+      </li>
+    {% endif %}
+  <br><br>
   </div>
 {% endblock %}
