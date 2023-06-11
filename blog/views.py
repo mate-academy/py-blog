@@ -24,9 +24,6 @@ def post_detail(request, pk):
         "form": form,
     }
 
-    if request.user.is_authenticated:
-        context["logged_in"] = True
-
     if request.method == "POST":
         form = CommentForm(request.POST)
 
@@ -37,8 +34,6 @@ def post_detail(request, pk):
                 user=request.user,
             )
         else:
-            context["error"] = (
-                "Invalid form"
-            )
+            context["error"] = True
 
     return render(request, "blog/post_detail.html", context=context)
