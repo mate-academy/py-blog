@@ -37,6 +37,5 @@ class PostDetailView(generic.DetailView):
                 content=form.cleaned_data["content"]
             )
             context["commentary_form"] = CommentaryForm()
-            return render(request, "blog/post_detail.html", context=context)
 
         return render(request, "blog/post_detail.html", context=context)
