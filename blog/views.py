@@ -20,7 +20,7 @@ class PostDetailView(FormMixin, generic.DetailView):
     model = Post
     form_class = CommentForm
 
-    def get_success_url(self) -> str:
+    def get_success_url(self):
         return reverse("blog:post-detail", kwargs={"pk": self.object.pk})
 
     def get_context_data(self, **kwargs):
@@ -36,5 +36,4 @@ class PostDetailView(FormMixin, generic.DetailView):
             form.instance.user = request.user
             form.save()
             return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
+        return self.form_invalid(form)
