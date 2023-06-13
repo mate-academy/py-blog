@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  {% if post_list %}
+    <ul>
+      {% for post in post_list %}
+
+          <div class="card mb-3 ">
+            <div class="card-body">
+              <a href="{% url 'blog:post-detail' pk=post.id %}" class="card-link">
+                <h3 class="card-title"> {{ post.title }} </h3>
+              </a>
+              <p class="card-text">
+                <strong>
+                  Author: {{ post.owner.first_name }} {{ post.owner.last_name }}
+                </strong><br>
+                Posted: {{ post.created_time|date:"D d M Y" }} {{ post.created_time|time:"H:i" }}
+              </p>
+              <p class="card-text"> {{ post.content|truncatewords:20 }} </p>
+              <div class="card-footer">
+                <strong> Number of comments: {{ post.commentaries.count }} </strong>
+              </div>
+            </div>
+          </div>
+
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no posts</p>
+  {% endif %}
+
+{% endblock %}
