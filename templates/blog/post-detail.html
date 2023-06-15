@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <p>Post: <h2>{{ post.title }}</h2>
+    <p style="text-decoration: underline">{{ post.owner}}, {{ post.created_time }}</p>
+    <p>{{ post.content}}}</p>
+    {% if post.commentaries.all != 0 %}
+      <p>commentaries:</p>
+      {% for commentary in post.commentaries.all %}
+        <p>{{ commentary.content }}</p>
+        <p style="font-size: 10px">{{ commentary.user }},{{ commentary.created_time }}</p>
+    {% endfor %}
+    {% else %}
+        <p>No comments yet, yours could be first!</p>
+    {% endif %}
+{% endblock %}

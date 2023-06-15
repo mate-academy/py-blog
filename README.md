@@ -64,7 +64,7 @@ CRISPY_TEMPLATE_PACK="bootstrap4"
 2. Add these apps to `INSTALLED_APPS` and install them corresponding to the `CRISPY_TEMPLATE_PACK` bootstrap version.
 
 ```python
-INSTALLED APPS = [
+INSTALLED_APPS = [
    ...,
    "crispy_bootstrap4",
    "crispy_forms",
