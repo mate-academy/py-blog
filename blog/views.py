@@ -25,7 +25,7 @@ class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
     success_url = "/"
 
     def form_valid(self, form):
-        post = get_object_or_404(Post, pk=self.kwargs['pk'])
+        post = get_object_or_404(Post, pk=self.kwargs["pk"])
         form.instance.post = post
         form.instance.user = self.request.user
         return super().form_valid(form)
