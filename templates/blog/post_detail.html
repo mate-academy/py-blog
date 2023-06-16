@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div>
+    <h2>{{ post.title }}</h2>
+    <h4>Description: {{ post.content }}</h4>
+    <h3>Created at: {{ post.created_time }}</h3>
+    <h3>Owner: {{ post.owner }}</h3>
+  </div>
+  <ul>
+  {% if post.commentaries.all %}
+    <h2>Comments: </h2>
+  {% for commentary in post.commentaries.all %}
+    <li>{{ commentary.content }}</li>
+  {% endfor %}
+    {% else %}
+    No comments yet
+  {% endif %}
+  </ul>
+  <a href="{% url 'blog:add-commentary' pk=post.id %}"><button>add commentary</button></a>
+{% endblock %}
