@@ -21,7 +21,7 @@ class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
     model = Commentary
     template_name = "blog/add_commentary.html"
     fields = ["content"]
-    success_url = reverse_lazy(f"blog:index")
+    success_url = reverse_lazy("blog:index")
 
     def form_valid(self, form):
         post = get_object_or_404(Post, pk=self.kwargs["pk"])
