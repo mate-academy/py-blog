@@ -1,0 +1,17 @@
+{% if is_paginated %}
+  <ul style="display: flex; list-style: none;">
+    {% if page_obj.has_previous %}
+      <li>
+        <a href="?page= {{ page_obj.previous_page_number }}">prev</a>
+      </li>
+    {% endif %}
+    <li>
+      <span> {{ page_obj.number }} of {{ paginator.num_pages }} </span>
+    </li>
+    {% if page_obj.has_next %}
+      <li>
+        <a href="?page= {{ page_obj.next_page_number }}">next</a>
+      </li>
+    {% endif %}
+  </ul>
+{% endif %}
