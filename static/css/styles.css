@@ -1,0 +1,85 @@
+html {
+  height: 100%;
+  margin: 0;
+  font-family: HeliosCond, Arial, sans-serif;
+  color: #f1f1f1;
+}
+
+body {
+  margin: 0;
+  background-color: yellow !important;
+}
+
+.table {
+  margin-bottom: 20px;
+  padding: 10px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+}
+
+.table th, .table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+
+.table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.table td:first-child {
+  width: 25%;
+}
+
+.table td:nth-child(2) {
+  width: 75%;
+}
+
+li {
+  list-style: none;
+  font-size: 18px;
+}
+
+.bg-border {
+  margin: 40px;
+  background-color: #e3e30a;
+  border: 3px solid #f1f1f1;
+  width: 95%;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.login {
+  margin: 40px 225px;
+  text-align: left;
+  width: 400px;
+}
+
+.link {
+  margin-bottom: 20px;
+  padding: 10px;
+  text-decoration: none;
+  color: white;
+}
+
+.link:hover {
+  text-decoration: none;
+  color: white;
+  border: 2px solid #f1f1f1;
+}
+
+.button {
+  margin-top: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+.border {
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 3px;
+  margin: 8px;
+  padding: 20px;
+}

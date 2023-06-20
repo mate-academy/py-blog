@@ -7,4 +7,4 @@ venv/
 .pytest_cache/
 **__pycache__/
 db.sqlite3
-venv
+debug toolbar == 4.1.0
