@@ -29,11 +29,11 @@ body {
 }
 
 .table td:first-child {
-  width: 25%;
+  width: 25% !important;
 }
 
 .table td:nth-child(2) {
-  width: 75%;
+  width: 75% !important;
 }
 
 li {

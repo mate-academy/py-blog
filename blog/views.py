@@ -14,7 +14,6 @@ class PostListView(generic.ListView):
     paginate_by = 5
 
 
-@login_required
 def post_detail_view(request, pk: int):
     post = Post.objects.select_related("owner").filter(id=pk).first()
 
