@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+    
+  <h1>BLOG APP</h1>
+
+  {% for post in post_list %}
+    <h2><a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a></h2>
+    <p>{{ post.content }}</p>
+    {{ post.owner }}  
+    <br><br>
+    {{ post.commentary_set.count }} comments,  {{ post.created_time|date:"d.m.y G:H" }} 
+    
+  {% endfor %}
+  <hr>
+  {% if page_obj.has_previous %}
+    <a href="?page=1">&laquo; first</a>
+    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+  {% endif %}
+
+  Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+
+  {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">next</a>
+    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+  {% endif %}
+  {% comment %} {% debug %} {% endcomment %}
+
+</body>
+</html>
