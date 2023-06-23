@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Our posts</h2>
+  {% if post_list %}
+    <ul>
+      {% for post in post_list %}
+      <li>
+        <a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a>
+
+        <br>
+
+        <strong>Author:</strong>  {{ post.owner }} |
+        <strong>Date of publication:</strong> {{ post.created_time }} |
+        <strong>Comments:</strong> {{ post.commentaries.count }}
+        <p>{{ post.content|truncatechars:75 }}</p>
+      </li>
+
+        <br>
+
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no posts in IT-blog</p>
+  {% endif %}
+{% endblock %}

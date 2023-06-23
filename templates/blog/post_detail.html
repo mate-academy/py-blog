@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+
+  <h3><strong>Post:</strong> {{ post.title }}</h3>
+
+  <h5><strong>Owner:</strong> {{ post.owner }} <strong>Date of publication:</strong> {{ post.created_time }}</h5>
+
+  <p>{{ post.content }}</p>
+
+  <h3>Comments</h3>
+
+  {% if post.commentaries.all %}
+    <ul>
+      {% for comments in post.commentaries.all %}
+      <li>
+        <strong>{{ comments.user.username }}:</strong> ({{ comments.created_time }}) {{ comments.content }}
+      </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no comments</p>
+  {% endif %}
+
+  <a href="{% url 'blog:post-comment' pk=post.id %}">Comment this post!</a>
+
+{% endblock %}
