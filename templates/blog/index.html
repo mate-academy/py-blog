@@ -5,8 +5,8 @@
   {% if post_list %}
     <ul>
       {% for post in post_list %}
-      <li>
-        <a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a>
+
+        <a class="post-title" href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a>
 
         <br>
 
@@ -14,7 +14,6 @@
         <strong>Date of publication:</strong> {{ post.created_time }} |
         <strong>Comments:</strong> {{ post.commentaries.count }}
         <p>{{ post.content|truncatechars:75 }}</p>
-      </li>
 
         <br>
 
