@@ -1,10 +1,9 @@
-
 {% if user.is_authenticated %}
 
-  <h5>User: {{ user.username }}</h5>
-  <p><a href="{% url 'logout' %}">Logout</a></p>
+  <h5 class="user">User: {{ user.username }}</h5>
+  <p><a class="register" href="{% url 'logout' %}">Logout</a></p>
 {% else %}
-  <p><a href="{% url 'login' %}">Login</a></p>
+  <p><a class="register" href="{% url 'login' %}">Login</a></p>
 {% endif %}
 
-<a href="{% url "blog:index" %}">All posts</a>
+<a class="link" href="{% url "blog:index" %}">All posts</a>

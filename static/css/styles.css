@@ -1,7 +1,48 @@
 body {
     margin-top: 40px;
-    background-color: #006b1b;
+    background-color: #ffffff;
 }
-a {
-    background-color: #006b1b;
+.post-title {
+    color: chocolate;
+    font-size: 30px;
+}
+
+.blog-title {
+    color: chocolate;
+    text-align: center;
+}
+h2 {
+    color: brown;
+    text-align: center;
+}
+.border-content {
+    border: solid #f5dd5d;
+    margin: 20px;
+    padding-left: 20px;
+}
+.space {
+    padding-left: 50px;
+}
+.register {
+    color: brown;
+    font-size: 18px;
+
+}
+.link {
+    color: brown;
+    font-size: 30px;
+}
+.user{
+    color: brown;
+    font-size: 18px
+}
+.center {
+    text-align: center;
+}
+.post-info{
+    color: brown;
+    font-size: 20px;
+}
+.content {
+    font-size: 25px;
 }
