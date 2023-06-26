@@ -7,7 +7,7 @@ app_name = "blog"
 
 urlpatterns = [
     path("", PostListView.as_view(), name="index"),
-    path("posts/<int:pk>", PostDetailView.as_view(), name="post-detail"),
+    path("posts/<int:pk>/", PostDetailView.as_view(), name="post-detail"),
     path(
         "posts/<int:pk>/add_comentary/",
         CommentaryCreateView.as_view(),
