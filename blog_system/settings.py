@@ -20,7 +20,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-k3i$&lx&=p_9uiqeair1zznh_!7+0)4haz*6bw5okjhr9palyz"
+SECRET_KEY = (
+    "django-insecure-k3i$&lx&=p_9uiqeair1zznh_!7+0)4haz*6bw5okjhr9palyz"
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -43,6 +45,8 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "debug_toolbar",
     "blog",
+    "crispy_forms",
+    "crispy_bootstrap4",
 ]
 
 MIDDLEWARE = [
@@ -131,3 +135,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 AUTH_USER_MODEL = "blog.User"
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]

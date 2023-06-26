@@ -1,22 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-    
+{% extends 'base.html' %}
+{% block content %}
+
   <h1>BLOG APP</h1>
 
   {% for post in post_list %}
     <h2><a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a></h2>
     <p>{{ post.content }}</p>
-    {{ post.owner }}  
-    <br><br>
-    {{ post.commentary_set.count }} comments,  {{ post.created_time|date:"d.m.y G:H" }} 
-    
+    <p>
+      <span class="comment-username">{{ post.owner }}</span>,
+      <span class="comment-time">{{ post.created_time }}</span>
+      <br>
+      {% if not post.commentary_set.all  %}
+        No
+      {% else %}
+        {{ post.commentary_set.all|length }}
+      {% endif %}
+      comment{{ post.commentary_set.all|pluralize }} <br><br>
+    </p>
   {% endfor %}
   <hr>
   {% if page_obj.has_previous %}
@@ -30,7 +30,5 @@
     <a href="?page={{ page_obj.next_page_number }}">next</a>
     <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
   {% endif %}
-  {% comment %} {% debug %} {% endcomment %}
 
-</body>
-</html>
+{% endblock content %}

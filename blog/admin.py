@@ -24,6 +24,7 @@ class CommentaryModelAdmin(admin.ModelAdmin):
     list_display = (
         "user",
         "content",
+        "post",
     )
     list_filter = ("created_time",)
     search_fields = ["content", "user__username"]

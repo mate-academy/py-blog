@@ -1,34 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ post.title }} </title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %} {{ post.title }} {% endblock title %}
+
+{% block content %}
   <h1>{{ post.title }}</h1>
+  <p>
+    <span class="comment-username">{{ post.owner }}</span>,
+    <span class="comment-time">{{ post.created_time }}</span>
+  </p>
+
   <p>{{ post.content }}</p>
-  {{ post.owner }}
-  {{ post.created_time }}
-  <br>
-  {{ post.commentary_set.all|length }} Comment{{ post.commentary_set.all|pluralize }} <br><br>
+
+  {% if not post.commentary_set.all  %}
+    No
+  {% else %}
+    {{ post.commentary_set.all|length }}
+  {% endif %}
+  comment{{ post.commentary_set.all|pluralize }} <br>
 
   {% for comment in post.commentary_set.all %}
-    {{ comment.content }} <br>
-    {{ comment.user }} <br>
-    {{ comment.created_time }} <br>
-    <hr>
+    <p class="border rounded p-2">
+      {{ comment.content }} <br>
+      <span class="comment-username"> {{ comment.user }}</span>,
+      <span class="comment-time">  {{ comment.created_time }} </span>
+    </p>
+
   {% endfor %}
-  <form action="{% url 'blog:post-detail' post.id %}" method="post">
+  <form action="{% url 'blog:create-comment' %}" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ form|crispy }}
     <input type="submit" value="Send">
   </form>
-  
-    <p>{{ form.errors }}</p>
-    <p>{{ errors }}</p>
-
-
-</body>
-</html>
+{% endblock content %}
