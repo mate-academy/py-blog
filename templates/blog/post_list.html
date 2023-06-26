@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 class="text-center">Blog posts:</h1>
+  {% if post_list %}
+    <ul class="list-group">
+    {% for post in post_list %}
+    <li class="list-group-item">
+      <hr>
+      <h2><a href="{% url "blog:post-detail" pk=post.id%}">{{ post.title }}</a></h2>
+      <h3>{{ post.content }}</h3>
+      <h4>
+        (<strong>{{ post.owner }}</strong> ({{ post.created_time }}))
+        <a class="btn btn-primary float-right" href="{% url "blog:post-detail" pk=post.id%}">
+          Comments: {{ post.commentaries.count }}
+        </a>
+      </h4>
+    </li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    <h2>There are no posts yet :(</h2>
+  {% endif %}
+{% endblock %}
