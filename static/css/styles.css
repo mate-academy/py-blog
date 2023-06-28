@@ -1,4 +1,6 @@
-{ *
-margin-inside: 35;
+.ital {
 text-decoration: underline;
+;
+font-style: italic;
+    color: darkmagenta;
 }

@@ -1,25 +1,12 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic import ListView
 
+from blog.forms import CommentaryCreateForm
 from blog.models import Commentary, Post, User
-
-
-# @login_required
-# def index(request):
-#
-#     post_list = Post.objects.all()
-#
-#     num_visits = request.session.get("num_visits", 0)
-#     request.session["num_visits"] = num_visits + 1
-#
-#     context = {
-#         "post_list": post_list,
-#         "num_visits": num_visits + 1,
-#     }
-#
-#     return render(request, "blog/index.html", context=context)
 
 
 class PostListView(generic.ListView):
@@ -32,12 +19,48 @@ class PostListView(generic.ListView):
     paginate_by = 5
 
 
-class UserListView(generic.ListView):
-    model = Post
+class UserListView(LoginRequiredMixin, generic.ListView):
+    model = User
     context_object_name = "user_list"
     paginate_by = 10
 
 
 class PostDetailView(generic.DetailView):
     model = Post
-    template_name = "blog/post-detail.html"
+    form_class = CommentaryCreateForm()
+    template_name = "blog/post_detail.html"
+    success_url = reverse_lazy("backstage:post-list")
+    context_object_name = "post"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = CommentaryCreateForm()
+
+        return context
+
+
+class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Commentary
+    fields = ["content"]
+    success_url = reverse_lazy("backstage:post-list")
+    template_name = "blog/commentary_form.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["post_id"] = kwargs["pk"]
+        return context
+
+    def post(self, *args, **kwargs):
+        print(kwargs)
+        content = self.request.POST.get("content")
+        pk = self.kwargs.get("pk")
+        user = self.request.user
+        Commentary.objects.create(user=user,
+                                  post_id=pk,
+                                  content=content)
+
+        return redirect("blog:post-detail", pk)
+
+    def get_success_url(self):
+
+        return reverse_lazy("blog:post-detail", self.kwargs["pk"])

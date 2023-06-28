@@ -2,9 +2,10 @@
 
 {% block content %}
 
-    <p>Post: <h2>{{ post.title }}</h2>
+   <h2>Post:</h2>
+      <p><h4>{{ post.title }}</h4></p>
     <p style="text-decoration: underline">{{ post.owner}}, {{ post.created_time }}</p>
-    <p>{{ post.content}}}</p>
+    <p><strong>{{ post.content}}}</strong></p>
     {% if post.commentaries.all != 0 %}
       <p>commentaries:</p>
       {% for commentary in post.commentaries.all %}
@@ -14,4 +15,5 @@
     {% else %}
         <p>No comments yet, yours could be first!</p>
     {% endif %}
+  {% include "blog/commentary_form.html" %}
 {% endblock %}
