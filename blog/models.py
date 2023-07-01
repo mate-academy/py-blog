@@ -33,6 +33,7 @@ class Commentary(models.Model):
 
     class Meta:
         ordering = ["created_time"]
+        verbose_name_plural = "commentaries"
 
     def __str__(self):
         return self.content
