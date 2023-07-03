@@ -31,10 +31,16 @@
 
     {% csrf_token %}
     {{ form|crispy }}
-
-    <a href={% url "blog:commentary-create" pk=user.id %}>
-      <button class="btn btn-outline-primary" type="button">Add comment</button>
-    </a>
-    <button type="button" class="btn btn-secondary" onclick="history.go(-1)">Cancel</button>
+    {% if request.user.is_authenticated %}
+      <a href="{% url "blog:commentary-create" pk=user.id %}">
+        <button class="btn btn-outline-primary" type="button">Add comment</button>
+      </a><br><br>
+    {% else %}
+      <a href="">Add Comment</a><br><br>
+    {% endif %}
+{#    <a href={% url "blog:commentary-create" pk=user.id %}>#}
+{#      <button class="btn btn-outline-primary" type="button">Add comment</button>#}
+{#    </a>#}
+{#    <button type="button" class="btn btn-secondary" onclick="history.go(-1)">Cancel</button>#}
   </form>
 {% endblock %}
