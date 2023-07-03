@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+  <h4><a href="{% url 'blog:index' %}"> <-- Posts</a></h4>
   <div>
     <h1>{{ post.title }}</h1>
     <p>created at {{post.created_time}} by {{post.owner}}</p>
