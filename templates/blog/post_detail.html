@@ -12,15 +12,19 @@
   <div>
     <h3>Comments</h3>
     <ul>
-    {% for comment in post.comments.all %}
-      <li>
-        <div>
-          <p>By {{ comment.user.username }} at {{ comment.created_time }}</p>
-          <p>{{ comment.content }}</p>
-        </div>
-        <hr>
-      </li>
-    {% endfor %}
+    {% if post.comments.all %}
+      {% for comment in post.comments.all %}
+        <li>
+          <div>
+            <p>By {{ comment.user.username }} at {{ comment.created_time }}</p>
+            <p>{{ comment.content }}</p>
+          </div>
+          <hr>
+        </li>
+      {% endfor %}
     </ul>
+    {% else %}
+      <p>There are no comments on the post</p>
+    {% endif %}
   </div>
 {% endblock %}
