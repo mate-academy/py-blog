@@ -8,3 +8,8 @@ class PostListView(generic.ListView):
     model = Post
     queryset = Post.objects.select_related("owner")
     ordering = ["-created_time"]
+
+
+class PostDetailView(generic.DetailView):
+    model = Post
+    queryset = Post.objects.select_related("owner")

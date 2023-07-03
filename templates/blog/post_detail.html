@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div>
+    <h1>{{ post.title }}</h1>
+    <p>created at {{post.created_time}} by {{post.owner}}</p>
+    <p>
+      {{post.content}}
+    </p>
+  </div>
+  <div>
+    <h3>Comments</h3>
+    <ul>
+    {% for comment in post.comments.all %}
+      <li>
+        <div>
+          <p>By {{ comment.user.username }} at {{ comment.created_time }}</p>
+          <p>{{ comment.content }}</p>
+        </div>
+        <hr>
+      </li>
+    {% endfor %}
+    </ul>
+  </div>
+{% endblock %}
