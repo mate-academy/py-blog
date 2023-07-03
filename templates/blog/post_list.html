@@ -8,7 +8,7 @@
         <li>
           <div>
             <h3>
-              <a>{{ post.title }}</a> created at {{post.created_time}}
+              <a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a> created at {{post.created_time}}
               by {{post.owner}}. Comments - {{ post.comments.count }}
             </h3>
             <p>
