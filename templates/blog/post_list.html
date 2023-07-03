@@ -9,7 +9,7 @@
           <div>
             <h3>
               <a>{{ post.title }}</a> created at {{post.created_time}}
-              by {{post.owner}}
+              by {{post.owner}}. Comments - {{ post.comments.count }}
             </h3>
             <p>
               {{post.content}}
