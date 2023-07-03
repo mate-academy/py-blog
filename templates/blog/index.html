@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <h1>Welcome to the Tech Blog!</h1>
+  <br>
+  <h2>Blog contains:</h2>
+  {% for post in post_list %}
+   <nav class="text">
+    <ul>
+      <li><strong>Created by: </strong>{{ post.owner.username }} ({{ post.owner.first_name }} {{ post.owner.last_name }})</li>
+      <li>
+        <strong>Title:</strong>
+        <a href="{% url "blog:post-detail" pk=post.id %}">{{ post.title }}</a>  </li>
+      <li>{{ post.content }}</li>
+      <strong>comments:</strong> {{ post.commentaries.count }}
+    </ul>
+    </nav>
+  {% endfor %}
+{% endblock %}
