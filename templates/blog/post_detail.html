@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %} {{ post.title }} {% endblock title %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p>
+    <span class="comment-username">{{ post.owner }}</span>,
+    <span class="comment-time">{{ post.created_time }}</span>
+  </p>
+
+  <p>{{ post.content }}</p>
+
+  {% if not post.commentary_set.all  %}
+    No
+  {% else %}
+    {{ post.commentary_set.all|length }}
+  {% endif %}
+  comment{{ post.commentary_set.all|pluralize }} <br>
+
+  {% for comment in post.commentary_set.all %}
+    <p class="border rounded p-2">
+      {{ comment.content }} <br>
+      <span class="comment-username"> {{ comment.user }}</span>,
+      <span class="comment-time">  {{ comment.created_time }} </span>
+    </p>
+
+  {% endfor %}
+  <form action="{% url 'blog:create-comment' %}" method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="Send">
+  </form>
+{% endblock content %}
