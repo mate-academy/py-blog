@@ -6,5 +6,5 @@ from blog.models import Post
 # Create your views here.
 class PostListView(generic.ListView):
     model = Post
-    template_name = "blog/post_list.html"
+    queryset = Post.objects.select_related("owner")
     ordering = ["-created_time"]
