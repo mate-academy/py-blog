@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "crispy_bootstrap4",
+    "crispy_forms",
     "blog",
 ]
 
@@ -65,6 +67,8 @@ TEMPLATES = [
         },
     },
 ]
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 WSGI_APPLICATION = "blog_system.wsgi.application"
 
@@ -97,6 +101,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 AUTH_USER_MODEL = "blog.User"
+
+LOGIN_REDIRECT_URL = "/posts"
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
