@@ -24,4 +24,3 @@ class CommentaryAdmin(admin.ModelAdmin):
 
 
 admin.site.unregister(Group)
-
