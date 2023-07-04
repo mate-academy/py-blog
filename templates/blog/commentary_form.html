@@ -1,12 +1,19 @@
 {% extends "base.html" %}
-{% load crispy_forms_filters %}
 
 {% block content %}
-  <h1>Lift comment</h1>
-  <form action="" method="post" novalidate>
-    {% csrf_token %}
-    {{ form|crispy }}
+  <h1>Create comment</h1>
+  {% if error %}
+    <p>{{  error}}</p>
+  {% endif %}
 
+  <form action="" method="post">
+    {% csrf_token %}
+    <label>Your commentary:
+      <br>
+      <input type="text" name="content" novalidate>
+    </label>
+    <br>
+    <input type="hidden" name="user_pk" value="{{ user.pk }}">
+    <input type="hidden" name="post_pk" value="{{ post_pk }}" >
     <input class="btn btn-primary" type="submit" value="Submit">
-  </form>
 {% endblock %}

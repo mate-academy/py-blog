@@ -1,17 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Books List</h1>
+<h1>Post List</h1>
   <ul>
-    {% if book_list %}
-      {% for book in book_list %}
+    {% if post_list %}
+      {% for post in post_list %}
         <li>
-          <a href="{{ book.get_absolute_url }}">{{ book.title }}</a>
-          (price: {{ book.price }}, format: {{ book.format.name }}
+          <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+          (Name: {{ post.owner.username }}, Creation time: {{ post.created_time }}, Commentary count: {{ post.commentary.count }})
+          <p>{{ post.content }}</p>
         </li>
       {% endfor %}
     {% else %}
-      <p>The are no book in literary</p>
+      <p>The are no post</p>
     {% endif %}
   </ul>
 {% endblock %}

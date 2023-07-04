@@ -1,23 +1,24 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 
 {% block content %}
-  <h1>Title: {{ book.title }}</h1>
-  <p><strong>Price</strong> {{ book.price }}</p>
-  <p><strong>Format</strong> {{ book.format.name }}</p>
+  <h2>Title: {{ post.title }}</h2>
+  <p><strong>Author</strong> {{ post.owner.username }}</p>
+  <p></p>
+  <p> {{ post.content }}</p>
 
   <div class="ml-3">
-    <h3>Authors</h3>
-    {% for author in book.authors.all %}
-      <hr>
-      <p class="text-muted"><strong>id:</strong> {{ author.id }}</p>
+    <h3>Comments: {{ post.commentary.count }}</h3>
+    {% for comment in post.commentary.all %}
+      <br>
+      <p class="text-muted"><strong> {{ comment.user.username }} </strong></p>
       <p>
-        <strong>Full name</strong>
-        {{ author.first_name }} {{ author.last_name }}
-        {% if author.pseudonym %}({{ author.pseudonym }}){% endif %}
+        {{ comment.content }}
       </p>
     {% empty %}
       <p>No authors</p>
     {% endfor %}
 
+    <a href="{% url 'blog:commentary-create' pk=post.pk %}">Add comment</a>
   </div>
 {% endblock %}
