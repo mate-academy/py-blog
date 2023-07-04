@@ -20,7 +20,7 @@ urlpatterns = [
     ),
 
     path(
-        "posts/<int:pk>/create",
+        "commentaries/create/",
         CommentaryCreateView.as_view(),
         name="commentary-create",
     ),
