@@ -16,7 +16,9 @@ class Post(models.Model):
     content = models.TextField()
     created_time = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="posts"
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="posts"
     )
 
     class Meta:
@@ -30,9 +32,15 @@ class Commentary(models.Model):
     content = models.TextField()
     created_time = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="comments"
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="comments"
     )
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
+    post = models.ForeignKey(
+        Post,
+        on_delete=models.CASCADE,
+        related_name="comments"
+    )
 
     class Meta:
         ordering = ["created_time"]
