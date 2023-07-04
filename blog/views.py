@@ -10,7 +10,7 @@ from blog.models import Post, Commentary
 class PostListView(generic.ListView):
     model = Post
     template_name = "blog/index.html"
-    queryset = Post.objects.all().select_related("owner")
+    queryset = Post.objects.select_related("owner")
     paginate_by = 5
 
 
