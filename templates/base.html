@@ -14,6 +14,16 @@
   </head>
   <body>
     <div>
+      {% if user.is_authenticated %}
+        <p class="list-group-item">User: <a href="{{ user.get_absolute_url }}">{{ user.get_username }}</a></p>
+        <p class="list-group-item"><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></p>
+      {% else %}
+        <p class="list-group-item"><a href="{% url 'login'%}?next={{request.path}}">Login</a></p>
+      {% endif %}
+
+      <br>
+    </div>
+    <div>
         {% block content %}{% endblock %}
 
         {% block pagination %}
