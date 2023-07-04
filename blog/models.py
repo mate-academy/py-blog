@@ -7,7 +7,7 @@ class User(AbstractUser):
 
 
 class Post(models.Model):
-    owner = models.ForeignKey("User", on_delete=models.CASCADE)
+    owner = models.ForeignKey("User", on_delete=models.CASCADE, related_name="blogs")
     title = models.CharField(max_length=120)
     content = models.TextField()
     created_time = models.DateTimeField()
@@ -17,7 +17,7 @@ class Post(models.Model):
 
 
 class Commentary(models.Model):
-    user = models.ForeignKey("User", on_delete=models.CASCADE)
+    user = models.ForeignKey("User", on_delete=models.CASCADE, related_name="commentaries")
     post = models.ForeignKey("Post", on_delete=models.CASCADE)
     created_time = models.DateTimeField(auto_now_add=True)
     content = models.TextField(max_length=500)
