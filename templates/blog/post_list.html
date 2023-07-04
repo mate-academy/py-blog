@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Books List</h1>
+  <ul>
+    {% if book_list %}
+      {% for book in book_list %}
+        <li>
+          <a href="{{ book.get_absolute_url }}">{{ book.title }}</a>
+          (price: {{ book.price }}, format: {{ book.format.name }}
+        </li>
+      {% endfor %}
+    {% else %}
+      <p>The are no book in literary</p>
+    {% endif %}
+  </ul>
+{% endblock %}
