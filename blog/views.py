@@ -38,4 +38,3 @@ class AddCommentView(LoginRequiredMixin, generic.CreateView):
                 return super().form_valid(form)
 
         return HttpResponseRedirect(post_url)
-
