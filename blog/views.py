@@ -18,7 +18,7 @@ class PostDetailView(generic.DetailView):
     model = Post
     form_class = CommentaryForm
     template_name = "blog/post_detail.html"
-    queryset = Post.objects.all().prefetch_related("commentaries")
+    queryset = Post.objects.prefetch_related("commentaries")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
