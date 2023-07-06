@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 
 from .forms import CommentaryForm
@@ -27,15 +28,19 @@ class PostDetailView(generic.DetailView):
 
 
 class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
-    model = Commentary
-    fields = ["content"]
-    template_name = "blog/post_detail.html"
+    def post(self, request, *args, **kwargs):
+        post_id = kwargs["pk"]
+        post_url = reverse_lazy("blog:post-detail", kwargs={"pk": post_id})
 
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        form.instance.post_id = self.kwargs["pk"]
-        return super().form_valid(form)
+        form = CommentaryForm(request.POST)
 
-    def get_success_url(self):
-        post_id = self.kwargs["pk"]
-        return reverse_lazy("blog:post-detail", kwargs={"pk": post_id})
+        if form.is_valid():
+            content = form.cleaned_data["content"]
+
+            if post_id and content:
+                form.instance.user_id = self.request.user.pk
+                form.instance.post_id = post_id
+                self.success_url = post_url
+                return super().form_valid(form)
+
+        return HttpResponseRedirect(post_url)
