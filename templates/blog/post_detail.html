@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <h1> {{ post.title }} </h1>
+  <p>{{ post.owner.username }} at {{ post.created_time }}</p>
+  <h4>{{ post.content }}</h4>
+
+  <br>
+
+  <p><strong>{{ post.commentaries.count }} {{ post.commentaries.count|pluralize:"comment,comments" }}</strong></p>
+  {% for commentary in post.commentaries.all %}
+    <div class="list-group my-3">
+      <div class="list-group-item">
+        <p class="mb-1 border-bottom"><strong>{{ commentary.user.username }}</strong> <small>{{ commentary.created_time }}</small></p>
+        <h4>{{ commentary.content }}</h4>
+      </div>
+    </div>
+  {% endfor %}
+
+  <br>
+
+  <form method="post" action="{% url "blog:commentary-create" post.pk %}" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary">Add comment</button>
+  </form>
+{% endblock %}
