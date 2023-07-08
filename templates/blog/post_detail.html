@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h2>{{ post.title }}</h2>
+  <h5>by: {{ post.owner }}</h5>
+  <br>
+  <p>{{ post.content }}</p>
+  <br>
+  {% if post.commentaries.all %}
+    <h5>Comments:</h5>
+    {% for comment in post.commentaries.all %}
+      <p><b>{{ comment.user }}:</b> {{ comment.content }}</p>
+    {% endfor %}
+    {% else %}
+        <p>No one comment this post yet</p>
+  {% endif %}
+
+  <h1>Add new comment:</h1>
+
+  <form method="POST" action="{% url 'blog:commentary-create' post.pk %}" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" calss="btn btn-primary" value="Submit">
+  </form>
+
+{% endblock %}
