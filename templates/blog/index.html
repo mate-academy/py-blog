@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+      <h1 class="text-center mt-3">Posts</h1>
+
+      {% if post_list %}
+
+        {% for post in post_list %}
+          <h3 class="mt-5 text-center"><a class="text-dark" href="{% url "blog:post-detail" pk=post.id %}">{{ post.title }}</a></h3>
+          <time class="text-info">{{ post.created_time }}</time>
+          <p class="text-justify">{{ post.content }}</p>
+          <span>Post was written by <strong>{{ post.owner.username }}</strong></span>
+          <p>Number of commentaries: {{ post.commentary_set.count }}</p>
+        {% endfor %}
+      {% else %}
+        <p>There are no posts!</p>
+      {% endif %}
+
+
+{% endblock %}

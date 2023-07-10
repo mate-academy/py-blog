@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2 class="text-danger text-center mt-3">Logged out!</h2>
+  <a class="text-primary mt-2" href="{% url 'login' %}">Click here to login again.</a>
+{% endblock %}
