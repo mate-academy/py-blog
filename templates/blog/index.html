@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% for post in post_list %}
+  <div class="card my-3">
+    <div class="card-body">
+      <h5 class="card-title"><a href="{% url 'blog:post-detail' post.pk %}">{{ post.title }}</a></h5>
+      <p class="card-text">{{ post.created_time }}</p>
+      <p class="card-text">{{ post.content }}</p>
+      <p class="card-text"> ✏️ {{ post.owner.username }}<a href="{% url 'blog:post-detail' post.pk %}">
+        💬 {{ post.commentary_set.count }}</a>
+      </p>
+    </div>
+  </div>
+  {% empty %}
+  <p>No posts available.</p>
+{% endfor %}
+
+{% endblock %}
