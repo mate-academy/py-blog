@@ -13,9 +13,21 @@ class Post(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
     content = models.CharField(max_length=63)
 
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name_plural = "posts"
+
 
 class Commentary(models.Model):
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     created_time = models.DateTimeField(auto_now_add=True)
     content = models.CharField(max_length=63)
+
+    def __str__(self):
+        return self.content
+
+    class Meta:
+        verbose_name_plural = "commentaries"
