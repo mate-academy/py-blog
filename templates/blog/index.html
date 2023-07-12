@@ -8,7 +8,7 @@
       <p class="card-text">{{ post.created_time }}</p>
       <p class="card-text">{{ post.content }}</p>
       <p class="card-text"> ✏️ {{ post.owner.username }}<a href="{% url 'blog:post-detail' post.pk %}">
-        💬 {{ post.commentary_set.count }}</a>
+        💬 {{ post.comments.count }}</a>
       </p>
     </div>
   </div>
