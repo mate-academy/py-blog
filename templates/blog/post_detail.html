@@ -47,6 +47,7 @@
 
   {% else %}
     <p>No comments yet</p>
+    <h5 class="text-center mt1">Add new commentary</h5>
     <div class="text-center mt1">
       {% if user.is_authenticated %}
         <form  method="POST" action="{% url 'blog:comment-create' post.pk %}">
