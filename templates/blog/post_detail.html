@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <h5>by: {{ post.owner }}</h5>
+  <br>
+
+  <p class="message">{{ post.content }}</p>
+  <br>
+  <h2>{{ post.commentaries.count }} сomment{{ post.commentaries.count|pluralize }}:</h2>
+  {% if post.commentaries.all %}
+    <ul>
+      {% for comment in post.commentaries.all %}
+        <div class="comment">
+          <div class="header">
+            <p>{{ comment.user.username }}</p>
+            <p>{{ comment.created_time}}</p>
+          </div>
+          <div class="line"></div>
+          <div class="content">
+          {{ comment.content }}
+          </div>
+        </div>
+      {% endfor %}
+    </ul>
+
+    <h5 class="text-center mt1">Add new commentary</h5>
+
+    <div class="text-center mt1">
+      {% if user.is_authenticated %}
+        <form  method="POST" action="{% url 'blog:comment-create' post.pk %}">
+          {% csrf_token %}
+          {{ form|crispy}}
+            <label for="content" class="form-label"></label>
+              <br>
+            <label>
+            <textarea name="content" cols="80"></textarea>
+            </label>
+              <br>
+          <input class="btn btn-primary" type="submit" value="Add comment"/>
+        </form>
+      {% else %}
+        <a href="{% url 'login' %}" class="btn btn-info">Login</a>
+      {% endif %}
+    </div>
+
+  {% else %}
+    <p>No comments yet</p>
+    <div class="text-center mt1">
+      {% if user.is_authenticated %}
+        <form  method="POST" action="{% url 'blog:comment-create' post.pk %}">
+          {% csrf_token %}
+          {{ form|crispy}}
+            <label for="content" class="form-label"></label>
+              <br>
+            <label>
+            <textarea name="content" cols="80"></textarea>
+            </label>
+              <br>
+          <input class="btn btn-primary" type="submit" value="Add comment"/>
+        </form>
+      {% else %}
+        <a href="{% url 'login' %}" class="btn btn-info">Login</a>
+      {% endif %}
+    </div>
+  {% endif %}
+{% endblock %}
