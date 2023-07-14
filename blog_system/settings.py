@@ -2,7 +2,8 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = "django-insecure-&j)b=-*9zui1jshthal7=++170fuy!hhd=jw^d9%vge()if1%g"
+SECRET_KEY = "django-insecure-&j)b=-*9zui1j" \
+             "shthal7=++170fuy!hhd=jw^d9%vge()if1%g"
 
 DEBUG = True
 
@@ -15,7 +16,6 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     "crispy_forms",
     "blog",
 ]
@@ -61,16 +61,19 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+        "NAME": "django.contrib.auth.password_validation"
+                ".UserAttributeSimilarityValidator", },
+    {
+        "NAME": "django.contrib.auth.password_validation"
+                ".MinimumLengthValidator",
     },
     {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+        "NAME": "django.contrib.auth.password_validation"
+                ".CommonPasswordValidator",
     },
     {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+        "NAME": "django.contrib.auth.password_validation"
+                ".NumericPasswordValidator",
     },
 ]
 
