@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container">
+    <div class="row mt-n5">
+    {% for post in post_list %}
+      <div class="col-md-6 col-lg-4 mt-5 wow fadeInUp" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+        <div class="blog-grid">
+          <div class="blog-grid-text p-4">
+              <h3 class="h5 mb-3"><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h3>
+              <p class="display-30">{{ post.content|truncatechars:40 }}</p>
+              <div class="meta meta-style2">
+                <ul>
+                    <li><a href="#"><i class="fas fa-calendar-alt"></i>{{ post.created_time }}</a></li>
+                    <li><a href="#"><i class="fas fa-user"></i>{{ post.owner.username }}</a></li>
+                    <li><a href="#"><i class="fas fa-comments"></i>{{ post.commentaries.count }}</a></li>
+                </ul>
+              </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+  </div>
+{% endblock %}

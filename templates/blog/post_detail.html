@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="post-content">
+          <div class="post-container">
+            <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="user" class="profile-photo-md pull-left">
+            <div class="post-detail">
+              <div class="user-info">
+                <h5><a href="timeline.html" class="profile-link">{{ post.owner }}</a></h5>
+                <p class="text-muted">Created at {{ post.created_time }}</p>
+              </div>
+              <div class="reaction">
+                <a class="btn text-green"><i class="fa fa-thumbs-up"></i>{{ post.commentaries.count }}</a>
+              </div>
+              <div class="line-divider"></div>
+              <div class="post-text">
+                <text>{{ post.content }}</text>
+              </div>
+              <div class="line-divider"></div>
+              {% for commentary in post.commentaries.all %}
+                <div class="post-comment">
+                  <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="" class="profile-photo-sm">
+                  <p><a href="timeline.html" class="profile-link">{{ commentary.user.username }} </a>
+                    {{ commentary.content }}
+                    <br>
+                    {{ commentary.created_time }}
+                  </p>
+                </div>
+              {% endfor %}
+              {% if user.is_authenticated %}
+                {% if form.errors %}
+                <p style="color:red;">You should provide content for your commentary</p>
+                {% endif %}
+                <form action="" method="post" novalidate>
+                  {% csrf_token %}
+                  {{ form|crispy }}
+
+                  <input type="submit" value="Submit">
+                  <input type="hidden" name="post_id" value="{{ post.id }}">
+                </form>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
