@@ -11,7 +11,7 @@ class PostListView(ListView):
     context_object_name = "post_list"
     template_name = "blog/index.html"
     paginate_by = 5
-    queryset = Post.objects.all().order_by("-created_time")
+    queryset = Post.objects.order_by("-created_time")
 
 
 class PostDetailView(DetailView):
@@ -19,7 +19,7 @@ class PostDetailView(DetailView):
     template_name = "blog/post_detail.html"
     context_object_name = "post"
     queryset = (
-        Post.objects.all().prefetch_related("commentaries").
+        Post.objects.prefetch_related("commentaries").
         select_related("owner")
     )
 
