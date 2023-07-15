@@ -38,5 +38,4 @@ class Commentary(models.Model):
         verbose_name_plural = "commentaries"
 
     def __str__(self):
-        return (f"Post: {self.post.title} "
-                f"Author: {self.user.username}")
+        return f"Post: {self.post.title} " f"Author: {self.user.username}"

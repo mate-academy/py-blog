@@ -33,8 +33,5 @@ def post_detail_view(request: HttpRequest, pk: int) -> HttpResponse:
                 post_id=pk,
                 content=form.cleaned_data["content"]
             )
-            context = {
-                "post": post,
-                "form": CommentaryForm()
-            }
+            context = {"post": post, "form": CommentaryForm()}
             return render(request, "blog/post_detail.html", context=context)

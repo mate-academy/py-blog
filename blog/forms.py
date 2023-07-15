@@ -9,6 +9,4 @@ class CommentaryForm(forms.ModelForm):
     class Meta:
         model = Commentary
         fields = ["content"]
-        labels = {
-            "content": gettext_lazy("Commentary")
-        }
+        labels = {"content": gettext_lazy("Commentary")}
