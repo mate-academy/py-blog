@@ -18,6 +18,7 @@ class Post(models.Model):
 
     class Meta:
         verbose_name_plural = "posts"
+        ordering = ["created_time"]
 
 
 class Commentary(models.Model):
@@ -31,3 +32,4 @@ class Commentary(models.Model):
 
     class Meta:
         verbose_name_plural = "commentaries"
+        ordering = ["created_time"]
