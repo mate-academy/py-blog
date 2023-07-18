@@ -1,13 +1,15 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+from blog_system import settings
+
 
 class User(AbstractUser):
     pass
 
 
 class Post(models.Model):
-    owner = models.ForeignKey(to=User,
+    owner = models.ForeignKey(to=settings.AUTH_USER_MODEL,
                               on_delete=models.CASCADE,
                               related_name="posts")
     title = models.CharField(max_length=255)
@@ -19,7 +21,7 @@ class Post(models.Model):
 
 
 class Commentary(models.Model):
-    user = models.ForeignKey(to=User,
+    user = models.ForeignKey(to=settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE,
                              related_name="comments")
     post = models.ForeignKey(to=Post,
