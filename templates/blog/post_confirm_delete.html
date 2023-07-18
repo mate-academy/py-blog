@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2 class="container">are you sure you want to delete the position, it will lead to the deletion of all employees in this position?</h2>
+  <form action="" method="post">
+    {% csrf_token %}
+
+  <div class="container">
+    <input type="submit" value="Yes" class="btn btn-danger container">
+    <a href="{% url "task_manager:position-list"  %}" class="btn btn-secondary container">No</a>
+  </div>
+
+  </form>
+{% endblock %}

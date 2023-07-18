@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>
+    <p></p>
+
+      <div>
+        <div>
+            <span>{{ post.title }}</span>
+
+            <span style="float:right">{{ post.created_time }} {{ post.owner }}</span>
+            <p></p>
+        </div>
+        <div>
+          <p>{{ post.content}}.</p>
+         </div>
+      </div>
+</h2>
+{% endblock %}
