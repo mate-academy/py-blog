@@ -7,7 +7,8 @@ urlpatterns = [
     path(
         "posts/<int:pk>/create-commentary/",
         CommentaryCreateView.as_view(),
-        name="commentary-create"),
+        name="commentary-create"
+    ),
 ]
 
 app_name = "blog"
