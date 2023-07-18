@@ -2,18 +2,35 @@
 
 {% block content %}
 <h2>
-    <p></p>
 
-      <div>
-        <div>
-            <span>{{ post.title }}</span>
+<div class="card border-dark mb-3" style="max-width: 98rem;">
+  <div class="card-header">
+      <span>{{ post.owner }}</span>
+      <span style="float:right">{{ post.created_time }} </span>
+  </div>
 
-            <span style="float:right">{{ post.created_time }} {{ post.owner }}</span>
-            <p></p>
-        </div>
-        <div>
-          <p>{{ post.content}}.</p>
-         </div>
-      </div>
+  <div class="card-body text-dark">
+    <h5 class="card-title">{{ post.title }}</h5>
+    <p class="card-text">{{ post.content}} </p>
+  </div>
+</div>
 </h2>
+    {% for commentary in post.commentaries.all %}
+
+            <div class="card bg-light mb-3" style="max-width: 68rem;">
+            <div class="card-header">
+                <span >{{ commentary.user }}</span>
+                <span style="float:right">{{ commentary.created_time }}</span>
+            </div>
+          <div class="card-body">
+            <h5 class="card-title">{{ commentary }}</h5>
+
+          </div>
+        </div>
+
+    {% endfor %}
+
+
+
+
 {% endblock %}
