@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 class="text-center">All Posts</h1>
+  {% for post in post_list %}
+    <div class="card mb-3">
+      <div class="card-body">
+        <h3 class="card-title">
+          <a href="{% url 'blog:post-detail' pk=post.pk %}">{{ post.title }}</a>
+        </h3>
+        <p class="card-text">{{ post.content }}</p>
+        <br>
+        <p class="card-subtitle">{{ post.owner }} <i>{{ post.created_time }}</i></p>
+        <br>
+        <p><strong><i>Number of comments:</i></strong> {{ post.comments.count }}</p>
+      </div>
+    </div>
+  {% endfor %}
+
+{% endblock %}
