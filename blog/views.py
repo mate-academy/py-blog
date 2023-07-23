@@ -18,7 +18,7 @@ def index(request):
     page_obj = paginator.get_page(page_number)
 
     context = {
-        "page_obj": page_obj,
+        "post_list": page_obj,
         "total_pages": paginator.num_pages
     }
 

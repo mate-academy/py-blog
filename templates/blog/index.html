@@ -3,7 +3,7 @@
 {% block content %}
   <h1 class="post-content">Posts:</h1>
   <ul class="main-page-posts">
-    {% for post in page_obj%}
+    {% for post in post_list %}
       <li>
         <a href="{% url 'blog:post-detail' pk=post.pk %}">
           {{post}}
