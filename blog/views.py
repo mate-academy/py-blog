@@ -1,7 +1,5 @@
-from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
-from django.views import generic
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.core.paginator import Paginator
 
@@ -26,7 +24,7 @@ def index(request):
 
 
 def post_detail_view(request, pk: int):
-    post = Post.objects.get(pk=pk)
+    post = get_object_or_404(Post, pk=pk)
     if request.method == "GET":
         context = {
             "form": CommentaryForm(),
