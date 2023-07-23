@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.owner.username }} at <i>{{ post.created_time }}</i></p>
+
+  <hr>
+
+  <p>{{ post.content }}</p>
+
+  <hr>
+
+  <h6>{{ post.comments.count }} comments:</h6>
+  {% for commentary in post.comments.all %}
+    <div class="commentary">
+      <p>{{ commentary.user.username }} at <i>{{ commentary.created_time }}</i></p>
+      <hr>
+      <p>{{ commentary.content }}</p>
+    </div>
+  {% endfor %}
+
+  {% include "blog/commentary_form.html"%}
+
+{% endblock %}
