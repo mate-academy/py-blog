@@ -1,6 +1,7 @@
 from django.views import generic
 from django.shortcuts import  redirect
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -21,15 +22,13 @@ class PostDetailView(LoginRequiredMixin, generic.DetailView):
         context["form"] = CommentaryForm()
         return context
 
-
+@login_required
 def commentary_create(request):
     form = CommentaryForm(request.POST or None)
-
     if form.is_valid():
         commentary = Commentary()
-
         commentary.user = request.user
         commentary.content = request.POST["content"]
         commentary.post = Post.objects.get(title=request.POST["post"])
         commentary.save()
-        return redirect(reverse("blog:post-list"))
+        return redirect(request.META.get('HTTP_REFERER'))
