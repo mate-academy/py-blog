@@ -1,6 +1,10 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 
 {% block content %}
+
+<h1>{{post}}</h1>
+
 <h2>
 
 <div class="card border-dark mb-3" style="max-width: 98rem;">
@@ -31,6 +35,13 @@
     {% endfor %}
 
 
+  <form action="{% url "blog:commentary-create" %}" method="post" novalidate>
+    {% csrf_token %}
+    {{form|crispy }}
+
+    <input type="hidden" name="post" value="{{ post }}">
+    <input type="submit" value="Submit" class="btn btn-primary">
+  </form>
 
 
 {% endblock %}
