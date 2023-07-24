@@ -17,11 +17,11 @@
 <body>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-1">
+    <div class="col-sm-0">
 
 
     </div>
-    <div class="col-sm-11">
+    <div class="col-sm-12">
       {% if user.is_authenticated %}
         <li class="list-group-item">User: <a href="{{ user.get_absolute_url }}">{{ user.get_username }}</a></li>
         <li class="list-group-item"><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
