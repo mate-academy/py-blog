@@ -6,7 +6,12 @@ from blog.models import Commentary
 
 
 class CommentaryForm(forms.ModelForm):
+    content = forms.CharField(
+        max_length=1023,
+        widget=forms.Textarea(attrs={"rows": 3}),
+        label=""
+    )
+
     class Meta:
         model = Commentary
         fields = ["content"]
-        labels = {"content": gettext_lazy("Commentary")}
