@@ -1,5 +1,5 @@
 from django.views import generic
-from django.shortcuts import  redirect
+from django.shortcuts import redirect
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
@@ -22,6 +22,7 @@ class PostDetailView(LoginRequiredMixin, generic.DetailView):
         context["form"] = CommentaryForm()
         return context
 
+
 @login_required
 def commentary_create(request):
     form = CommentaryForm(request.POST or None)
@@ -31,4 +32,4 @@ def commentary_create(request):
         commentary.content = request.POST["content"]
         commentary.post = Post.objects.get(title=request.POST["post"])
         commentary.save()
-        return redirect(request.META.get('HTTP_REFERER'))
+        return redirect(request.META.get("HTTP_REFERER"))
