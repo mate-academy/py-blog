@@ -2,4 +2,4 @@ blog_system_db_data.json
 db.sqlite3
 .idea
 .github
-pyc
+**__pycache__
