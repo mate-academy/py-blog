@@ -23,27 +23,15 @@ class PostDetailView(generic.DetailView):
         return context
 
 
-# class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
-#     queryset = Task.objects.all()
-#     fields = ["is_done", ]
-#     template_name = "app/task_list.html"
-#     success_url = reverse_lazy("app:task-list")
-#
-#     def post(self, request, *args, **kwargs):
-#         task = Task.objects.get(pk=kwargs["pk"])
-#         task.is_done = not task.is_done
-#         task.save()
-#         return redirect(reverse("app:task-list"))
+class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
+    form_class = CommentaryForm
+    template_name = "blog/post_detail.html"
+    success_url = reverse_lazy("blog:post-detail")
 
-
-@login_required
-def commentary_create(request):
-    form = CommentaryForm(request.POST or None)
-    if form.is_valid():
-        commentary = Commentary()
-        commentary.user = request.user
-        commentary.content = request.POST["content"]
-        commentary.post = Post.objects.get(title=request.POST["post"])
-        commentary.save()
+    def post(self, request, *args, **kwargs):
+        Commentary.objects.create(
+            user=request.user,
+            content=request.POST["content"],
+            post=Post.objects.get(title=request.POST["post"])
+        )
         return redirect(request.META.get("HTTP_REFERER"))
-    return redirect(request.META.get("HTTP_REFERER"))
