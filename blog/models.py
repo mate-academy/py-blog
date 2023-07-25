@@ -17,7 +17,6 @@ class Post(models.Model):
         return self.title
 
     class Meta:
-        verbose_name_plural = "posts"
         ordering = ["created_time"]
 
 
