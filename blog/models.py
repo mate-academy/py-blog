@@ -8,7 +8,9 @@ class User(AbstractUser):
 
 
 class Post(models.Model):
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE
+    )
     title = models.CharField(max_length=255)
     content = models.TextField(max_length=500)
     created_time = models.DateTimeField()
