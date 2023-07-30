@@ -1,5 +1,5 @@
-from django.shortcuts import get_object_or_404, render, redirect
-from django.urls import reverse, reverse_lazy
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -32,7 +32,7 @@ class PostDetailView(generic.DetailView):
 
     @staticmethod
     def post(request, *args, **kwargs):
-        post = get_object_or_404(Post, pk=kwargs['pk'])
+        post = get_object_or_404(Post, pk=kwargs["pk"])
         commentaries = post.commentaries.all()
         form = CommentaryForm(request.POST)
         if form.is_valid():

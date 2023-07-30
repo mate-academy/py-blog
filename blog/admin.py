@@ -11,7 +11,9 @@ admin.site.unregister(Group)
 @admin.register(User)
 class UserAdmin(UserAdmin):
     list_display = UserAdmin.list_display + ("hobby",)
-    fieldsets = UserAdmin.fieldsets + (("Additional info", {"fields": ("hobby",)}),)
+    fieldsets = UserAdmin.fieldsets + (
+        ("Additional info", {"fields": ("hobby",)}),
+    )
     add_fieldsets = UserAdmin.add_fieldsets + (
         ("Additional info", {"fields": ("first_name", "last_name", "hobby")}),
     )
@@ -22,7 +24,11 @@ class UserAdmin(UserAdmin):
 class PostAdmin(admin.ModelAdmin):
     list_display = ["title", "content", "created_time", "owner_username"]
     list_filter = ["title", "owner__username", "created_time"]
-    search_fields = ["title", "content", "owner__first_name", "owner__last_name", "owner__username"]
+    search_fields = ["title",
+                     "content",
+                     "owner__first_name",
+                     "owner__last_name",
+                     "owner__username"]
 
     def owner_username(self, obj):
         return obj.owner.username

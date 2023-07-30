@@ -5,7 +5,10 @@ from blog.models import Commentary
 
 class CommentaryForm(forms.ModelForm):
 
-    content = forms.CharField(widget=forms.Textarea(attrs={"rows": 4}), required=False)
+    content = forms.CharField(
+        widget=forms.Textarea(attrs={"rows": 4}),
+        required=False
+    )
 
     class Meta:
         model = Commentary
