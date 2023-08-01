@@ -1,0 +1,23 @@
+html{
+    margin: 20px;
+}
+
+.pagination {
+    margin: auto;
+    justify-content: center;
+    padding-bottom: 20px;
+}
+
+.detail-container {
+    margin: 20px 150px;
+}
+
+.post-detail {
+    line-height: 200%;
+}
+
+.comment-data {
+    border: 1px solid black ;
+    padding: 5px;
+    tab-size: 12px;
+}
