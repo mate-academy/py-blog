@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+<div class="post">
+  <h1 class="title-detail">{{ post.title }}</h1>
+  <div class="go-home">
+  <p class="post-information">
+    Created by {{ post.owner }} at {{ post.created_time }}
+  </p>
+    <a href="{% url 'blog:index' %}" class="active">Go home</a>
+  </div>
+
+  <div>
+    <p class="post-content">{{ post.content }}</p>
+    <p><strong>
+      {% with total=post.post_commentaries.count%}
+        {% if total %}
+      	  {{ total }} comment{{ total|pluralize }}
+        {% else %}
+          0 comments
+        {% endif %}
+      {% endwith %}
+    </strong></p>
+        {% for comment in post.post_commentaries.all %}
+          <table class="table">
+            <tr>
+              <td class="post-information">{{ comment.user }} {{ comment.created_time }}</td>
+            </tr>
+            <tr><td>{{ comment.content }}</td></tr>
+          </table>
+        {% empty %}
+          <p>There are no comments yet</p>
+        {% endfor %}
+    </div>
+    <div>
+      <form action="" method="post" novalidate>
+        {% csrf_token %}
+        <p><strong>Add a new comment</strong></p>
+        {{ form|crispy }}
+        <input class="btn btn-primary" type="submit" value="Submit">
+      </form>
+    </div>
+  </div>
+{% endblock %}
