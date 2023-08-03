@@ -25,20 +25,22 @@ class CommentaryListView(generic.ListView):
     model = Commentary
     template_name = "blog/post_detail.html"
 
-    context_object_name = 'commentaries'
+    context_object_name = "commentaries"
 
     def get_queryset(self):
-        post_id = self.kwargs.get('pk')
+        post_id = self.kwargs.get("pk")
         post = Post.objects.get(pk=post_id)
-        commentaries = Commentary.objects.filter(post=post).prefetch_related("user")
+        commentaries = Commentary.objects.filter(
+            post=post
+        ).prefetch_related("user")
 
         return commentaries
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        post_pk = self.kwargs['pk']
+        post_pk = self.kwargs["pk"]
         post = Post.objects.get(pk=post_pk)
-        context['post'] = post
+        context["post"] = post
 
         return context
 
