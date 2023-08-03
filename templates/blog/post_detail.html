@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>{{ post.title }}</h2>
+  <p>{{ post.content }}</p>
+  {% if commentaries %}
+    {% for commentary in commentaries %}
+      <h4>{{ commentary.user.username }} {{ commentary.created_time }}</h4>
+      <p>{{ commentary.content }}</p>
+    {% endfor %}
+  {% else %}
+    <p>No commentaries for this post!</p>
+  {% endif %}
+  <a class="btn btn-primary" href={% url 'blog:commentary-create' %} role="button" >Add comment</a>
+
+{% endblock %}
