@@ -16,7 +16,7 @@ class PostListView(generic.ListView):
 
 class PostDetailView(generic.DetailView):
     model = Post
-    queryset = Post.objects.all().prefetch_related("post_commentaries")
+    queryset = Post.objects.all().prefetch_related("commentaries")
 
 
 def commentary_create_view(request, pk: int):

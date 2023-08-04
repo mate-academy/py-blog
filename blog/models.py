@@ -13,7 +13,7 @@ class Post(models.Model):
         related_name="posts"
     )
     title = models.CharField(max_length=255)
-    content = models.TextField(max_length=2500)
+    content = models.TextField()
     created_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -24,15 +24,15 @@ class Commentary(models.Model):
     user = models.ForeignKey(
         to=User,
         on_delete=models.CASCADE,
-        related_name="user_commentaries"
+        related_name="commentaries"
     )
     post = models.ForeignKey(
         to=Post,
         on_delete=models.CASCADE,
-        related_name="post_commentaries"
+        related_name="commentaries"
     )
     created_time = models.DateTimeField(auto_now_add=True)
-    content = models.TextField(max_length=500)
+    content = models.TextField()
 
     class Meta:
         verbose_name_plural = "commentaries"

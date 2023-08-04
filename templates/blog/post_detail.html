@@ -3,7 +3,7 @@
 
 {% block content %}
 <div class="post">
-  <h1 class="title-detail">{{ post.title }}</h1>
+  <h1 class="title-detail"> {{ post.title }} </h1>
   <div class="go-home">
   <p class="post-information">
     Created by {{ post.owner }} at {{ post.created_time }}
@@ -12,7 +12,7 @@
   </div>
 
   <div>
-    <p class="post-content">{{ post.content }}</p>
+    <p class="post-content"> {{ post.content }} </p>
     <p><strong>
       {% with total=post.post_commentaries.count%}
         {% if total %}
@@ -25,9 +25,9 @@
         {% for comment in post.post_commentaries.all %}
           <table class="table">
             <tr>
-              <td class="post-information">{{ comment.user }} {{ comment.created_time }}</td>
+              <td class="post-information"> {{ comment.user }} {{ comment.created_time }} </td>
             </tr>
-            <tr><td>{{ comment.content }}</td></tr>
+            <tr><td> {{ comment.content }} </td></tr>
           </table>
         {% empty %}
           <p>There are no comments yet</p>
