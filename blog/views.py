@@ -18,7 +18,7 @@ class PostDetailView(FormMixin, generic.DetailView):
 
     def get_success_url(self):
         return reverse_lazy("blog:post-detail", kwargs={"pk": self.object.id})
-    
+
     def get_context_data(self, **kwargs):
         context = super(PostDetailView, self).get_context_data(**kwargs)
         context["form"] = CommentaryForm()
@@ -40,5 +40,3 @@ class PostDetailView(FormMixin, generic.DetailView):
     def form_valid(self, form):
         form.save()
         return super(PostDetailView, self).form_valid(form)
-
-
