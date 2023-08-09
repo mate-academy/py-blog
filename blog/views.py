@@ -37,7 +37,3 @@ class PostDetailView(FormMixin, generic.DetailView):
 
         if form.is_valid():
             return self.form_valid(form)
-
-    def form_valid(self, form):
-        form.save()
-        return super(PostDetailView, self).form_valid(form)
