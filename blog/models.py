@@ -13,13 +13,18 @@ class Post(models.Model):
     )
     title = models.CharField(max_length=255)
     content = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_time = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_time"]
 
 
 class Commentary(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE
     )
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
+    post = models.ForeignKey(
+        Post, on_delete=models.CASCADE, related_name="commentaries"
+    )
+    created_time = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
