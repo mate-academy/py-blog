@@ -21,20 +21,11 @@ class PostDetailView(generic.DetailView):
         return context
 
     def post(self, request, *args, **kwargs):
-        post = self.get_object()  # Get the post
+        post = self.get_object()
         comment_form = CommentaryForm(request.POST)
         if comment_form.is_valid():
-            # Save the comment
             new_comment = comment_form.save(commit=False)
-            new_comment.user = (
-                self.request.user
-            )  # Assuming your Comment model has a 'user' field
+            new_comment.user = self.request.user
             new_comment.post = post
             new_comment.save()
-            return redirect(
-                "blog:post-detail", pk=post.pk
-            )  # Redirect to the post detail page
-        else:
-            # Handle form errors
-            # You can also re-render the page with the form and errors here
-            pass
+            return redirect("blog:post-detail", pk=post.pk)
