@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <h1>
+    Commentary list
+{#    <a href="{% url 'blog:commentary-create' %}" class="btn btn-primary link-to-page">#}
+{#      Create#}
+{#    </a>#}
+  </h1>
+
+  {% block searh_form %}
+    {% include "includes/search_form.html"%}
+  {% endblock %}
+
+  {% if commentary_list %}
+    <ul>
+      {% for commentary in commentary_list %}
+        <li>
+          <a href="{% url "blog:commentary-detail" pk=commentary.id %} ">{{ commentary.id }}</a>
+          {{ commentary.user }} ({{ commentary.post.owner }})
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no comments yet</p>
+  {% endif %}
+{% endblock %}

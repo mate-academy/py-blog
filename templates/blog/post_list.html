@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>
+    Post List
+  <a href="{% url 'blog:post-create' %}" class="btn btn-primary link-to-page">
+      Create
+    </a>
+  </h1>
+  {% block searh_form %}
+    {% include "includes/search_form.html"%}
+  {% endblock %}
+  <ul>
+    {% for post in post_list %}
+      <li>
+        {% include "blog/post_summary.html" with post=post %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
