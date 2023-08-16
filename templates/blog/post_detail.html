@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.owner }} at {{ post.created_time }}</p>
+  <p>{{ post.content }}</p>
+  <p>{{ post.commentary_set.count }} comments</p>
+
+{% if not post.commentary_set.all  %}
+ <p>There are no comments yet</p>
+{% endif %}
+<div>
+  {% for comment in post.commentary_set.all %}
+
+  <ul>
+    <li class="list-group-item">{{ comment.user.username }} ({{ comment.created_time }})</li>
+    <li class="list-group-item">{{ comment.content }}</li>
+  </ul>
+
+  {% endfor %}
+</div>
+  {% if user.is_authenticated %}
+    <strong>Add a new comment</strong>
+<form method="post" action="{% url 'blog:add-comment' post.pk %}">
+      {% csrf_token %}
+      <textarea name="content" rows="4" cols="50"></textarea>
+     <br>
+<input class="btn btn-primary" type="submit" value="Add Comment">
+    </form>
+
+  {% else %}
+    <p>You must be logged in to add a comment.</p>
+  {% endif %}
+{% endblock %}
