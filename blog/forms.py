@@ -6,7 +6,7 @@ from blog.models import User, Commentary
 
 
 class PostSearchForm(forms.Form):
-    name = forms.CharField(
+    title = forms.CharField(
         max_length=255,
         required=False,
         label="",

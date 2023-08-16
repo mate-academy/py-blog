@@ -12,9 +12,9 @@
   {% for comment in post.commentary_set.all %}
 
   <ul>
-        <li class="list-group-item">{{ comment.user.username }}</li>
-        <li class="list-group-item">{{ comment.content }}</li>
-      </ul>
+    <li class="list-group-item">{{ comment.user.username }} ({{ comment.created_time }})</li>
+    <li class="list-group-item">{{ comment.content }}</li>
+  </ul>
 
   {% endfor %}
 </div>

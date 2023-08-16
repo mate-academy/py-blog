@@ -90,7 +90,9 @@ class CommentaryListView(generic.ListView):
         form = CommentarySearchForm(self.request.GET)
         if form.is_valid():
             if "post" in form.cleaned_data:
-                return queryset.filter(post__icontains=form.cleaned_data["post"])
+                return queryset.filter(
+                    post__icontains=form.cleaned_data["post"]
+                )
         return queryset
 
 
