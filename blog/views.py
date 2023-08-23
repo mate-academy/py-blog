@@ -64,7 +64,7 @@ class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
 
 class CommentaryUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Commentary
-    fields = "__all__"
+    fields = ["content"]
     template_name = "blog/commentary_form.html"
     success_url = reverse_lazy("blog:post-detail")
 
