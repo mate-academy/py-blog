@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <p>Author: {{ post.owner.first_name }} {{ post.owner.last_name }}</p>
+  <h1>{{ post.title }}
+  </h1>
+  <div class="border p-3 rounded">
+    <p>
+      {{ post.content }}
+    </p>
+  </div>
+  <h3>Commentary</h3>
+  <div class="card">
+    <div class="card-body">
+      <ul class="list-group list-group-flush">
+        {% for comment in post.commentary_set.all %}
+          <li class="list-group-item">
+            <div class="d-flex justify-content-between">
+              <h5>{{ comment.user.username }}</h5>
+              <span>{{ comment.created_time }}</span>
+            </div>
+            <p>{{ comment.content }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <br>
+      <a class="btn btn-primary" href="{% url "blog:commentary-create" post.pk %}">Add a new comment</a>
+{% endblock %}
