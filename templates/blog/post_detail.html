@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Title: {{ post.title }}</h1>
+  <p>{{ post.owner }} {{ post.created_time }}</p>
+  <li class="list-group-item">{{ post.content }}</li>
+
+  <div class="ml-3">
+    <div class="d-flex justify-content-between pt-3">
+        <h4>Comments</h4>
+        <a href="{% url 'blog:commentary-create' %}" class="btn btn-primary mr-4 mb-2">Add</a>
+    </div>
+      {% for comment in post.commentaries.all %}
+          <p>{{ comment.user }}</p>
+          <li class="list-group-item">{{ comment.content }}</li>
+          <div class="d-flex justify-content-between">
+            <p>{{ comment.created_time }}</p>
+            <div>
+                <a href="{% url 'blog:commentary-update' pk=comment.id %}">Update</a>
+                <a href="{% url 'blog:commentary-delete' pk=comment.id %}" class="mr-4">Delete</a>
+            </div>
+          </div>
+      {% empty %}
+        <p>No comments!</p>
+      {% endfor %}
+  </div>
+{% endblock %}
