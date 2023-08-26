@@ -22,6 +22,3 @@ class CommentaryAdmin(admin.ModelAdmin):
 @admin.register(User)
 class UserAdmin(UserAdmin):
     search_fields = ["username", "first_name", "last_name"]
-
-
-
