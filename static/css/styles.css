@@ -1,0 +1,33 @@
+html {
+    font-family: "Roboto", "Lucida Grande", Verdana, Arial, sans-serif;
+    scroll-behavior: smooth;
+    --header-height: 50px;
+}
+
+body {
+    margin: 0;
+}
+
+main {
+    min-height: calc(100vh - var(--header-height));
+}
+
+.header {
+    color: black;
+    height: var(--header-height);
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.header__link {
+    text-decoration: none;
+    color: black;
+}
+
+.header__link:hover {
+    color: darkviolet;
+}
+
+.object-detail-content {
+    font-size: 20px;
+}

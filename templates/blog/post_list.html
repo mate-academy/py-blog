@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <ul class="list-group list-group-flush">
+    {% for post in post_list %}
+    	<li class="list-group-item">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"><a href="{% url 'blog:post-detail' pk=post.pk %}">{{ post.title }}</a></h5>
+            <h6 class="card-subtitle mb-2 text-secondary">{{ post.owner }}, {{ post.commentary_set.count }} comments</h6>
+            <p class="card-text">{{ post.content }}</p>
+            <h6 class="card-subtitle text-secondary text-right">{{ post.created_time }}</h6>
+          </div>
+        </div>
+      </li>
+    {% endfor %}
+
+  </ul>
+{% endblock %}
