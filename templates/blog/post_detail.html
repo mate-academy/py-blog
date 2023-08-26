@@ -7,7 +7,8 @@
 
 {% block content %}
 	<h1 class="text-center">{{ object.title }}</h1>
-  <h4 class="text-secondary text-center mb-5">By {{ object.owner }}, <a href="#comments">{{ object.commentary_set.count }} comments</a></h4>
+  <h4 class="text-secondary text-center">By {{ object.owner }}, <a href="#comments">{{ object.commentary_set.count }} comments</a></h4>
+  <h6 class="text-secondary text-center mb-5">{{ object.created_time }}</h6>
   <p class="object-detail-content">{{ object.content }}</p>
   <h2 class="text-secondary text-center my-5" id="comments">Comments</h2>
   <ul class="list-group list-group-flush">
