@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
@@ -24,7 +25,7 @@ class PostDetailView(FormMixin, generic.DetailView):
     form_class = CommentaryForm
 
 
-class CommentaryCreateView(generic.CreateView):
+class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
     model = Commentary
     fields = "__all__"
     template_name = "blog/post_detail.html"
