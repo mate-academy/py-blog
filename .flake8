@@ -8,3 +8,5 @@ exclude =
     **migrations
     venv
     tests
+    blog_system/settings.py
+    private.py
