@@ -1,10 +1,5 @@
 .idea/
-.vscode/
 venv/
-.pytest_cache/
 **__pycache__/
-*.iml
-.env
-.DS_Store
-/db.sqlite3
-/private.py
+db.sqlite3
+private.py
