@@ -18,7 +18,7 @@ class PostListView(generic.ListView):
 
 class PostDetailView(generic.DetailView):
     model = Post
-    template_name = "blog/detail_view.html"
+    template_name = "blog/post_detail.html"
 
 
 class AddCommentView(LoginRequiredMixin, generic.CreateView):
@@ -42,4 +42,4 @@ class AddCommentView(LoginRequiredMixin, generic.CreateView):
 class CommentaryDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Commentary
     template_name = "blog/commentary_confirm_delete.html"
-    success_url = reverse_lazy("blog:post-list")
+    success_url = reverse_lazy("blog:index")

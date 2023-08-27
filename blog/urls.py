@@ -11,7 +11,7 @@ urlpatterns = [
     path(
         "",
         PostListView.as_view(),
-        name="post-list"
+        name="index"
     ),
     path(
         "post/<int:pk>/detail/",
