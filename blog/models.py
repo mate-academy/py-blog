@@ -23,8 +23,7 @@ class Post(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Post:{self.title} " \
-               f"[{self.content}]"
+        return f"Post:{self.title} [{self.content}]"
 
 
 class Commentary(models.Model):
