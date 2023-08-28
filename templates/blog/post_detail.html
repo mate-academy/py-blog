@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block title %}
+	<title>Blog</title>
+{% endblock %}
+
+{% block content %}
+	<h1 class="text-center">{{ object.title }}</h1>
+  <h4 class="text-secondary text-center">By {{ object.owner }}, <a href="#comments">{{ object.commentary_set.count }} comments</a></h4>
+  <h6 class="text-secondary text-center mb-5">{{ object.created_time }}</h6>
+  <p class="object-detail-content">{{ object.content }}</p>
+  <h2 class="text-secondary text-center my-5" id="comments">Comments</h2>
+  <ul class="list-group list-group-flush">
+    {% for commentary in object.commentary_set.all %}
+    	<li class="list-group-item"{% if forloop.last %} id="last-comment"{% endif %}>
+        <h5>{{ commentary.user.username }}</h5>
+        <h6 class="text-secondary">{{ commentary.created_time }}</h6>
+        <p>{{ commentary.content }}</p>
+      </li>
+    {% empty %}
+      <p class="object-detail-content text-center">There are no comments here. You can be the first!</p>
+    {% endfor %}
+    <li class="list-group-item">
+      {% if user.is_authenticated %}
+        <h4>You can leave a comment here</h4>
+        <form action="{% url 'blog:commentary-create' pk=object.pk %}" method="post">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <input type="hidden" name="user" value="{{ object.owner.pk }}">
+          <input type="hidden" name="post" value="{{ object.pk }}">
+
+          <input type="submit" value="Submit" class="btn btn-primary">
+        </form>
+      {% else %}
+        You must be logged in to leave a comment
+        <form action="{% url 'login' %}" method="get" class="d-inline">
+          <input type="hidden" name="next" value="{% url 'blog:post-detail' pk=object.pk %}">
+          <input type="submit" value="Log in" class="btn btn-primary">
+        </form>
+      {% endif %}
+    </li>
+  </ul>
+{% endblock %}
