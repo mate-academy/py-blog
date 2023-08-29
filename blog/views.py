@@ -30,7 +30,6 @@ class PostDetailView(FormMixin, generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super(PostDetailView, self).get_context_data(**kwargs)
         context["form"] = self.get_form()
-        # print(context)
         return context
 
     def post(self, request, *args, **kwargs):
@@ -39,5 +38,4 @@ class PostDetailView(FormMixin, generic.DetailView):
         if form.is_valid():
             form.save()
             return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
+        return self.form_invalid(form)
