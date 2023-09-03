@@ -1,0 +1,6 @@
+{% extends  "base.html" %}
+
+{% block content %}
+	<p>Logged out!</p>
+  <a href="{% url 'blog:post-list' %}"><strong>Click here to come back to the posts.</strong></a>
+{% endblock %}
