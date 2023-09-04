@@ -7,7 +7,7 @@ from blog.forms import CommentaryForm
 from blog.models import Post
 
 
-class PostsListView(generic.ListView):
+class IndexView(generic.ListView):
     model = Post
     template_name = "blog/index.html"
     context_object_name = "posts"
