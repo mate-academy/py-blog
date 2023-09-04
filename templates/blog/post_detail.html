@@ -41,7 +41,8 @@
     <p><strong>Add a new comment</strong></p>
 
     {#  form for adding comments  #}
-    <form action="{% url 'blog:post-detail' pk=post.id %}" method="post">
+
+    <form action="{% url 'blog:post-detail' pk=post.id %}" method="post" >
       {% csrf_token %}
       {{ form|crispy }}
       <input type="submit" value="Add comment" class="btn btn-primary">
