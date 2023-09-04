@@ -18,7 +18,7 @@ class PostDetailView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['comment_form'] = CommentaryForm()
+        context["comment_form"] = CommentaryForm()
         return context
 
     def post(self, request, *args, **kwargs):
@@ -30,4 +30,4 @@ class PostDetailView(generic.DetailView):
             content=request.POST.get("content")
         )
         new_comment.save()
-        return redirect(reverse_lazy('blog:post-detail', args=[post.pk]))
+        return redirect(reverse_lazy("blog:post-detail", args=[post.pk]))
