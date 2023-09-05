@@ -10,7 +10,7 @@
       <p>{{ post.content }}</p>
       <p><em>{{ post.created_time }}</em></p>
       <p><a href="#" class="text-info">{{ post.owner.username }}</a></p>
-      <p class="text-muted">Post has {{ post.post_comments.count }} comment{{ post.post_comments.count|pluralize }}</p>
+      <p class="text-muted">Post has {{ post.comments.count }} comment{{ post.comments.count|pluralize }}</p>
     </li>
   {% endfor %}
 </ul>

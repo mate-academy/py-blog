@@ -7,8 +7,8 @@
     <p class="text-muted">{{ post.owner.username }} at {{ post.created_time }}</p>
     <p>{{ post.content }}</p>
     <div class="mt-4">
-      <p><strong>{{ post.post_comments.count }} comment{{ post.post_comments.count|pluralize }}</strong></p>
-      {% for comment in post.post_comments.all %}
+      <p><strong>{{ post.comments.count }} comment{{ post.comments.count|pluralize }}</strong></p>
+      {% for comment in post.comments.all %}
         <div class="card mb-3">
           <div class="card-header">
             <p class="text-muted">{{ comment.user.username }} at {{ comment.created_time }}</p>

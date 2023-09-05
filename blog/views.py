@@ -14,7 +14,7 @@ class PostListView(generic.ListView):
 
 class PostDetailView(generic.DetailView):
     model = Post
-    queryset = Post.objects.prefetch_related("post_comments")
+    queryset = Post.objects.prefetch_related("comments")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

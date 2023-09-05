@@ -14,7 +14,7 @@ class Post(models.Model):
     )
     title = models.CharField(max_length=100)
     content = models.TextField()
-    created_time = models.DateTimeField(auto_created=True)
+    created_time = models.DateTimeField(auto_now_add=True)
 
 
 class Commentary(models.Model):
@@ -25,7 +25,7 @@ class Commentary(models.Model):
     post = models.ForeignKey(
         Post,
         on_delete=models.CASCADE,
-        related_name="post_comments"
+        related_name="comments"
     )
-    created_time = models.DateTimeField(auto_created=True)
+    created_time = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
