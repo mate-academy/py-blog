@@ -26,7 +26,6 @@ class PostDetailView(generic.DetailView):
         new_comment = Commentary(
             user=request.user,
             post=post,
-            created_time=datetime.datetime.now(),
             content=request.POST.get("content")
         )
         new_comment.save()
