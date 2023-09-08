@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block title %}
+  {{ post.title }}
+{% endblock title %}
+
+{% block content %}
+
+<div class="container">
+  <div class="comment mt-4 text-justify float-left">
+    <h1>{{ post.title }}</h1>
+    <span>{{ post.owner }}.user at {{ post.created_time }}</span>
+    <br>
+    <p>{{ post.content }}</p>
+  </div>
+  <div class="row">
+    <div class="col-sm-5 col-md-6 col-12 pb-4">
+      <h1>Comments</h1>
+      {% if post.comments.all %}
+        {% for comment in post.comments.all %}
+          {% if forloop.counter|divisibleby:2 == 0 %}
+            <div class="comment mt-4 text-justify float-left">
+              <img src="https://i.imgur.com/yTFUilP.jpg" alt="" class="rounded-circle" width="40" height="40">
+              <h4>{{ comment.user.username }}</h4>
+              <span>{{ comment.created_time }}</span>
+              <br>
+              <p>{{ comment.content }}</p>
+            </div>
+          {% else %}
+            <div class="darker mt-4 text-justify">
+              <img src="https://i.imgur.com/CFpa3nK.jpg" alt="" class="rounded-circle" width="40" height="40">
+              <h4>{{ comment.user.username }}</h4>
+              <span>{{ comment.user.username }}</span>
+              <br>
+              <p>{{ comment.content }}</p>
+            </div>
+          {% endif %}
+        {% endfor %}
+      {% else %}
+        <h4>Post has no comments</h4>
+      {% endif %}
+    </div>
+  </div>
+   <div class="col-lg-4 col-md-5 col-sm-4 offset-md-1 offset-sm-1 col-12 mt-4">
+     <form id="algin-form" action="" method="post">
+       {% csrf_token %}
+       {{ create_comment|crispy }}
+       <input type="submit" value="Post comment" id="post" class="btn">
+     </form>
+   </div>
+</div>
+{% endblock content %}
