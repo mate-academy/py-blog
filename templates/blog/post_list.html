@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 style="text-align: center">All posts</h1><br>
+  {% if post_list %}
+    <ul>
+      {% for post in post_list %}
+        <li>
+          <h4><a href="{% url 'blog:post-detail' pk=post.pk %}">{{ post.title }}</a></h4>
+          <p>{{ post.content }}</p>
+          <strong>Author:</strong> {{ post.owner.username }}<br>
+          <strong>Comment quantity:</strong> {{ post.commentaries.count }}<br>
+          <strong>Created:</strong> {{ post.created_time }}<br><br>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}
