@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.owner }} at {{ post.created_time }}</p>
+  <p style="font-size: 22px">{{ post.content }}</p>
+  <p><strong>{{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}</strong></p>
+  {% if post.commentaries.all %}
+    {% for comment in post.commentaries.all %}
+      <div class="list-group-item">
+        <div><strong>{{ comment.user }}</strong> {{ comment.created_time }}</div>
+        <hr>
+        <div>{{ comment }}</div>
+      </div>
+      <br>
+    {% endfor %}
+  {% else %}
+    <p>There are no comments yet!</p>
+  {% endif %}
+  {% if user.is_authenticated %}
+    <p><strong>Add a new comment</strong></p>
+    <form action="{% url 'blog:commentary-create' post.id %}" method="post" novalidate>
+      {% csrf_token %}
+      {{ form|crispy }}
+
+      <input type="hidden" name="user" value="{{ user.id }}">
+      <input type="hidden" name="post" value="{{ post.id }}">
+      <input type="submit" value="Add a comment" class="btn btn-primary">
+    </form>
+  {% else %}
+      <p><strong>You must be logged in to leave a comment!</strong></p>
+      <form action="{% url 'login' %}">
+        <input type="hidden" name="next" value="{% url 'blog:post-detail' post.id %}">
+        <input type="submit" value="Login" class="btn btn-primary">
+      </form>
+  {% endif %}
+{% endblock %}
