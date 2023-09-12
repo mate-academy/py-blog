@@ -1,8 +1,11 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import generic
+from django import forms
+from django.views.generic.edit import FormMixin
 
-from blog.models import Post, Commentary
+from blog.models import Post
+
+from .models import Commentary
 
 
 class PostListView(generic.ListView):
@@ -13,18 +16,36 @@ class PostListView(generic.ListView):
     paginate_by = 5
 
 
-class PostDetailView(generic.DetailView):
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Commentary
+        fields = ("content",)
+        widgets = {
+            "content": forms.Textarea(attrs={"rows": 2})
+        }
+        labels = {
+            "content": "",
+        }
+
+
+class PostDetailView(FormMixin, generic.DetailView):
     model = Post
-
-
-class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
-    model = Commentary
-    fields = ["content"]
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        form.instance.post = Post.objects.get(id=self.kwargs.get("pk"))
-        return super().form_valid(form)
+    form_class = CommentForm
 
     def get_success_url(self):
-        return reverse_lazy("blog:post-detail", args=[self.kwargs.get("pk")])
+        return reverse("blog:post-detail", kwargs={"pk": self.object.pk})
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["comments"] = self.object.comments.select_related("user")
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            form.instance.post = self.object
+            form.instance.user = request.user
+            form.save()
+            return self.form_valid(form)
+        return self.form_invalid(form)
