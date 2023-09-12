@@ -1,0 +1,13 @@
+body {
+    margin-top: 20px;
+    background-color: beige;
+}
+
+.sidebar-nav {
+    padding: 0;
+    list-style: none;
+}
+
+.card-container {
+    max-width: 800px;
+}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="card-container">
+    {% for post in post_list %}
+      <div class="card mb-3 p-3">
+        <h3>
+          <a href="#">{{ post.title }}</a>
+        </h3>
+        <p style="margin-bottom: 0">
+          {{ post.owner }}
+        </p>
+        <p class="text-secondary">
+          <i>{{ post.created_time }}</i>
+        </p>
+        <p>
+          {{ post.content }}
+        </p>
+        <a href="#">
+          {{ post.commentaries.count }} commentar{{ post.total_commentaries|pluralize:"y,ies" }}
+        </a>
+      </div>
+    {% empty %}
+      <p>There are currently no posts.</p>
+    {% endfor %}
+  </div>
+{% endblock %}
