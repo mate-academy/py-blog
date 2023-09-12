@@ -22,4 +22,4 @@ class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
     model = Commentary
     fields = "__all__"
     template_name = "blog/post_detail.html"
-    success_url = reverse_lazy("blog:post-list")
+    success_url = reverse_lazy("blog:index")
