@@ -17,5 +17,9 @@ class CommentaryAdmin(admin.ModelAdmin):
     list_filter = ("user",)
 
 
-admin.site.register(User, UserAdmin)
+@admin.register(User)
+class UserAdmin(UserAdmin):
+    pass
+
+
 admin.site.unregister(Group)
