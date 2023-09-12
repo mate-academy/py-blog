@@ -18,3 +18,7 @@ class IndexView(generic.ListView):
     )
     template_name = "blog/index.html"
     paginate_by = 5
+
+
+class PostDetailView(generic.DetailView):
+    model = Post

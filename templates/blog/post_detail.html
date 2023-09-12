@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="card-container">
+    <div class="card p-3">
+      <h3>{{ post.title }}</h3>
+      <p style="margin-bottom: 0">{{ post.owner }}</p>
+      <p class="text-secondary"><i>{{ post.created_time }}</i></p>
+      <p>{{ post.content }}</p>
+    </div>
+    <div class="card mb-3 p-3" id="commentaries">
+      <b class="pl-3 mb-3" id="commentaries">Commentaries</b>
+      <ul class="list-group">
+        {% if post.commentaries %}
+          {% for commentary in post.commentaries.all %}
+            <li class="list-group-item p-2">
+              <b>{{ commentary.user.first_name }} {{ commentary.user.last_name }}</b>
+              <p class="text-secondary" style="font-size: 0.8em">{{ commentary.created_time }}</p>
+              <p>{{ commentary.content }}</p>
+            </li>
+          {% endfor %}
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+{% endblock %}
