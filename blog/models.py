@@ -9,7 +9,7 @@ class User(AbstractUser):
         ordering = ["username"]
 
     def __str__(self):
-        return f"{self.username} ({self.first_name} {self.last_name})"
+        return f"{self.first_name} {self.last_name}"
 
     def get_absolute_url(self):
         return reverse("blog:blog-detail", args=[str(self.id)])

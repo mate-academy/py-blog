@@ -1,36 +1,41 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.paginator import Paginator
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import generic
+from blog.form import CommentForm
+from blog.models import Commentary
 
-from blog.models import Post, Commentary
+from blog.models import Post
 
 
-def index(request):
-    all_posts = Post.objects.all()
-    paginator = Paginator(all_posts, 5)
+class Index(LoginRequiredMixin, generic.ListView):
+    model = Post
+    paginate_by = 5
+    template_name = "blog/index.html"
+    context_object_name = "post_list"
 
-    page_number = request.GET.get("page")
-    post_list = paginator.get_page(page_number)
 
+def show_post_detail(request, pk):
+    post = Post.objects.get(id=pk)
     context = {
-        "post_list": post_list
+        "post": post,
+        "form": CommentForm()
     }
+    if request.method == "GET":
+        return render(request, "blog/post_detail.html", context=context)
 
-    return render(
-        request,
-        template_name="blog/index.html",
-        context=context,
-    )
+    elif request.method == "POST":
+        content = request.POST["content"]
+        Commentary.objects.create(user=request.user, post=post, content=content)
+        return render(request, "blog/post_detail.html", context=context)
+
+        # return HttpResponseRedirect(reverse("blog:post-detail"))
 
 
-class PostDetailView(generic.DetailView):
+class PostCreateView(LoginRequiredMixin, generic.DetailView):
     model = Post
 
-
-class CommentCreateView(LoginRequiredMixin, generic.CreateView):
-    model = Commentary
-    fields = "__all__"
-    success_url = reverse_lazy("blog:index")
-    template_name = "blog/comment_form.html"
+    @staticmethod
+    def post(request):
+        return Post.objects.get(title=request.POST["title"])
