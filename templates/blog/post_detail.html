@@ -15,7 +15,7 @@
           {% for commentary in post.commentaries.all %}
             <li class="list-group-item p-2">
               <b>{{ commentary.user.first_name }} {{ commentary.user.last_name }}</b>
-              <p class="text-secondary" style="font-size: 0.8em">{{ commentary.created_time }}</p>
+              <p class="text-secondary mb-1" style="font-size: 0.8em">{{ commentary.created_time }}</p>
               <p>{{ commentary.content }}</p>
             </li>
           {% endfor %}
