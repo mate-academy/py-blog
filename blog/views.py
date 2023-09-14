@@ -27,5 +27,9 @@ def post_detail(request, pk):
 
     elif request.method == "POST":
         content = request.POST.get("content")
-        Commentary.objects.create(user=request.user, post=post, content=content)
+        Commentary.objects.create(
+            user=request.user,
+            post=post,
+            content=content
+        )
         return redirect(reverse_lazy("blog:post-detail", args=[post.pk]))
