@@ -33,7 +33,7 @@ class Commentary(models.Model):
     )
     post = models.ForeignKey(
         Post,
-        related_name="comments",
+        related_name="commentaries",
         on_delete=models.DO_NOTHING
     )
     created_time = models.DateTimeField(auto_now_add=True)

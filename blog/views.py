@@ -26,7 +26,7 @@ class PostDetailView(FormMixin, generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["comments"] = self.object.comments.select_related("user")
+        context["comments"] = self.object.commentaries.select_related("user")
         return context
 
     def post(self, request, *args, **kwargs):
