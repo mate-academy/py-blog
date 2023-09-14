@@ -4,6 +4,7 @@ from django import forms
 from django.views.generic.edit import FormMixin
 
 from blog.models import Post
+from .forms import CommentForm
 
 from .models import Commentary
 
@@ -14,18 +15,6 @@ class PostListView(generic.ListView):
     template_name = "blog/index.html"
     success_url = reverse_lazy("blog:post-list")
     paginate_by = 5
-
-
-class CommentForm(forms.ModelForm):
-    class Meta:
-        model = Commentary
-        fields = ("content",)
-        widgets = {
-            "content": forms.Textarea(attrs={"rows": 2})
-        }
-        labels = {
-            "content": "",
-        }
 
 
 class PostDetailView(FormMixin, generic.DetailView):
