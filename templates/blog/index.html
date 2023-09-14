@@ -2,10 +2,15 @@
 
 
 {% block content %}
-    <h1>Post List</h1>
+    <h1>Post List </h1>
     <p>PAGE OBJ {{ page_obj.number }}</p>
-    {% for post in page_obj.object_list %}
-        <p><strong><a href="{% url 'blog:post-detail' pk=post.id %}" class="page-link">{{ post.title }}</a></strong> ({{ post.created_time }})</p>
+    {% for post in post_list %}
+        <p>
+          <strong>
+            <a href="{% url 'blog:post-detail' pk=post.id %}" class="page-link">{{ post.title }}</a>
+          </strong>
+          ({{ post.created_time }})
+        </p>
         <p>{{ post.content }}</p>
         <p>{{ post.owner.first_name }} {{ post.owner.last_name }}</p>
         <p>Comments: {{ post.commentary_set.count }}</p>

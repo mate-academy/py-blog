@@ -37,8 +37,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "crispy_forms",
     "blog",
+    "crispy_forms",
 ]
 
 MIDDLEWARE = [
@@ -68,6 +68,7 @@ TEMPLATES = [
         },
     },
 ]
+
 
 WSGI_APPLICATION = "blog_system.wsgi.application"
 
