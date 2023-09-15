@@ -5,15 +5,16 @@
   <h1>{{ post.title.capitalize }}</h1>
   <p class="text-muted" style="font-size: 14px">Author: {{ post.owner.first_name }} {{ post.owner.last_name }} at {{ post.created_time }}</p>
   <p>{{ post.content }}</p>
-  <p style="font-size: 12px">{{ post.commentary_set.count }} comment{{ post.commentary_set.count|pluralize }}</p>
-  {% for comment in post.commentary_set.all %}
+  <p style="font-size: 12px">{{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}</p>
+  {% for comment in post.commentaries.all %}
     <div style="border-width:1px; border-color: darkgrey; border-style: solid; padding-top: 10px;padding-left: 10px">
-      <p class="text-muted">Comment from {{ comment.user }}. Created at: {{ comment.created_time }}</p>
+      <p class="text-muted">Comment from {{ comment.user.username }}. Created at: {{ comment.created_time }}</p>
       <p style="border-top-width: 1px; border-color: darkgray; border-top-style: solid; margin-right: 10px"></p>
       <p class="font-monospace">{{ comment.content }}</p>
     </div>
     <br>
-
+  {% empty %}
+    <p>There are no comments.</p>
   {% endfor %}
 
   <form action="" method="post" novalidate>
