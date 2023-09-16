@@ -10,7 +10,7 @@ from django import forms
 
 class Index(generic.ListView):
     model = Post
-    queryset = Post.objects.all().order_by("-created_time")
+    queryset = Post.objects.order_by("-created_time")
     context_object_name = "post_list"
     template_name = "blog/index.html"
     paginate_by = 5
@@ -43,8 +43,7 @@ class PostDetailView(FormMixin, generic.DetailView):
             return self.form_invalid(form)
         if form.is_valid():
             return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
+        return self.form_invalid(form)
 
     def form_valid(self, form):
         form.save()
