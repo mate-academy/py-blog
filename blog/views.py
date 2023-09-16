@@ -63,6 +63,3 @@ class PostCreateView(LoginRequiredMixin, generic.CreateView):
         self.object.owner = self.request.user
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
-
-
-
