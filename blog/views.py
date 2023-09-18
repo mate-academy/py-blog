@@ -4,13 +4,12 @@ from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import FormMixin
 from .models import Post
-from .forms import CommentaryForm, PostForm
+from .forms import CommentaryForm
 from django import forms
 
 
 class Index(generic.ListView):
     model = Post
-    queryset = Post.objects.order_by("-created_time")
     context_object_name = "post_list"
     template_name = "blog/index.html"
     paginate_by = 5
