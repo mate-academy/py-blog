@@ -1,0 +1,17 @@
+.comentary_form textarea{
+  height: 50px;
+}
+.comentary_form input{
+  margin-bottom: 50px;
+}
+.comment{
+  border-left: 2px solid;
+  border-right: 2px solid;
+  border-top: 2px solid;
+}
+.comment:last-child {
+  border-bottom: 2px solid;
+}
+.no_style_list{
+  list-style: none;
+}
