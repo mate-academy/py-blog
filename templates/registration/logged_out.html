@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <br><br><br><br><br>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="alert alert-info text-center">
+          <p>You have been successfully logged out!</p>
+        </div>
+        <p class="text-center">
+          <a href="{% url 'login' %}"
+             class="btn btn-primary">Click here to login again</a>
+        </p>
+      </div>
+    </div>
+  </div>
+{% endblock %}
