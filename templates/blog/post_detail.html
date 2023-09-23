@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>{{ post_detail.title }}</h1>
+  <small>{{ post_detail.owner }} at {{ post_detail.created_time }} </small>
+  <br>
+  <br>
+  <p class="text-justify">{{ post_detail.content }}</p>
+
+  <br>
+
+  <p><strong>{{ post_detail.comments.count  }} comment{{ post_detail.comments.count|pluralize }}:</strong></p>
+  {% if post_detail.comments.count == 0 %}
+    There are no comments yet.
+    <br>
+    <br>
+  {% endif %}
+
+{% for comment in post_detail.comments.all %}
+    <ul class="list-group">
+      <li class="list-group-item">{{ comment.user }}</li>
+      <li class="list-group-item">{{ comment.content }}</li>
+      <br>
+      <small>{{ comment.created_time }}</small>
+
+    </ul>
+    <br>
+  {% endfor %}
+
+  <form action="" method="post" novalidate>
+
+    {% csrf_token %}
+    {{ form|crispy }}
+
+    {% if request.user.is_authenticated %}
+      <a href="{% url "blog:commentary-create" %}">
+        <button class="btn btn-outline-primary" style="float: left" type="button"> Add new comment </button>
+      </a>
+        <button type="button" class="btn btn-primary" style="float: left" onclick="history.go(-1)"> Cancel </button>
+
+    {% else %}
+      <a href="">Add Comment</a>
+    {% endif %}
+
+  </form>
+{% endblock %}

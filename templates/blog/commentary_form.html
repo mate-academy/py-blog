@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_filters %}
+
+{% block content %}
+
+
+  <form action="" method="post" novalidate>
+
+    {% csrf_token %}
+
+    {{ form|crispy }}
+    <br>
+    <a href="{% url "blog:post-detail" pk=user.id %}">
+      <input class="btn btn-primary" style="float: left" type="submit" value="Submit">
+
+    </a>
+    <button type="button" class="btn btn-primary" style="float: left" onclick="history.go(-1)">Cancel</button>
+  </form>
+
+{% endblock %}tml>
