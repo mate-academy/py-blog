@@ -31,7 +31,7 @@ class PostDetailView(generic.DetailView):
             commentary.post_id = request.POST.get("post_id")
             commentary.user = request.user
             commentary.save()
-            return redirect("blog:detail", kwargs.get("pk"))
+            return redirect("blog:post-detail", kwargs.get("pk"))
 
         context = {
             "form": form,
