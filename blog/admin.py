@@ -14,4 +14,10 @@ class CommentaryAdmin(admin.ModelAdmin):
     list_filter = ["user", "post"]
 
 
+@admin.register(Post)
+class PostAdmin(admin.ModelAdmin):
+    list_display = ["owner", "title", "created_time"]
+    list_filter = ["owner", "title"]
+
+
 admin.site.unregister(Group)
