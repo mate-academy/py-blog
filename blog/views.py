@@ -30,7 +30,7 @@ def post_detail_view(request, pk):
         if request.user.is_anonymous:
             form.add_error("content", "Please log in to add a comment")
         elif form.is_valid():
-            Commentary.objects.create(**form.cleaned_data, post=post)
+            Commentary.objects.create(user=request.user, post=post, **form.cleaned_data)
             return HttpResponseRedirect(
                 reverse("blog:post-detail", kwargs={"pk": pk})
             )
