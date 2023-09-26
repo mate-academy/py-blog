@@ -1,2 +1,28 @@
 {% extends "base.html" %}
-<h1>Taxi Service Home</h1>
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>Posts list</h1>
+  </p>
+
+  {% if post_list %}
+  <table class="table">
+      <tr>
+        <th>Title</th>
+        <th>Owner</th>
+        <th>Created time</th>
+        <th>Number of comments</th>
+      </tr>
+    {% for post in post_list %}
+      <tr>
+        <td><a href="{% url 'blog:post-detail' pk=post.id %} ">{{ post.title }}</a></td>
+        <td>{{ post.owner }} {% if user == post.owner %} (Me){% endif %}</td>
+        <td>{{ post.created_time }}</td>
+        <td>{{ post.comments.count }}</td>
+      </tr>
+    {% endfor %}
+    </table>
+    {% else %}
+      <p>There are no posts in blog</p>
+    {% endif %}
+  {% endblock %}

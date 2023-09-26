@@ -41,4 +41,4 @@ class PostDetailTest(TestCase):
         response = self.client.get(reverse("blog:post-detail", args=[1]))
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "blog/post_detail.html")
+        self.assertTemplateUsed(response, "blog/post_confirm_delete.html")

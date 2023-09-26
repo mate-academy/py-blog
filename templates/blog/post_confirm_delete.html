@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  </br>
+  <p><strong>Owner: </strong>{{ post.owner }}</p>
+  <strong>Created time: </strong>{{ post.created_time }}</br>
+  <p><strong>Content: </strong>{{ post.content }}</p>
+  <p><strong>Number of comments: </strong>{{ post.comments.count }}</p>
+
+  {% if post.comments.count > 0 %}
+    {% for comment in post.comments.all %}
+      <div class="container">
+        <p><u>{{ comment.user }}</u><br>
+        <font  size="0.8" color="#808080" >{{ comment.created_time }}</font></p>
+        <p>{{ comment.content }}</p>
+        <hr>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p><i>Be the first to comment</i></p>
+  {% endif %}
+</br>
+<a href="{% url 'blog:comment-create' %}" class="btn btn-primary btn-lg">Add comment</a>
+{% endblock %}
+
+
