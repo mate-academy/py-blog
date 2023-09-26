@@ -1,17 +1,16 @@
-from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.urls import reverse_lazy
 from blog.models import Post, Commentary
 
 
-class PostListView(LoginRequiredMixin, generic.ListView):
+class PostListView(generic.ListView):
     model = Post
     context_object_name = "post_list"
     paginate_by = 5
 
 
-class PostDetailView(LoginRequiredMixin, generic.DeleteView):
+class PostDetailView(generic.DeleteView):
     model = Post
 
 
