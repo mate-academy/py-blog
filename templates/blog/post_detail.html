@@ -10,7 +10,7 @@
     {{ post.content }}
   </p>
   </div>
-  <span> <strong> {{ post.comments.count }} comments </strong> </span>
+  <span> <strong> {{ post.comments.count }} comment{{ post.comments.count|pluralize }}</strong> </span>
   {% if post.comments.count %}
     {% for comment in post.comments.all %}
       <ul class="list-group mt-2">
@@ -24,9 +24,7 @@
   {% else %}
     <p>No comments</p>
   {% endif %}
-
-
-    <h3 class="mt-5">Add a comment</h3>
+  <h3 class="mt-5">Add a comment</h3>
   <form action="" method="post" novalidate>
     {% csrf_token %}
     {{ form|crispy }}
