@@ -15,7 +15,7 @@
       </tr>
     {% for post in post_list %}
       <tr>
-        <td><a href="{% url 'blog:post-detail' pk=post.id %} ">{{ post.title }}</a></td>
+        <td><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></td>
         <td>{{ post.owner }} {% if user == post.owner %} (Me){% endif %}</td>
         <td>{{ post.created_time }}</td>
         <td>{{ post.comments.count }}</td>

@@ -6,7 +6,7 @@
   </br>
   <form action="" method="post" novalidate>
     {% csrf_token %}
-    {{ form|crispy }}
+    {{ form }}
     <input class="btn-primary" type="submit" value="Submit" >
   </form>
 {% endblock %}
