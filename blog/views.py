@@ -1,9 +1,6 @@
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Count
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse
 from django.views import generic
 
 from blog.models import Post, Commentary
@@ -17,7 +14,7 @@ class Index(generic.ListView):
     paginate_by = 5
 
 
-def post_detail_view(request, pk):
+def post_detail_view(request: HttpRequest, pk) -> HttpResponse:
     post = Post.objects.get(id=pk)
 
     if request.method == "GET":
