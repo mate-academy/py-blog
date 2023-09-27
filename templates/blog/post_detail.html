@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <div class="card">
+  <h2 class="card-header">User:{{ post.owner }}</h2>
+    <div class="card-body">
+      <h3 class="card-title">{{ post.title }}</h3>
+      <article class="card-text">
+        {{ post.content }}
+      </article>
+      <p class="card-subtitle">Date and time: {{ post.created_time }}</p>
+    </div>
+  </div>
+  <br>
+
+  <div class="card">
+    <h3 class="card-header">Comments:{{ post.comments.count }}</h3>
+      <div class="card-body">
+      <ul class="list-group list-group-flush">
+        {% for comment in post.comments.all %}
+          <li class="list-group-item">
+            <h4 class="card-subtitle">{{ comment.user }}:</h4>
+            <p class="card-text">{{ comment.content }}</p>
+            <hr>
+            <p class="card-subtitle text-muted">Time: {{ comment.created_time }}</p>
+          </li>
+          <br>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  {% if user.is_authenticated %}
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {{ commentary_form|crispy }}
+      <input class="btn btn-secondary" type="submit" value="Add comment">
+    </form>
+  {% else %}
+    <div class="card mt-2">
+    <p class="card-header">You need to be logged in to add a comment.</p>
+    <div class="card-body">
+      <a class="btn btn-secondary" href="{% url 'login' %}">Log in</a>
+    </div>
+    </div>
+  {% endif %}
+
+{% endblock %}
