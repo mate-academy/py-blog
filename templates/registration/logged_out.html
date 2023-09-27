@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="card">
+    <div class="card-header">
+      <h5 class="">Logged out!</h5>
+    </div>
+    <div class="card-body">
+      <p class="card-text">See you next time!</p>
+      <a class="btn btn-secondary" href="{% url 'login'%}">Click here to login again.</a>
+    </div>
+  </div>
+{% endblock %}
