@@ -22,7 +22,16 @@
     <p><i>Be the first to comment</i></p>
   {% endif %}
 </br>
-<a href="{% url 'blog:comment-create' %}" class="btn btn-primary btn-lg">Add comment</a>
+
+  {% if user.is_authenticated %}
+    <form method="post" >
+      {% csrf_token %}
+      {{ commentary_form|crispy }}
+      <input class="btn-primary" type="submit" value="Add comment">
+    </form>
+  {% else %}
+    <strong>To leave a comment you must log</strong>
+  {% endif %}
+</br>
+</br>
 {% endblock %}
-
-

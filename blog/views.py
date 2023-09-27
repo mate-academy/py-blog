@@ -1,7 +1,8 @@
 from django.views import generic
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from blog.models import Post, Commentary
+
+from blog.forms import CommentaryCreateForm
+from blog.models import Post
 
 
 class PostListView(generic.ListView):
@@ -10,12 +11,10 @@ class PostListView(generic.ListView):
     paginate_by = 5
 
 
-class PostDetailView(generic.DeleteView):
+class PostDetailView(generic.DetailView):
     model = Post
 
-
-class CommentCreateView(LoginRequiredMixin, generic.CreateView):
-    model = Commentary
-    context_object_name = "comment_create"
-    fields = "__all__"
-    success_url = reverse_lazy("taxi:post-detail")
+    def get_context_data(self, **kwargs):
+        context = super(PostDetailView, self).get_context_data(**kwargs)
+        context["commentary_form"] = CommentaryCreateForm()
+        return context
