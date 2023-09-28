@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>
+    {{ post.title }}
+  </h1>
+  <br>
+  <p>{{ post.owner }} {{ post.created_time }}</p>
+  <br>
+  <p class="content">
+    {{ post.content }}
+  </p>
+  <hr>
+  {% for comment in post.comments.all %}
+    <div class="card" style="margin: 20px;">
+      <div class="card-header">
+        {{ comment.user }} {{ comment.created_time }}
+      </div>
+      <div class="card-body">
+      <h5 class="card-title">{{ comment.content }}</h5>
+      <p class="card-text"></p>
+      </div>
+    </div>
+  {% endfor %}
+
+  {% if user.is_authenticated %}
+
+  <form method="post" action="{% url 'blog:add-comment' post.pk %}">
+    {% csrf_token %}
+    <textarea name="content" rows="4" cols="50"></textarea>
+    <br>
+    <input class="btn btn-primary" type="submit" value="Add Comment">
+
+  </form>
+
+  {% endif%}
+{% endblock %}
