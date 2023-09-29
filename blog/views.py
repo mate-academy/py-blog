@@ -16,20 +16,14 @@ class PostListView(generic.ListView):
 
 
 def post_detail(request, pk: int) -> HttpResponse:
-    context = {
-        "post": Post.objects.get(id=pk)
-    }
+    context = {"post": Post.objects.get(id=pk)}
     if request.method == "GET":
-        return render(
-            request, "blog/post_detail.html", context=context
-        )
+        return render(request, "blog/post_detail.html", context=context)
     elif request.method == "POST":
         if request.POST["content"]:
             Commentary.objects.create(
                 user_id=request.POST["user_id"],
                 post_id=request.POST["post_id"],
-                content=request.POST["content"]
+                content=request.POST["content"],
             )
-        return render(
-            request, "blog/post_detail.html", context=context
-        )
+        return render(request, "blog/post_detail.html", context=context)
