@@ -4,6 +4,10 @@
 {% block content %}
   <h1>
     Posts List
+
+    <a href="{% url 'blog:post-create' %}" class="btn btn-primary link-to-page">
+      Create post
+    </a>
   </h1>
 <!--  <form action="" method="get">-->
 <!--    {{ search_form|crispy }}-->
