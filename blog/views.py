@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 
@@ -16,7 +16,7 @@ class PostListView(generic.ListView):
 
 
 def post_detail(request, pk: int) -> HttpResponse:
-    context = {"post": Post.objects.get(id=pk)}
+    context = {"post": get_object_or_404(Post, id=pk)}
     if request.method == "GET":
         return render(request, "blog/post_detail.html", context=context)
     elif request.method == "POST":
