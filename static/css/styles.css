@@ -1,0 +1,9 @@
+body {
+    margin-top: 20px;
+}
+
+.pagination{
+    position: fixed;
+    bottom: 0;
+    right: 3rem;
+}
