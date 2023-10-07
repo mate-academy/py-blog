@@ -19,7 +19,7 @@ class CommentaryAdmin(admin.ModelAdmin):
 
 
 @admin.register(User)
-class CommentaryAdmin(UserAdmin):
+class UserAdmin(UserAdmin):
     list_display = ["username", ]
 
 
