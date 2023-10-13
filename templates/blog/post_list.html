@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Post List</h1>
+  {% if post_list %}
+    <ul>
+      {% for post in post_list %}
+        <li>
+          <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+          <p><b>Author: </b>{{ post.owner.username }}</p>
+          <p><b>Created: </b>{{ post.created_time }}</p>
+          <p>{{ post.content }}</p>
+          <p><b>Comments: </b>{{ post.commentary_set.count }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There is no posts in our blog:(</p>
+  {% endif %}
+{% endblock %}
+
