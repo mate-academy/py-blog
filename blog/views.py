@@ -23,12 +23,10 @@ class PostDetailView(generic.DetailView):
 
     def get(self, request, *args, **kwargs):
         post = self.get_object()
-        form = CreateCommentForm()
-        commentary_set = post.commentary_set.all()
         context = {
             "post": post,
-            "form": form,
-            "commentary_set": commentary_set
+            "form": CreateCommentForm(),
+            "commentary_set": post.commentary_set.all()
         }
         return render(request, "blog/post_detail.html", context=context)
 
