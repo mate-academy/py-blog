@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="content" ">
+  <div class="content">
     <ul>
-      {% for post in posts %}
+      {% for post in post_list %}
         <li class="post-title"><a class="post-title-text" href="{% url 'blog:post-detail' pk=post.id %}">{{ post }}</a></li>
         <p class="text-of-post">{{ post.content }}</p>
         <p class="author-post">Author: {{ post.owner.username }} <br>Publicated by: {{ post.created_time }}</p>

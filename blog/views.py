@@ -8,18 +8,16 @@ from django.views import generic
 from blog.models import Post, Commentary
 
 
-
-def index(request:HttpRequest) -> HttpResponse:
+def index(request: HttpRequest) -> HttpResponse:
     posts = Post.objects.all()
     commentaries = Commentary.objects.all()
     paginator = Paginator(posts, 5)
 
     page_number = request.GET.get("page")
-    posts = paginator.get_page(page_number)
-
+    post_list = paginator.get_page(page_number)
 
     context = {
-        "posts": posts,
+        "post_list": post_list,
         "commentaries": commentaries,
         "is_paginated": True,
         "paginator": paginator,
@@ -31,7 +29,7 @@ class PostDetailView(generic.DetailView):
     model = Post
 
 
-def comment_create(request:HttpRequest) -> HttpResponse:
+def comment_create(request: HttpRequest) -> HttpResponse:
     pk = request.POST["num-of-post"]
     comment = request.POST["comment"]
     user_id = request.POST["user-id"]
@@ -39,6 +37,6 @@ def comment_create(request:HttpRequest) -> HttpResponse:
     Commentary.objects.create(content=comment, user_id=user_id, post_id=pk)
     return redirect(f"/posts/{pk}/")
 
-def redirecttomain(request:HttpRequest) -> HttpResponse:
-    return redirect("/posts/")
 
+def redirecttomain(request: HttpRequest) -> HttpResponse:
+    return redirect("/posts/")
