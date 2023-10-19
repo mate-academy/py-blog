@@ -1,13 +1,13 @@
 {% if is_paginated %}
   <ul class="pagination justify-content-center">
-    {% if post_list.has_previous %}
-      <li class="page-item"><a class="page-link" href="?page={{ post_list.previous_page_number }}">Prev</a></li>
+    {% if page_obj.has_previous %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Prev</a></li>
     {% endif %}
     <li class="page-item active">
-      <span class="page-link">{{ post_list.number }} of {{ paginator.num_pages }}</span>
+      <span class="page-link">{{ page_obj.number }} of {{ paginator.num_pages }}</span>
     </li>
-    {% if post_list.has_next %}
-      <li class="page-item"><a class="page-link" href="?page={{ post_list.next_page_number }}">Next</a></li>
+    {% if page_obj.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
     {% endif %}
 
   </ul>
