@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="content">
+    <h1 class="">{{ post }}</h1>
+    <p class="details">{{ post.owner.username }} at {{ post.created_time }}</p>
+    <p>{{ post.content }}</p>
+    <p class="number-of-comments">{{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}</p>
+    {% if post.commentaries.all %}
+      {% for comment in post.commentaries.all %}
+        <div class="comments-box">
+          <div class="comments-author">{{ comment.user.username }} <comments-datetime class="comments-datetime">{{ comment.created_time }}</comments-datetime></div>
+          <div class="comments-text">{{ comment.content }}</div>
+        </div>
+      {% endfor %}
+      </table>
+    {% else %}
+      <p class="no-comments">There are no comments yet.</p>
+    {% endif %}
+  </div>
+
+  {% if user.is_authenticated %}
+    <p class="add-comment">Add a new comment</p>
+    <form action="{% url 'blog:comment-create'%}" method="post">
+      {% csrf_token %}
+      <textarea class="textarea" name="comment" id="comment" cols="50" rows="3"></textarea>
+      <input type="hidden" name="num-of-post" value="{{ post.id }}">
+      <input type="hidden" name="user-id" value="{{ post.owner.id }}">
+
+      <br>
+      <input class="submit-button" type="submit" value="Add comment">
+    </form>
+
+  {% endif %}
+
+{% endblock %}

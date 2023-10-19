@@ -1,0 +1,98 @@
+.log-panel {
+    list-style: none;
+    border: 1px solid rgba(189, 195, 199, 0.3);
+    position: fixed;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.title {
+    padding-left: 200px;
+}
+
+.post-title {
+    list-style: none;
+}
+
+.post-title-text {
+    color: black;
+    font-weight: 700;
+    padding-left: 70px;
+}
+
+.author-post {
+    font-size: 15px;
+    color: dodgerblue;
+    margin-bottom: 0;
+}
+
+.comments-number {
+    font-size: 15px;
+    color: dodgerblue;
+}
+
+.text-of-post {
+    text-indent: 15px;
+}
+
+.details {
+    font-size: 13px;
+}
+
+.number-of-comments {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.comments-box {
+    border: solid 1px rgba(189, 195, 199, 1);
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.comments-author {
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    border-bottom: solid 1px rgba(189, 195, 199, 1);
+    font-size: 13px;
+    font-weight: 600;
+
+}
+
+.comments-text{
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-bottom: 15px;
+    padding-top: 5px;
+}
+
+.comments-datetime {
+    font-size: 10px;
+    font-weight: 400;
+}
+
+.no-comments {
+    font-size: 13px;
+}
+
+.add-comment {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.text-box {
+    display: inline-block;
+}
+
+.textarea {
+    border-color: rgba(0, 0, 0, 0.3);
+}
+
+.submit-button {
+    width: 80px;
+    font-size: 10px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
