@@ -1,12 +1,14 @@
-from django.contrib.auth.decorators import login_required
-from django.http import HttpRequest, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, redirect
+from typing import Any
+
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import get_object_or_404
 from django.views import generic
 
+from blog.forms import CommentaryForm
 from blog.models import Post, Commentary
 
 
-class IndexView(generic.ListView):
+class PostListView(generic.ListView):
     model = Post
     ordering = "-created_time"
     queryset = Post.objects.select_related(
@@ -19,16 +21,29 @@ class PostDetailView(generic.DetailView):
     queryset = Post.objects.select_related(
         "owner").prefetch_related("commentaries", "commentaries__user")
 
+    def get_context_data(self, **kwargs: Any) -> dict[str: Any]:
+        context = super().get_context_data(**kwargs)
+        context.update(form=CommentaryForm())
+        return context
 
-@login_required
-def add_commentary(request: HttpRequest, pk: int) -> HttpResponseRedirect:
-    commented_post = get_object_or_404(Post, pk=pk)
-    content = request.POST.get("content")
+    def post(
+            self,
+            request: HttpRequest,
+            *args: Any,
+            **kwargs: Any
+    ) -> HttpResponse:
+        post = get_object_or_404(Post, pk=kwargs["pk"])
+        form = CommentaryForm(request.POST)
 
-    if request.method == "POST" and content:
-        Commentary.objects.create(
-            user=request.user,
-            post=commented_post,
-            content=content
-        )
-    return redirect(commented_post)
+        if form.is_valid() and request.user.is_authenticated:
+            Commentary.objects.create(
+                user=request.user,
+                post=post,
+                content=form.cleaned_data["content"]
+            )
+            return super().get(request, args, kwargs)
+
+        self.object = self.get_object()
+        context = self.get_context_data(object=self.object)
+        context["form"] = form
+        return self.render_to_response(context)

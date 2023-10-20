@@ -36,7 +36,7 @@ class Commentary(models.Model):
         on_delete=models.CASCADE,
     )
     post = models.ForeignKey(
-        to="blog.Post", related_name="commentaries", on_delete=models.CASCADE
+        Post, related_name="commentaries", on_delete=models.CASCADE
     )
     created_time = models.DateTimeField(auto_now_add=True)
     content = models.CharField(max_length=255)

@@ -1,7 +1,8 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 
 {% block content %}
-  <h2> {{ object.title }} </h2>
+  <h2 xmlns="http://www.w3.org/1999/html"> {{ object.title }} </h2>
   <h4> {{ object.owner.get_full_name }} at {{ object.created_time }} </h4>
   <br>
   <p> {{ object.content }}</p>
@@ -17,17 +18,9 @@
     </div>
     <br>
   {% endfor %}
-  <form action="{% url 'blog:commentary-create' object.id %}" method="POST">
+  <form action="" method="POST">
     {% csrf_token %}
-    <div class="form-group">
-      <input
-          type="text"
-          class="form-control"
-          name="content"
-          required
-          placeholder="Please, leave your comment"
-      >
-    </div>
+    {{ form|crispy }}
     {% if user.is_authenticated %}
       <button type="submit" class="btn btn-primary">Add comment</button>
     {% else %}
