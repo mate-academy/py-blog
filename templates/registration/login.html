@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block login %}{% endblock %}
+{% block content %}
+
+  <div class="form">
+    {% if form.errors %}
+      <div class="error-message">
+          {{ form.errors.invalid_login }}
+      </div>
+    {% endif %}
+
+    <form method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="submit" value="Login">
+      <input type="hidden" name="next" value="{{ next }}">
+    </form>
+  </div>
+{% endblock %}
