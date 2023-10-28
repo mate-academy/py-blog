@@ -1,0 +1,16 @@
+{% block login %}
+    {% if user.is_authenticated %}
+      <li class="logged-user">
+          {{ user.username }}
+      </li>
+      <a href="{% url 'logout' %}?next={{ request.get_full_path }}">
+        Logout
+      </a>
+      {% else %}
+        <a
+            id="open-popup"
+            href="{% url 'login' %}?next={{ request.get_full_path }}">
+          Login
+        </a>
+    {% endif %}
+  {% endblock %}
