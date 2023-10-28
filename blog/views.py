@@ -11,51 +11,48 @@ from django.utils import timezone
 from django.views import generic
 from django.views.generic import CreateView
 
-from .models import Post, Commentary, CommentForm
+from .models import Post, Commentary
+from .forms import CommentForm
 
 
-def index(request):
-    posts = Post.objects.annotate(
+class PostListView(generic.ListView):
+    model = Post
+    paginate_by = 5
+    queryset = Post.objects.annotate(
         comment_count=Count("commentaries")).order_by(
         "-created_time"
     )
 
-    paginator = Paginator(posts, 5)
-    page = request.GET.get("page")
 
-    posts = paginator.get_page(page)
-    is_paginated = posts.has_other_pages()
-
-    context = {
-        "post_list": posts,
-        "is_paginated": is_paginated,
-    }
-
-    return render(request, "blog/index.html", context=context)
-
-
-class PostDetailView(generic.DetailView, generic.FormView):
+class PostDetailView(
+    generic.DetailView, generic.FormView
+):
     model = Post
-    queryset = Post.objects.annotate(comment_count=Count("commentaries"))
+    queryset = Post.objects.annotate(
+        comment_count=Count("commentaries")
+    )
     form_class = CommentForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         post = self.get_object()
-        comments = sorted(
-            post.commentaries.all(),
-            key=lambda c: c.created_time,
-            reverse=True
+
+        context["sorted_comments"] = post.commentaries.all().order_by(
+            "-created_time"
         )
-        context["sorted_comments"] = comments
+
         return context
 
     def form_valid(self, form):
         post = self.get_object()
         commentary = form.save(commit=False)
+
+        commentary.user = self.request.user
         commentary.post = post
+
         commentary.created_time = timezone.now()
         commentary.save()
+
         return super().form_valid(form)
 
     def get_success_url(self):

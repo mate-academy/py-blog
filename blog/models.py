@@ -1,4 +1,3 @@
-from django import forms
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -19,10 +18,14 @@ class Post(models.Model):
 
 class Commentary(models.Model):
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="commentaries", default=1
+        User,
+        on_delete=models.CASCADE,
+        related_name="commentaries"
     )
     post = models.ForeignKey(
-        Post, on_delete=models.CASCADE, related_name="commentaries", default=1
+        Post,
+        on_delete=models.CASCADE,
+        related_name="commentaries"
     )
     content = models.TextField()
     created_time = models.DateTimeField()
@@ -33,13 +36,3 @@ class Commentary(models.Model):
     class Meta:
         verbose_name = "commentary"
         verbose_name_plural = "commentaries"
-
-
-class CommentForm(forms.ModelForm):
-    content = forms.CharField(
-        widget=forms.Textarea(attrs={"class": "custom-textarea"}),
-    )
-
-    class Meta:
-        model = Commentary
-        fields = ["content"]
