@@ -1,17 +1,10 @@
-from datetime import datetime
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Count
-from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views import generic
-from django.views.generic import CreateView
 
-from .models import Post, Commentary
+from .models import Post
 from .forms import CommentForm
 
 
