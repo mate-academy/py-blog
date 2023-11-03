@@ -11,7 +11,7 @@
   {% endif %}
   </div>
   <div class="col-sm-8">
-    <form method="post" action="{% url 'login' %}">
+    <form method="post" action="{% url "login" %}">
       {% csrf_token %}
       {{ form|crispy }}
 
