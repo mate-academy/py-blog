@@ -12,14 +12,18 @@ from .models import Post, Commentary
 # Create your views here.
 def index(request):
     post = Post.objects.order_by("-created_time")
-    commentary = Commentary.objects.count()
     paginator = Paginator(post, 5)
     page_number = request.GET.get("page")
     post_list = paginator.get_page(page_number)
 
+    post_comment_counts = {}
+    for post in post_list:
+        comment_count = Commentary.objects.filter(post=post).count()
+        post_comment_counts[post.id] = comment_count
+
     context = {
         "post_list": post_list,
-        "commentary": commentary,
+        "commentary": post_comment_counts,
     }
 
     return render(request, "blog/index.html", context)
