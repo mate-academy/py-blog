@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block title %}<title>Post Detail | Blog</title>{% endblock %}
+
+{% block content %}
+  <p class="list-group-item list-group-item-primary lead">{{ post.title }}</p>
+  <p class="text-muted" style="font-size: 14px">Author: {{ post.owner.first_name }} {{ post.owner.last_name }} / Created at: {{ post.created_time }}</p>
+  <br class="my-8">
+  <p class="list-group-item list-group-item-dark">{{ post.content }}</p>
+  <p style="font-size: 12px">{{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}</p>
+
+  {% for comment in post.commentaries.all %}
+    <div style="border-width:1px; border-color: darkgrey; border-style: solid; padding-top: 10px;padding-left: 10px">
+      <p class="text-muted">Comment from {{ comment.user.username }}. Created at {{ comment.created_time }}</p>
+      <p style="border-top-width: 1px; border-color: darkgray; border-top-style: solid; margin-right: 10px"></p>
+      <p class="font-monospace">{{ comment.content }}</p>
+    </div>
+    <br>
+    {% empty %}
+      <p>There are no comments.</p>
+  {% endfor %}
+
+  <form action="" method="post" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" class="btn btn-outline-primary" value="Add comment">
+    <a class="btn btn-outline-warning" href="{% url 'blog:index' %}" role="button">Cancel</a>
+  </form>
+{% endblock %}
