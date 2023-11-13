@@ -6,8 +6,8 @@ from django.db.models import Count
 from django.views import generic
 from django.urls import reverse_lazy
 
-from models import Post
-from forms import CommentaryForm
+from blog.models import Post
+from blog.forms import CommentaryForm
 
 
 class IndexView(View):

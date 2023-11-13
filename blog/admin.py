@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 
 from django.contrib import admin
 from django.contrib.auth.models import Group
-from models import User, Post, Commentary
+from blog.models import User, Post, Commentary
 
 admin.site.unregister(Group)
 
