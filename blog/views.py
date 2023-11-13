@@ -1,8 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.urls import reverse_lazy
 from django.views import generic
-from blog.form import CommentForm
-from blog.models import Commentary
+from django.views.generic.edit import FormMixin
 
+from blog.forms import CommentForm
 from blog.models import Post
 
 
@@ -13,37 +13,26 @@ class PostListView(generic.ListView):
     context_object_name = "post_list"
 
 
-class PostDetailView(generic.DetailView):
+class PostDetailView(generic.DetailView, FormMixin):
     model = Post
+    form_class = CommentForm
 
-    def get(self, request, *args, **kwargs):
-        post = self.get_object()
-        form = CommentForm()
-        commentaries = post.commentaries.all()
-        context = {
-            "post": post,
-            "form": form,
-            "commentaries": commentaries
-        }
-        return render(request, "blog/post_detail.html", context=context)
-
-    @staticmethod
-    def post(request, **kwargs):
-        post = get_object_or_404(Post, pk=kwargs["pk"])
-        commentaries = post.commentaries.all()
-        form = CommentForm(request.POST)
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
         if form.is_valid():
-            Commentary.objects.create(
-                user=request.user,
-                post=post,
-                content=form["content"].data
-            )
-            return render(
-                request,
-                "blog/post_detail.html",
-                context={
-                    "post": post,
-                    "form": form,
-                    "commentaries": commentaries
-                }
-            )
+            return self.form_valid(form)
+
+        return self.form_invalid(form)
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.post = self.get_object()
+        self.object.user = self.request.user
+        self.object.save()
+        return super().form_valid(form)
+
+    def get_success_url(self, **kwargs):
+        return reverse_lazy(
+            "blog:post-detail",
+            kwargs={"pk": self.get_object().id}
+        )
