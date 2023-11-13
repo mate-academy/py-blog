@@ -1,0 +1,20 @@
+{% load i18n %}
+
+<h3>{% blocktrans with filter_title=title %} By {{ filter_title }} {% endblocktrans %}</h3>
+<ul>
+  <li>
+    <form method="GET" action="">
+      <div>
+        <input
+           type="date"
+           value="{{ spec.date_value|default_if_none:'' }}"
+           name="{{ spec.parameter_date }}"/>
+        <input
+           type="time"
+           value="{{ spec.time_value|default_if_none:'' }}"
+           name="{{ spec.parameter_time }}"/>
+      </div>
+      <input type="submit">
+    </form>
+  </li>
+</ul>
