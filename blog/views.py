@@ -1,23 +1,13 @@
 from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponse, HttpRequest
-from .models import Post, Commentary
 from django.core.paginator import Paginator
 from django.db.models import Count
-from django import forms
 from django.views import generic
 from django.urls import reverse_lazy
 
-
-class CommentaryForm(forms.ModelForm):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field_name, field in self.fields.items():
-            field.required = True
-
-    class Meta:
-        model = Commentary
-        fields = ["content"]
+from models import Post
+from forms import CommentaryForm
 
 
 class IndexView(View):
@@ -26,7 +16,7 @@ class IndexView(View):
             commentaries_count=Count("commentaries")
         ).order_by("-created_time").select_related("owner")
 
-        paginator = Paginator(post_list, 5)  # Show 25 contacts per page.
+        paginator = Paginator(post_list, 5)
 
         page_number = request.GET.get("page")
         page_obj = paginator.get_page(page_number)
@@ -61,11 +51,10 @@ class PostDetailView(generic.edit.ModelFormMixin, generic.DetailView):
             commentary.post = self.object
             commentary.user = request.user
             return super().form_valid(form)
-        else:
-            return self.form_invalid(form)
+
+        return self.form_invalid(form)
 
     def get_success_url(self):
-        # Redirect to the detail view for the current object
         return reverse_lazy(
             "blog:post-detail",
             kwargs={"pk": self.kwargs["pk"]}
