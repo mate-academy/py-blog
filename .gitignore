@@ -6,4 +6,4 @@ requirements.txt
 .flake8
 pyc
 .gitignore
-.idea
+.idea/
