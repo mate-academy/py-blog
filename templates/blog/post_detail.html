@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container">
+    <div class="border border-secondary rounded p-4 m-4 position-relative">
+      <a href="{% url 'blog:index' %}">
+        <input type="button" class="btn btn-primary position-absolute top-0 end-0 m-2" value=back>
+      </a>
+      <h1 class="text-center">
+        {{ post.title }}
+      </h1>
+      <h3>Author: {{ post.owner.first_name }} {{ post.owner.last_name }}</h3>
+      <p>
+        {{ post.content }}
+      </p><br>
+      {% if post.commentary.count > 0 %}
+        <h4>
+          Commentary:
+        </h4>
+        {% for comment in post.commentary.all %}
+        <div class="border border-secondary rounded mb-4">
+          <p class="m-2">
+            User: {{ comment.user.username }}
+          </p>
+          <p class="m-2">
+            {{ comment.content }}
+          </p>
+          <p class="m-2">
+            {{ comment.created_time }}
+          </p>
+        </div>
+        {% endfor %}
+      {% else %}
+      <h3>No commentary</h3>
+      {% endif %}
+      <a href="{% url 'blog:comment-create' %}">
+        <input type="button" value="Add a comment" class="btn btn-secondary">
+      </a>
+    </div>
+  </div>
+{% endblock %}
