@@ -3,6 +3,7 @@ blog_system_db_data.json
 db.sqlite3
 requirements.txt
 .github
-.idea
 .flake8
 pyc
+.gitignore
+.idea
