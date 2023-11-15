@@ -1,3 +1,5 @@
+<!-- blog/templates/blog/post_detail.html -->
+
 {% extends 'base.html' %}
 
 {% block content %}
@@ -12,14 +14,27 @@
     <div class="card mt-3">
         <div class="card-body">
             <h4 class="card-title">Comments</h4>
+            <p class="text-muted">Total Comments: {{ post.commentary_set.count }}</p>
             <ul class="list-group">
                 {% for comment in post.commentary_set.all %}
                     <li class="list-group-item">
                         <strong>{{ comment.user.username }}</strong>: {{ comment.content }}
-                        <p class="text-muted">Commented created {{ comment.created_time }}</p>
+                        <p class="text-muted">Comment created {{ comment.created_time }}</p>
                     </li>
                 {% endfor %}
             </ul>
+        </div>
+    </div>
+
+    <!-- Add Comment Form -->
+    <div class="card mt-3">
+        <div class="card-body">
+            <h4 class="card-title">Add a Comment</h4>
+            <form method="post" action="{% url 'blog:create_comment' pk=post.pk %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Submit Comment</button>
+            </form>
         </div>
     </div>
 {% endblock %}
