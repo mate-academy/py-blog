@@ -1,8 +1,7 @@
 from django.urls import reverse_lazy
 from django.views import generic
 from blog.models import Post, Commentary
-
-from django.shortcuts import get_object_or_404
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class PostListView(generic.ListView):
@@ -23,13 +22,15 @@ class PostDetailView(generic.DetailView):
         return context
 
 
-class CommentaryCreateView(generic.CreateView):
+class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
     model = Commentary
     fields = ['content']
     template_name = 'blog/commentary_create.html'
-    success_url = reverse_lazy('blog:post-list')
 
     def form_valid(self, form):
         form.instance.user = self.request.user
         form.instance.post_id = self.kwargs['pk']
         return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('blog:post-detail', kwargs={'pk': self.kwargs['pk']})
