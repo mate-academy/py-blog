@@ -1,4 +1,3 @@
-<!-- blog/templates/blog/post_detail.html -->
 
 {% extends 'base.html' %}
 
@@ -7,34 +6,33 @@
         <div class="card-body">
             <h2 class="card-title">{{ post.title }}</h2>
             <p class="card-text">{{ post.content }}</p>
-            <p class="text-muted">Published on {{ post.created_time }}</p>
+            <p class="text-muted">Published on {{ post.created_time|date:"F d, Y" }}</p>
         </div>
     </div>
 
     <div class="card mt-3">
         <div class="card-body">
             <h4 class="card-title">Comments</h4>
-            <p class="text-muted">Total Comments: {{ post.commentary_set.count }}</p>
+            <p class="text-muted">Total Comments: {{ comments.count }}</p>
             <ul class="list-group">
-                {% for comment in post.commentary_set.all %}
+                {% for comment in comments %}
                     <li class="list-group-item">
                         <strong>{{ comment.user.username }}</strong>: {{ comment.content }}
-                        <p class="text-muted">Comment created {{ comment.created_time }}</p>
+                        <p class="text-muted">Comment created {{ comment.created_time|date:"F d, Y" }}</p>
                     </li>
                 {% endfor %}
             </ul>
         </div>
     </div>
 
-    <!-- Add Comment Form -->
     <div class="card mt-3">
         <div class="card-body">
-            <h4 class="card-title">Add a Comment</h4>
-            <form method="post" action="{% url 'blog:create_comment' pk=post.pk %}">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="btn btn-primary">Submit Comment</button>
-            </form>
+            <h4 class="card-title">Add Comment</h4>
+                <form method="post" action="{% url 'blog:commentary-create' pk=post.pk %}">
+                    {% csrf_token %}
+                    <textarea name="content" class="form-control" rows="3" required></textarea>
+                    <button type="submit" class="btn btn-primary mt-2">Add Comment</button>
+                 </form>
         </div>
     </div>
 {% endblock %}
