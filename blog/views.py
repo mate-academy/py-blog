@@ -14,20 +14,20 @@ class PostListView(generic.ListView):
 
 class PostCreateView(LoginRequiredMixin, generic.CreateView):
     model = Post
-    fields = ["title", "content"]
+    fields = "__all__"
     success_url = reverse_lazy("blog:index")
 
 
 class PostUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Post
-    fields = ["title", "content"]
-    success_url = reverse_lazy("blog:index")
+    fields = "__all__"
+    success_url = reverse_lazy("blog:my-post-list")
 
 
 class PostDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Post
     fields = "__all__"
-    success_url = reverse_lazy("blog:index")
+    success_url = reverse_lazy("blog:my-post-list")
 
 
 class MyPostListView(LoginRequiredMixin, generic.ListView):
@@ -42,5 +42,5 @@ class PostDetailView(generic.DetailView):
 
 class CommentCreateView(LoginRequiredMixin, generic.CreateView):
     model = Commentary
-    fields = ["post", "content"]
+    fields = "__all__"
     success_url = reverse_lazy("blog:index")
