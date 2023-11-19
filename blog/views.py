@@ -14,7 +14,7 @@ class PostListView(ListView):
     ordering = ["-created_time"]
 
 
-class PostDetailView(LoginRequiredMixin, DetailView):
+class PostDetailView(DetailView):
     model = Post
     template_name = "blog/post_detail.html"
     context_object_name = "post"
