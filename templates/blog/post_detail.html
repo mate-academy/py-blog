@@ -1,0 +1,71 @@
+{% extends "index.html" %}
+
+{% block content %}
+  <main role="main" class="container">
+
+    <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+      <div class="col-md-8 px-0">
+        <h3 class="display-4 font-italic">{{ post.title }}</h3>
+      </div>
+    </div>
+
+
+    <div class="blog-post">
+      <br>
+      <p class="blog-post-meta">January 1, 2014 by <a
+          href="#">{{ post.owner.first_name }} {{ post.owner.last_name }}</a></p>
+
+      <hr>
+      <br>
+      <h2>Content</h2>
+      <p>{{ post.content }}</p>
+      <br>
+      <hr>
+      <br>
+      <div class="blog-post">
+        <h4 class="blog-post-title">{{ comments|length }} comment{{ comments|pluralize }}</h4>
+        {% for comment in comments %}
+
+          <hr>
+
+          <p class="blog-post-meta">
+            <a href="#">
+              {% if comment.user.first_name and comment.user.last_name %}
+                {{ comment.user.first_name }} {{ comment.user.last_name }}
+                {% else %}{{ comment.user.username }}
+              {% endif %}
+            </a>
+            at {{ comment.created_time }}</p>
+
+          <p>{{ comment.content }}</p>
+
+        {% empty %}No comments yet
+        {% endfor %}
+        <br>
+        <hr>
+        <br>
+        {% if user.is_authenticated %}
+          <div class="card-body">
+
+            <h3>Leave a comment</h3>
+            <form method="post" style="margin-top: 1.3em;">
+              {{ comment_form.as_p }}
+              {% csrf_token %}
+
+              <input type="hidden" name="user_id" value="{{ user.id }}">
+              <input type="hidden" name="post_id" value="{{ post.id }}">
+
+              <a href="{% url 'blog:post-detail' pk=post.id %}">
+                <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+              </a>
+            </form>
+
+          </div>
+
+        {% endif %}
+
+      </div>
+    </div><!-- /.blog-post -->
+
+  </main><!-- /.container -->
+{% endblock %}
