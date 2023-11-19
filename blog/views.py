@@ -25,6 +25,6 @@ class PostDetailView(generic.DetailView):
             post_id = kwargs["pk"]
             comment = Commentary(content=content, user=user, post_id=post_id)
             comment.save()
-            return redirect(request.META['HTTP_REFERER'])
+            return redirect(request.META["HTTP_REFERER"])
         else:
             return redirect("login")
