@@ -1,7 +1,12 @@
 from datetime import datetime
 
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import LoginView
 from django.db.models import Count
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
+from django.urls import reverse, reverse_lazy
 from django.views import generic
 
 from blog.forms import CommentForm
@@ -14,7 +19,7 @@ class MainView(generic.ListView):
     template_name = "index.html"
 
 
-def post_detail(request, pk):
+def post_detail(request: HttpRequest, pk: int) -> HttpResponse:
     template_name = "blog/post_detail.html"
     post = get_object_or_404(Post, pk=pk)
     comments = post.commentaries.select_related("user")
