@@ -62,7 +62,7 @@
             </form>
 
           </div>
-        {% else %}<p><strong>Please login to leave comment</strong></p>
+        {% else %}<p><strong>Please <a href="{% url 'login' %}">login</a> to leave comment</strong></p>
         {% endif %}
 
       </div>
