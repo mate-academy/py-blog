@@ -1,5 +1,7 @@
 {% extends "base.html" %}
-
+{% block title %}
+  <title>Post page {{ post.id }}</title>
+{% endblock %}
 
 {% block content %}
   <h1>{{ post.title }}</h1>
