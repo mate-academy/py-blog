@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p class="info2">{{ post.owner }} at {{ post.created_time }}</p>
+  <h5 class="content_detail">{{ post.content }}</h5>
+  <br>
+  {% if post.post_commentaries.count > 1 or post.post_commentaries.count == 0 %}
+    <p> <strong>{{ post.post_commentaries.count }} comments </strong> </p>
+  {% else %}
+    <p><strong>{{ post.post_commentaries.count }} comment </strong></p>
+  {% endif %}
+  <br>
+  {% for comment in post.post_commentaries.all %}
+    <div style="border-width:1px; border-color: darkgrey; border-style: solid; padding-top: 10px;padding-left: 10px">
+      <p class="text-muted=" style="color: green"><strong>Comment from {{ comment.user.username }}. Created at: {{ comment.created_time }} </strong></p>
+      <p style="border-top-width: 1px; border-color: darkgray; border-top-style: solid; margin-right: 10px"></p>
+      <p class="font-weight-normal">{{ comment.content }}</p>
+    </div>
+    <br>
+  {% empty %}
+    <p>There are no comments in this post</p>
+
+  {% endfor %}
+  <br>
+<div>
+  <a class="btn btn-secondary" style="background-color: blue" href="{% url 'blog:index' %}">Back</a>
+</div>
+
+
+{% endblock %}
