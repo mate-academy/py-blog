@@ -9,7 +9,7 @@ from blog.models import Post
 
 
 def index(request: HttpRequest) -> HttpResponse:
-    post_list = Post.objects.all().order_by("-created_time")
+    post_list = Post.objects.order_by("-created_time")
 
     paginator = Paginator(post_list, 5)
     page_number = request.GET.get("page")
@@ -42,5 +42,5 @@ class PostDetailView(generic.DetailView):
             comment.content = request.POST["content"]
             comment.save()
             return HttpResponseRedirect(self.request.path)
-        else:
-            return redirect("login")
+
+        return redirect("login")
