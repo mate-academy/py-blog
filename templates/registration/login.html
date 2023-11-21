@@ -1,0 +1,17 @@
+{% extends "index.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+
+  <h1>Login</h1>
+
+  <form method="post" action="{% url 'login' %}" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+
+    <br>
+    <input type="submit" value="Login" class="btn btn-primary"/>
+    <input type="hidden" name="next" value="/"/>
+  </form>
+
+{% endblock %}
