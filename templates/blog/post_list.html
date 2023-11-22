@@ -23,7 +23,7 @@
     </a>
   {% endif %}
   <div style="max-width: 60%">
-    {% for post in posts %}
+    {% for post in post_list %}
       <a href="{% url 'blog:post-detail' pk=post.id %}"><strong>{{ post.title }}</strong></a>
       <br>
       {{ post.content }}
