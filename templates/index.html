@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+  {% if not user.is_authenticated %}
+    <a href="{% url 'blog:login' %}">
+      <button>Login</button>
+    </a>
+  {% else %}
+    <a href="{% url 'blog:logout' %}">
+      <button>Logout</button>
+    </a>
+  {% endif %}
+  <div style="max-width: 60%">
+    {% for post in posts %}
+      <a href="{% url 'blog:post-detail' pk=post.id %}"><strong>{{ post.title }}</strong></a>
+      <br>
+      {{ post.content }}
+      <br>
+      {{ post.comment_count }}
+      {% if post.comment_count == 1 %}
+        comment
+      {% else %}
+        comments
+      {% endif %}
+      <br>
+      {{ post.created_time }} by {{ post.owner }}
+
+      </div>
+      <hr>
+      <br>
+
+
+    {% endfor %}
+
+
+
+  <!--pagination-->
+  <div style="display: flex">
+    <ul>
+      {% if page_obj.has_previous %}
+        <li>
+          <a href="?page= {{ page_obj.previous_page_number }}">prev</a>
+        </li>
+      {% endif %}
+      <li>
+        <span>{{ page_obj.number }} of {{ paginator.num_pages }}</span>
+      </li>
+      {% if page_obj.has_next %}
+        <li>
+          <a href="?page= {{ page_obj.next_page_number }}">next</a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+{% endblock %}
