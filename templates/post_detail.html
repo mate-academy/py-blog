@@ -1,32 +1,39 @@
 {% extends 'base.html' %}
 {% block content %}
+  <button><a href="{% url 'blog:index' %}"> Back</a></button>
+  <br>
   <div style="max-width: 60%">
-  <strong>{{ post.title }}</strong>
-  <br>
-  {{ post.content }}
-  <br>
-  {{ post.comment_count }} comments
-  <br>
-  {{ post.created_time }} by {{ post.owner }}
-  <div>
-    <button><a href="{% url 'blog:index' %}"> Back</a></button>
-    <button><a href="{% url 'blog:add-comment' pk=post.id %}"> Add Comment</a></button>
+    <strong>{{ post.title }}</strong>
+    <br>
+    {{ post.content }}
+    <br>
+    {{ post.comment_count }} comments
+    <br>
+    {{ post.created_time }} by {{ post.owner }}
+    <div>
 
-    <hr>
-    {% if post.commentaries %}
-      {% for comment in post.commentaries.all %}
-        {{ comment.user }}  {{ comment.created_time }}
+      <form method="post" style="width: 100%">
+        {% csrf_token %}
+        <textarea name="content"></textarea>
         <br>
-        <br>
-        {{ comment.content }}
+        <button type="submit">Add Comment</button>
+      </form>
 
-        <hr>
+      <hr>
+      {% if post.commentaries %}
+        {% for comment in post.commentaries.all %}
+          {{ comment.user }}  {{ comment.created_time }}
+          <br>
+          <br>
+          {{ comment.content }}
+
+          <hr>
 
 
 
-      {% endfor %}
-    {% endif %}
-  </div>
+        {% endfor %}
+      {% endif %}
+    </div>
   </div>
 
 {% endblock %}

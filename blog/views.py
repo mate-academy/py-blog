@@ -1,7 +1,7 @@
 from django.contrib.auth.views import LoginView, LogoutView
 from django.db.models import Count
-from django.shortcuts import get_object_or_404
-from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView
 from blog.models import Post, Commentary
 
@@ -24,16 +24,18 @@ class PostDetailView(DetailView):
     model = Post
     template_name = "post_detail.html"
 
+    def post(self, request, pk):
+        post = get_object_or_404(Post, id=pk)
+        content = request.POST.get("content")
 
-class AddCommentView(CreateView):
-    model = Commentary
-    fields = ["content"]
-    template_name = "add_comment.html"
+        if content:
+            Commentary.objects.create(
+                user=request.user,
+                post=post,
+                content=content,
+            )
 
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        form.instance.post = get_object_or_404(Post, pk=self.kwargs["pk"])
-        return super().form_valid(form)
+        return redirect(reverse("blog:post-detail", kwargs={"pk": pk}))
 
     def get_success_url(self):
         return reverse_lazy(

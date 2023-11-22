@@ -1,9 +1,0 @@
-{% extends "base.html" %}
-{% block content %}
-  <form method="post">
-    {% csrf_token %}
-    <textarea name="content"></textarea>
-    <br>
-    <button type="submit">Add Comment</button>
-  </form>
-{% endblock %}

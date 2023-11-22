@@ -4,7 +4,6 @@ from django.contrib.auth.models import Group
 
 from blog.models import Commentary, Post, User
 
-
 admin.site.unregister(Group)
 
 
