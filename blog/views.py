@@ -1,5 +1,4 @@
 from datetime import datetime
-from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views import generic
 
@@ -13,34 +12,47 @@ class PostListViews(generic.ListView):
     paginate_by = 5
 
 
-def post_detail(request: HttpRequest, pk: int) -> HttpResponse:
+class PostDetailView(generic.View):
     template_name = "blog/post_detail.html"
-    post = get_object_or_404(Post, pk=pk)
-    comments = post.comments.select_related("user")
-    new_comment = None
 
-    if request.method == "POST":
+    def get(self, request, pk):
+        post = get_object_or_404(Post, pk=pk)
+        comments = post.comments.select_related("user")
+        new_comment = None
+        comment_form = CommentForm()
+
+        context = {
+            "post": post,
+            "comments": comments,
+            "new_comment": new_comment,
+            "comment_form": comment_form,
+            "user": request.user
+        }
+
+        return render(request, self.template_name, context)
+
+    def post(self, request, pk):
+        post = get_object_or_404(Post, pk=pk)
+        comments = post.comments.select_related("user")
         comment_form = CommentForm(request.POST)
+        new_comment = None
 
         if comment_form.is_valid():
             new_comment = comment_form.save(commit=False)
-            content, post_id, user_id = comment_form.cleaned_data.values()
-            print(content, user_id, post_id)
+            content = comment_form.cleaned_data.get("content")
             new_comment.content = content
-            new_comment.user_id = user_id
-            new_comment.post_id = post_id
+            new_comment.user = request.user
+            new_comment.post = post
             new_comment.created_time = datetime.now()
             new_comment.save()
-            return redirect("blog:post-detail", pk=post_id)
+            return redirect("blog:post-detail", pk=pk)
 
-    comment_form = CommentForm()
+        context = {
+            "post": post,
+            "comments": comments,
+            "new_comment": new_comment,
+            "comment_form": comment_form,
+            "user": request.user
+        }
 
-    context = {
-        "post": post,
-        "comments": comments,
-        "new_comment": new_comment,
-        "comment_form": comment_form,
-        "user": request.user
-    }
-
-    return render(request, template_name, context)
+        return render(request, self.template_name, context)
