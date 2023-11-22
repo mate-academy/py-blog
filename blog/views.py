@@ -13,7 +13,10 @@ class PostListView(ListView):
     template_name = "blog/post_list.html"
 
     def get_queryset(self):
-        return Post.objects.annotate(comment_count=Count("commentaries")).order_by('-created_time')
+        return (Post.objects.annotate(
+            comment_count=Count("commentaries"))
+            .order_by("-created_time")
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
