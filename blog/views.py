@@ -8,7 +8,6 @@ from blog.models import Post, Commentary
 
 class PostListView(ListView):
     model = Post
-    context_object_name = "posts"
     paginate_by = 5
     template_name = "blog/post_list.html"
 
