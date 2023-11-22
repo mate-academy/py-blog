@@ -1,5 +1,18 @@
-{% extends 'base.html' %}
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {% load static %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+  <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+  {% block title %}<title>Blog</title>{% endblock %}
+</head>
+<body>
+<main>
+
   {% if not user.is_authenticated %}
     <a href="{% url 'blog:login' %}">
       <button>Login</button>
@@ -32,7 +45,6 @@
     {% endfor %}
 
 
-
   <!--pagination-->
   <div style="display: flex">
     <ul>
@@ -51,4 +63,10 @@
       {% endif %}
     </ul>
   </div>
-{% endblock %}
+
+</main>
+
+
+</body>
+
+</html>
