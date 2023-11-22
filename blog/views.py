@@ -10,7 +10,7 @@ class PostListView(ListView):
     model = Post
     context_object_name = "posts"
     paginate_by = 5
-    template_name = "post_list.html"
+    template_name = "blog/post_list.html"
 
     def get_queryset(self):
         return Post.objects.annotate(comment_count=Count("commentaries"))
@@ -22,7 +22,7 @@ class PostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
-    template_name = "post_detail.html"
+    template_name = "blog/post_detail.html"
 
     def post(self, request, pk):
         post = get_object_or_404(Post, id=pk)
