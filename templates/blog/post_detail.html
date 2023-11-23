@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content  %}
+  <div class="card" style="width: 80rem;">
+    <div class="card-body">
+      <h5 class="card-title font-weight-bold text-success">{{ post.title }}</a></h5>
+      <h6 class="card-subtitle mb-2 text-muted">Author: {{ post.owner }}</h6>
+      <p class="card-text">{{ post.content}}</p>
+      <p class="card-text">  {{ post.created_time }} <strong>Comments: {{ post.comments.count }}</strong></p>
+    </div>
+  </div>
+  {% if post.comments.all %}
+    {% for commentary in post.comments.all %}
+      <div class="card mb-3" style="width: 80rem;">
+        <div class="row">
+          <div class="col-2 m-3">
+            <span class="card-title">{{ commentary.user.username }}</span>
+            <p class="card-text"><small class="text-muted">{{ commentary.created_time.date }}</small></p>
+          </div>
+          <div class="col pl-0">
+            <div class="card-body">
+              <p class="card-text">{{ commentary.content }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p class="text-muted">There are no comments yet.</p>
+  {% endif %}
+  <h4>Add a new comment</h4>
+  <form action="" method="post" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input class="btn btn-primary" type="submit" value="Add Comment">
+  </form>
+{% endblock  %}
