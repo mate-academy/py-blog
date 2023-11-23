@@ -1,18 +1,7 @@
-import os
-import django
-from django.conf import settings
-
 from django.test import TestCase
 from django.urls import reverse
-from blog.models import Post, Commentary
+from blog.models import Post
 
-# from blog_system import settings
-
-
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "blog_system.settings")
-
-if not settings.configured:
-    django.setup()
 
 MAIN_PAGE_URL = reverse("blog:index")
 PAGINATION = 5

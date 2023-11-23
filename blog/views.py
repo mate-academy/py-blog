@@ -7,7 +7,6 @@ from blog.models import Post, Commentary
 
 
 class PostListView(generic.ListView):
-    queryset = Post.objects.order_by("-created_time")
     model = Post
     paginate_by = 5
 

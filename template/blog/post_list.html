@@ -11,7 +11,7 @@
         <li><strong>tittle:</strong> <a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></li>
         <li>content: {{ post.content }}</li>
         <li>created: {{ post.created_time }}</li>
-        <li>number of comments: {{ post.posts.count }}</li>
+        <li>number of comments: {{ post.comments.count }}</li>
         <br>
       </td>
       {% endfor %}

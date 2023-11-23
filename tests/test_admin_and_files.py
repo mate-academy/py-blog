@@ -1,19 +1,7 @@
 import os
-import django
-from django.conf import settings
-
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
-# from blog_system import settings
-
-
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "blog_system.settings")
-
-if not settings.configured:
-    django.setup()
-
-
 
 
 class AdminSiteBlogTests(TestCase):
