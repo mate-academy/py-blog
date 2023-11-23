@@ -14,17 +14,14 @@ class PostListViews(generic.ListView):
 
 class PostDetailView(generic.View):
     template_name = "blog/post_detail.html"
+    queryset = Post.objects.prefetch_related("comments__user")
 
     def get(self, request, pk):
         post = get_object_or_404(Post, pk=pk)
-        comments = post.comments.select_related("user")
-        new_comment = None
         comment_form = CommentForm()
-
         context = {
             "post": post,
-            "comments": comments,
-            "new_comment": new_comment,
+            "comments": post.comments,
             "comment_form": comment_form,
             "user": request.user
         }
@@ -33,9 +30,7 @@ class PostDetailView(generic.View):
 
     def post(self, request, pk):
         post = get_object_or_404(Post, pk=pk)
-        comments = post.comments.select_related("user")
         comment_form = CommentForm(request.POST)
-        new_comment = None
 
         if comment_form.is_valid():
             new_comment = comment_form.save(commit=False)
@@ -49,8 +44,7 @@ class PostDetailView(generic.View):
 
         context = {
             "post": post,
-            "comments": comments,
-            "new_comment": new_comment,
+            "comments": post.comments.all(),
             "comment_form": comment_form,
             "user": request.user
         }
