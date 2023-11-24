@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% if user.is_authenticated %}
+    <h1>Post list <a href="{% url "blog:post-create" %}">+</a></h1>
+  {% else %}
+    <h1>Post list</h1>
+  {% endif %}
+  {% if post_list %}
+    {% for post in post_list %}
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"><a class="post_a" href="{% url "blog:post-detail" pk=post.id %}">{{ post.title }}</a></h5>
+          <h6 class="card-subtitle mb-2 text-body-secondary">{{ post.created_time|date:"Y-m-d H:i" }}, created
+            by: <a href="{% url "blog:user-detail" pk=post.owner.id %}">{{ post.owner.username }}</a></h6>
+          <p class="card-text">{{ post.content|truncatewords:20 }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>There is no posts yet</p>
+  {% endif %}
+{% endblock %}
