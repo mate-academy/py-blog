@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p> by {{ post.owner.first_name }} {{ post.owner.last_name }}
+    <span class="text-muted"> {{ post.created_time }}</span></p>
+
+  <div class="mt-2">
+    <p class="lh-sm">
+    {{ post.content }}
+  </p>
+  </div>
+  <span> <strong> {{ post.comments.count }} comment{{ post.comments.count|pluralize }}</strong> </span>
+  {% if post.comments.count %}
+    {% for comment in post.comments.all %}
+      <ul class="list-group mt-2">
+        <li class="list-group-item">
+          <p style="font-weight: bold">{{ comment.user.first_name }} {{ comment.user.last_name }}</p>
+          <p> {{ comment.content}}</p>
+          <span class="text-muted"> {{ comment.created_time }}</span>
+        </li>
+      </ul>
+    {% endfor %}
+  {% else %}
+    <p>No comments</p>
+  {% endif %}
+  <h3 class="mt-5">Add a comment</h3>
+  <form action="" method="post" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="Comment" class="btn btn-primary">
+  </form>
+{% endblock %}
