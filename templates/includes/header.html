@@ -1,0 +1,20 @@
+{% load static %}
+<header class="header">
+  <div class="logo">
+    <img src="{% static "images/logo.png" %}" alt="">
+  </div>
+  <br>
+  <div class="menu">
+    {% if user.is_authenticated %}
+      <a href="#" class="link"><strong>{{ user.username }}</strong> </a>
+      <br>
+      <a href="" class="link">create post</a>
+      <a href="{% url 'logout' %}" class="link">log out</a>
+      {% else %}
+      <a href="{% url 'login' %}" class="link">login</a>
+    {% endif %}
+    <br>
+    <a href="{% url 'blog:index' %}" class="link">home</a>
+    <a href="" class="link">about</a>
+  </div>
+</header>

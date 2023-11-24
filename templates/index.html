@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="posts">
+    {% if post_list %}
+      {% for post in post_list %}
+        {% block post %}
+          {% include "includes/post.html" with post=post %}
+        {% endblock %}
+      {% endfor %}
+    {% endif %}
+  </div>
+{% endblock %}

@@ -1,0 +1,10 @@
+<div class="post small">
+  <h3><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h3>
+  <hr>
+  <div class="autor"><strong>{{ post.owner.username }}</strong></div>
+  <p>{{ post.content|slice:":200" }}...</p>
+  <div class="info">
+    <span class="comments">Comment{{post.comments.count|pluralize }}: {{ post.comments.count }}</span>
+    <span class="date">{{ post.created_time }}</span>
+  </div>
+</div>
