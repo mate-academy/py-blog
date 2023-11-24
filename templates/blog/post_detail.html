@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>Title: {{ post.title }}</h1>
+  <p><strong>Created time: {{ post.created_time }}</strong></p>
+  <p><strong>Content: </strong>{{ post.content }}</p>
+  <div class="ml-3">
+    <h3>{{ post.commentaries.count }} commentaries:</h3>
+  {%  for comment in post.commentaries.all %}
+  <hr>
+    <div class="card">
+  <div class="card-header">
+    {{ comment.user }}
+  </div>
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      <p>{{ comment.content }}</p>
+      <p style="font-size: small" class="text-muted">{{ comment.created_time }}</p>
+    </blockquote>
+  </div>
+</div>
+
+    {% empty %}
+    <p>There are no commentaries yet!</p>
+  {% endfor %}
+    {% if user.is_authenticated %}
+      {%  if form.error %}
+        <p style="color:red;">Your comment is empty</p>
+      {% endif %}
+      <form action="" method="post" novalidate>
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input class="btn btn-primary" type="submit" value="Submit">
+        <input type="hidden" name="post_id" value="{{ post.id }}">
+      </form>
+    {% endif %}
+
+
+  </div>
+{% endblock %}
