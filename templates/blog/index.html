@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Blog posts</title>
+{% endblock %}
+
+{% block content %}
+    <div class="post-list">
+      <h1>Posts List</h1>
+
+    {% if page_obj.object_list %}
+      <table class="table">
+        <thead>
+          <tr class="thead-dark">
+            <th>Title</th>
+            <th class="th-content">Content</th>
+            <th>Owner</th>
+            <th>Created</th>
+            <th>Commentaries_count</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for post in page_obj.object_list %}
+          <tr>
+            <td>
+              <a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a>
+            </td>
+            <td class="td-content">
+              {{ post.content }}
+            </td>
+            <td>
+              {{ post.owner.last_name }} {{ post.owner.first_name }}
+            </td>
+            <td>
+              {{ post.created_time }}
+            </td>
+            <td>
+              {{ post.commentaries_count }}
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+        <p>There are no posts.</p>
+    {% endif %}
+    </div>
+{% endblock %}

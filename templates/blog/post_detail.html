@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+  <title>Post detail</title>
+{% endblock %}
+{% block content %}
+  <h1>
+    Title: {{ post.title }}
+  </h1>
+
+  <p><strong>Owner:</strong> {{ post.owner.last_name }} {{ post.owner.first_name }}</p>
+  <p>Content: {{ post.content }}</p>
+  <div class="ml-3">
+    <h4>Commentaries:</h4>
+    <div class="list-group">
+      {% for comment in post.commentaries.all %}
+        <div class="list-group-item comment">
+          <p class="comment-username">User: {{ comment.user.username }}</p>
+          <p class="comment-content">Comment: {{ comment.content }}</p>
+        </div>
+      {% empty %}
+        <p>No commentaries!</p>
+      {% endfor %}
+    </div>
+  </div>
+  {% if user.is_authenticated %}
+    <form method="POST" action="" novalidate>
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="submit" value="Submit">
+    </form>
+  {% else %}
+    <p>You can not add commentary. You need to log in</p>
+  {% endif %}
+{% endblock %}
