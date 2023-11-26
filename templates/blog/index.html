@@ -1,0 +1,10 @@
+{% extends  "base.html" %}
+{% block content %}
+{% if post_list %}
+  {% for post in post_list %}
+    {% include "includes/post-card.html" %}
+  {% empty %}
+    <p>No posts here! What a shame!</p>
+  {% endfor %}
+{% endif %}
+{% endblock %}

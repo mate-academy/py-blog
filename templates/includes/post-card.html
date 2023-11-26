@@ -1,0 +1,8 @@
+<div class="card mb-3">
+  <div class="card-body">
+    <a href="{% url 'blog:post-detail' pk=post.id %}"><h4 class="card-title"><strong>{{ post.title }}</strong></h4></a>
+    <p>{{ post.owner.username }} at {{ post.created_time }}</p>
+    <p>Comments: {{ post.commentaries.count }}</p>
+    <p class="card-text">{{ post.content }}</p>
+  </div>
+</div>
