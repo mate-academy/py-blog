@@ -1,10 +1,9 @@
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.http import HttpResponseRedirect
+from django.shortcuts import redirect
 from django.views import generic
 
-from .forms import CommentForm
-from .models import Post, Commentary
+from blog.forms import CommentForm
+from blog.models import Post
 
 
 class IndexView(generic.ListView):

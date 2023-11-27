@@ -4,7 +4,6 @@ from django.contrib.auth.models import Group
 from blog.models import Post, User, Commentary
 
 
-# Register models
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     search_fields = ("title", "owner", "content",)
@@ -19,5 +18,4 @@ class CommentaryAdmin(admin.ModelAdmin):
 
 admin.site.register(User)
 
-# Unregister group
 admin.site.unregister(Group)

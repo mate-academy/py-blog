@@ -1,6 +1,6 @@
 from django import forms
-from .models import Commentary
-from django.contrib.auth.forms import UserCreationForm
+
+from blog.models import Commentary
 
 
 class CommentForm(forms.ModelForm):
