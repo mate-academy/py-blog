@@ -1,0 +1,16 @@
+{% if user.is_authenticated %}
+  <nav class="navbar navbar-dark bg-dark">
+    <span class="navbar-brand mb-0 h1">User: <a href="{{ user.get_absolute_url }}">{{ user.get_username }}</a></span>
+    <nav class="navbar navbar-dark bg-dark">
+      <span class="navbar-brand mb-0 h1"><a href="{% url 'logout' %}?next={{ request.path }}">Logout</a></span>
+    </nav>
+  </nav>
+{% else %}
+  <nav class="navbar navbar-dark bg-dark">
+    <span class="navbar-brand mb-0 h1">Navbar</span>
+    <nav class="navbar navbar-dark bg-dark">
+      <span class="navbar-brand mb-0 h1"><a href="{% url 'login' %}?next={{ request.path }}">Login</a></span>
+    </nav>
+  </nav>
+{% endif %}
+
