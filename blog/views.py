@@ -9,8 +9,6 @@ class PostListView(generic.ListView):
     model = Post
     queryset = Post.objects.select_related("owner")
     fields = "__all__"
-    template_name = "blog/index.html"
-    success_url = reverse_lazy("blog:post-list")
     paginate_by = 5
 
 
@@ -22,7 +20,6 @@ class PostDetailView(generic.DetailView):
 class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
     model = Commentary
     fields = ["content"]
-    template_name = "blog/commentary_form.html"
 
     def form_valid(self, form):
         form.instance.user = self.request.user
