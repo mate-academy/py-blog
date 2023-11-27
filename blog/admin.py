@@ -12,9 +12,9 @@ admin.site.unregister(Group)
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    search_fields = ("owner__username", )
+    search_fields = ("owner__username",)
 
 
 @admin.register(Commentary)
 class CommentaryAdmin(admin.ModelAdmin):
-    search_fields = ("post__title", )
+    search_fields = ("post__title",)

@@ -25,9 +25,13 @@ class PostDetailView(generic.DetailView):
 
 @login_required
 def add_comment(request: HttpRequest, pk: int) -> HttpResponse:
-    if request.method == 'POST':
+    if request.method == "POST":
         content = request.POST["content"]
         post_id = request.POST["post_id"]
         user_id = request.POST["user_id"]
-        Commentary.objects.create(content=content, post_id=post_id, user_id=user_id)
+        Commentary.objects.create(
+            content=content,
+            post_id=post_id,
+            user_id=user_id
+        )
     return redirect("blog:post-detail", pk=pk)
