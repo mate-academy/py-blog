@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Blogius</h1>
+  <p><strong>Welcome to Best personal blogging platform!</strong></p>
+  <h2>Last activity:</h2>
+  {% if object_list %}
+    <br>
+    <table class="table">
+      <tr>
+        <th>Post</th>
+        <th>Author</th>
+        <th>Created at</th>
+        <th>Commentaries</th>
+      </tr>
+      {% for post in object_list %}
+        <tr>
+          <td>
+            <a class="nav_link" href="{% url 'blog:post-detail' pk=post.pk %}">{{ post.title }}</a>
+          </td>
+          <td>
+            <a class="nav_link" href="#">{{ post.owner.first_name }} {{ post.owner.last_name }}</a>
+          </td>
+          <td>
+            {{ post.created_time }}
+          </td>
+          <td>
+            {{ post.commentaries.count  }}
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% endif %}
+{% endblock %}
