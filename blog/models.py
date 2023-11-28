@@ -27,5 +27,5 @@ class Commentary(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name = "Commentary"
-        verbose_name_plural = "Commentaries"
+        verbose_name = "commentary"
+        verbose_name_plural = "commentaries"

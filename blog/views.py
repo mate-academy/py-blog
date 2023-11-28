@@ -1,12 +1,6 @@
-from datetime import datetime
-
-from django.contrib.auth import authenticate, login
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.views import LoginView
-from django.db.models import Count
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
-from django.urls import reverse, reverse_lazy
+from django.utils import timezone
 from django.views import generic
 
 from blog.forms import CommentForm
@@ -28,14 +22,14 @@ def post_detail(request: HttpRequest, pk: int) -> HttpResponse:
     if request.method == "POST":
         comment_form = CommentForm(request.POST)
 
-        if comment_form.is_valid():
+        if comment_form.is_valid() and request.user.is_authenticated:
             new_comment = comment_form.save(commit=False)
             content, post_id, user_id = comment_form.cleaned_data.values()
-            print(content, user_id, post_id)
+
             new_comment.content = content
             new_comment.user_id = user_id
             new_comment.post_id = post_id
-            new_comment.created_time = datetime.now()
+            new_comment.created_time = timezone.now()
             new_comment.save()
             return redirect("blog:post-detail", pk=post_id)
 
