@@ -26,7 +26,9 @@ class PostDetailView(
     form_class = CommentaryForm
 
     def get_success_url(self, **kwargs) -> str:
-        return reverse_lazy("blog:post-detail", kwargs={"pk": self.get_object().id})
+        return reverse_lazy(
+            "blog:post-detail",
+            kwargs={"pk": self.get_object().id})
 
     def post(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
         form = self.get_form()

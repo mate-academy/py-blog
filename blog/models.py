@@ -25,7 +25,7 @@ class Post(models.Model):
         ordering = ("-created_time",)
 
     def __str__(self) -> str:
-        return f"Post: \"{self.title}\" Author: {self.owner}"
+        return f"Post: {self.title}. Author: {self.owner}"
 
 
 class Commentary(models.Model):
