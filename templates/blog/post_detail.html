@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1><a href="{% url 'blog:index' %}"> &lAarr;</a> {{ post_detail.title }}</h1>
+  <br>
+  <p>{{ post_detail.content }}</p>
+  <strong class="post-meta">Posted by {{ post_detail.owner }} on {{ post_detail.created_time }}</strong>
+  <div class="comments">
+    <h2>Comments</h2>
+    {% for commentary in post_detail.commentaries.all %}
+      <div class="comment">
+        <p class="comment-author">{{ commentary.user.username }}</p>
+        <p class="comment-time">{{ commentary.created_time }}</p>
+        <p class="comment-content">{{ commentary.content }}</p>
+      </div>
+    {% endfor %}
+    {% if user.is_authenticated %}
+      <div class="comments">
+        <h2>Add comment</h2>
+        <form action="{% url 'blog:add_comment' post_detail.id %}" method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <textarea class="form-control" name="content"></textarea>
+            <input type="hidden" name="post_id" value="{{ post_detail.id }}">
+            <input type="hidden" name="user_id" value="{{ user.id }}">
+            <br>
+            <input type="submit" class="btn btn-success" value="Add">
+          </div>
+        </form>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
