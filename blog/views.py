@@ -37,8 +37,8 @@ class PostDetailView(
         return self.form_invalid(form)
 
     def form_valid(self, form) -> HttpResponse:
-        self.object = form.save(commit=False)
-        self.object.post = self.get_object()
-        self.object.user = self.request.user
-        self.object.save()
+        comment = form.save(commit=False)
+        comment.post = self.get_object()
+        comment.user = self.request.user
+        comment.save()
         return super().form_valid(form)
