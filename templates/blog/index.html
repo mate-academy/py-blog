@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Welcome to new Library</h1>
+  <p>fixed problem</p>
+  <ul>
+    <li>Num books: {{num_book}}</li>
+    <li>Num authors: {{num_author}}</li>
+    <li>Num literary format: {{num_literary_format}}</li>
+  </ul>
+  <p>Yuo have visited this page {{ num_visits }} {% if num_visits == 1 %}time{% else %}times{% endif %}.</p>
+  <p>Yuo have visited this page {{ num_visits }} time{{ num_visits|pluralize }}</p>
+{% endblock %}
