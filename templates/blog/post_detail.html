@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1 class="block-quote d-flex justify-content-center heading">{{ post.title }}</h1>
+  <p>{{ post.content }}</p>
+  <p class="signature">
+    <span class="mr-3">{{ post.created_time }}</span>
+    Written by <span class="font-weight-bold">{{ post.owner.username }}
+  </span></p>
+<h4 class="heading">Commentaries ({{ post.num_comments }})</h4>
+<ul class="list-group list-group-flush">
+{% for comment in post.commentaries.all %}
+  <li class="list-group-item">
+    <h6>{{ comment.user.username }}, {{ comment.created_time }}</h6>
+    <p>{{ comment.content }}</p>
+  </li>
+{% empty %}
+  <li class="list-group-item">No comments yet. Take advantage!</li>
+</ul>
+{% endfor %}
+{% load crispy_forms_filters %}
+<h4 class="heading">Add your own commentary:</h4>
+  <form action="" method="post" novalidate>
+    {% csrf_token %}
+    <input type="hidden" name="user_id" value="{{ user.id }}">
+    <input type="hidden" name="post_id" value="{{ post.id }}">
+    <div class="form-group">
+      <textarea class="form-control" rows="5" name="content"></textarea>
+    </div>
+    {% if user.is_authenticated %}
+      <input type="submit" value="Create" class="btn btn-primary heading">
+    {% else %}
+      <a class="btn btn-primary heading"
+         href="{% url 'login' %}?next={{ request.path|urlencode }}">
+        Create
+      </a>
+    {% endif %}
+  </form>
+{% endblock %}
