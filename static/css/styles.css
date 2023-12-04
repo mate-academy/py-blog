@@ -1,0 +1,17 @@
+ul.empty {
+    list-style-type: none;
+}
+
+.comments {
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.hr_comments {
+    color: gray;
+}
+
+.owner_created {
+    color: grey;
+}
