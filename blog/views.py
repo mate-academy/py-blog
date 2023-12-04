@@ -23,7 +23,7 @@ class PostDetailView(edit.FormMixin, DetailView):
     form_class = CommentForm
 
     def get_success_url(self) -> str:
-        return reverse("blog:post-detail", kwargs={'pk': self.object.id})
+        return reverse("blog:post-detail", kwargs={"pk": self.object.id})
 
     def post(self, request: HttpRequest, *args, **kwargs):
         self.object = self.get_object()
@@ -35,5 +35,3 @@ class PostDetailView(edit.FormMixin, DetailView):
         content = form.cleaned_data["content"]
         Commentary.objects.create(user=user, post=post, content=content)
         return HttpResponseRedirect(self.get_success_url())
-
-

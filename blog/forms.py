@@ -6,5 +6,5 @@ from blog.models import Commentary
 class CommentForm(ModelForm):
     class Meta:
         model = Commentary
-        fields = ('content',)
+        fields = ("content",)
         labels = {"content": ""}
