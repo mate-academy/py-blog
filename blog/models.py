@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -9,7 +10,7 @@ class User(AbstractUser):
 
 class Post(models.Model):
     owner = models.ForeignKey(
-        User,
+        get_user_model(),
         related_name="posts",
         on_delete=models.CASCADE
     )
@@ -23,7 +24,7 @@ class Post(models.Model):
 
 class Commentary(models.Model):
     user = models.ForeignKey(
-        User,
+        get_user_model(),
         related_name="commentaries",
         on_delete=models.CASCADE
     )
