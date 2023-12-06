@@ -27,7 +27,7 @@ class PostDetailView(edit.FormMixin, DetailView):
     def get_success_url(self) -> str:
         return reverse("blog:post-detail", kwargs={"pk": self.object.id})
 
-    def post(self, request: HttpRequest, *args, **kwargs):
+    def post(self, request: HttpRequest, *args, **kwargs) -> HttpResponseRedirect:
         self.object = self.get_object()
         form = self.get_form()
         if not form.is_valid() or not request.user.id:
