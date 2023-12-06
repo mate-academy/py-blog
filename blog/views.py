@@ -19,7 +19,9 @@ class PostListView(ListView):
 
 class PostDetailView(edit.FormMixin, DetailView):
     model = Post
-    queryset = Post.objects.all().prefetch_related("comments__user").select_related()
+    queryset = Post.objects.all().prefetch_related(
+        "comments__user"
+    ).select_related()
     form_class = CommentForm
 
     def get_success_url(self) -> str:
