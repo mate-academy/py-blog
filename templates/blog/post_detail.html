@@ -8,7 +8,7 @@
   <p>{{post.content}}</p>
   <br>
   <h6>{{ post.comments.count }} comment{{ post.comments.count|pluralize }}</h6>
-  {% for comment in post.comments.all.select_related %}
+  {% for comment in post.comments.all %}
     <div class="comments">
       <p>{{ comment.user.username }} {{ comment.created_time }}</p>
       <hr class="hr_comments">
