@@ -13,13 +13,13 @@ class UserAdmin(BaseUserAdmin):
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    search_fields = ('owner__username', 'title')
+    search_fields = ("owner__username", "title")
     list_filter = ("created_time",)
 
 
 @admin.register(Commentary)
 class CommentaryAdmin(admin.ModelAdmin):
-    search_fields = ('user__username', 'content')
+    search_fields = ("user__username", "content")
     list_filter = ("created_time",)
 
 

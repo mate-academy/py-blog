@@ -3,8 +3,10 @@ from django.db import models
 
 
 class User(AbstractUser):
-    groups = models.ManyToManyField(Group, related_name='blog_user_groups')
-    user_permissions = models.ManyToManyField(Permission, related_name='blog_user_permissions')
+    groups = models.ManyToManyField(Group, related_name="blog_user_groups")
+    user_permissions = models.ManyToManyField(
+        Permission, related_name="blog_user_permissions"
+    )
 
     class Meta:
         ordering = ["username"]
@@ -30,7 +32,7 @@ class Post(models.Model):
 class Commentary(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(
-        Post, on_delete=models.CASCADE, related_name='commentary'
+        Post, on_delete=models.CASCADE, related_name="commentary"
     )
     created_time = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
