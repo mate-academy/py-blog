@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Blog main page</h2>
+   {% if post_list %}
+    <ul>
+      {% for post in post_list %}
+        <li>
+          <h3><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h3>
+          <p>{{ post.content }}</p>
+          <p>Author: {{ post.owner.username }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No posts are available.</p>
+  {% endif %}
+
+{% block pagination %}
+  {% include "includes/pagination.html" %}
+{% endblock %}
+
+{% endblock %}
