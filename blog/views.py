@@ -10,30 +10,6 @@ from blog.forms import CommentaryCreationForm
 from blog.models import Post, Commentary, User
 
 
-# def index(request: HttpRequest) -> HttpResponse:
-#
-#     posts_per_page = 5
-#
-#     paginator = Paginator(Post.objects.all(), posts_per_page)
-#
-#     page = request.GET.get("page")
-#
-#     try:
-#         posts = paginator.page(page)
-#     except PageNotAnInteger:
-#         posts = paginator.page(1)
-#     except EmptyPage:
-#         posts = paginator.page(paginator.num_pages)
-#
-#     context = {
-#         "posts": posts,
-#     }
-#
-#     return render(
-#         request, "blog/index.html", context=context
-#     )
-
-
 class PostListView(generic.ListView):
     model = Post
     paginate_by = 5
