@@ -1,24 +1,18 @@
-from django.core.paginator import Paginator
 from django.http import HttpRequest, HttpResponse
 from django.views import generic
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from blog.forms import CommentaryForm
 from blog.models import Post
 
 
-def index(request: HttpRequest) -> HttpResponse:
-    posts = (Post.objects.
-             select_related("owner").
-             prefetch_related("comments").
-             all())
-    paginator = Paginator(posts, 5)
-
-    page_number = request.GET.get("page")
-    post_list = paginator.get_page(page_number)
-    context = {
-        "post_list": post_list,
-    }
-    return render(request, "blog/index.html", context)
+class IndexView(generic.ListView):
+    model = Post
+    template_name = "blog/index.html"
+    queryset = (Post.objects.
+                select_related("owner").
+                prefetch_related("comments").
+                all())
+    paginate_by = 5
 
 
 class PostDetailView(generic.DetailView):
