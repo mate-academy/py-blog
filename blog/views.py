@@ -8,10 +8,12 @@ from blog.models import Post
 class IndexView(generic.ListView):
     model = Post
     template_name = "blog/index.html"
-    queryset = (Post.objects.
-                select_related("owner").
-                prefetch_related("comments").
-                all())
+    queryset = (
+        Post.objects.
+        select_related("owner").
+        prefetch_related("comments").
+        all()
+    )
     paginate_by = 5
 
 
