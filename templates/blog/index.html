@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% if page_obj %}
+    {% for post in post_list %}
+      <ul class="list-unstyled">
+        <li>
+          <p><a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a></p>
+          <p class="text-justify">{{ post.content }}</p>
+          <p>{{ post.created_time }}, {{ post.owner }}</p>
+          <p class="border-bottom">Number of comments: {{ post.commentaries.count }}</p>
+        </li>
+      </ul>
+    {% endfor %}
+  {% endif %}
+
+{% endblock %}
