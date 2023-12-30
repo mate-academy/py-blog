@@ -11,8 +11,7 @@ class IndexView(generic.ListView):
     queryset = (
         Post.objects.
         select_related("owner").
-        prefetch_related("comments").
-        all()
+        prefetch_related("comments")
     )
     paginate_by = 5
 
