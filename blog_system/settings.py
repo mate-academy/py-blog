@@ -36,9 +36,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "debug_toolbar",
-    "blog",
     "crispy_forms",
     "crispy_bootstrap4",
+    "blog",
 ]
 
 MIDDLEWARE = [
@@ -126,8 +126,6 @@ AUTH_USER_MODEL = "blog.User"
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
-
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
