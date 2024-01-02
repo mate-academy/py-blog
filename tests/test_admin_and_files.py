@@ -41,6 +41,6 @@ class GitignoreTests(TestCase):
 
 class IsStylesCSSExistTests(TestCase):
     def test_styles_exist(self):
-        file_exists = os.path.exists('static/css/styles.css')
+        file_exists = os.path.exists('css/css/styles.css')
 
         self.assertTrue(file_exists)

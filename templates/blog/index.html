@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Welcome to our blog!</h1>
+  <hr>
+  <h3>Our recent articles are:</h3>
+  <ul class="list-group">
+    {% for post in post_list %}
+      <li class="list-group-item"><strong><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></strong>
+        <br> {{ post.content }}
+        <br><p class="font-italic"> {{ post.owner }} | {{ post.created_time }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

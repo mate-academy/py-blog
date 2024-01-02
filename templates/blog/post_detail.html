@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.owner }} at {{ post.created_time }}</p>
+  <p>{{ post.content }}</p>
+
+  {% if post.comments.all %}
+    <p><strong>{{ post.comments.count }} Comment{{ post.comments.count|pluralize }}</strong></p>
+    {% for comment in post.comments.all %}
+        <p>{{ comment.created_time }}</p>
+        <p>{{ comment.content }}</p>
+    {% endfor %}
+  {% else %}
+    <p>There are no comments yet.</p>
+  {% endif %}
+
+  {% if user.is_authenticated %}
+    <strong>Add a new comment</strong>
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="submit" value="Add comment">
+    </form>
+    {% else %}
+    <p><strong>Please <a href="{% url 'login' %}">log in</a> to leave comments</strong></p>
+  {% endif %}
+
+{% endblock %}
