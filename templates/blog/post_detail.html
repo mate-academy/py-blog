@@ -1,40 +1,55 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_filters %}
 {% load crispy_forms_tags %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ post.title }}</title>
-</head>
-
-<body>
 {% block content %}
-  <article>
-    <h1>{{ post.title }}</h1>
-    <p>{{ post.content }}</p>
-    <p>Owner: {{ post.owner.username }}</p>
-    <p>Created at: {{ post.created_time}}</p>
-    <p>Number of comments: {{ post.comments.count }}</p>
 
-    <h2>Comments</h2>
-    <ul>
-      {% for comment in comments %}
-        <li>{{ comment.content }} - {{ comment.user.username }} ({{ comment.created_time }})</li>
-      {% endfor %}
-    </ul>
+  <a class="btn btn-primary" href="{% url 'blog:index' %}">Back to the main</a>
+  <h2>{{ post.title }}</h2>
+  <p>Author: <strong style="color: #003366">{{ post.owner }}</strong> </p>
 
-    {% if user.is_authenticated %}
-      <h2>Add a Comment</h2>
-      <form method="post" action="">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <button type="submit">Add Comment</button>
-      </form>
-    {% else %}
-      <p>You need to be logged in to post a comment.</p>
-    {% endif %}
-  </article>
+  <div class="article_text">
+    {{ post.content }}
+  </div>
+  <br>
+  <p>Created on: <strong style="color: #003366"> {{ post.created_time }}</strong></p>
+   <p>Number of comments: <strong style="color: #003366">{{ post.commentary_set.count }}</strong></p>
+
+  <h3 style="color: #417690 ">Comments</h3>
+  {% if comments %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Comment</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for comment in comments %}
+          <tr>
+            <td>{{ comment.user.username }}</td>
+            <td>{{ comment.content }}</td>
+            <td>{{ comment.created_time }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No comments yet.</p>
+  {% endif %}
+
 {% endblock %}
-</body>
-</html>
+{% block comment_form %}
+{% include "blog/comment_form.html" %}
+{% endblock %}
+
+<h1>{{ post.title }}</h1>
+<p>{{ post.content }}</p>
+<h3>Add Comment</h3>
+<form method="post">
+    {% csrf_token %}
+      {{ form.as_p }}
+    <button type="submit">Submit</button>
+</form>

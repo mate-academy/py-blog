@@ -1,31 +1,36 @@
-from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpRequest, HttpResponse
-from django.views.generic import DetailView
-from django import forms
-from .models import Commentary, Post
-from .forms import CommentForm
+from django.shortcuts import redirect
+from django.views import generic
+
+from blog.forms import CommentForm
+from blog.models import Post
 
 
-# Create your views here.
-@login_required
-def index(request: HttpRequest) -> HttpResponse:
-    post_list = Post.objects.all().order_by('-created_time')
-    paginator = Paginator(post_list, 5)
-    page = request.GET.get('page')
-
-    try:
-        posts = paginator.page(page)
-    except PageNotAnInteger:
-        posts = paginator.page(1)
-    except EmptyPage:
-        posts = paginator.page(paginator.num_pages)
-
-    return render(request, 'blog/index.html', {'posts': posts})
-
-
-class PostDetailView(LoginRequiredMixin, DetailView):
+class PostListView(generic.ListView):
     model = Post
-    template_name = 'blog/post_detail.html'
-    form_class = CommentForm
+    template_name = "blog/index.html"
+    context_object_name = "post_list"
+    paginate_by = 5
+
+
+class PostDetailView(generic.DetailView):
+    model = Post
+    template_name = "blog/post_detail.html"
+    context_object_name = "post"
+
+    def post(self, request, *args, **kwargs):
+        post = self.get_object()
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = request.user
+            comment.post = post
+            comment.save()
+        return redirect("blog:post-detail", pk=post.id)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        post = self.get_object()
+        context["form"] = CommentForm()
+        context["comments"] = post.commentary_set.all()
+        return context

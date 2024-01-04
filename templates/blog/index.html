@@ -1,40 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog Main Page</title>
-</head>
-<body>
-    <h1>Blog Main Page</h1>
+{% extends "base.html" %}
 
-    {% for post in posts %}
-        <div>
-            <h2><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h2>
-            <p>{{ post.content }}</p>
-            <p>Author: {{ post.author.username }}</p>
-            <p>Created at: {{ post.created_time }}</p>
-            <p>Number of comments: {{ post.comments.count }}</p>
-        </div>
-        <hr>
-    {% endfor %}
+{% block content %}
+  <h2>Blog main page</h2>
+   {% if post_list %}
+    <ul>
+      {% for post in post_list %}
+        <li>
+          <h3><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h3>
+          <p>{{ post.content }}</p>
+          <p>Author: {{ post.owner.username }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No posts are available.</p>
+  {% endif %}
 
-    <div class="pagination">
-        <span class="step-links">
-            {% if posts.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ posts.previous_page_number }}">previous</a>
-            {% endif %}
+{% block pagination %}
+  {% include "includes/pagination.html" %}
+{% endblock %}
 
-            <span class="current">
-                Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
-            </span>
-
-            {% if posts.has_next %}
-                <a href="?page={{ posts.next_page_number }}">next</a>
-                <a href="?page={{ posts.paginator.num_pages }}">last &raquo;</a>
-            {% endif %}
-        </span>
-    </div>
-</body>
-</html>
+{% endblock %}
