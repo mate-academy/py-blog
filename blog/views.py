@@ -9,7 +9,6 @@ from blog.models import Post
 class PostListView(generic.ListView):
     model = Post
     template_name = "blog/index.html"
-    context_object_name = "post_list"
     paginate_by = 5
 
 
