@@ -32,8 +32,7 @@ class PostDetailView(generic.edit.FormMixin, generic.DetailView):
         form = self.get_form()
         if form.is_valid():
             return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
+        return self.form_invalid(form)
 
     def form_valid(self, form):
         form.instance.post = self.object
