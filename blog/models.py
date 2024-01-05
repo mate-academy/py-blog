@@ -23,7 +23,7 @@ class Post(models.Model):
     created_time = models.CharField(max_length=255)
 
     class Meta:
-        ordering = ["title"]
+        ordering = ["-created_time"]
 
     def __str__(self) -> str:
         return f"{self.owner}: {self.title}"

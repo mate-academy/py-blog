@@ -11,15 +11,13 @@ from blog.models import Post, Commentary
 
 
 # Create your views here.
-class IndexViews(LoginRequiredMixin, generic.ListView):
+class IndexViews(generic.ListView):
     model = Post
     template_name = "blog/post_list.html"
-    context_object_name = "post_list"
-    ordering = ["-created_time"]
     paginate_by = 5
 
 
-class PostDetailViews(LoginRequiredMixin, generic.DetailView):
+class PostDetailViews(generic.DetailView):
     model = Post
 
 
@@ -49,4 +47,4 @@ def create_comment(request: HttpRequest, pk: int) -> HttpResponse:
             user_id=user_id,
             created_time=created_time,
         )
-    return redirect("blog:post-detail", pk=pk,)
+    return redirect("blog:post-detail", pk=pk)
