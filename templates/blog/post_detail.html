@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h2>{{ post.title }}</h2>
+
+  <br>
+  <h6>{{ post.owner.username }} at {{ post.created_time }}</h6>
+
+  <br>
+  <h5>{{ post.content }}</h5>
+
+  <br>
+  <h6>{{ post.comments.count }} comment{{ post.comments.count|pluralize }}</h6>
+  {% for comment in post.comments.all %}
+    <div class="card">
+      <div class="card-header">
+        {{ comment.user }} at {{ comment.created_time }}
+      </div>
+      <div class="card-body">
+        <p class="card-text">{{ comment.content }}</p>
+      </div>
+    </div>
+  {% endfor %}
+
+  {% block commentary_form %}
+    {% include "blog/commentary_form.html" %}
+  {% endblock %}
+{% endblock %}

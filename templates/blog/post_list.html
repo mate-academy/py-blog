@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Home Page</title>
+{% endblock %}
+
+{% block content %}
+  <h1 class="mb-5">Welcome to the Blog!</h1>
+  {% for post in post_list %}
+    <div class="card bg-light mb-3">
+      <div class="card-body">
+        <h5>
+          <a href="{% url 'blog:post-detail' pk=post.id %}">
+            {{ post.title }}
+          </a>
+        </h5>
+        <p class="card-text text-secondary">
+          Author: {{ post.owner.first_name }} {{ post.owner.last_name }}
+          <br>
+          Posted: {{ post.created_time|date:"D d M Y" }} {{ post.created_time|time:"H:i" }}
+        </p>
+        <p class="card-text">
+          {{ post.content|truncatewords:10 }}
+        </p>
+      </div>
+
+      <div class="card-footer bg-transparent pd-0">
+        <i>{{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}</i>
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}
