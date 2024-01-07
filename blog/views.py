@@ -11,13 +11,13 @@ from blog.models import Post, Commentary
 
 
 # Create your views here.
-class IndexViews(LoginRequiredMixin, generic.ListView):
+class IndexViews(generic.ListView):
     model = Post
     template_name = "blog/post_list.html"
     paginate_by = 5
 
 
-class PostDetailViews(LoginRequiredMixin, generic.DetailView):
+class PostDetailViews(generic.DetailView):
     model = Post
 
 
