@@ -1,0 +1,46 @@
+body {
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 180px;
+    padding: 20px;
+}
+
+.info {
+    color: white;
+    background-color: grey;
+    padding: 5px 10px;
+    text-decoration: none;
+}
+
+.info2 {
+    color: white;
+    background-color: grey;
+    padding: 5px 10px;
+    text-decoration: none;
+}
+
+.content {
+    font-weight: inherit;
+    text-align: justify;
+    font-size: 20px;
+    margin-right: 40px;
+}
+
+.content_detail {
+    font-weight: inherit;
+    text-align: justify;
+}
+
+.page-item a {
+    background-color: blue;
+    color: white;
+}
+
+/*.comment {*/
+/*    border-width: 1px;*/
+/*    border-color: darkgrey;*/
+/*    border-style: solid;*/
+/*    padding-top: 10px;*/
+/*    padding-left: 10px;*/
+
+/*}*/
