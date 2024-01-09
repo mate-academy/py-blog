@@ -1,0 +1,20 @@
+{% if is_paginated %}
+  <div class="container mt-4 mb-0">
+    <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+          <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Попередня</a>
+        {% endif %}
+        <li class="page-item-active"><span class="page-link">{{ page_obj.number }} з {{ paginator.num_pages }}</span>
+        </li>
+        {% if page_obj.has_next %}
+          <a class="page-link" href="?page={{ page_obj.next_page_number }}">Наступна</a>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+{% endif %}

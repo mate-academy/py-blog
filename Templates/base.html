@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blog</title>
+  <link
+      rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/styles_b.css' %}">
+</head>
+<body>
+<main class="container-fluid">
+  <div class="row min-vh-100">
+    <div class="col-sm-2">
+      {% block sidebar %}
+        {% include "includes/sidebar.html" %}
+      {% endblock %}
+    </div>
+    <div class="col-sm-9">
+      {% block content %}
+      {% endblock %}
+    </div>
+    {% block pagination %}
+      {% include "includes/pagination.html" %}
+    {% endblock %}
+  </div>
+</main>
+</body>
+<footer class="footer">
+  My blog 2024
+</footer>
+</html>
