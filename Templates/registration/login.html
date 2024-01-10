@@ -3,7 +3,7 @@
   <h1>Sign in</h1>
   <h2>{{ next }}</h2>
   {% if form.errors %}
-    <p style="color: red">Invalid credentials</p>
+    <p style="color: red">Invalid credentials!</p>
   {% endif %}
   <form action="{% url 'login' %}" method="post" >
     {% csrf_token %}

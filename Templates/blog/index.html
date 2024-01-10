@@ -6,6 +6,6 @@
       <p><a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a></p>
     {% endfor %}
   {% else %}
-    <p>No posts in database!</p>
+    <p>No posts in database</p>
   {% endif %}
 {% endblock %}
