@@ -1,14 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
   <h1>Sign in</h1>
+  <h2>{{ next }}</h2>
   {% if form.errors %}
     <p style="color: red">Invalid credentials</p>
   {% endif %}
-  <form action="{% url 'login' %}" method="post">
+  <form action="{% url 'login' %}" method="post" >
     {% csrf_token %}
     {{ form.as_p }}
     <br>
     <input type="submit" value="Submit">
-    <input type="hidden" name="next" value="{{ next }}">
+    {% if next %}
+    	<input type="hidden" name="next" value="{{ next }}">
+    {% else %}
+      <input type="hidden" name="next" value="/blog">
+    {% endif %}
   </form>
 {% endblock %}
