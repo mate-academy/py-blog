@@ -4,10 +4,7 @@ from .models import Commentary
 
 class CommentForm(forms.ModelForm):
     content = forms.CharField(
-        widget=forms.Textarea(
-            attrs={"cols": 60, "rows": 3}
-        ),
-        label=""
+        widget=forms.Textarea(attrs={"cols": 60, "rows": 3}), label=""
     )
 
     class Meta:
