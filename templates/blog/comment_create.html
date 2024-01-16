@@ -1,0 +1,12 @@
+{#{% extends "base.html" %}#}
+{##}
+{#{% block comment %}#}
+{#  <h4>Add a new comment</h4>#}
+{#  <form method="post" action="{% url 'blog:comment-create' pk=post.id %}">#}
+{#  {% csrf_token %}#}
+{#    <label for="comment_content">Your Comment:</label>#}
+{#    <textarea name="comment_content" id="comment_content" rows="4" cols="50"></textarea>#}
+{#    <br>#}
+{#    <input type="submit" value="Add comment">#}
+{#  </form>#}
+{#{% endblock %}#}
