@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h2>Blog main page</h2>
+    <hr>
+    <div class="row">
+      {% for post in post_list %}
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">
+                <a href="{% url 'blog:post-detail' post.id %}">
+                  {{ post.title }}
+                </a>
+              </h5>
+              <p class="card-text">{{ post.content }}</p>
+              <p class="card-text">
+                <a href="#">
+                  by {{ post.owner.username }}
+                </a>
+              </p>
+              <p class="card-text">
+                posted at {{ post.created_time }}
+              </p>
+              <p class="card-text">
+                {{ post.comments.count }} comment{{ post.comments.count|pluralize }}
+              </p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    {% include "includes/pagination.html" %}
+  </div>
+{% endblock %}
