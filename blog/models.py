@@ -4,7 +4,7 @@ from django.db import models
 
 class User(AbstractUser):
     class Meta:
-        ordering = ('username',)
+        ordering = ("username",)
 
     def __str__(self):
         return f"{self.username} ({self.first_name} {self.last_name})"
@@ -21,7 +21,7 @@ class Post(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ('-created_time',)
+        ordering = ("-created_time",)
 
 
 class Commentary(models.Model):
