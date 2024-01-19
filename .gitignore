@@ -1,0 +1,6 @@
+.idea
+db.sqlite3
+pyc
+.gitignore
+venv
+pycache
