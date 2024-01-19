@@ -1,0 +1,12 @@
+.footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 0;
+    height: 50px;
+    padding-top: 10px;
+}
+
+.page-link {
+  margin: 5px;
+}
