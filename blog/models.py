@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-
+from django.contrib.auth import get_user_model
 
 class User(AbstractUser):
     pass
@@ -8,7 +8,7 @@ class User(AbstractUser):
 
 class Post(models.Model):
     owner = models.ForeignKey(
-        User,
+        get_user_model(),
         on_delete=models.CASCADE,
         related_name="posts"
     )
@@ -25,7 +25,7 @@ class Post(models.Model):
 
 class Commentary(models.Model):
     user = models.ForeignKey(
-        User,
+        get_user_model(),
         on_delete=models.CASCADE,
         related_name="comments"
     )
