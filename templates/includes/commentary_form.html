@@ -1,0 +1,12 @@
+{% load crispy_forms_filters %}
+
+  {% if not user.is_authenticated %}
+    <a href="{% url 'login' %}"><strong>Please login to add the comment</strong></a>
+  {% else %}
+    <p><strong>Add a new comment</strong></p>
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input class="btn btn-primary" type="submit" value="Add a comment">
+    </form>
+  {% endif %}
