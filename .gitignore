@@ -1,4 +1,5 @@
 .idea/
+.idea/py-blog.iml
 .vscode/
 *.iml
 .env
