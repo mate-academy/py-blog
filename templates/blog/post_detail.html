@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.content }}</p>
+  <p>Author: {{ post.owner.username }}</p>
+  <p>Created at: {{ post.created_time }}</p>
+
+  <h2>Comments</h2>
+  <ul>
+    {% for comment in post.commentaries.all %}
+      <li>{{ comment.content }} - {{ comment.user.username }}</li>
+    {% endfor %}
+  </ul>
+
+  <h3>Add new comment</h3>
+  <form method="post" enctype="multipart/form-data" action="{% url 'blog:comment-create' post.id %}">
+        {% csrf_token %}
+        <div class="form-group">
+          <textarea class="form-control" id="commentContent" name="content" rows="3" required></textarea>
+        </div>
+    {% if user.is_authenticated %}
+      <button type="submit" class="btn btn-primary">Send</button>
+    {% else %}
+      <button type="submit" class="btn btn-primary" disabled>Send</button>
+    {% endif %}
+  </form>
+{% endblock %}
