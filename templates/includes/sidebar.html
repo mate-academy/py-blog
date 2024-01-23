@@ -1,0 +1,10 @@
+<ul class="list-group">
+  {% if user.is_authenticated %}
+    <li class="list-group-item">User: <a class="nav_link" href="{{ user.get_absolute_url }}">{{ user.get_username }}</a></li>
+    <li class="list-group-item"><a class="nav_link" href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+  {% else %}
+    <li class="list-group-item"><a class="nav_link" href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+  {% endif %}
+  <br>
+  <li class="list-group-item"><a class="nav_link" href="{% url 'blog:index' %}">Home</a></li>
+</ul>
