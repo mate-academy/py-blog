@@ -5,9 +5,9 @@ from blog.views import PostListView, post_detail
 from blog_system import settings
 
 urlpatterns = [
-    path("post/", PostListView.as_view(), name='index'),
-    path("post/<int:pk>/", post_detail, name='post-detail'),
+    path("post/", PostListView.as_view(), name="index"),
+    path("post/<int:pk>/", post_detail, name="post-detail"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 
-app_name = 'blog'
+app_name = "blog"
