@@ -7,7 +7,3 @@ admin.site.register(Post)
 admin.site.register(Commentary)
 admin.site.register(User, UserAdmin)
 admin.site.unregister(Group)
-
-
-# @admin.register(User)
-# class UserAdmin(UserAdmin):
