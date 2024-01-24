@@ -14,23 +14,23 @@
 
     {% for comment in post.comments.all %}
         <hr>
-        <p><strong>Post and author: </strong> {{ comment.post }} ({{ comment.user }}) </p>
-        <p><strong>List comments: </strong>{{ comment.content }}</p>
-        <p class="text-muted"><strong>Id:</strong> {{post.id}}</p>
-
+      <li>{{ comment.content }} ({{ comment.user }})</li>
     {% empty %}
       <p>No comments!</p>
     {% endfor %}
   </div>
-{#  {% if user.is_authenticated %}#}
-    <h3>Add commentary</h3>
-    <form action="" method="post">
-      {% csrf_token %}
-      {{form|crispy}}
-      <input class="btn btn-primary" type="submit" value="Submit">
-    </form>
-{#  {% else %}#}
-{#    <p>You need to log in </p>#}
-{#  {% endif %}#}
+  <h3>Add new comment</h3>
+  <form method="post" enctype="multipart/form-data" action="{% url 'blog:comment-create' post.id %}">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <div class="form-group">
+          <textarea class="form-control" id="commentContent" name="content" rows="3" required></textarea>
+        </div>
+    {% if user.is_authenticated %}
+      <button type="submit" class="btn btn-primary">Send</button>
+    {% else %}
+      <button type="submit" class="btn btn-primary" disabled>Send</button>
+    {% endif %}
+  </form>
 {% endblock %}
 
