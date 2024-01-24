@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <title>{{ post.title }}</title>
+
+  <h1>{{ post.title }}</h1>
+    <p>{{ post.content }}</p>
+    <p><strong>Author:</strong> {{ post.author.username }}, Created: {{ post.created_time }}</p>
+    <p><strong>Comments: </strong>{{ post.comments.count }}</p>
+
+  <div class="ml-3">
+    <h4>Commentary</h4>
+
+    {% for comment in post.comments.all %}
+        <hr>
+        <p><strong>Post and author: </strong> {{ comment.post }} ({{ comment.user }}) </p>
+        <p><strong>List comments: </strong>{{ comment.content }}</p>
+        <p class="text-muted"><strong>Id:</strong> {{post.id}}</p>
+
+    {% empty %}
+      <p>No comments!</p>
+    {% endfor %}
+  </div>
+{#  {% if user.is_authenticated %}#}
+    <h3>Add commentary</h3>
+    <form action="" method="post">
+      {% csrf_token %}
+      {{form|crispy}}
+      <input class="btn btn-primary" type="submit" value="Submit">
+    </form>
+{#  {% else %}#}
+{#    <p>You need to log in </p>#}
+{#  {% endif %}#}
+{% endblock %}
+

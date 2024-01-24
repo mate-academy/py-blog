@@ -1,0 +1,14 @@
+{#{% extends "base.html" %}#}
+{#{% load crispy_forms_filters %}#}
+{#{% block content %}#}
+{#{% if user.is_authenticated %}#}
+{#    <h3>Add commentary</h3>#}
+{#    <form method="post" action="">#}
+{#      {% csrf_token %}#}
+{#      {{form|crispy}}#}
+{#    <input class="btn btn-primary" type="submit" value="Submit">#}
+{#    </form>#}
+{#  {% else %}#}
+{#    <p>You need to log in </p>#}
+{#  {% endif %}#}
+{#{% endblock %}#}
