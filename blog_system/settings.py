@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     "debug_toolbar",
     "blog",
     "crispy_forms",
-    "crispy_bootstrap4",
 ]
 
 MIDDLEWARE = [
