@@ -1,0 +1,12 @@
+html, body {
+    background: #e8d3d3;
+}
+
+
+.wide {
+    width: 100%;
+}
+
+.container {
+    margin: 40px;
+}

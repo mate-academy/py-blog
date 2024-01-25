@@ -16,5 +16,5 @@ class Post(models.Model):
 class Commentary(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    created_time = models.DateTimeField()
+    created_time = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
