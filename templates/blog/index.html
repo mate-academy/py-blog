@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}
+  <title>Post List</title>
+{% endblock title %}
+{% block content %}
+  <div class="container">
+  <h1>Post List</h1>
+  <ul>
+    {% for post in post_list %}
+      <li>
+      <a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a>
+        <br>
+        {{ post.content }}
+      </li>
+    {% endfor %}
+  </ul>
+  {% block pagination %}
+    {% include "includes/pagination.html" %}
+  {% endblock %}
+  </div>
+{% endblock %}
