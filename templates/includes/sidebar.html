@@ -1,0 +1,8 @@
+{% if user.is_authenticated %}
+  <div class="button_sidebar"><a href="{{ user.get_absolute_url }}"><h5>User: {{ user.get_username }}</h5></a></div>
+  <div class="button_sidebar"><a href="{% url 'logout' %}?next={{ request.path }}"><h3>Logout</h3></a></div>
+{% else %}
+  <div class="button_sidebar"><a href="{% url 'login' %}?next={{ request.path }}"><h3>Login</h3></a></div>
+{% endif %}
+<br>
+<button class="button_sidebar"><a class="sidebar_a" href="{% url 'blog:index' %}"><h5>Home</h5></a></button>
