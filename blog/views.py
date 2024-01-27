@@ -3,14 +3,14 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render, redirect
 from django.views import View
 from django.views import generic
-
+from django.db.models import Count
 # from .forms import CommentForm
 from .models import *
 from .models import Commentary
 
 
 def index(request):
-    all_posts = Post.objects.all()
+    all_posts = Post.objects.annotate(comment_count=Count('commentary'))
     posts_per_page = 5
     paginator = Paginator(all_posts, posts_per_page)
     page = request.GET.get('page')
@@ -33,7 +33,6 @@ class PostDetailView(generic.DetailView):
     model = Post
     template_name = 'blog/post_detail.html'
     context_object_name = 'post'
-
 
 # class AddCommentView(View):
 #     template_name = 'blog/add_comment.html'
