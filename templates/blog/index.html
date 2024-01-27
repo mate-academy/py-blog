@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container-1">
+    <h1>Blog Feed</h1>
+    {% if user.is_authenticated %}
+      <p>Hello <strong>{{ user.username }}</strong>! <a href="{% url 'logout' %}" class="btn btn-info">Logout</a></p>
+    {% else %}
+      <a href="{% url 'login' %}" class="btn btn-info">Login</a>
+    {% endif %}
+  </div>
+  {% if post_list %}
+    <ul>
+      {% for post in post_list %}
+      <li>
+        <a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a>
+        <p class="info"><strong>Comment{{ post.num_comms|pluralize }}:</strong> {{ post.num_comms }} || <strong>{{ post.owner.username }}</strong> {{ post.created_time }}</p>
+        <p class="message">{{ post.content }}</p>
+        <div class="container">
+          <hr class="divider">
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no post in feed</p>
+  {% endif %}
+{% endblock %}
