@@ -16,7 +16,7 @@ class Post(models.Model):
     created_time = models.CharField(max_length=64)
 
     class Meta:
-        pass
+        ordering = ["created_time"]
 
     def __str__(self):
         return (

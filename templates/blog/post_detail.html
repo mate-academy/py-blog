@@ -1,0 +1,45 @@
+{% extends "blog/index.html" %}
+
+{% block content %}
+
+<div class="card mt-3">
+  <div class="card-header">
+    <strong>{{ post.title }}</strong>
+  </div>
+  <div class="card-body">
+    <p class="card-text">
+      Author: <strong>{{ post.owner }}</strong> <br>
+      {{ post.content }}
+    </p>
+  </div>
+</div>
+
+<div class="card mt-3">
+  <div class="card-header">
+    <strong>Comments</strong>
+  </div>
+  <ul class="list-group list-group-flush">
+    {% for commentary in post.commentary_set.all %}
+    <li class="list-group-item">
+      <strong>{{ commentary.user.username }}</strong>
+      <span class="text-muted">{{ commentary.created_time }}</span><br>
+      {{ commentary.content }}
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<!--<div class="card mt-3">-->
+<!--  <div class="card-header">-->
+<!--    <strong>Add a Comment</strong>-->
+<!--  </div>-->
+<!--  <div class="card-body">-->
+<!--    <form method="post" action="">-->
+<!--      {% csrf_token %}-->
+<!--      {{ comment_form.as_p }}-->
+<!--      <button type="submit" class="btn btn-primary">Submit</button>-->
+<!--    </form>-->
+<!--  </div>-->
+<!--</div>-->
+
+{% endblock %}
