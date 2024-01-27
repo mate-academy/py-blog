@@ -1,19 +1,17 @@
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import get_object_or_404
-from django.shortcuts import render, redirect
-from django.views import View
-from django.views import generic
 from django.db.models import Count
+from django.shortcuts import render
+from django.views import generic
+
 # from .forms import CommentForm
-from .models import *
-from .models import Commentary
+from .models import User, Commentary, Post
 
 
 def index(request):
-    all_posts = Post.objects.annotate(comment_count=Count('commentary'))
+    all_posts = Post.objects.annotate(comment_count=Count("commentary"))
     posts_per_page = 5
     paginator = Paginator(all_posts, posts_per_page)
-    page = request.GET.get('page')
+    page = request.GET.get("page")
     try:
         posts = paginator.page(page)
     except PageNotAnInteger:
@@ -31,8 +29,9 @@ def index(request):
 
 class PostDetailView(generic.DetailView):
     model = Post
-    template_name = 'blog/post_detail.html'
-    context_object_name = 'post'
+    template_name = "blog/post_detail.html"
+    context_object_name = "post"
+
 
 # class AddCommentView(View):
 #     template_name = 'blog/add_comment.html'
