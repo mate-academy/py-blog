@@ -2,44 +2,43 @@
 
 {% block content %}
 
-<div class="card mt-3">
-  <div class="card-header">
-    <strong>{{ post.title }}</strong>
-  </div>
-  <div class="card-body">
-    <p class="card-text">
-      Author: <strong>{{ post.owner }}</strong> <br>
-      {{ post.content }}
-    </p>
-  </div>
-</div>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h3 class="card-title">{{ post.title }}</h3>
+                    <p class="card-subtitle text-muted">Author: <strong>{{ post.owner }}</strong></p>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{ post.content }}</p>
+                </div>
+            </div>
 
-<div class="card mt-3">
-  <div class="card-header">
-    <strong>Comments</strong>
-  </div>
-  <ul class="list-group list-group-flush">
-    {% for commentary in post.commentary_set.all %}
-    <li class="list-group-item">
-      <strong>{{ commentary.user.username }}</strong>
-      <span class="text-muted">{{ commentary.created_time }}</span><br>
-      {{ commentary.content }}
-    </li>
-    {% endfor %}
-  </ul>
-</div>
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h3 class="card-title">Comments</h3>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for commentary in post.commentary_set.all %}
+                        <li class="list-group-item">
+                            <h5 class="mb-1"><strong>{{ commentary.user.username }}</strong></h5>
+                            <small class="text-muted">{{ commentary.created_time }}</small><br>
+                            <p class="mb-1">{{ commentary.content }}</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
 
-<!--<div class="card mt-3">-->
-<!--  <div class="card-header">-->
-<!--    <strong>Add a Comment</strong>-->
-<!--  </div>-->
-<!--  <div class="card-body">-->
-<!--    <form method="post" action="">-->
-<!--      {% csrf_token %}-->
-<!--      {{ comment_form.as_p }}-->
-<!--      <button type="submit" class="btn btn-primary">Submit</button>-->
-<!--    </form>-->
-<!--  </div>-->
-<!--</div>-->
+            {% if request.user.is_authenticated %}
+                <a href="{% url 'blog:commentary-detail' post.id %}" class="btn btn-primary mt-3">Add Comment</a>
+            {% endif %}
+
+            {% if not request.user.is_authenticated %}
+                <a href="{% url 'login' %}" class="btn btn-secondary mt-3">Login to Comment</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
 
 {% endblock %}

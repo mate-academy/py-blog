@@ -1,21 +1,17 @@
-{% if is_paginated %}
-<div class="pagination justify-content-center">
-  <ul class="pagination">
-    {% if posts.has_previous %}
+{% if post_list.has_other_pages %}
+  <ul class="pagination justify-content-center">
+    {% if post_list.has_previous %}
       <li class="page-item">
-        <a class="page-link" href="?page={{ posts.previous_page_number }}">Prev</a>
+        <a href="?page={{ post_list.previous_page_number }}" class="page-link">prev</a>
       </li>
     {% endif %}
-
-    <li class="page-item disabled">
-      <span class="page-link">Page {{ posts.number }} of {{ posts.paginator.num_pages }}</span>
+    <li class="page-item active">
+      <span class="page-link">{{ post_list.number }} of {{ post_list.paginator.num_pages }}</span>
     </li>
-
-    {% if posts.has_next %}
+    {% if post_list.has_next %}
       <li class="page-item">
-        <a class="page-link" href="?page={{ posts.next_page_number }}">Next</a>
+        <a href="?page={{ post_list.next_page_number }}" class="page-link">next</a>
       </li>
     {% endif %}
   </ul>
-</div>
 {% endif %}

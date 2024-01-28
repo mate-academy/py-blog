@@ -1,0 +1,12 @@
+{% extends "blog/index.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+
+<h1>New commentary</h1>
+<form action="" method="POST">
+  {% csrf_token %}
+  {{ form|crispy }}
+  <input class="btn-primary" type="submit" value="Add comment">
+</form>
+
+{% endblock %}
