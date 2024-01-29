@@ -1,23 +1,16 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
+
 from .models import Post, Commentary
-from django.core.paginator import Paginator
 
 
-def index(request):
-    post_list = Post.objects.all().order_by("created_time")
-
-    paginator = Paginator(post_list, 5)
-    page = request.GET.get("page")
-    posts = paginator.get_page(page)
-
-    context = {
-        "num_posts": Post.objects.count(),
-        "post_list": posts,
-    }
-    return render(request, "blog/index.html", context=context)
+class IndexListView(generic.ListView):
+    model = Post
+    context_object_name = "post_list"
+    paginate_by = 5
+    template_name = "blog/index.html"
 
 
 class PostDetailView(generic.DetailView):
@@ -32,7 +25,7 @@ class PostDetailView(generic.DetailView):
         return context
 
 
-class CommentaryCreateView(generic.CreateView):
+class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
     model = Commentary
     template_name = "blog/commentary_form.html"
     fields = ["content"]
