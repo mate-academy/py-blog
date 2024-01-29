@@ -18,12 +18,6 @@ class PostDetailView(generic.DetailView):
     template_name = "blog/post_detail.html"
     context_object_name = "post"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        context["comments"] = self.object.commentary_set.all()
-        return context
-
 
 class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
     model = Commentary

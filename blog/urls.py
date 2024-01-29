@@ -8,7 +8,7 @@ urlpatterns = [
     path("", IndexListView.as_view(), name="index"),
     path("post/<int:pk>/", PostDetailView.as_view(), name="post-detail"),
     path(
-        "post/<int:pk>/new_commentary",
+        "post/<int:pk>/new_commentary/",
         CommentaryCreateView.as_view(),
         name="commentary-detail",
     ),
