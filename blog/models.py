@@ -5,9 +5,6 @@ from django.db import models
 class User(AbstractUser):
     password = models.CharField(max_length=255)
 
-    class Meta:
-        pass
-
 
 class Post(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -30,9 +27,6 @@ class Commentary(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     created_time = models.DateTimeField(auto_now_add=True)
     content = models.CharField(max_length=4096)
-
-    class Meta:
-        pass
 
     def __str__(self):
         return (
