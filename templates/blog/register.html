@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="text-align: center; display: flex; justify-content: center; margin: 35px;">
+  <!-- form copied from UserCreationForm html edited-   -->
+    <form style="width: max-content; padding: 30px; background-color: blanchedalmond;" method="post" action="">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" class="btn btn-primary btn-block">{{ is_registration|yesno:"Sign up,Log in" }}</button>
+    </form>
+</div>
+
+    {% endblock content %}

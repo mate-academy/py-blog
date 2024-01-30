@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Posts</h1>
+{% for post in post_list.object_list  %}
+<div class="card">
+  <div class="card-body">
+    <h5 class="card-title"><a href="{% url 'blog:post-detail' post.pk %}">{{post.title}}</a></h5>
+    <h6 class="card-subtitle mb-2 text-body-secondary">{{post.owner}}</h6>
+    <h6 class="card-subtitle mb-2 text-body-secondary">{{post.created_time}}</h6>
+    <p class="card-text">{{post.content}} of the card's content.</p>
+    <p class="card-subtitle mb-2 text-body-secondary">{{post.commentaries__count}} comment{{ post.commentaries__count|pluralize }}</p>
+  </div><br>
+</div>
+{% endfor %}
+
+{% include "inc/pagination.html" %}
+{% endblock %}
+
