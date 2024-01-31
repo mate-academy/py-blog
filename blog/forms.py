@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import UserCreationForm
 
 from blog.models import Commentary
 
@@ -15,15 +15,6 @@ class CreateCommentary(forms.ModelForm):
             ),
             "post": forms.TextInput(attrs={"style": "display:none"}),
         }
-
-
-class LoginForm(AuthenticationForm):
-    username = forms.CharField(
-        widget=forms.TextInput(attrs={"class": "form-control"})
-    )
-    password = forms.CharField(
-        widget=forms.TextInput(attrs={"class": "form-control"})
-    )
 
 
 class RegisterForm(UserCreationForm):
