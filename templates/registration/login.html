@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block sidebar %}
+  <h1>Login</h1>
+  {% if form.errors %}
+    <p style="color: darkred">Invalid credentials!</p>
+  {% endif %}
+  <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Login">
+    <input type="hidden" name="next" value="{{ next }}">
+  </form>
+{% endblock %}
+
+{% block content %}
+<h1>"Python Developers Blog: Exploring New Horizons"</h1>
+<p>
+  Python, with its simplicity and power, is used by millions of developers around the world.
+  This popularity stems not only from its convenient syntax and rich library ecosystem,
+  but also from the dynamic and open community constantly working on its development.
+</p>
+
+<h3>What is the Python Developers Blog?</h3>
+<p>
+The Python Developers Blog is an online platform where diverse developers, researchers, students, educators,
+and enthusiasts can share their ideas, experiences, and knowledge related to Python programming and application development.
+This blog is created to bring the community together, foster idea exchange, and generate new insights.
+</p>
+<h3>Openness and Dynamism</h3>
+<p>
+  The Python Developers Blog is a place where everyone can find something interesting and useful.
+  Articles, tips, news, reviews, tutorials, and other materials are created and published by community members.
+  From beginners to experienced programmers, everyone can find something that interests them in this blog.
+</p>
+<h3>Innovation and Development</h3>
+<p>
+  The Python Developers Blog is always at the forefront of innovation in the programming world.
+  From new frameworks and libraries to development tools and programming techniques, you'll find the
+  latest and most interesting developments related to Python.
+</p>
+<h3>Community and Collaboration</h3>
+<p>
+  The Python Developers Blog is more than just a platform for publishing materials.
+  It's a community where people come together to help each other, learn together,
+  and grow together. Comments, discussions, and joint projects make this blog an excellent place for communication and interaction.
+</p>
+<h3>Impact and Perspectives</h3>
+<p>
+  The Python Developers Blog is not just an informational resource; it's a source of inspiration
+  and support for everyone interested in software development with Python.
+  This blog reflects the spirit of innovation and openness that makes Python so strong and attractive to developers worldwide.
+</p>
+<p>Join the Python Developers Blog - share your thoughts, learn, and inspire others!
+{% endblock %}
