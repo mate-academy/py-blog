@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1> {{ post.title }} </h1>
+  {% if post.owner.username == user.username %}
+    <h5>
+      <a href="{% url 'blog:post-update' pk=post.id %}">UPDATE</a>
+        /
+      <a href="{% url 'blog:post-delete' pk=post.id %}">DELETE</a>
+    </h5>
+  {% endif %}
+  <h5>Author: {{ post.owner.first_name }} {{ post.owner.last_name }}</h5>
+  <h5>Posted: {{ post.created_time|date:"D d M Y" }} {{ post.created_time|time:"H:i" }}</h5>
+  <hr>
+  <p>{{ post.content }}</p>
+  <hr>
+  <h4>{{ post.commentaries.count }} сomment{{ post.commentaries.count|pluralize }}:</h4>
+  {% if post.commentaries.all %}
+    <ul>
+      {% for comment in post.commentaries.all %}
+        <div class="comment">
+          <p><strong>{{ comment.user.username }}</strong> ({{ comment.created_time}})</p>
+          <p><i>{{ comment.content }}</i></p>
+        </div>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No comments yet</p>
+  {% endif %}
+
+  <h5>Add new commentary</h5>
+  <div>
+    <form  method="POST" action="{% url 'blog:comment-create' post.pk %}">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <label for="content" class="form-label"></label>
+      <br>
+      <label>
+        <textarea name="content" cols="80"></textarea>
+      </label>
+      <br>
+      <input class="btn btn-primary" type="submit" value="Add comment"/>
+    </form>
+  </div>
+
+{% endblock %}

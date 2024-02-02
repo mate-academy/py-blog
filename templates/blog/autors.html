@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Authors List</h1>
+  {% if user_list %}
+    <ul>
+      {% for user in user_list %}
+        <li class="autor_list">
+          <a href="{% url 'blog:user-detail' user.pk %}">
+            {{ user.username }}
+            {% if user.total_posts == 0 %}
+              ---> (No post have been published)
+            {% else %}
+              ---> ({{ user.total_posts }} post{{ user.total_posts|pluralize }} have been published)
+            {% endif %}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Unfortunately, there are no authors in our blog yet</p>
+  {% endif %}
+{% endblock %}
