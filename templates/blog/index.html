@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+      <h1>Welcome to my Blog</h1>
+        <h3>All posts:</h3>
+        <ul>
+        {% for post in all_posts %}
+          <li>{{ post.title }} - {{ post.created_time }}</li>
+        {% endfor %}
+        </ul>
+{% endblock %}
