@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-      <h1>Welcome to my Blog</h1>
-        <h3>All posts:</h3>
-        <ul>
-        {% for post in all_posts %}
-          <li>{{ post.title }} - {{ post.created_time }}</li>
-        {% endfor %}
-        </ul>
+  <h1>Welcome to my Blog</h1>
+  <h3>All posts:</h3>
+  <ul>
+    {% for post in page_obj %}
+      <li><strong><a href="{% url 'blog:post-detail' post.pk %}">{{ post.title }}</a></strong></li>
+      <p> {{ post.owner }} {{ post.created_time }} {{ post.comments.all|length }} comments</p>
+      <p>{{ post.content|truncatechars:255 }}</p>
+      <hr class="bg-primary" style="width: 100px; height: 1px;">
+    {% endfor %}
+  </ul>
 {% endblock %}
