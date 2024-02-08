@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <title>{{ post.title }}</title>
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.content }}</p>
+  <p>Owner: {{ post.owner }}</p>
+  <p>Created time: {{ post.created_time }}</p>
+
+  <!-- Display comments -->
+  <h2>Comments</h2>
+  <ul>
+      {% for comment in comments %}
+          <li>{{ comment.content }} - {{ comment.created_time }} by {{ comment.user }}</li>
+      {% endfor %}
+  </ul>
+
+  <!-- Comment form -->
+  <h2>Add a Comment</h2>
+  {% if user.is_authenticated %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit">Submit</button>
+    </form>
+  {% else %}
+    <p>Please login to add comment</p>
+  {% endif %}
+{% endblock %}
