@@ -1,0 +1,23 @@
+{% extends "blog/index.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+  {% include "includes/post-card.html" %}
+  <h4>Comments:</h4>
+  {% if post.commentaries.all %}
+  {% for comment in post.commentaries.all %}
+    <div class="card-body">
+    <p>{{ comment.user.username }}, {{ comment.created_time }}</p>
+    <p class="custom-card-text">{{ comment.content }}</p>
+  </div>
+  <br>
+  {% endfor %}
+  {% else %}
+    <p>No comments. Be the first to comment!</p>
+  {% endif %}
+  <h4>Add comment:</h4>
+  <form method="post" action="">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary mt-2">Add Comment</button>
+  </form>
+{% endblock %}
