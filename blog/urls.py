@@ -20,8 +20,16 @@ from blog.views import PostListView, PostDetatilView, create_comment
 
 urlpatterns = [
     path("", PostListView.as_view(), name="index"),
-    path("posts/<int:pk>/", PostDetatilView.as_view(), name="post-detail"),
-    path("posts/<int:pk>/create-comment", create_comment, name="create-comment"),
+    path(
+        "posts/<int:pk>/",
+        PostDetatilView.as_view(),
+        name="post-detail"
+    ),
+    path(
+        "posts/<int:pk>/create-comment",
+        create_comment,
+        name="create-comment"
+    ),
 
 ]
 

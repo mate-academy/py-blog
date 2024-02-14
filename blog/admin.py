@@ -22,4 +22,3 @@ class PostAdmin(admin.ModelAdmin):
 class CommentaryAdmin(admin.ModelAdmin):
     ordering = ["-created_time"]
     list_filter = ("user", )
-
