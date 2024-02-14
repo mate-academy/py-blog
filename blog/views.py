@@ -1,7 +1,8 @@
 from django.contrib.auth import logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest
 from django.shortcuts import redirect
-from django.views import generic
+from django.views import generic, View
 from blog.models import Post
 from .forms import CommentForm
 
@@ -26,17 +27,12 @@ class PostDetailView(generic.DetailView):
         return context
 
 
-def add_comment(request: HttpRequest, post_id: int) -> redirect:
-    if request.method == "POST":
+class AddCommentView(LoginRequiredMixin, View):
+    def post(self, request, post_id):
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.post_id = post_id
             comment.user = request.user
             comment.save()
-    return redirect("blog:post-detail", pk=post_id)
-
-
-def custom_logout(request) -> redirect:
-    logout(request)
-    return redirect("blog/logout/")
+        return redirect("blog:post-detail", pk=post_id)
