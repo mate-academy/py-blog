@@ -1,0 +1,34 @@
+html{
+    font-size: 22px;
+}
+
+body{
+    background-color: gainsboro;
+    margin: 0 20px;
+}
+
+.custom-form{
+    margin: 10px 300px;
+}
+
+.content{
+    padding: 6px;
+    border-radius: 12px;
+    background-color: white;
+}
+.paginator-height{
+    padding: 15px;
+}
+
+.content-font{
+    margin-right:45px;
+    font-size: 14px;
+    color: gray;
+}
+
+.custom-header{
+    text-align: center;
+    height: 200px;
+    line-height: 200px;
+    margin-bottom: 0;
+}

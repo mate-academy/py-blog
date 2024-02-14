@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <h1 class="custom-header">Home</h1>
+  <div class="content">
+    <ul>
+      {% for post in post_list %}
+        <a href="posts/{{ post.id }}">
+          <li><h3>Post: {{ post.title }}</h3></li>
+        </a>
+        <p style="text-align: right; margin-right: 20px">{{ post.created_time.ctime }}</p>
+        <div class="content-font"><p>{{ post.content }}</p></div>
+        <div class="comments"><p>Comments: {{ post.comments.count }}</p></div>
+        <hr>
+      {% endfor %}
+
+    </ul>
+  </div>
+  {% include "includes/paginator.html" %}
+{% endblock %}
