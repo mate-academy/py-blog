@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <h2>Add a Comment</h2>
+  <form method="post" action="{% url 'add-comment' post.id %}">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="id_content">Content:</label>
+      <textarea class="form-control" id="id_content" name="content" rows="3"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+{% endblock %}
