@@ -14,23 +14,23 @@ from blog.models import Post, Commentary, User
 class RegisterForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ["username", "email", "password1", "password2"]
 
 
 def sign_up(request):
-    if request.method == 'GET':
+    if request.method == "GET":
         form = RegisterForm()
-        return render(request, 'registration/sign-up.html', {'form': form})
+        return render(request, "registration/sign-up.html", {"form": form})
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
             user.save()
-            messages.success(request, 'You have singed up successfully.')
+            messages.success(request, "You have singed up successfully.")
             login(request, user)
             return HttpResponseRedirect(reverse("blog:index"))
-        return render(request, 'registration/sign-up.html', {'form': form})
+        return render(request, "registration/sign-up.html", {"form": form})
 
 
 class PostListView(generic.ListView):
@@ -47,9 +47,7 @@ class PostDetatilView(generic.DetailView):
 
 @login_required
 def create_comment(request: HttpRequest, pk: int) -> HttpResponse:
-    context = {
-        "comments": Post.objects.get(pk=pk).comments.all()
-    }
+    context = {"comments": Post.objects.get(pk=pk).comments.all()}
     if request.method == "POST":
         user = request.user
         post = Post.objects.get(pk=pk)

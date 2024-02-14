@@ -9,16 +9,16 @@ admin.site.unregister(Group)
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
     ordering = ["username"]
-    search_fields = ("username", )
+    search_fields = ("username",)
 
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     ordering = ["-created_time"]
-    list_filter = ("owner", )
+    list_filter = ("owner",)
 
 
 @admin.register(Commentary)
 class CommentaryAdmin(admin.ModelAdmin):
     ordering = ["-created_time"]
-    list_filter = ("user", )
+    list_filter = ("user",)

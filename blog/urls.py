@@ -14,23 +14,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.urls import path
 
 from blog.views import PostListView, PostDetatilView, create_comment
 
 urlpatterns = [
     path("", PostListView.as_view(), name="index"),
-    path(
-        "posts/<int:pk>/",
-        PostDetatilView.as_view(),
-        name="post-detail"
-    ),
-    path(
-        "posts/<int:pk>/create-comment",
-        create_comment,
-        name="create-comment"
-    ),
-
+    path("posts/<int:pk>/", PostDetatilView.as_view(), name="post-detail"),
+    path("posts/<int:pk>/create-comment", create_comment, name="create-comment"),
 ]
 
 app_name = "blog"
