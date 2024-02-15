@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <h1 class="custom-header">Post</h1>
+  <div class="content">
+    <ul>
+      <li><h3>Post: {{ post.title }}</h3></li>
+      <p style="text-align: right; margin-right: 20px">{{ post.created_time.ctime }}</p>
+      <div class="content-font"><p>{{ post.content }}</p></div>
+      <hr>
+      <div style="text-align: center"><p><strong>Comments</strong></p></div>
+      <a href="{% url 'blog:create-comment' post.id %}"
+      >
+        <button class="btn btn-primary" type="submit"
+        >Create a comment
+        </button>
+      </a>
+      <br>
+      <br>
+      {% for comment in post.comments.all %}
+        <p>Comment from <strong>{{ comment.user.username }} :</strong></p>
+        <p class="content-font" style="font-size: 18px">{{ comment.content }}</p>
+        <hr>
+      {% endfor %}
+    </ul>
+  </div>
+
+  {% include "includes/paginator.html" %}
+{% endblock %}
