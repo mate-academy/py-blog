@@ -1,11 +1,7 @@
-from django.contrib import messages
-from django.contrib.auth import login
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
-from django.urls import reverse
+from django.shortcuts import redirect, get_object_or_404
+from django.urls import reverse_lazy
 from django.views import generic
 
 from blog.models import Post, Commentary, User
@@ -17,20 +13,11 @@ class RegisterForm(UserCreationForm):
         fields = ["username", "email", "password1", "password2"]
 
 
-def sign_up(request):
-    if request.method == "GET":
-        form = RegisterForm()
-        return render(request, "registration/sign-up.html", {"form": form})
-
-    if request.method == "POST":
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.save()
-            messages.success(request, "You have singed up successfully.")
-            login(request, user)
-            return HttpResponseRedirect(reverse("blog:index"))
-        return render(request, "registration/sign-up.html", {"form": form})
+class UserCreateView(generic.CreateView):
+    model = User
+    form_class = RegisterForm
+    template_name = "registration/sign-up.html"
+    success_url = reverse_lazy("blog:index")
 
 
 class PostListView(generic.ListView):
@@ -45,20 +32,16 @@ class PostDetatilView(generic.DetailView):
     template_name = "blog/post_detail.html"
 
 
-@login_required
-def create_comment(request: HttpRequest, pk: int) -> HttpResponse:
-    context = {"comments": Post.objects.get(pk=pk).comments.all()}
-    if request.method == "POST":
-        user = request.user
-        post = Post.objects.get(pk=pk)
-        text = request.POST["content"]
-        if text:
-            Commentary.objects.create(user=user, post=post, content=text)
-            return HttpResponseRedirect(f"/posts/{pk}/")
-    return render(request, "blog/create-comment.html", context=context)
-
-
 class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
     model = Commentary
     template_name = "blog/create-comment.html"
-    fields = "__all__"
+    fields = ("content", )
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        pk = kwargs.get("pk")
+        post = get_object_or_404(Post, pk=pk)
+        text = request.POST["content"]
+        if text:
+            Commentary.objects.create(user=user, post=post, content=text)
+            return redirect("blog:post-detail", pk=pk)

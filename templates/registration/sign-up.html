@@ -3,9 +3,9 @@
 {% load static %}
 {% block content %}
   <h2 class="custom-header">Sign up</h2>
-  <form method="post" class="custom-form">
+  <form method="post" class="custom-form" action="">
     {{ form|crispy }}
     {% csrf_token %}
     <button class="btn btn-primary" type="submit">Sign up</button>
   </form>
-{% endblock %}
+{% endblock%}

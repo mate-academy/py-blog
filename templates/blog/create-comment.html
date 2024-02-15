@@ -20,9 +20,7 @@
   <br>
   <form action="" method="post">
     {% csrf_token %}
-    <label>Comment:
-      <textarea autofocus name="content"></textarea>
-    </label>
+    {{ form|crispy }}
     <button class="btn btn-primary" type="submit">Send</button>
   </form>
   {% include "includes/paginator.html" %}

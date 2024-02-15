@@ -17,14 +17,14 @@ Including another URLconf
 
 from django.urls import path
 
-from blog.views import PostListView, PostDetatilView, create_comment
+from blog.views import PostListView, PostDetatilView, CommentaryCreateView
 
 urlpatterns = [
     path("", PostListView.as_view(), name="index"),
     path("posts/<int:pk>/", PostDetatilView.as_view(), name="post-detail"),
     path(
         "posts/<int:pk>/create-comment",
-        create_comment,
+        CommentaryCreateView.as_view(),
         name="create-comment"
     ),
 ]

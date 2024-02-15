@@ -3,8 +3,7 @@ from django.db import models
 
 
 class User(AbstractUser):
-    def get_absolute_url(self):
-        return "/"
+    pass
 
 
 class Post(models.Model):
