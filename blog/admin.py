@@ -19,4 +19,5 @@ class CommentaryAdmin(admin.ModelAdmin):
 class UserAdmin(admin.ModelAdmin):
     pass
 
+
 admin.site.unregister(Group)
