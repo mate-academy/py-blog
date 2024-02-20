@@ -1,0 +1,14 @@
+ <div id="sidebar">
+    <h2>My blog</h2>
+    <p>This is my blog.</p>
+    <hr>
+    {% if user.is_authenticated %}
+    <ul>
+      <li>User: <span>{{ user.username }}</span>
+      <li><a href="{% url 'logout' %}?next={{ request.path }}">logout</a></li>
+      <li><a href="{% url 'blog:index' %}">Home</a></li>
+      {% else %}
+      <li><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
+    </ul>
+    {% endif %}
+  </div>
