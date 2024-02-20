@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
-from .models import Post, Commentary, User
+from blog.models import Post, Commentary, User
 
 
 @admin.register(Post)
@@ -15,6 +15,8 @@ class CommentaryAdmin(admin.ModelAdmin):
     pass
 
 
-admin.site.register(User)
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    pass
 
 admin.site.unregister(Group)
