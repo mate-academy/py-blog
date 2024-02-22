@@ -1,0 +1,21 @@
+.container-fluid {
+    margin-top: 50px;
+    margin-bottom: 100px;
+}
+
+.blog-wall {
+    list-style: none;
+}
+
+.post-title {
+    font-size: 125%;
+}
+
+.comment-area {
+    width: 400px;
+    height: 100px;
+}
+
+.sidebar-nav {
+    list-style: none;
+}
