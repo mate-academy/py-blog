@@ -9,6 +9,12 @@ div.col-sm-6 {
     border: 2px solid black;
 }
 
+.page-item.active .page-link {
+    background-color: lightgray;
+    border-color: lightgray;
+    color: black;
+}
+
 .pagination {
     padding-left: 300px;
 }
