@@ -29,6 +29,7 @@ class PostDetailView(FormMixin, generic.DetailView):
         return super().form_valid(form)
 
     def post(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
+        self.object = self.get_object()
         form = self.get_form()
 
         if form.is_valid() and request.user.is_authenticated:
