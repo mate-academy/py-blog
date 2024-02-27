@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block content %}
+
+  <h1>BLOG APP</h1>
+
+  {% for post in post_list %}
+    <h2><a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a></h2>
+    <p>{{ post.content }}</p>
+    <p>
+      <span class="comment-username">{{ post.owner }}</span>,
+      <span class="comment-time">{{ post.created_time }}</span>
+      <br>
+      {% if not post.commentary_set.all  %}
+        No
+      {% else %}
+        {{ post.commentary_set.all|length }}
+      {% endif %}
+      comment{{ post.commentary_set.all|pluralize }} <br><br>
+    </p>
+  {% endfor %}
+  <hr>
+  {% if page_obj.has_previous %}
+    <a href="?page=1">&laquo; first</a>
+    <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+  {% endif %}
+
+  Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+
+  {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">next</a>
+    <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+  {% endif %}
+
+{% endblock content %}
