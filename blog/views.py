@@ -1,9 +1,7 @@
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render
-from django.urls import reverse_lazy
 from django.views import generic
 
-from blog.models import Post, Commentary
+from blog.models import Post
 from blog.forms import CommentaryForm
 
 
@@ -38,5 +36,3 @@ class PostDetailView(generic.edit.FormMixin, generic.DetailView):
 
     def get_success_url(self) -> str:
         return self.request.path
-
-    # extra_context = {"num_comments": Post.objects.count("commentaries")}
