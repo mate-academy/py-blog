@@ -7,12 +7,17 @@ from .models import User, Post, Commentary
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    search_fields = ("title", "owner",)
+    list_display = ("created_time",)
+    search_fields = (
+        "title",
+        "owner",
+    )
     list_filter = ("created_time",)
 
 
 @admin.register(Commentary)
 class CommentaryAdmin(admin.ModelAdmin):
+    list_display = ("created_time",)
     list_filter = ("created_time",)
 
 
