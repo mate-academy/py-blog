@@ -1,0 +1,26 @@
+body {
+    font-family: Arial, sans-serif;
+    margin-top: 20px;
+    padding: 0;
+}
+
+article p {
+    text-align: justify;
+}
+
+article {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    border: 1px solid rgb(145, 145, 145);
+    margin-right: 10px;
+}
+
+.sidebar-nav {
+    border: 1px solid rgb(145, 145, 145);
+    border-radius: 0;
+}
+
+textarea {
+    width: 150%;
+    margin-bottom: 20px;
+}

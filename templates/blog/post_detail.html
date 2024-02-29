@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>{{ post.title }}</title>
+{% endblock %}
+
+{% block content %}
+  <article>
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content }}</p>
+    <p>Published on {{ post.created_time }} </p>
+  </article>
+
+  {% for commentary in post.commentaries.all %}
+    <article>
+      <h4>{{ commentary.user.username }}:</h4>
+      <p>{{ commentary.content }}</p>
+    </article>
+  {% endfor %}
+
+  {% if user.is_authenticated %}
+    <article>
+      <p><strong>Add a new comment:</strong></p>
+      <div>
+        <form action="{% url "blog:commentary-create" post.id %}" method="post" novalidate>
+          {% csrf_token %}
+          <label>
+            <textarea name="content">{{ content }}</textarea>
+          </label>
+          <input type="hidden" name="post_id" value="{{ post.id }}">
+          <input type="hidden" name="user_id" value="{{ user.id }}">
+          <input type="hidden" name="created_time" value="{{ created_time }}">
+          <br>
+          <input type="submit" class="btn btn-dark" value="Create">
+        </form>
+      </div>
+    </article>
+  {% else %}
+    <article>
+      <p> You need to be logged in to add a comment.</p>
+    </article>
+  {% endif %}
+{% endblock %}

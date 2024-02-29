@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Home</title>
+{% endblock %}
+
+{% block content %}
+
+  <article>
+    <h1>The best blog ever</h1>
+    <p>Created by Ihor Bondarenko</p>
+  </article>
+  {% for post in post_list %}
+    <article>
+      <h2><a href="{% url "blog:post-detail" pk=post.id %}">{{ post.title }}</a></h2>
+      <p class="post-meta">
+        Published on {{ post.created_time }} by {{ post.owner.username }}
+      </p>
+      <p>
+        {{ post.content }}
+      </p>
+      <p>
+        {{ post.commentaries.count }} comments
+      </p>
+    </article>
+    {% endfor %}
+
+{% endblock %}
