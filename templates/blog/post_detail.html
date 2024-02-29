@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <br>
+  <h3>{{ post.title }}</h3>
+  <a style="color: red" href="{% url 'blog:post-delete' pk=post.id %}">Delete this post</a>
+  <br>
+  <p><strong>Created by:</strong> @{{ post.owner.username }} ({{ post.owner.first_name }} {{ post.owner.last_name }})</p>
+  <p><strong>Time of creation:</strong> {{ post.created_time }}</p>
+  <p><strong>Content:</strong></p>
+  <div class="col-sm-6">
+    {{ post.content }}
+  </div>
+  <br>
+  <p>{{ post.commentaries.count }} comment{{ post.commentaries.count | pluralize }}:</p>
+  {% if post.commentaries.all %}
+  {% for comment in post.commentaries.all %}
+    <div class="col-sm-6" style="margin-top: 5px; background-color: whitesmoke;">
+    <p>@{{ comment.user.username }} ({{ comment.user.first_name }} {{ comment.user.last_name }}) | {{ comment.created_time }}</p>
+      <hr>
+    <p>{{ comment.content }}</p>
+    </div>
+  {% endfor %}
+  {% else %}
+    <p><strong>No comments yet.</strong></p>
+  {% endif %}
+  {% if user.is_authenticated %}
+  <p><strong>Add a new comment:</strong></p>
+  <div class="col-sm-5">
+  <form action="" method="post" novalidate>
+    {% csrf_token %}
+    {{ form | crispy }}
+    <input type="submit" class="btn btn-secondary" value="Add comment">
+  </form>
+  </div>
+  {% else %}
+    <p> Please <strong><a href="{% url 'login' %}">login</a></strong>, if you want to add a comment.</p>
+  {% endif %}
+{% endblock %}
