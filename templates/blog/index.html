@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% for post in post_list %}
+    <div class="p-4 p-md-5 mb-4 text-white bg-dark rounded">
+      <div class="col-md-10 px-0">
+        <h1 class="display-4 fst-italic"><a style="text-decoration: none" href="{% url "blog:post-detail" pk=post.id %}">{{ post.title }}</a></h1>
+        <p><i>Author: {{ post.owner.first_name }} {{ post.owner.last_name }}</i></p>
+        <p><i>Creation date: {{ post.created_time }}</i></p>
+        <p class="lead my-3">{{ post.content }}</p>
+        <p style="text-align: right"><i>Number of comments: {{ post.commentaries.count }}</i></p>
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}
