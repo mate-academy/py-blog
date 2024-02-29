@@ -15,7 +15,6 @@ class IndexListView(generic.ListView):
 
 
 class PostDetailView(generic.DetailView):
-    model = Post
     queryset = Post.objects.prefetch_related("commentaries")
     form_class = CommentaryForm
 
