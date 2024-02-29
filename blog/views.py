@@ -13,7 +13,6 @@ class PostListView(generic.ListView):
 
 
 class PostDetailView(FormMixin, generic.DetailView):
-    model = Post
     queryset = Post.objects.prefetch_related("commentaries")
     form_class = CommentaryForm
 
