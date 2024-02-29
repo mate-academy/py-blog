@@ -1,0 +1,10 @@
+.body {
+
+}
+
+.page-item.active .page-link {
+    background-color: lightgray;
+    border-color: lightgray;
+    color: black;
+}
+
