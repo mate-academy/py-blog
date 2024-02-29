@@ -1,14 +1,14 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block content %}
-  <h1>Blog <a href="{% url 'blog:post-create' %}">+</a></h1>
+  <h1>Blog <a href="{% url "blog:post-create" %}">+</a></h1>
   <br>
 
   {% if post_list %}
 
       {% for post in post_list %}
         <p>
-          <a href="{% url 'blog:post-detail' post.id %}" class="post-title">{{ post.title }}</a>
+          <a href="{% url "blog:post-detail" post.id %}" class="post-title">{{ post.title }}</a>
           <br>
           {{ post.get_comments.count }} comment{{ post.get_comments.count | pluralize }}
           | {{ post.created_time }}

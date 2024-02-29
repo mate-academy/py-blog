@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block content %}
 
@@ -7,10 +7,10 @@
   <hr>
   {% for post in posts %}
   <h1>
-    <a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a>
+    <a href="{% url "blog:post-detail" post.id %}">{{ post.title }}</a>
     {% if request.user == post.owner %}
-      | <a href="{% url 'blog:post-update' post.id %}" class="btn btn-secondary">Edit</a>
-        <a href="{% url 'blog:post-delete' post.id %}" class="btn btn-secondary">Delete</a>
+      | <a href="{% url "blog:post-update" post.id %}" class="btn btn-secondary">Edit</a>
+        <a href="{% url "blog:post-delete" post.id %}" class="btn btn-secondary">Delete</a>
     {% endif %}
   </h1>
   <p class="text-muted">{{ post.created_time }}</p>
