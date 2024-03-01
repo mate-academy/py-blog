@@ -35,4 +35,4 @@ class Commentary(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
-        return f"Comment by {self.user} on {self.post}"
+        return f"{self.user} on {self.post}: '{self.content[:7]}...'"
