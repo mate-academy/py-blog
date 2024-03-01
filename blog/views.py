@@ -63,8 +63,3 @@ def post_detail_plus_create_comment(
                     "form": form
                 }
             )
-
-
-class PostDetailView(generic.DetailView):
-    model = Post
-    queryset = Post.objects.prefetch_related("commentaries")
