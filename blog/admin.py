@@ -5,9 +5,6 @@ from django.contrib.auth.models import Group
 from .models import User, Commentary, Post
 
 
-admin.site.unregister(Group)
-
-
 @admin.register(User)
 class UserAdmin(UserAdmin):
     list_display = UserAdmin.list_display
@@ -26,3 +23,6 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ["owner", "title", "created_time", ]
     search_fields = ["owner", "title", ]
     list_filter = ["owner", ]
+
+
+admin.site.unregister(Group)

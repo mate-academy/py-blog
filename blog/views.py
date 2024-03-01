@@ -21,6 +21,17 @@ def post_detail_plus_create_comment(
         request: HttpRequest,
         pk: int
 ) -> HttpResponse:
+    post = Post.objects.prefetch_related("commentaries").get(pk=pk)
+    if request.method == "GET":
+        return render(
+            request,
+            "blog/post_detail.html",
+            context={
+                "post": post,
+                "form": CommentaryForm()
+            }
+        )
+
     if request.method == "POST":
         form = CommentaryForm(request.POST)
         if request.user.is_authenticated:
@@ -33,17 +44,25 @@ def post_detail_plus_create_comment(
                     "blog:post-detail",
                     kwargs={"pk": pk}
                 ))
+            else:
+                return render(
+                    request,
+                    "blog/post_detail.html",
+                    context={
+                        "post": post,
+                        "form": form
+                    }
+                )
         else:
             form.errors["user"] = "You are not registered in the system."
-    else:
-        form = CommentaryForm()
-
-    post = Post.objects.prefetch_related("commentaries").get(pk=pk)
-    context = {
-        "post": post,
-        "form": form
-    }
-    return render(request, "blog/post_detail.html", context=context)
+            return render(
+                request,
+                "blog/post_detail.html",
+                context={
+                    "post": post,
+                    "form": form
+                }
+            )
 
 
 class PostDetailView(generic.DetailView):
