@@ -1,0 +1,13 @@
+<ul class="sidebar-nav">
+
+  {% if request.user.is_authenticated %}
+    <li>User: <a href="{% url "blog:user-detail" request.user.id %}">{{ request.user.username }}</a></li>
+    <li><a href="{% url "logout" %}">Logout</a></li>
+  {% else %}
+    <li><a href="{% url "login" %}">Login</a></li>
+  {% endif %}
+  <br>
+  <li><a href="{% url "blog:index" %}" class="btn btn-primary">Home</a></li>
+  <br>
+
+</ul>
