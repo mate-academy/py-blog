@@ -10,15 +10,12 @@ from blog.models import Post, Commentary
 
 
 class IndexListView(generic.ListView):
-    model = Post
     queryset = Post.objects.select_related("owner")
-    template_name = "blog/index.html"
     paginate_by = 5
 
 
 class PostDetailView(FormMixin, generic.DetailView):
     model = Post
-    template_name = "blog/post_detail.html"
     form_class = CommentaryForm
 
     def get_success_url(self):
@@ -46,8 +43,6 @@ class PostDetailView(FormMixin, generic.DetailView):
 class PostCreateView(LoginRequiredMixin, generic.CreateView):
     model = Post
     fields = ("title", "content")
-
-    template_name = "blog/post_form.html"
     success_url = reverse_lazy("blog:index")
 
     def form_valid(self, form):
@@ -63,8 +58,6 @@ class PostCreateView(LoginRequiredMixin, generic.CreateView):
 class PostUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Post
     fields = ("title", "content")
-
-    template_name = "blog/post_form.html"
     success_url = reverse_lazy("blog:index")
 
     def get_context_data(self, **kwargs):
@@ -75,8 +68,6 @@ class PostUpdateView(LoginRequiredMixin, generic.UpdateView):
 
 class PostDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Post
-
-    template_name = "blog/post_delete.html"
     success_url = reverse_lazy("blog:index")
 
     def get_context_data(self, **kwargs):
@@ -87,7 +78,6 @@ class PostDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 class UserDetailView(LoginRequiredMixin, generic.DetailView):
     model = get_user_model()
-    template_name = "blog/user_detail.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
