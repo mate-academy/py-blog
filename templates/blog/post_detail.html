@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p><span class="text-muted">Author:</span> {{ post.owner }}</p>
+  <p><span class="text-muted">Created:</span> {{ post.created_time }}</p>
+  <p>{{ post.content }}</p>
+
+  <div class="ml-3">
+    <h5>Comments:</h5>
+      {% for comment in post.commentaries.all %}
+        <hr>
+        <p>
+          <span class="text-muted">[</span>{{ forloop.revcounter }}<span class="text-muted">]</span>
+          <span class="text-muted">{{ comment.created_time }} |</span>
+          {{ comment.user.username }} <span class="text-muted">wrote:</span>
+        </p>
+        <p>
+          {{ comment.content }}
+        </p>
+        {% empty %}
+          <p class="text-muted">No any comments yet !</p>
+      {% endfor %}
+    </div>
+
+    <div class="ml-3">
+     {% if user.is_authenticated %}
+        <h4>Add a new comment</h4>
+        <form action="{% url 'blog:post-detail' pk=post.id %}" method="post">
+         <!-- { { form.as_p }} -->
+          {% csrf_token %}
+          {{ form|crispy }}
+          <p><input class="btn btn-primary" type="submit" value="Add comment"></p>
+        </form>
+     {% else %}
+        <hr>
+        You need to <a href="{% url 'login'%}?next={{request.path}} ">Login</a> to write comment.
+     {% endif %}
+
+    </div>
+
+{% endblock %}
