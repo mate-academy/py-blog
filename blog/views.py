@@ -34,14 +34,19 @@ def post_detail_view(request: HttpRequest, pk: int) -> HttpResponse:
         )
     if request.method == "POST":
         form = CommentaryCreateForm(request.POST)
-        if form.is_valid():
-            Commentary.objects.create(
-                user=request.user,
-                post_id=pk,
-                content=form.cleaned_data["content"]
-            )
-            return HttpResponseRedirect(
-                reverse("blog:post-detail", kwargs={"pk": pk}))
+        if request.user.is_authenticated:
+            if form.is_valid():
+                Commentary.objects.create(
+                    user=request.user,
+                    post_id=pk,
+                    content=form.cleaned_data["content"]
+                )
+                return HttpResponseRedirect(
+                    reverse("blog:post-detail", kwargs={"pk": pk}))
 
+            context = {"post": post, "form": form}
+            return render(request, "blog/post_detail.html", context=context)
+
+        form.errors["unauthorized"] = "You should be authorized to be able to write comments."
         context = {"post": post, "form": form}
         return render(request, "blog/post_detail.html", context=context)
