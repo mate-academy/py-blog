@@ -47,6 +47,8 @@ def post_detail_view(request: HttpRequest, pk: int) -> HttpResponse:
             context = {"post": post, "form": form}
             return render(request, "blog/post_detail.html", context=context)
 
-        form.errors["unauthorized"] = "You should be authorized to be able to write comments."
+        form.errors["unauthorized"] = (
+            "You should be authorized to be able to write comments."
+        )
         context = {"post": post, "form": form}
         return render(request, "blog/post_detail.html", context=context)
