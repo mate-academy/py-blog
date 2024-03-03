@@ -10,12 +10,12 @@ from blog.models import Post
 class IndexListView(generic.ListView):
     model = Post
     paginate_by = 5
-    template_name = 'blog/index.html'
+    template_name = "blog/index.html"
 
 
 class PostDetailView(generic.DetailView):
     model = Post
-    template_name = 'blog/post_detail.html'
+    template_name = "blog/post_detail.html"
 
 
 class CreateCommentView(LoginRequiredMixin, View):
@@ -26,4 +26,4 @@ class CreateCommentView(LoginRequiredMixin, View):
             comment.post_id = pk
             comment.user = request.user
             comment.save()
-        return redirect('blog:post-detail', pk=pk)
+        return redirect("blog:post-detail", pk=pk)
