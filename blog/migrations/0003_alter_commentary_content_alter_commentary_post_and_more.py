@@ -8,23 +8,31 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('blog', '0002_alter_commentary_post_alter_commentary_user'),
+        ("blog", "0002_alter_commentary_post_alter_commentary_user"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='commentary',
-            name='content',
+            model_name="commentary",
+            name="content",
             field=models.TextField(),
         ),
         migrations.AlterField(
-            model_name='commentary',
-            name='post',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='blog.post'),
+            model_name="commentary",
+            name="post",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="comments",
+                to="blog.post",
+            ),
         ),
         migrations.AlterField(
-            model_name='commentary',
-            name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='user_comments', to=settings.AUTH_USER_MODEL),
+            model_name="commentary",
+            name="user",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="user_comments",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]
