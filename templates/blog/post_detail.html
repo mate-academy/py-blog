@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <div class="ml-3">
+    <p><strong>Author:</strong> {{ post.owner.username }}</p>
+    <p><strong>Posted:</strong> {{ post.created_time }}</p>
+
+  <p>{{ post.content }}</p>
+
+  <h3>Comments</h3>
+    <hr>
+    <ul>
+    {% for comment in post.comments.all %}
+      <li>
+        {{ comment.user.username }} <br>
+        Posted: {{ comment.created_time }} <br>
+        {{ comment.content }}
+      </li>
+      <br>
+    {% empty %}
+      <p>No comments</p>
+    {% endfor %}
+    </ul>
+  </div>
+
+  {% if user.is_authenticated %}
+    <p>
+      <a href="{% url 'blog:post-create-comment' pk=post.pk %}">-> Leave a comment</a>
+    </p>
+  {% else %}
+    <p><strong>Comments can be posted only by authorized users</strong></p>
+    <p><a href="{% url 'login' %}?next={{ request.path }}">-> Login</a></p>
+  {% endif %}
+{% endblock %}
