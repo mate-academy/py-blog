@@ -1,0 +1,12 @@
+{% for post in posts %}
+<ul>
+  {% if post %}
+    <li>{{ post.owner.first_name }}</li>
+    <li><a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a></li>
+    <li>{{ post.content }}</li>
+  {% else %}
+    <li>{{ post.title }}</li>
+    <li>{{ post.content }}</li>
+  {% endif %}
+</ul>
+{% endfor %}
