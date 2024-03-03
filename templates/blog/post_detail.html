@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block title %}
+  <title>{{ post.title }}</title>
+{% endblock %}
+
+{% block content %}
+
+  <h1>{{ post.title }}</h1>
+  <p><i>Posted by {{ post.owner.username }} at {{ post.created_time }}</i></p>
+  <br>
+
+  <article>
+    <p>{{ post.content }}</p>
+  </article>
+  <br>
+
+  <p>
+    <strong>
+      {{ post.commentaries.count }}
+      {% if post.commentaries.count == 1 %}
+        comment
+      {% else %}
+        comments
+      {% endif %}
+    </strong>
+  </p>
+
+  {% for comment in post.commentaries.all %}
+    <article class="comments">
+      <p>
+        <strong>{{ comment.user.username }}</strong>
+        {{ comment.created_time }}
+      </p>
+      <p>
+        {{ comment.content }}
+      </p>
+    </article>
+    <br>
+  {% endfor %}
+
+  {% if user.is_authenticated %}
+    <p><strong>Add a new comment: </strong></p>
+
+    <form action="{% url 'blog:create-comment' post.pk %}" method="post" novalidate>
+      {% csrf_token %}
+      {{ form|crispy }}
+      <textarea class="form-control-lg" id="comment" name="content" cols="100%"></textarea>
+      <br>
+      <input type="submit" value="Add comment" class="btn btn-secondary"/>
+
+    </form>
+  {% else %}
+    <a href="{% url 'login' %}?next={{ request.path }}">Login to add comment</a>
+
+  {% endif %}
+
+{% endblock %}
