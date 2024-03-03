@@ -1,0 +1,22 @@
+{% if is_paginated %}
+  <div class="row mt-6 wow fadeInUp" data-wow-delay=".6s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp;">
+    <div class="col-12">
+      <div class="pagination text-small text-uppercase text-extra-dark-gray">
+        <ul>
+          {% if page_obj.has_previous %}
+            <li class="page-item">
+              <a href="?page= {{ page_obj.previous_page_number }}"><i class="fas fa-long-arrow-alt-left me-1 d-none d-sm-inline-block"></i> Prev</a>
+            </li>
+          {% endif %}
+
+          <li class="active"><a href="">{{ page_obj.number }}  of {{ paginator.num_pages }}</a></li>
+          {% if page_obj.has_next %}
+            <li class="page-item">
+              <a href="?page= {{ page_obj.next_page_number }}">Next <i class="fas fa-long-arrow-alt-right ms-1 d-none d-sm-inline-block"></i></a>
+            </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endif %}
