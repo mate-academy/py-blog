@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse, HttpRequest
 from django.shortcuts import redirect
 from django.views import generic, View
 
@@ -18,7 +19,7 @@ class PostDetailView(generic.DetailView):
 
 
 class CreateCommentView(LoginRequiredMixin, View):
-    def post(self, request, pk):
+    def post(self, request: HttpRequest, pk: int) -> HttpResponse:
         form = CreateCommentaryForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
