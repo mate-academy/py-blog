@@ -47,7 +47,7 @@ class CreateCommentView(generic.CreateView):
                 content=content,
                 created_time=date
             )
-            return redirect("blog:post-detail", pk)
+
         else:
             post = get_object_or_404(Post, pk=pk)
             form = CommentForm()
@@ -56,4 +56,4 @@ class CreateCommentView(generic.CreateView):
                 "form": form,
                 "error": "You must be logged in to add a comment.",
             }
-            return render(request, "post_detail.html", error_context)
+        return render(request, "post_detail.html", error_context)
