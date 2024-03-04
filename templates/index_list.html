@@ -1,12 +1,19 @@
-{% for post in posts %}
-<ul>
+{% extends "base.html" %}
+
+{% block main  %}
+{% for post in post_list %}
+<ul class="list-group">
   {% if post %}
-    <li>{{ post.owner.first_name }}</li>
-    <li><a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a></li>
-    <li>{{ post.content }}</li>
+  <li class="list-group-item list-group-item-primary">{{ post.owner.first_name }}</li>
+  <li class="list-group-item list-group-item-info">
+    <a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a>
+  </li>
+  <li class="list-group-item list-group-item-warning">{{ post.content }}</li>
+  <div id="indentation"></div>
   {% else %}
-    <li>{{ post.title }}</li>
-    <li>{{ post.content }}</li>
+  <li class="list-group-item">{{ post.title }}</li>
+  <li class="list-group-item">{{ post.content }}</li>
   {% endif %}
 </ul>
 {% endfor %}
+{% endblock %}
