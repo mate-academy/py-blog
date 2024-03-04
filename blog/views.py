@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404
 from django.views import generic
 from .forms import CommentForm
 from .models import Post, Commentary
@@ -26,19 +26,15 @@ class PostDetailView(generic.DetailView):
     model = Post
     template_name = "post_detail.html"
 
-
-class CreateCommentView(generic.CreateView):
-    template_name = "post_detail.html"
-
     def get(self, request, pk) -> HttpResponse:
         post = get_object_or_404(Post, pk=pk)
         return render(
             request, "post_detail.html", {"post": post, "form": CommentForm()}
         )
 
-    def post(self , request , pk) -> HttpResponse:
+    def post(self, request, pk) -> HttpResponse:
+        post = get_object_or_404(Post, pk=pk)
         if request.user.is_authenticated:
-            post = get_object_or_404(Post, pk=pk)
             date = request.POST.get("created_time")
             content = request.POST.get("content")
             Commentary.objects.create(
@@ -47,9 +43,7 @@ class CreateCommentView(generic.CreateView):
                 content=content,
                 created_time=date
             )
-
         else:
-            post = get_object_or_404(Post, pk=pk)
             form = CommentForm()
             error_context = {
                 "post": post,
