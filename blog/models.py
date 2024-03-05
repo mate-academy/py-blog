@@ -6,15 +6,6 @@ from django.db import models
 class User(AbstractUser):
     nickname = models.CharField(max_length=20)
 
-    groups = models.ManyToManyField(
-        Group,
-        verbose_name='groups',
-        blank=True,
-        help_text='The groups this user belongs to.',
-        related_name='custom_unique_user_set',
-        related_query_name='custom_unique_user',
-    )
-
 
 class Post(models.Model):
     owner = models.ForeignKey(

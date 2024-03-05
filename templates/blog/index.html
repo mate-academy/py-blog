@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+  <h1>Blog home page</h1>
+  <p>Welcome to home page (:</p>
+  <h2>All posts:</h2>
+  {% if all_posts %}
+    <ul>
+      {% for post in all_posts %}
+      <li>
+        <p class="title">{{ post.title }}</p>
+        {% if owner %}
+          ({{ post.owner.nickname }})
+        {% endif %}
+        {{ post.content }} <p>({{ post.created_time }})</p>
+      </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}
