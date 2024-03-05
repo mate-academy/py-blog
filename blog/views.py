@@ -41,13 +41,19 @@ class PostDetailView(generic.DetailView):
 
 class PostCreateView(LoginRequiredMixin, generic.CreateView):
     model = Post
-    fields = "__all__"
+    fields = ["title", "description", "content"]
     success_url = reverse_lazy("blog:post-list")
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.owner = self.request.user
+        post.save()
+        return super().form_valid(form)
 
 
 class PostUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Post
-    fields = "__all__"
+    fields = ["title", "description", "content"]
 
     def get_success_url(self):
         return reverse_lazy("blog:post-detail", kwargs={"pk": self.object.pk})
