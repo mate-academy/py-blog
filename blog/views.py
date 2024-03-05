@@ -2,8 +2,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views import generic
 
-from .forms import CommentaryForm
-from .models import Post, Commentary
+from blog.forms import CommentaryForm
+from blog.models import Post, Commentary
 
 
 class PostListView(generic.ListView):
