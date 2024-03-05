@@ -8,13 +8,14 @@ class CommentCreationForm(forms.Form):
         max_length=255,
         required=False,
         label="",
-        widget=forms.TextInput(
-            attrs={"placeholder": "Write your comment"}
-        )
+        widget=forms.TextInput(attrs={"placeholder": "Write your comment"}),
     )
 
 
 class PostCreationForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ("title", "content",)
+        fields = (
+            "title",
+            "content",
+        )

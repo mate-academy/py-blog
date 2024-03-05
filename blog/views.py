@@ -11,7 +11,9 @@ from blog_system.forms import CommentCreationForm, PostCreationForm
 class IndexListView(generic.ListView):
     model = Post
     template_name = "blog/index.html"
-    queryset = Post.objects.order_by("-created_time").prefetch_related("comments")
+    queryset = Post.objects.order_by(
+        "-created_time"
+    ).prefetch_related("comments")
     context_object_name = "post_list"
     paginate_by = 5
 
