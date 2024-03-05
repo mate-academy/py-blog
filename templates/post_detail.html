@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block main %}
+
+<h3>{{post.title}}</h3>
+<p>{{post.owner.username}} {{ post.created_time }}</p>
+<p>{{post.content}}</p>
+<p>{{ post.comments.count }} comments</p>
+<ul class="list-group">
+{% for num in post.comments.all %}
+  <li class="list-group-item">{{ num.user.username }} {{ num.created_time }}</li>
+  <li class="list-group-item">{{ num.content }}</li>
+  <div id="indentation"></div>
+{% endfor %}
+</ul>
+{% if error %}
+<p style="color: red">{{ error }}</p>
+{% endif %}
+<h3>Add new comment</h3>
+{% load crispy_forms_tags %}
+<form action="" method="POST" style="width: 500px;">
+  {% csrf_token %}
+  {{ form|crispy }}
+  <button type="submit" class="btn btn-success">Add comment</button>
+</form>
+{% endblock %}
