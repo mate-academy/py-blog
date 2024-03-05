@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block title %}
+  <title>Space Blog - {{ post.title|title }}</title>
+{% endblock %}
+
+{% block header %}
+<div class="post-heading">
+  <h1>{{ post.title|title }}</h1>
+  <h2 class="subheading">{{ post.description }}</h2>
+  <span class="meta">
+    Posted by
+    <a href="#">{{ post.owner }}</a>
+    on {{ post.created_time|date:"d F Y" }}
+  </span>
+</div>
+  {% if user.is_authenticated and post.owner == user %}
+    <br>
+    <a class="btn btn-success btn-sm" href="{% url 'blog:post-update' pk=post.id %}">
+      Update
+    </a>
+    <a class="btn btn-danger btn-sm" href="{% url 'blog:post-delete' pk=post.id %}">
+     Delete
+    </a>  
+  {% endif %}  
+{% endblock %}
+
+{% block content %}
+  {% if post.content %}
+    {{ post.content|linebreaksbr }}
+  {% endif %}
+  {% if post.comments %}
+  <div id="comments">
+    {% with post.comments as commentary_list %}  
+      {% include "blog/commentary_list.html" %}
+    {% endwith %}
+  </div>  
+    {% with post.id as post_id %}  
+      {% include "blog/commentary_form.html" %}
+    {% endwith %}    
+  {% endif %}
+{% endblock %}
