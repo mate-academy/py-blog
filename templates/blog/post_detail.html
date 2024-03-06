@@ -46,7 +46,7 @@
     <form action="{% url 'blog:create-comment' post.pk %}" method="post" novalidate>
       {% csrf_token %}
       {{ form|crispy }}
-      <textarea class="form-control-lg" id="comment" name="content" cols="100%"></textarea>
+      <textarea class="form-control-lg col-sm-12" id="comment" name="content"></textarea>
       <br>
       <input type="submit" value="Add comment" class="btn btn-secondary"/>
 

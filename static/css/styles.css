@@ -12,12 +12,10 @@
 .col-sm-2 {
     background-color: gray;
     padding-top: 20px;
-    height: 100vh;
-    position: fixed;
 }
 
 .col-sm-10 {
-    margin: 10px auto auto 170px;
+    margin: auto;
     padding: 20px;
 
 }
