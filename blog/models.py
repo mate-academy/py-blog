@@ -12,11 +12,13 @@ class Post(models.Model):
         User,
         on_delete=models.SET_NULL,
         null=True,
-        related_name="unique_post"
     )
     title = models.CharField(max_length=33)
     content = models.TextField()
     created_time = models.DateTimeField(default=timezone.now)
+
+    def comment_count(self):
+        return self.commentary.count()
 
 
 class Commentary(models.Model):
@@ -24,12 +26,10 @@ class Commentary(models.Model):
         User,
         on_delete=models.CASCADE,
         null=True,
-        related_name="unique_commentary"
     )
     post = models.ForeignKey(
         Post,
         on_delete=models.CASCADE,
-        related_name="unique_comment"
     )
     created_time = models.DateTimeField(default=timezone.now)
     content = models.TextField()

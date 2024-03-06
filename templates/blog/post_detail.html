@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h4>Post title: {{ post.title }}</h4>
+  <h4>Author: {{ post.owner.username }}</h4>
+  <h4>Content:</h4>
+  <p>{{ post.content }}</p>
+  {% if post.commentary_set.all %}
+    <h4>Comments:</h4>
+    <ul>
+      {% for comment in post.commentary_set.all %}
+        <li>{{ comment.user.username }} - {{ comment.content }} ({{ comment.created_time }})</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No comments yet.</p>
+  {% endif %}
+
+{% endblock %}
