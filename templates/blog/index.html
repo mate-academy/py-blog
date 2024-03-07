@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+  <h1 class="title">Posts</h1>
+  <ul class="list-group">
+    {% for post in post_list %}
+    <li class="list-group-item">
+      <div class="post-header">
+        <h4 class="post-title"><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h4>
+        <p class="post-created-time">{{ post.created_time }}</p>
+      </div>
+      <p class="post-content">{{ post.content }}</p>
+      <div class="post-footer">
+        <p class="post-author">Author: {{ post.owner.username }}</p>
+        <p class="post-comment-quantity">Comment quantity: {{ post.comments.count }}</p>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
