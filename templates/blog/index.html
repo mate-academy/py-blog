@@ -8,14 +8,15 @@
     <ul>
       {% for post in all_posts %}
       <li>
-        <p>
+        <ul>
           <a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a>
           {% if post.owner %}
             by {{ post.owner.username }}
           {% endif %}
           ({{ post.commentary_set.count }} comments)
-        </p>
+        </ul>
         {{ post.content }} ({{ post.created_time }})
+
       </li>
       {% endfor %}
     </ul>
