@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
   <h4>Post title: {{ post.title }}</h4>
@@ -15,5 +16,11 @@
   {% else %}
     <p>No comments yet.</p>
   {% endif %}
+    <h4>Add a Comment:</h4>
+    <form action="{% url 'blog:commentary-create' post.pk %}" method="post">
+      {% csrf_token %}
+      <input type="text" name="content">
+      <input type="submit" value="Submit" class="btn btn-primary">
+    </form>
 
 {% endblock %}

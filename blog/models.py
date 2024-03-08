@@ -1,5 +1,4 @@
-from django.utils import timezone
-from django.contrib.auth.models import AbstractUser, Group
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
@@ -15,7 +14,7 @@ class Post(models.Model):
     )
     title = models.CharField(max_length=33)
     content = models.TextField()
-    created_time = models.DateTimeField(default=timezone.now)
+    created_time = models.DateTimeField(auto_now_add=True)
 
     def comment_count(self):
         return self.commentary.count()
@@ -31,5 +30,5 @@ class Commentary(models.Model):
         Post,
         on_delete=models.CASCADE,
     )
-    created_time = models.DateTimeField(default=timezone.now)
+    created_time = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
