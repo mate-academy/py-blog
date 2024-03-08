@@ -27,7 +27,7 @@ class AdminSiteBlogTests(TestCase):
 
 class GitignoreTests(TestCase):
     def test_gitignore_exist(self):
-        file_exists = os.path.exists('.gitignore')
+        file_exists = os.path.exists(".gitignore")
         assert file_exists
 
     def test_gitignore_has_correct_content(self):
@@ -41,6 +41,6 @@ class GitignoreTests(TestCase):
 
 class IsStylesCSSExistTests(TestCase):
     def test_styles_exist(self):
-        file_exists = os.path.exists('static/css/styles.css')
+        file_exists = os.path.exists("static/css/styles.css")
 
         self.assertTrue(file_exists)
