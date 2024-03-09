@@ -4,16 +4,16 @@
 {% block content %}
   <h1>Blog home page</h1>
   <h2>All posts:</h2>
-  {% if all_posts %}
+  {% if post_list %}
     <ul>
-      {% for post in all_posts %}
+      {% for post in post_list %}
       <li>
         <ul>
           <a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a>
           {% if post.owner %}
             by {{ post.owner.username }}
           {% endif %}
-          ({{ post.commentary_set.count }} comments)
+          ({{ post.commentary_set.count }} comment{{ post.commentary_set.count|pluralize }})
         </ul>
         {{ post.content }} ({{ post.created_time }})
 
@@ -21,14 +21,14 @@
       {% endfor %}
     </ul>
   {% endif %}
-  {% if all_posts.has_other_pages %}
+  {% if post_list.has_other_pages %}
     <ul>
-      {% if all_posts.has_previous %}
-        <li><a href="?page={{ all_posts.previous_page_number }}">Prev</a></li>
+      {% if post_list.has_previous %}
+        <li><a href="?page={{ post_list.previous_page_number }}">Prev</a></li>
       {% endif %}
-      <li><span class="page-link">{{ all_posts.number }}</span></li>
-      {% if all_posts.has_next %}
-        <li><a href="?page={{ all_posts.next_page_number }}">Next</a></li>
+      <li><span class="page-link">{{ post_list.number }}</span></li>
+      {% if post_list.has_next %}
+        <li><a href="?page={{ post_list.next_page_number }}">Next</a></li>
       {% endif %}
     </ul>
   {% endif %}

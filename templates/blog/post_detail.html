@@ -3,15 +3,15 @@
 
 
 {% block content %}
-  <div class="container">
-    <div class="col-md-8">
-      <div class="row">
-        <h1>Post title: {{ post.title }}</h1>
-        <p>Author: {{ post.owner.username }}</p>
-        <h1>Content:</h1>
-        <p>{{ post.content }}</p>
+  <div class="container row col-md-8">
+    <ul>
+      <li>Post title: {{ post.title }}</li>
+      <li>Author: {{ post.owner.username }}</li>
+      <br>
+      <p>Text: <br>{{ post.content }}</p>
+      <li>
         {% if post.commentary_set.all %}
-          <h2>Comments:</h2>
+          <h4>Comments:</h4>
           <ul>
             {% for comment in comments %}
               <li>{{ comment.user.username }} - {{ comment.content }} ({{ comment.created_time }})</li>
@@ -34,15 +34,15 @@
               {% endif %}
             </ul>
           {% endif %}
+        <h4>Add a Comment:</h4>
+          <form action="{% url 'blog:commentary-create' post.pk %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="content">
+            <input type="submit" value="Submit" class="btn btn-primary">
+          </form>
         {% endif %}
-      </div>
-    </div>
-    <h2>Add a Comment:</h2>
-    <form action="{% url 'blog:commentary-create' post.pk %}" method="post">
-      {% csrf_token %}
-      <input type="text" name="content">
-      <input type="submit" value="Submit" class="btn btn-primary">
-    </form>
+          </li>
+        </ul>
   </div>
 
 

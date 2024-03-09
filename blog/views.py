@@ -13,20 +13,17 @@ from blog.models import Post, Commentary
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
-@login_required
 def index(request: HttpRequest) -> HttpResponse:
-    page_size = 5
-    all_posts = Post.objects.all().order_by("created_time")
-    paginator = Paginator(all_posts, page_size)
-    page_number = request.GET.get("page")
-    try:
-        paginated_posts = paginator.page(page_number)
-    except PageNotAnInteger:
-        paginated_posts = paginator.page(1)
-    except EmptyPage:
-        paginated_posts = paginator.page(paginator.num_pages)
+
+    paginated_by = 5
+    all_posts = Post.objects.all().order_by("-created_time")
+
+    paginator = Paginator(all_posts, paginated_by)
+    page_number = request.GET.get("page", 1)
+    paginated_posts = paginator.page(page_number)
+
     context = {
-        "all_posts": paginated_posts
+        "post_list": paginated_posts
     }
     return render(
         request,
@@ -35,10 +32,7 @@ def index(request: HttpRequest) -> HttpResponse:
     )
 
 
-class PostDetailView(
-    LoginRequiredMixin,
-    generic.DetailView
-):
+class PostDetailView(generic.DetailView):
     model = Post
 
     def get_context_data(self, **kwargs):
@@ -46,13 +40,13 @@ class PostDetailView(
         post = self.get_object()
         comments = post.commentary_set.all()
         paginator = Paginator(comments, 5)
-        page_number = self.request.GET.get('page')
+        page_number = self.request.GET.get("page")
         page_obj = paginator.get_page(page_number)
         context["comments"] = page_obj
         return context
 
 
-class CommentaryListView(LoginRequiredMixin, generic.ListView):
+class CommentaryListView(generic.ListView):
     model = Commentary
     paginate_by = 5
 
@@ -66,8 +60,15 @@ class CommentaryCreateView(LoginRequiredMixin, FormView):
         form: CommentaryForm
     ) -> HttpResponseRedirect:
         post = Post.objects.get(pk=self.kwargs["pk"])
-        Commentary.objects.create(post=post, user=self.request.user, content=form.cleaned_data["content"])
+        Commentary.objects.create(
+            post=post,
+            user=self.request.user,
+            content=form.cleaned_data["content"]
+        )
         return super().form_valid(form)
 
     def get_success_url(self) -> HttpResponse:
-        return reverse_lazy("blog:post-detail", kwargs={"pk": self.kwargs["pk"]})
+        return reverse_lazy(
+            "blog:post-detail",
+            kwargs={"pk": self.kwargs["pk"]}
+        )
