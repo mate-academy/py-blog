@@ -8,7 +8,7 @@ from .views import (IndexListView,
 
 urlpatterns = [
     path("", IndexListView.as_view(), name="index"),
-    path("post/create/", post_create_view, name="create-post"),
+    path("posts/create/", post_create_view, name="create-post"),
     path("posts/<int:pk>/", PostDetailView.as_view(), name="post-detail"),
     path(
         "posts/<int:pk>/create-comment/",
