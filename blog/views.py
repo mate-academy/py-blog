@@ -8,14 +8,14 @@ from blog.models import Post, Commentary
 
 
 class IndexListView(generic.ListView):
-    model = Post
     template_name = "blog/index.html"
     paginate_by = 5
 
     def get_queryset(self):
-        queryset = super(IndexListView, self).get_queryset()
         queryset = (
-            queryset.select_related("owner").prefetch_related("commentaries")
+            Post.objects
+            .select_related("owner")
+            .prefetch_related("commentaries")
         )
         return queryset
 
@@ -42,7 +42,8 @@ def post_detail_view(request: HttpRequest, pk: int) -> HttpResponse:
                     content=form.cleaned_data["content"]
                 )
                 return HttpResponseRedirect(
-                    reverse("blog:post-detail", kwargs={"pk": pk}))
+                    reverse("blog:post-detail", kwargs={"pk": pk})
+                )
 
             context = {"post": post, "form": form}
             return render(request, "blog/post_detail.html", context=context)

@@ -51,4 +51,4 @@ class Commentary(models.Model):
         verbose_name_plural = "commentaries"
 
     def __str__(self) -> str:
-        return f"Post: {self.post.title}, content: {self.content}"
+        return f"Post: {self.post.title}, content: {self.content[:20]}"
