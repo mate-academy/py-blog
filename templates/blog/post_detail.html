@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Posts:</h1>
+  <ul>
+    <li><strong>Content: </strong>{{ post.content }}.</li>
+    <li><strong>Created time: </strong>{{ post.created_time }}</li>
+  </ul>
+{% endblock %}
