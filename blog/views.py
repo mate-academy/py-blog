@@ -1,27 +1,28 @@
-from django.db.models import Count
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, HttpRequest
-from django.shortcuts import render
-from django.views import generic
+from django.shortcuts import redirect
+from django.views import generic, View
 
+from blog.forms import CreateCommentaryForm
 from blog.models import Post
 
 
-def index(request: HttpRequest) -> HttpResponse:
-    post = Post.objects.order_by("-created_time")
-    commentary_count = Post.objects.annotate(num_comments=Count("commentary"))
-    context = {
-        "posts": post,
-        "post_count": commentary_count,
-    }
-
-    return render(request, "blog/index.html", context=context)
-
-
-class PostListView(generic.ListView):
+class IndexListView(LoginRequiredMixin, generic.ListView):
     model = Post
     paginate_by = 5
-    queryset = Post.objects.all().select_related("owner")
+    template_name = "blog/index.html"
 
 
-class PostDetailView(generic.DetailView):
+class PostDetailView(LoginRequiredMixin, generic.DetailView):
     model = Post
+
+
+class CreateCommentView(LoginRequiredMixin, View):
+    def post(self, request: HttpRequest, pk: int) -> HttpResponse:
+        form = CreateCommentaryForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post_id = pk
+            comment.user = request.user
+            comment.save()
+        return redirect("blog:post-detail", pk=pk)
