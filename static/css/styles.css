@@ -1,18 +1,18 @@
-.body {
+body {
     min-height: 230vh;
     font-family: "Open Sans", sans-serif;
     background-color: #f8f9fa;
     position: relative;
 }
 
-.header {
+header {
     position: relative;
     text-align: center;
     color: white;
     z-index: 1;
 }
 
-.header img {
+header img {
     width: 100vw;
     height: 850px;
     object-fit: cover;
@@ -27,13 +27,13 @@
     transform: translate(-50%, -50%);
 }
 
-.header h1 {
+header h1 {
     font-family: 'Lora', serif;
     font-size: 3.5rem;
     margin-bottom: 0;
 }
 
-.header p {
+header p {
     font-size: 1.25rem;
 }
 
@@ -65,7 +65,7 @@
     background-color: #555;
 }
 
-.footer {
+footer {
     background-color: #343a40;
     color: white;
     padding: 50px 0;
@@ -75,16 +75,16 @@
     bottom: 0;
 }
 
-.footer ul.list-inline li {
+footer ul.list-inline li {
     display: inline-block;
     margin-right: 15px;
 }
 
-.footer ul.list-inline li:last-child {
+footer ul.list-inline li:last-child {
     margin-right: 0;
 }
 
-.footer ul.list-inline li a {
+footer ul.list-inline li a {
     color: white;
     text-decoration: none;
     font-size: 1.0rem;

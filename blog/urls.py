@@ -19,7 +19,7 @@ app_name = "blog"
 
 url_posts = [
     path("", PostListView.as_view(), name="index"),
-    path('', views.PostListView.as_view(), name='post-list'),
+    path("", views.PostListView.as_view(), name="post-list"),
     path("posts/<int:pk>/", PostDetailView.as_view(), name="post-detail"),
     path(
         "posts/user/<int:user_pk>/",
