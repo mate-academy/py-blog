@@ -14,85 +14,29 @@
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
-    {% block sidebar %}
-      {% include "includes/sidebar.html" %}
-    {% endblock %}
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
-    <header>
-        <img class="container" src="{% static 'img/home-bg.jpg' %}" alt="image">
-            <h1>New BMW or Old BMW</h1>
-            <p>Welcome to our website</p>
-    </header>
-
-    <style>
-
-        #logout-form {
-            display: inline;
-        }
-        #logout-form button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 0;
-            text-decoration: underline;
-}
-        body {
-            font-family: "Open Sans", sans-serif;
-            background-color: #f8f9fa;
-        }
-        .container {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .container {
-            position: absolute;
-            top: 0;
-            right: 0;
-            margin: 0px;
-            padding: 0px;
-            width: 50%;
-            height: auto;
-        }
-        header {
-            height: 300px;
-            padding: 50px 0;
-            text-align: center;
-            color: white;
-        }
-        header h1 {
-            font-family: 'Lora', serif;
-            font-size: 3.5rem;
-            margin-bottom: 0;
-        }
-        header p {
-            font-size: 1.25rem;
-        }
-        footer {
-            background-color: #343a40;
-            color: white;
-            padding: 50px 0;
-            text-align: center;
-        }
-        footer ul.list-inline li {
-            display: inline-block;
-            margin-right: 15px;
-        }
-        footer ul.list-inline li:last-child {
-            margin-right: 0;
-        }
-        footer ul.list-inline li a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.5rem;
-        }
-    </style>
+    <link href="{% static 'style/styles.css' %}" rel="stylesheet">
 </head>
 <body>
 
-<!-- Navigation-->
+<header>
+    <img src="{% static 'img/home-bg.jpg' %}" alt="image">
+    <div class="header-content">
+        <h1>New BMW or Old BMW</h1>
+        <p>Welcome to our website</p>
+    </div>
+</header>
 
+<!-- Login text -->
+<div class="login-text">
+    <h1>Login</h1>
+</div>
+
+<!-- Navigation-->
+<nav class="navbar">
+    <a href="{% url 'blog:post-list' %}">BMW Blog Menu</a>
+    <a href="{% url 'logout' %}">Log out</a>
+</nav>
 
 <!-- Main Content-->
 <div class="container px-4 px-lg-5">
