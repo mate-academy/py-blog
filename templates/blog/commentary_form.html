@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h1>Create Comments: </h1>
+  <form action="" method="post" novalidate>
+  {% csrf_token %}
+  {{ form.sa_p }}
+    <textarea class="form-control-lg col-sm-12" id="comment" name="content"></textarea>
+    <input type="submit" value="Submit">
+  </form>
+{% endblock %}

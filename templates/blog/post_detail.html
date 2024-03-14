@@ -22,11 +22,10 @@
 
   {% endfor %}
   {% if user.is_authenticated %}
-    <form action="{% url 'blog:comment-create' pk=post.id %}" method="post" novalidate>
+    <form action="{% url 'blog:comment-create' %}" method="post" novalidate>
       {% csrf_token %}
-      <textarea class="form-control-lg col-sm-12" id="comment" name="content"></textarea>
-      <br>
-      <input type="submit" value="Add comment" class="btn btn-secondary"/>
+
+      <input type="submit" value="Add comment" class="btn btn-primary"/>
 
     </form>
   {% else %}

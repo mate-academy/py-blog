@@ -1,10 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse, HttpRequest
-from django.shortcuts import redirect
-from django.views import generic, View
+from django.urls import reverse_lazy
+from django.views import generic
 
-from blog.forms import CreateCommentaryForm
-from blog.models import Post
+from blog.models import Post, Commentary
 
 
 class IndexListView(LoginRequiredMixin, generic.ListView):
@@ -17,12 +15,7 @@ class PostDetailView(LoginRequiredMixin, generic.DetailView):
     model = Post
 
 
-class CreateCommentView(LoginRequiredMixin, View):
-    def post(self, request: HttpRequest, pk: int) -> HttpResponse:
-        form = CreateCommentaryForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post_id = pk
-            comment.user = request.user
-            comment.save()
-        return redirect("blog:post-detail", pk=pk)
+class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Commentary
+    fields = ("content", )
+    success_url = reverse_lazy("blog:post-detail")
