@@ -1,0 +1,48 @@
+{% extends "base_wide.html" %}
+
+{% block sidebar %}
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-5">
+
+    <h1>User Information</h1>
+    <div class="card mb-3">
+      <div class="card-body">
+        <p><strong>Name:</strong> {{ user.get_full_name }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Nickname:</strong> {{ user.username }}</p>
+        <p><strong>Group:</strong> {% if user.is_staff %} Staff {% elif user.is_superuser %} Admin {% else %} Regular
+          User {% endif %}</p>
+        <p><strong>Registration Date:</strong> {{ user.date_joined }}</p>
+      </div>
+    </div>
+
+    <h2>User Posts</h2>
+    <ul class="list-group mb-3">
+      {% for post in user.posts.all %}
+        <li class="list-group-item">
+          <span>{{ post.title }}</span> <small class="text-muted">({{ post.created_time }})</small> -
+          <a href="{% url 'blog:post-detail' post.pk %}" class="btn btn-sm btn-primary">View Post</a>
+          <span class="badge badge-secondary">{{ post.comments.count }} comments</span>
+        </li>
+      {% empty %}
+        <li class="list-group-item">No posts yet.</li>
+      {% endfor %}
+    </ul>
+
+    <h2>User Comments</h2>
+    <ul class="list-group">
+      {% for comment in user.comments.all %}
+        <li class="list-group-item">
+          {{ comment.content }} -
+          <small class="text-muted">{{ comment.created_time }}</small> -
+          <a href="{% url 'blog:post-detail' comment.post.pk %}" class="btn btn-sm btn-primary">View Post</a>
+        </li>
+      {% empty %}
+        <li class="list-group-item">No comments yet.</li>
+      {% endfor %}
+    </ul>
+
+  </div>
+{% endblock %}
