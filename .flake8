@@ -5,6 +5,9 @@ max-line-length = 79
 max-complexity = 18
 select = B,C,E,F,W,T4,B9,Q0,N8,VNE
 exclude =
+    ./blog_system/asgi.py
+    ./blog_system/wsgi.py
+    ./manage.py
     **migrations
     venv
     tests
