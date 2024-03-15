@@ -1,0 +1,26 @@
+{% load custom_tags %}
+
+<nav class="navbar bg-light">
+  <div class="container">
+    <a class="navbar-brand"><h1 class="text-secondary"><strong>Simple blog</strong></h1></a>
+    {% if user.is_authenticated %}
+      <form action="{% url 'blog:logout' %}" method="post" class="d-flex">
+        {% csrf_token %}
+        <input type="hidden" name="login_curl" value="{% url_reparse request %}">
+        <span class="navbar-text text-dark me-2">{{ user.get_full_name }}</span>
+        <button class="btn btn-outline-secondary" type="submit">Logout</button>
+      </form>
+    {% else %}
+      <form action="{% url 'blog:login' %}" method="post" class="d-flex">
+        {% csrf_token %}
+        {% if request.session.login_error %}
+          <span class="navbar-text text-danger text-nowrap me-2">{{ request.session.login_error }}</span>
+        {% endif %}
+        <input type="hidden" name="login_curl" value="{% url_reparse request %}">
+        <input class="form-control me-2" type="text" placeholder="Username" aria-label="Username" name="username" value="{{ request.session.login_username }}">
+        <input class="form-control me-2" type="password" placeholder="Password" aria-label="Password" name="password">
+        <button class="btn btn-outline-success" type="submit">Login</button>
+      </form>
+    {% endif %}
+  </div>
+</nav>
