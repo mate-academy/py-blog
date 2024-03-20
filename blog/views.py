@@ -1,4 +1,5 @@
 from django.db.models import Count
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic.edit import FormMixin
@@ -25,7 +26,7 @@ class PostDetailView(generic.DetailView, FormMixin):
     def get_success_url(self):
         return reverse_lazy("blog:post-detail", kwargs={"pk": self.object.pk})
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs) -> HttpResponseRedirect:
         self.object = self.get_object()
         form = self.get_form()
         if form.is_valid():
@@ -37,7 +38,7 @@ class PostDetailView(generic.DetailView, FormMixin):
 
         return self.form_invalid(form)
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
         post = self.get_object()
         context["owner"] = post.owner
