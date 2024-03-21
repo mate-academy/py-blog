@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Blog Home</h1>
+  <h2>Posts list</h2>
+    {% if post_list %}
+    <table class="table">
+      <tr>
+        <th>Title</th>
+        <th>Content</th>
+        <th>Author</th>
+        <th>Created time</th>
+        <th>The number of comments</th>
+      </tr>
+    {% for post in post_list %}
+      <tr>
+        <td><a href="{% url "blog:post-detail" pk=post.id %}"> {{ post.title }}</a></td>
+        <td>{{ post.content }}</td>
+        <td>{{ post.owner }}</td>
+        <td>{{ post.created_time }}</td>
+        <td>{{ post.commentaries.count }}</td>
+      </tr>
+    {% endfor %}
+
+    </table>
+    {% else %}
+      <p>There are no drivers in the service.</p>
+    {% endif %}
+
+{% endblock %}
