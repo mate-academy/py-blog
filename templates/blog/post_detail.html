@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="post-info">
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.owner }}</p>
+    <p>{{ post.content }}</p>
+    <p>{{ post.created_time }}</p>
+  </div>
+  {% if user.is_authenticated and user == post.owner %}
+    <a class="btn btn-warning" href="{% url 'blog:post-update' pk=post.id %}">UPDATE</a>
+    <a class="btn btn-danger" href="{% url 'blog:post-delete' pk=post.id %}">DELETE</a>
+  {% endif %}
+  {% block comments %}
+    {% include "includes/comments.html" %}
+  {% endblock %}
+
+{% endblock %}
