@@ -1,0 +1,21 @@
+body {
+  margin: 0;
+  padding: 10px 0 0 0;
+}
+
+main {
+  padding-top: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 15px;
+
+  width: 100%;
+
+  h5 {
+    width: max-content;
+  }
+}

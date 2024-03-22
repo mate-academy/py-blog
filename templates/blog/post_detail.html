@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <h4 class="card-subtitle mb-2 text-body-secondary">Author: {{ post.owner.first_name }}</h4>
+  <p class="card-text">{{ post.content }}</p>
+  <p class="card-text">{{ post.created_time }}</p>
+
+  <h4>Comments:</h4>
+  <ul>
+    {% for comment in post.commentary_set.all %}
+      <li>
+        {{ comment.content }}
+      </li>
+    {% endfor %}
+  </ul>
+
+  {% if user.is_authenticated %}
+    {% include "blog/commentary_form.html" %}
+  {% else %}
+    <div>
+      <p> <strong> Please register to write a comment</p>
+    </div>
+    <br>
+  {% endif %}
+{% endblock %}

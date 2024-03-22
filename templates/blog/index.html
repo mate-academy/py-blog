@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="row">
+    {% for post in post_list %}
+      <div class="card mb-5">
+        <div class="card-body">
+          <h1 class="card-title">
+            <a href="{% url "blog:post-detail" pk=post.pk %}">{{ post.title }}</a>
+          </h1>
+          <h4 class="card-subtitle mb-2 text-body-secondary">Author: {{ post.owner.first_name }}</h4>
+          <p class="card-text">{{ post.content }}</p>
+          <p class="card-text">{{ post.created_time }}</p>
+          <p class="card-text">Comments: {{ post.comment_count }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
