@@ -20,7 +20,6 @@ class Index(generic.ListView):
 
 class PostDetailView(generic.DetailView, FormMixin):
     model = Post
-    template_name = "blog/post_detail.html"
     form_class = CommentaryForm
 
     def get_success_url(self):
