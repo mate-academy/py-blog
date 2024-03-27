@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load bootstrap_icons %}
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center subtitle">
+    <h2>Posts</h2>
+  </div>
+
+  {% if post_list %}
+    <ul class="list-group list-group-flush">
+      {% for post in post_list %}
+        <li class="list-group-item border-0 pl-0">
+          <a href="{{ post.get_absolute_url }}" class="list-group-item-action post">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">{{ post.title }}</h5>
+                <p class="card-subtitle mb-2 font-italic owner-info">{{ post.owner }} at {{ post.created_time }}</p>
+                <p class="card-text card-content">{{ post.content }}</p>
+                {% if post.comments.all %}
+                  <span class="card-text card-content">Comments:</span>
+                  <ul class="list-group list-group-flush">
+                    {% for comment in post.comments.all %}
+                      <li class="list-group-item border-0 pl-0 pb-0">
+                        <div class="card">
+                          <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                              <div>
+                                <span class="text font-weight-normal">{{ comment.user }}</span>
+                                <span class="font-italic owner-info">{{ comment.created_time }}</span>
+                              </div>
+                            </li>
+                            <li class="list-group-item">
+                              <span class="text">{{ comment.content }}</span>
+                            </li>
+                          </ul>
+                        </div>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </div>
+            </div>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>No data</p>
+  {% endif %}
+{% endblock %}
