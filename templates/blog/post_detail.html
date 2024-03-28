@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <div>
+    <small>published on: {{ post.created_time }} by {{ post.owner }}</small>
+  </div>
+  <article>
+    <br>
+    <p>{{ post.content }}</p>
+    <p><small><strong>{{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}</strong></small></p>
+    {% for comment in post.commentaries.all %}
+      <div class="container p-3 my-3 border">
+        <p>
+          {{ comment.user.username }}
+          <small style="font-size: small;">{{ comment.created_time }}</small>
+        </p>
+        <hr>
+        {{ comment.content }}
+      </div>
+    {% endfor %}
+  </article>
+
+  {% if user.is_authenticated %}
+  <form method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+      <strong>Add new comment</strong>
+      {{ comment_form|crispy}}
+      <button class="btn btn-info" type="submit">Add comment <i class="fas fa-comments"></i></button>
+    </div>
+  </form>
+  {% else %}
+  <a class="btn btn-outline-info" href="{% url 'login' %}?next={{request.path}}">Log in to add a comment!</a><br>
+  {% endif %}
+{% endblock %}
