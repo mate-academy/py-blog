@@ -1,52 +1,51 @@
 <div class="comments">
     <p>{{ post.comments.count }} comment{{ post.comments.count|pluralize }}</p>
-    <form action="" method="post">
+    <form action="{% url 'blog:post-detail' pk=post.pk %}" method="post">
+      {% csrf_token %}
       {% if user.is_authenticated %}
         <div class="comment-input">
-          {% csrf_token %}
           <div class="row">
             <div class="col-sm-3 col-xs-4">
               {{ comment_form.as_p }}
             </div>
-              <button class="btn btn-primary btn-xs" type="submit">Comment</button>
+            <button class="btn btn-primary btn-xs" type="submit">Comment</button>
           </div>
         </div>
       {% else %}
         <p><a href="{% url 'login' %}?next={{ request.path }}">Log in</a> to write a comment</p>
       {% endif %}
-
     </form>
-    {% if comments %}
+    {% if post.comments %}
       <ul>
         {% for comment in post.comments.all %}
-          <div class="row">
-            <div class="col-sm-2">
-              <strong>{{ comment.user }}</strong>
-            </div>
-            {{ comment.created_time }}
-          </div>
-          <p>{{ comment.content }}</p>
-          {% if user.is_authenticated and user == comment.user %}
+          <li>
             <div class="row">
-              <form method="post">
+              <div class="col-sm-2">
+                <strong>{{ comment.user }}</strong>
+              </div>
+              {{ comment.created_time }}
+            </div>
+            <p>{{ comment.content }}</p>
+            {% if user.is_authenticated and user == comment.user %}
+              <div class="row">
+                <form method="post" action="{% url 'blog:edit-comment' comment.id %}">
                   {% csrf_token %}
                   <div class="col-sm-1">
                     <textarea name="edited_content">{{ comment.content }}</textarea>
                   </div>
                   <div class="col-sm-1">
-                    <input type="hidden" name="edit_comment_id" value="{{ comment.id }}">
                     <button class="btn btn-warning" type="submit">Edit</button>
                   </div>
-              </form>
-              <form method="post">
+                </form>
+                <form method="post" action="{% url 'blog:delete-comment' comment.id %}">
                   {% csrf_token %}
                   <div class="col-sm-1">
-                    <input type="hidden" name="delete_comment_id" value="{{ comment.id }}">
                     <button class="btn btn-danger" type="submit">Delete</button>
                   </div>
-              </form>
-            </div>
-        {% endif %}
+                </form>
+              </div>
+            {% endif %}
+          </li>
         {% endfor %}
       </ul>
     {% else %}

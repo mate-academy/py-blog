@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -16,38 +16,21 @@ class IndexListView(generic.ListView):
 
 class PostDetailView(generic.DetailView):
     model = Post
+    template_name = "blog/post_detail.html"
 
     def get_context_data(self, **kwargs):
-        data = super().get_context_data(**kwargs)
-
-        comments_connected = Commentary.objects.filter(post=self.get_object())
-        data["comments"] = comments_connected
-
-        if self.request.user.is_authenticated:
-            data["comment_form"] = CommentForm()
-
-        return data
+        context = super().get_context_data(**kwargs)
+        context["comment_form"] = CommentForm()
+        return context
 
     def post(self, request, *args, **kwargs):
         post_object = self.get_object()
-        if "edit_comment_id" in request.POST:
-            comment_id = request.POST.get("edit_comment_id")
-            comment = get_object_or_404(Commentary, pk=comment_id,
-                                        user=request.user)
-            comment.content = request.POST.get("edited_content")
-            comment.save()
-        elif "delete_comment_id" in request.POST:
-            comment_id = request.POST.get("delete_comment_id")
-            comment = get_object_or_404(Commentary, pk=comment_id,
-                                        user=request.user)
-            comment.delete()
-        else:
-            new_comment = Commentary(
-                content=request.POST.get("content"),
-                user=self.request.user,
-                post=post_object,
-            )
-            new_comment.save()
+        new_comment = Commentary(
+            content=request.POST.get("content"),
+            user=self.request.user,
+            post=post_object,
+        )
+        new_comment.save()
         return redirect("blog:post-detail", pk=post_object.pk)
 
 
@@ -69,3 +52,17 @@ class PostDeleteView(generic.DeleteView):
     template_name = "blog/confirmation.html"
     success_url = reverse_lazy("blog:index")
     form_class = PostForm
+
+
+def edit_comment(request, pk):
+    comment = get_object_or_404(Commentary, pk=pk, user=request.user)
+    comment.content = request.POST.get("edited_content")
+    comment.save()
+    return redirect("blog:post-detail", pk=comment.post.pk)
+
+
+def delete_comment(request, pk):
+    comment = get_object_or_404(Commentary, pk=pk, user=request.user)
+    post_pk = comment.post.pk
+    comment.delete()
+    return redirect("blog:post-detail", pk=post_pk)
