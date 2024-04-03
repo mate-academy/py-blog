@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  <title>Main Page</title>
+{% endblock %}
+
+{% block content %}
+  <h1>Blog</h1>
+  <h3>Blog Content:</h3>
+  <ul>
+    {% for post in posts %}
+      <li>
+        <h4 ><a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a></h4>
+        <p>{{ post.content }}</p>
+        <p>Owner: {{ post.owner.username }}</p>
+        <p>Created at: {{ post.created_time }}</p>
+        <p>Number of comments: {{ commentary.count }}</p>
+      </li>
+      <hr />
+    {% endfor %}
+    <li></li>
+  </ul>
+{% endblock %}
