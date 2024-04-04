@@ -4,7 +4,7 @@
 
 {% block content %}
   <h1>Create comment</h1>
-  <form action="" method="post" novalidate>
+  <form action="{% url 'blog:comment-create' %}" method="post" novalidate>
     {% csrf_token %}
     {{ form|crispy }}
 

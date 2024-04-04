@@ -5,12 +5,13 @@
   <p>{{ post.content }}</p>
   <h2>Comments:</h2>
   <ul>
-    {% for comment in post.comments.all %}
-      <li>{{ comment.author.username }}: {{ comment.content }}</li>
+    {% for comment in commentaries %}
+      <li>{{ comment.content }} - by {{ comment.user }}</li>
       {% empty %}
       <li>No comments yet.</li>
     {% endfor %}
   </ul>
 
+  {% comment %} <h3><a href="{% url 'blog:post-detail' pk = post.id %}">Back to post</a></h3> {% endcomment %}
   <h3><a href="{% url 'blog:comment-create' %}">Add comment</a></h3>
 {% endblock %}

@@ -6,7 +6,7 @@
   <p>Logged out</p>
   <form method="post" action="{% url 'logout' %}">
     {% csrf_token %}
-    <button type="submit">logout</button>
+    {% comment %} <button type="submit">logout</button> {% endcomment %}
   </form>
   <br>
   <a href="{% url 'login' %}">Click here to log in again</a>

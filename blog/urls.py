@@ -6,7 +6,11 @@ from .views import CommentaryCreateView, PostDetailView, PostListView
 
 urlpatterns = [
     path("posts/", PostListView.as_view(), name="index"),
-    path("posts/<int:pk>/", PostDetailView.as_view(), name="post-detail"),
+    path(
+        "posts/<int:pk>/comment/",
+        PostDetailView.as_view(),
+        name="post-detail"
+    ),
     path(
         "comment/create/",
         CommentaryCreateView.as_view(),
