@@ -23,7 +23,7 @@ class PostDetailView(generic.DetailView):
         post = self.get_object()
         context["commentaries"] = post.commentaries.all()
         context["post"] = post
-        print(context["commentaries"])
+        # print(context["commentaries"])
 
         return context
 
@@ -35,7 +35,6 @@ class PostDetailView(generic.DetailView):
             comment.post_id = self.kwargs.get("pk")
             comment.save()
             self.object = comment
-            print(comment)
             return HttpResponseRedirect(self.get_success_url())
         else:
             return self.form_invalid(form)
@@ -57,9 +56,14 @@ class PostDeleteView(LoginRequiredMixin, generic.DeleteView):
 class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
     model = Commentary
     fields = ["content"]
-    context_object_name = "comment-create"
     template_name = "blog/commentary_form.html"
     success_url = reverse_lazy("blog:index")
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        print(form.instance.user)
+        form.instance.post_id = self.kwargs["pk"]
+        return super().form_valid(form)
 
 
 class UserView(LoginRequiredMixin, generic.ListView):

@@ -12,6 +12,6 @@
     {% endfor %}
   </ul>
 
-  {% comment %} <h3><a href="{% url 'blog:post-detail' pk = post.id %}">Back to post</a></h3> {% endcomment %}
+  
   <h3><a href="{% url 'blog:comment-create' pk=post.id %}">Add comment</a></h3>
 {% endblock %}

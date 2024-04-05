@@ -4,11 +4,9 @@
 
 {% block content %}
   <h1>Create comment</h1>
-  <form action="{% url 'blog:comment-create' post.id %}" method="post" novalidate>
+  <form method="post">
     {% csrf_token %}
     {{ form|crispy }}
-
     <input class="btn btn-primary" type="submit" value="Submit" />
-    <input type="hidden" name="next" value="{{ next }}" />
   </form>
 {% endblock %}
