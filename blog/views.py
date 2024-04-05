@@ -1,6 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views import generic
 from .models import User, Post, Commentary
@@ -23,7 +22,6 @@ class PostDetailView(generic.DetailView):
         post = self.get_object()
         context["commentaries"] = post.commentaries.all()
         context["post"] = post
-        # print(context["commentaries"])
 
         return context
 
@@ -36,8 +34,8 @@ class PostDetailView(generic.DetailView):
             comment.save()
             self.object = comment
             return HttpResponseRedirect(self.get_success_url())
-        else:
-            return self.form_invalid(form)
+
+        return self.form_invalid(form)
 
 
 class PostCreateView(LoginRequiredMixin, generic.CreateView):
@@ -61,7 +59,6 @@ class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        print(form.instance.user)
         form.instance.post_id = self.kwargs["pk"]
         return super().form_valid(form)
 
