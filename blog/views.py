@@ -22,7 +22,8 @@ class PostDetailView(generic.DetailView):
         context = super().get_context_data(**kwargs)
         post = self.get_object()
         context["commentaries"] = post.commentaries.all()
-        context["owner"] = post.owner.id
+        context["post"] = post
+        print(context["commentaries"])
 
         return context
 
@@ -32,7 +33,9 @@ class PostDetailView(generic.DetailView):
             comment = form.save(commit=False)
             comment.user_id = self.request.user.id
             comment.post_id = self.kwargs.get("pk")
+            comment.save()
             self.object = comment
+            print(comment)
             return HttpResponseRedirect(self.get_success_url())
         else:
             return self.form_invalid(form)
@@ -57,20 +60,6 @@ class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
     context_object_name = "comment-create"
     template_name = "blog/commentary_form.html"
     success_url = reverse_lazy("blog:index")
-
-    # def post(self, request, *args, **kwargs):
-    #     form = self.get_form()
-    #     if form.is_valid():
-
-    #         comment = form.save(commit=False)
-    #         comment.user_id = self.request.user.id
-    #         comment.post_id = self.kwargs.get("pk")
-
-    #         comment.save()
-    #         self.object = comment
-    #         return HttpResponseRedirect(self.get_success_url())
-    #     else:
-    #         return self.form_invalid(form)
 
 
 class UserView(LoginRequiredMixin, generic.ListView):
