@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  {% for post in post_list %}
+    <ul>
+      <li>
+        <a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }} </a>
+        written by {{ post.owner }}
+        <br>
+        comments: {{ post.commentary_set.count }}
+      </li>
+    </ul>
+  {% endfor %}
+
+  {% if is_paginated %}
+    {% block pagination %}
+      {% include "includes/pagination.html" %}
+    {% endblock %}
+  {% endif %}
+
+{% endblock %}
