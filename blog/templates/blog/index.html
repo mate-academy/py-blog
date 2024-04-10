@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+{% csrf_token %}
+
+<h1>Blog</h1>
+<p>Welcome to Blog!</p>
+<ul>
+  {% for post in posts %}
+  <br>
+  <h1><a href="{% url 'blog:post-detail' pk=post.pk %}">{{ post.title }}</a></h1>
+  <p> {{ post.created_time }}</p>
+  <p> Author: {{ post.owner.username }}</p>
+  {{ post.content|slice:":300" }}
+  <br>
+  {% endfor %}
+</ul>
+{% endblock %}
