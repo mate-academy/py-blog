@@ -37,7 +37,11 @@ class PostDetailView(LoginRequiredMixin, generic.DetailView):
 
             if form.is_valid():
                 content = form.cleaned_data["content"]
-                Commentary.objects.create(user=user, post_id=post_id, content=content)
+                Commentary.objects.create(
+                    user=user,
+                    post_id=post_id,
+                    content=content
+                )
                 return redirect("blog:post-detail", pk=post_id)
 
     def get_context_data(self, **kwargs):
