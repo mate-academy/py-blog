@@ -11,10 +11,9 @@ from blog.models import Post, User, Commentary
 
 def index(request: HttpRequest) -> HttpResponse:
 
-    posts = Post.objects.all().order_by("-created_time")
-
-    context = {"posts": posts}
-    return render(request, "blog/index.html", context=context)
+    # posts = Post.objects.all().order_by("-created_time")
+    # context = {"posts": posts}
+    return render(request, "blog/index.html")
 
 
 class AuthorCreateView(generic.CreateView):
@@ -22,10 +21,21 @@ class AuthorCreateView(generic.CreateView):
     form_class = CustomUserCreationForm
 
 
+class PostListView(generic.ListView):
+    model = Post
+    queryset = Post.objects.all().order_by("-created_time")
+    template_name = "blog/post_list.html"
+    context_object_name = "post_list"
+    paginate_by = 5
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
 class PostDetailView(LoginRequiredMixin, generic.DetailView):
     model = Post
     num_comments = Commentary.objects.count()
-
     template_name = "blog/post_detail.html"
 
     def post(self, request, *args, **kwargs):

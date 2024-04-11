@@ -5,3 +5,4 @@ pyc
 venv
 pycache
 .idea
+__pycache__
