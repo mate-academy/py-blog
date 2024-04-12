@@ -16,7 +16,7 @@ class AuthorCreateView(generic.CreateView):
 
 class IndexListView(generic.ListView):
     model = Post
-    template_name = 'blog/index.html'
+    template_name = "blog/index.html"
     context_object_name = "post_list"
     paginate_by = 5
 
@@ -40,7 +40,8 @@ class PostDetailView(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         post_id = self.kwargs.get("pk")
-        context["num_comments"] = Commentary.objects.filter(post_id=post_id).count()
+        context["num_comments"] = Commentary.objects.filter(
+            post_id=post_id).count()
         context["form"] = CommentForm
         context["comments"] = Commentary.objects.filter(post=self.object)
         return context

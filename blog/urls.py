@@ -1,6 +1,11 @@
 from django.urls import path, include
 
-from .views import AuthorCreateView, PostDetailView, CreateCommentView, PostListView, IndexListView
+from .views import (AuthorCreateView,
+                    PostDetailView,
+                    CreateCommentView,
+                    PostListView,
+                    IndexListView
+                    )
 
 urlpatterns = [
     path("", IndexListView.as_view(), name="index"),
