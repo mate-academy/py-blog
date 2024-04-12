@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% load static %}
+{% block content %}
+  <h1 class="custom-header">Post</h1>
+  <div class="content">
+    <ul>
+      <div style="text-align: center"><p><strong>Comments</strong></p></div>
+      {% if comments %}
+        {% for comment in comments %}
+          <p>Comment from <strong>{{ comment.user.username }} :</strong></p>
+          <p class="content-font" style="font-size: 18px">{{ comment.content }}</p>
+          <hr>
+        {% endfor %}
+      {% else %}
+        <p>There are no comments</p>
+        </ul>
+      {% endif %}
+  </div>
+  <br>
+  <form action="" method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button class="btn btn-primary" type="submit">Send</button>
+  </form>
+  {% include "includes/paginator.html" %}
+{% endblock %}
