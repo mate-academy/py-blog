@@ -1,9 +1,5 @@
-{% extends "base.html" %}
-
-{% block content %}
-
 <ul>
-  {% for post in post_list %}
+  {% for post in posts %}
   <br>
   <h1><a href="{% url 'blog:post-detail' pk=post.pk %}">{{ post.title }}</a></h1>
   <p> {{ post.created_time }}</p>
@@ -12,5 +8,3 @@
   <br>
   {% endfor %}
 </ul>
-
-{% endblock %}

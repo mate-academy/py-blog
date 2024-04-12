@@ -4,5 +4,15 @@
 
 <h1>Blog</h1>
 <p>Welcome to Blog!</p>
-{% include "blog/post_list.html" %}
+<ul>
+  {% for post in post_list %}
+  <br>
+  <h1><a href="{% url 'blog:post-detail' pk=post.pk %}">{{ post.title }}</a></h1>
+  <p> {{ post.created_time }}</p>
+  <p> Author: {{ post.owner.username }}</p>
+  {{ post.content|slice:":300" }}
+  <br>
+  {% endfor %}
+</ul>
+
 {% endblock %}

@@ -9,23 +9,23 @@ from .forms import CustomUserCreationForm, CommentForm
 from blog.models import Post, User, Commentary
 
 
-def index(request: HttpRequest) -> HttpResponse:
-
-    # posts = Post.objects.all().order_by("-created_time")
-    # context = {"posts": posts}
-    return render(request, "blog/index.html")
-
-
 class AuthorCreateView(generic.CreateView):
     model = User
     form_class = CustomUserCreationForm
+
+
+class IndexListView(generic.ListView):
+    model = Post
+    template_name = 'blog/index.html'
+    context_object_name = "post_list"
+    paginate_by = 5
 
 
 class PostListView(generic.ListView):
     model = Post
     queryset = Post.objects.all().order_by("-created_time")
     template_name = "blog/post_list.html"
-    context_object_name = "post_list"
+    context_object_name = "posts"
     paginate_by = 5
 
     def get_context_data(self, **kwargs):
@@ -33,10 +33,17 @@ class PostListView(generic.ListView):
         return context
 
 
-class PostDetailView(LoginRequiredMixin, generic.DetailView):
+class PostDetailView(generic.DetailView):
     model = Post
-    num_comments = Commentary.objects.count()
-    template_name = "blog/post_detail.html"
+    # template_name = "blog/post_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        post_id = self.kwargs.get("pk")
+        context["num_comments"] = Commentary.objects.filter(post_id=post_id).count()
+        context["form"] = CommentForm
+        context["comments"] = Commentary.objects.filter(post=self.object)
+        return context
 
     def post(self, request, *args, **kwargs):
         user = request.user
@@ -53,13 +60,6 @@ class PostDetailView(LoginRequiredMixin, generic.DetailView):
                     content=content
                 )
                 return redirect("blog:post-detail", pk=post_id)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["num_comments"] = self.num_comments
-        context["form"] = CommentForm
-        context["comments"] = Commentary.objects.filter(post=self.object)
-        return context
 
 
 class CreateCommentView(LoginRequiredMixin, generic.CreateView):
