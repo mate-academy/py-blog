@@ -9,7 +9,7 @@ Let's go through all the steps:
 3. Inside `py-blog` start application `blog`.
 4. Inside `blog/models.py` create models according to this diagram:
 
-   ![models-diagram](https://mate-academy-images.s3.eu-central-1.amazonaws.com/py-drf-forms-blog-task-2.png)
+   ![models-diagram](https://mate-academy-images.s3.eu-central-1.amazonaws.com/py_drf_forms_blog_task_2_updated_50863ada5f.png)
 
 5. Edit `admin.py`:
     - Register all your models in the admin.
