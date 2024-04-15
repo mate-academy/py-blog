@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views import generic
-from .models import User, Post, Commentary
+from blog.models import User, Post, Commentary
 
 
 class PostListView(generic.ListView):
