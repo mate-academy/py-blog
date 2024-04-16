@@ -1,11 +1,11 @@
-from django.urls import path, include
+from django.urls import path
 
-from blog.views import (AuthorCreateView,
-                        PostDetailView,
-                        CreateCommentView,
-                        PostListView,
-                        IndexListView
-                        )
+from blog.views import AuthorCreateView
+from blog.views import PostDetailView
+from blog.views import CreateCommentView
+from blog.views import PostListView
+from blog.views import IndexListView
+
 
 urlpatterns = [
     path("", IndexListView.as_view(), name="index"),
