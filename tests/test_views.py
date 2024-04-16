@@ -19,7 +19,9 @@ class PostListTest(TestCase):
     def test_main_page_paginated_correctly(self):
         response = self.client.get(MAIN_PAGE_URL)
 
-        self.assertEqual(len(response.context["post_list"]), PAGINATION)
+        self.assertEqual(
+            len(response.context["post_list"]), PAGINATION
+        )
 
     def test_main_page_ordered_by_created_time(self):
         response = self.client.get(MAIN_PAGE_URL)
@@ -42,3 +44,4 @@ class PostDetailTest(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "blog/post_detail.html")
+
