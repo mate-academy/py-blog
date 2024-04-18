@@ -1,0 +1,9 @@
+*.sqlite3
+venv/
+.idea/
+.vscode
+*.iml
+.env
+.DS_store
+**__pycache__/
+.pytest_cache/
