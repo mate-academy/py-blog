@@ -9,7 +9,9 @@ from .models import Post, Commentary
 
 class PostListView(generic.ListView):
     model = Post
-    queryset = Post.objects.select_related("owner").prefetch_related("commentaries")
+    queryset = Post.objects.select_related("owner").prefetch_related(
+        "commentaries"
+    )
     template_name = "blog/index.html"
     paginate_by = 5
 
@@ -26,7 +28,7 @@ def add_comment(request: HttpRequest) -> HttpResponse:
         user = request.user
         post_id = request.POST.get("post_id")
         post = Post.objects.get(id=post_id)
-        
+
         comment = Commentary(user=user, post=post, content=content)
         comment.save()
     else:

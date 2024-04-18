@@ -22,4 +22,5 @@ class CommentaryAdmin(admin.ModelAdmin):
     search_fields = ("content",)
     list_filter = ("user", "post", )
 
+
 admin.site.unregister(Group)
