@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <br>
+  <p>{{ post.content }}</p>
+   
+  {% if post.commentaries.all %}
+    <br>
+    <h4>Commentaries:</h4>
+    <br>
+    {% for commentary in post.commentaries.all %}
+      <div class="list-group">
+        <p>
+            <div class="list-group-item">
+              <b>{{ commentary.user }}</b>  (<i>{{ commentary.created_time }}</i>)
+            </div>
+            <div class="list-group-item">
+              <p>{{ commentary.content }}</p>
+            </div>
+          </div>
+        </p>
+    {% endfor %}
+  {% else %}
+    <p>There is no comment yet.</p>
+  {% endif %}
+
+  <h3>Add comment:</h3>
+  
+  {% if user.is_authenticated %}
+    <form action="{% url 'blog:add-comment' %}" method="post">
+      {% csrf_token %}
+      <input type="number" name="post_id" value="{{ post.id }}" hidden>
+      <textarea type="text" name="content" rows="5" cols="50" class="form-control"></textarea>
+      <br>
+      <input type="submit" value="Comment" class="btn btn-primary">
+    </form>
+  {% else %}
+    <div class="alert alert-info" role="alert">
+      <p>You have to login to leave a comment</p>
+    </div>
+  {% endif %}
+
+{% endblock  %}
