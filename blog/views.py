@@ -1,7 +1,7 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpRequest, HttpResponse
+from django.shortcuts import redirect
+from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect
 from django.views import generic
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 from .models import Post, Commentary
@@ -20,10 +20,9 @@ class PostDetailView(generic.DetailView):
     model = Post
 
 
-@login_required
-def add_comment(request: HttpRequest) -> HttpResponse:
-    if request.method == "POST":
-        request
+class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
+    
+    def post(self, request, *args, **kwargs) -> HttpResponseRedirect | HttpResponsePermanentRedirect:
         content = request.POST.get("content")
         user = request.user
         post_id = request.POST.get("post_id")
@@ -31,6 +30,5 @@ def add_comment(request: HttpRequest) -> HttpResponse:
 
         comment = Commentary(user=user, post=post, content=content)
         comment.save()
-    else:
-        pass
-    return redirect(f"/posts/{post.id}")
+
+        return redirect(f"/posts/{post.id}/")
