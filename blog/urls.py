@@ -10,7 +10,11 @@ urlpatterns = [
         views.PostDetailView.as_view(),
         name="post-detail"
     ),
-    path("add-comment/", views.CommentaryCreateView.as_view(), name="add-comment"),
+    path(
+        "add-comment/",
+        views.CommentaryCreateView.as_view(),
+        name="add-comment"
+    ),
 ]
 
 app_name = "taxi"

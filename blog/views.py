@@ -21,8 +21,8 @@ class PostDetailView(generic.DetailView):
 
 
 class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
-    
-    def post(self, request, *args, **kwargs) -> HttpResponseRedirect | HttpResponsePermanentRedirect:
+
+    def post(self, request, *args, **kwargs) -> HttpResponseRedirect:
         content = request.POST.get("content")
         user = request.user
         post_id = request.POST.get("post_id")
