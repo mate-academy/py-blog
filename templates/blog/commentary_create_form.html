@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>Add your comment</h1>
+  <form action="" method="post" novalidate>
+    {% csrf_token %}
+    <input type="hidden" name="post_id" value="{{ post_id }}">
+    {{ form|crispy }}
+    <button type="submit">Add</button>
+  </form>
+{% endblock %}
