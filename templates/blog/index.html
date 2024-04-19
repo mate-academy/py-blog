@@ -15,7 +15,7 @@
         <h4>{{ forloop.counter }}: <a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a></h4>
         <p>{{ post.content }}</p>
         <p><strong>Author:</strong> {{ post.owner.username }}</p>
-        <p><strong>Number of comments:</strong> {{ post.comments.count }}</p>
+        <p><strong>Number of comments:</strong> {{ post.commentaries.count }}</p>
       </li>
     {% endfor %}
   {% endif %}
