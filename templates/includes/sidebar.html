@@ -1,0 +1,23 @@
+<ul class="sidebar-nav">
+  <li>
+    <a href="{% url 'blog:index' %}">Home</a>
+  </li>
+  <li>
+    <a href="#">All users</a>
+  </li>
+  <li>
+    <a href="#">All posts</a>
+  </li>
+  <li>
+    <a href="#">All commentaries</a>
+  </li>
+  {% if user.is_authenticated %}     {# added lines 14 - 22 #}
+    <li>
+      <a href="{% url 'logout' %}">Logout</a>
+    </li>
+  {% else %}
+    <li>
+      <a href="{% url 'login' %}">Login</a>
+    </li>
+  {% endif %}
+</ul>

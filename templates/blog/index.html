@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Home page</title>
+{% endblock %}
+
+{% block content %}
+  <h1>Blog Home</h1>
+  <p>Welcome to the blog!</p>
+  <h3>Blog content:</h3>
+  {% if post_list %}
+  <ul>
+    {% for post in post_list %}
+      <li>
+        <h4>{{ forloop.counter }}: <a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a></h4>
+        <p>{{ post.content }}</p>
+        <p><strong>Author:</strong> {{ post.owner.username }}</p>
+        <p><strong>Number of comments:</strong> {{ post.commentaries.count }}</p>
+      </li>
+    {% endfor %}
+  {% endif %}
+  </ul>
+{% endblock %}
