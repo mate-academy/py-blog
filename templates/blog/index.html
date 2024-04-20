@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}
+  <title>Blog</title>
+{% endblock %}
+{% block content %}
+  <h1>Blog Index</h1>
+  <p>Welcome to the Blog !</p>
+  <h5>List of Posts (total {{ num_posts }} posts):</h5>
+
+  {% if page_obj %}
+    <ul>
+      {% for post in page_obj %}
+        <li>
+          <div>
+            <a href="{% url 'blog:post-detail' pk=post.id %}"><span class="bold-text">{{ post.title }}</span></a>
+            |
+            {% with post.commentaries.count as count_comments %}
+              comment{{ count_comments|pluralize }}: {{ count_comments }}
+            {% endwith %}
+          </div>
+          <div class="item_list">posted by: <b>{{ post.owner.username }}</b> | {{ post.created_time }}
+          </div>
+          <div class="truncate-text">
+            {{ post.content }}
+          </div>
+
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no Posts in Blog</p>
+  {% endif %}
+
+{% endblock %}
