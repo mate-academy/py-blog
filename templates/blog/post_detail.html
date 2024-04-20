@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+<div class="container">
+    {% include "includes/post_content.html" %}
+
+    <div class="mt-4">
+        <h3>Comments</h3>
+        {% for comment in post.comments.all %}
+        <div class="card my-3">
+            <div class="card-body">
+                <h5 class="card-title">Author: {{ comment.user.username }}</h5>
+                <p class="card-text">{{ comment.content }}</p>
+            </div>
+        </div>
+        {% empty %}
+        <p>No comments yet.</p>
+        {% endfor %}
+    </div>
+
+    <div>
+      <form action="{% url 'blog:comment-create' pk=post.pk %}" method="post">
+        {% csrf_token %}
+        {{ creation_form|crispy }}
+        <input type="submit" value="Create" class="btn btn-primary">
+
+      </form>
+    </div>
+</div>
+{% endblock %}
