@@ -1,0 +1,9 @@
+body {
+    margin-top: 20px;
+    background: aliceblue;
+}
+
+.post-content {
+    max-width: 60em;
+    overflow-wrap: break-word;
+}

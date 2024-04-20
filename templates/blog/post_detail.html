@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p class="post-content">{{ post.content }}</p>
+  <p><strong>Author: </strong>{{ post.owner }}</p>
+  <p><strong>Date create: </strong>{{ post.created_time }}</p>
+  <br>
+  {% if post.commentary_set.all %}
+    {% for comment in post.commentary_set.all %}
+      <div>
+        <p class="fa-paragraph">
+          <strong>{{ comment.user }}</strong> ({{ comment.created_time }})
+        </p>
+        <p>{{ comment.content }}</p>
+      </div>
+    {% endfor %}
+  {% endif %}
+  <a class="btn btn-primary" href="{% url 'blog:comment-create' post.id %}">
+    Add comment
+  </a>
+{% endblock %}
