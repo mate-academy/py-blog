@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 class="text-center">
+    Posts:
+  </h1>
+  <br>
+  {% if post_list %}
+    <ul class="list-group">
+      {% for post in post_list %}
+        <li class="list-group-item">
+          <h4><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a>
+          </h4>
+          <p class="text-justify">
+            {{ post.content|truncatewords:25 }}
+          </p>
+          <span class="badge badge-secondary">{{ post.owner.username }}</span>
+          {{ post.created_time }}
+          <a href="{% url 'blog:post-detail' pk=post.id %}#comments"
+             class="text-dark float-right">Commentaries: {{ post.commentaries.count }}</a>
+        </li>
+        <br>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no posts</p>
+  {% endif %}
+{% endblock %}
