@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.content }}</p>
+  <p>{{ post.commentaries.count }} comments</p>
+
+  {% if post.commentaries.exists %}
+    <ul>
+      {% for comment in post.commentaries.all %}
+        <li>
+          <p>{{ comment.content }}<p>
+          <p> {{ comment.user.username }} {{ comment.created_time }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>This post has 0 commentaries</p>
+  {% endif %}
+  {% if user.is_authenticated %}
+    <p><b>Add a new comment:</b></p>
+    <form action="{% url 'blog:commentary-create' %}" method="post" id="comment-form">
+      {% csrf_token %}
+      <input type="hidden" name="post" value="{{ post.id }}">
+      <label>
+        <textarea name="content" rows="5" cols="50"></textarea>
+      </label>
+      <br>
+      <input type="submit" value="Comment" class="btn btn-primary">
+    </form>
+  {% else %}
+    <p><b>You have to log in to leave a comment</b></p>
+  {% endif %}
+
+{% endblock %}
