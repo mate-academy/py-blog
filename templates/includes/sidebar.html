@@ -1,0 +1,13 @@
+<ul class="sidebar-nav list-group">
+  <a href="{% url 'blog:index' %}" style="color: black; text-decoration: none"><h2>Blog</h2></a>
+  {% if user.is_authenticated %}
+    <li class="list-group-item">User: <a href="{{ user.get_absolute_url }}">{{ user.get_username }}</a></li>
+    <form action="{% url 'logout' %}" method="post">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ request.path }}">
+      <button type="submit" class="btn btn-danger">Logout</button>
+    </form>
+  {% else %}
+    <li class="list-group-item"><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
+  {% endif %}
+</ul>
