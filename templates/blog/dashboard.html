@@ -1,0 +1,84 @@
+{% extends "base_wide.html" %}
+
+{% block sidebar %}
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-5">
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <h2>List of Your Posts</h2>
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col">Title</th>
+            <th scope="col">Date</th>
+            <th scope="col">Number of Comments</th>
+            <th scope="col">Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for post in object_list %}
+            <tr>
+              <td>{{ post.title }}</td>
+              <td>{{ post.created_time }}</td>
+              <td>{{ post.comments.count }}</td>
+              <td class="d-flex align-items-center">
+                <a href="{% url 'blog:post-update' post.pk %}" class="btn btn-primary mr-2">Update</a>
+                <form method="post" action="{% url 'blog:post-delete' post.pk %}">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+              </td>
+
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="4">You haven't created any posts yet.</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+        <a href="{% url 'blog:post-create' %}" class="btn btn-success">Create New Post</a>
+      </div>
+    </div>
+    <div class="row mt-5">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            Last Comment on Your Article
+          </div>
+          <div class="card-body">
+            <p class="card-text">{{ last_comment.content }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">
+            Total Posts This Month
+          </div>
+          <div class="card-body">
+            <p class="card-text">Number of posts: {{ current_month_posts }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            Profile Information
+          </div>
+          <div class="card-body">
+            <p class="card-text">User name: {{ user.username }}</p>
+            <p class="card-text">First name: {{ user.first_name }}</p>
+             <p class="card-text">Last name: {{ user.last_name }}</p>
+            <p class="card-text">Email: {{ user.email }}</p>
+            <a href="#" class="btn btn-primary">Update</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

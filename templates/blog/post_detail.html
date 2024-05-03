@@ -1,0 +1,60 @@
+{% extends 'base_wide.html' %}
+
+{% block content %}
+
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="content">
+          <h2>{{ post.title }}</h2>
+          <p>{{ post.content|linebreaksbr }}</p>
+          <p><small class="text-muted">Author: {{ post.owner.username }} | Created: {{ post.created_time }}</small></p>
+        </div>
+
+
+        <h3>Comments</h3>
+        <div class="comment-section">
+          {% if post.comments.all %}
+            <ul class="list-group">
+              {% for comment in post.comments.all %}
+                <div class="card mb-4">
+                  <div class="card-header">
+                    by: <a href="{% url 'blog:user-detail' comment.user.pk %}">{{ comment.user.username }}</a>
+                  </div>
+                  <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                      <p>{{ comment.content }}</p>
+                      <footer class="blockquote-footer">Created: <cite
+                          title="Source Title">{{ comment.created_time }}</cite>
+                      </footer>
+                      <footer class="mt-2 d-flex align-items-center">
+                        {% if comment.user == user %}
+                          <form action="{% url 'blog:comment-update' comment.pk %}" method="post">
+                            {% csrf_token %}
+                            <input class="btn btn-sm btn-success" type="submit" value="Update">
+                          </form>
+                          <form action="{% url 'blog:comment-delete' comment.pk %}" method="post">
+                            {% csrf_token %}
+                            <input class="btn btn-sm btn-danger ml-2" type="submit" value="Delete">
+                          </form>
+                        {% endif %}
+                      </footer>
+                    </blockquote>
+                  </div>
+                </div>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <p>No comments yet.</p>
+          {% endif %}
+          {% if user.is_authenticated %}
+            {% include "blog/commentary_create.html" with post=post form=form %}
+          {% else %}
+            <a href="{% url 'login' %}">Log in</a> to leave a comment.
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

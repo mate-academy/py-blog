@@ -1,0 +1,51 @@
+{% include "base_styles.html" %}
+<body>
+
+<div class="container">
+
+  {% block header %}
+    {% include "includes/header.html" %}
+  {% endblock %}
+
+  {% if not request.GET %}
+    {% include "includes/banner.html" %}
+  {% endif %}
+
+
+  <main role="main" class="container pt-4">
+    <div class="row">
+      <div class="col-md-8 blog-main">
+        <h3 class="pb-4 mb-4 font-italic border-bottom">
+          {% if title %}
+            {{ title }}
+          {% else %}
+            Latest published materials
+          {% endif %}
+        </h3>
+
+        {% block content %}
+        {% endblock %}
+
+        {% block pagination %}
+          {% include "includes/pagination.html" %}
+        {% endblock %}
+
+      </div><!-- /.blog-main -->
+      {% block sidebar %}
+        {% include "includes/sidebar.html" %}
+      {% endblock %}
+    </div><!-- /.row -->
+
+  </main><!-- /.container -->
+
+  {% include "includes/footer.html" %}
+
+</div>
+
+<!-- jQuery and Bootstrap JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

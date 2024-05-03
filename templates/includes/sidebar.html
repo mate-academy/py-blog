@@ -1,0 +1,40 @@
+<aside class="col-md-4 blog-sidebar">
+  <div class="p-4 mb-3 bg-light rounded">
+    <h4 class="font-italic">About</h4>
+    <p class="mb-0">Welcome to Blog where we delve into programming & IT with professionalism & etiquette.
+      Join us for insightful discussions, tutorials, & the latest tech trends. Our diverse team brings expertise
+      to empower you in the ever-evolving world of technology. Together, let's navigate coding complexities,
+      unravel algorithms, & explore the dynamic IT landscape. We foster a respectful, inclusive community where
+      questions are welcomed & collaboration thrives. Thank you for joining us on this journey of continuous
+      learning & innovation!
+    </p>
+  </div>
+
+  <div class="p-4">
+    <h4 class="font-italic">Archives</h4>
+    <ol class="list-unstyled mb-0">
+      {% for pub_date in publication_dates %}
+        <li>
+          <a
+              href="{% url 'blog:index' %}?year={{ pub_date.2 }}&month={{ pub_date.1 }}"
+              data-toggle="tooltip" title="Show all posts published in {{ pub_date.0 }}"
+          >{{ pub_date.0 }}</a></li>
+      {% endfor %}
+    </ol>
+  </div>
+
+  <div class="p-4">
+    <h4 class="font-italic">Authors</h4>
+    <ol class="list-unstyled">
+      {% for author in authors %}
+        <li>
+          <a
+              href="{% url 'blog:index' %}?author={{ author.pk }}"
+              data-toggle="tooltip" title="Show all posts by {{ author.last_name }}"
+          >{{ author.first_name }} {{ author.last_name }} ({{ author.post_count }}
+            post{{ author.post_count|pluralize }})</a>
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+</aside><!-- /.blog-sidebar -->

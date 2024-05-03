@@ -1,0 +1,9 @@
+{% load crispy_forms_filters %}
+<div class="container mt-4">
+  <h3>Add a Comment</h3>
+  <form method="post" action="{% url 'blog:comment-create' post.id %}">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary">Submit Comment</button>
+  </form>
+</div>
