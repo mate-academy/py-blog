@@ -1,0 +1,9 @@
+.nav_link {
+    text-decoration: none;
+}
+
+.nav_link:hover {
+    text-decoration: none;
+    color: white;
+    background-color: cadetblue;
+}
