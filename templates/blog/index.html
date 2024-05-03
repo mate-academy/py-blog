@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Home Page Blog</title>
+{% endblock %}
+
+{% block content %}
+  <h1 class="index-title">Blog Home Page</h1>
+  {% for post in post_list %}
+    <div class="blog-list-info">
+      <h5><a href="{% url "blog:post-detail" pk=post.pk %}">{{ post.title }}</a></h5>
+      <p class="index-created-post-user">
+        Created: {{ post.created_time }} {{ post.owner.username }}
+        ({{ post.owner.first_name }} {{ post.owner.last_name }})
+      </p>
+      <p class="index-post-content">
+        {{ post.content|truncatechars:90 }}
+      </p>
+      <p class="index-comments">Commentaries: {{ post.commentaries.count }}</p>
+    </div>
+  {% endfor %}
+{% endblock %}

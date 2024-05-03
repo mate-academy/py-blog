@@ -1,0 +1,47 @@
+body {
+    background-color: #191a1f;
+    color: white;
+}
+
+.blog-list-info {
+    background-color: #212227;
+    padding: 15px;
+    margin: 10px;
+}
+
+.index-post-content {
+    color: #19c361;
+}
+
+.index-created-post-user {
+    font-size: small;
+    font-weight: bold;
+}
+
+.index-comments {
+    font-weight: bold;
+}
+
+
+.list-group-item {
+    background-color: #212227;
+    border-radius: 10px;
+}
+
+.detail-comments {
+    background-color: #212227;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 10px;
+}
+
+.detail-time-comments {
+    font-weight: bold;
+    font-size: 10px;
+    padding: 0;
+}
+
+.detail-user-comments {
+    margin: 0;
+    color: green;
+}
