@@ -1,0 +1,9 @@
+<header class="header">
+  {% if user.is_authenticated %}
+    <h5>Welcome {{ user.get_username }}</h5>
+    <a class="btn btn-primary" href="{% url "logout" %}">Logout</a>
+
+  {% else %}
+    <a class="btn btn-primary" href="{% url "login" %}">Login</a>
+  {% endif %}
+</header>
