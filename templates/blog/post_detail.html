@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+
+<h2>{{post.title}}</h2>
+<p>{{post.owner.username}} at {{post.created_time}}</p>
+<h5>{{post.content}}</h5>
+<br>
+{% if post.commentary_set.count %}
+{{post.commentary_set.count}} comments
+
+{% for comment in post.commentary_set.all %}
+<table class="table table-bordered">
+  <tr>
+    <td>
+      {{comment.post.owner}} {{comment.created_time}}
+    </td>
+  </tr>
+  <tr>
+    <td>
+      {{comment}}
+    </td>
+  </tr>
+</table>
+{% endfor %}
+{% else %}
+<p>0 comments</p>
+{% endif %}
+{% if user.is_authenticated %}
+<h1>Add a new comment</h1>
+<form action="" method="post">
+  {% csrf_token %}
+  {{ form|crispy}}
+  <input type="submit" value="Add comment">
+</form>
+{% else %}
+<p>You must be logged in to post a comment.</p>
+{% endif %}
+{% endblock %}
