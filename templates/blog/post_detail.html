@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="fild" style="background-color: aliceblue;">
+    <div style="padding-left: 20px">
+      <h3 style="padding-top: 20px">{{ post.title }}
+        {% if post.owner.id == user.id %}
+          <a href="{% url "blog:post-update" pk=post.id %}" class="btn btn-primary">Update post</a>
+          <a href="{% url "blog:post-delete" pk=post.id %}" class="btn btn-danger">Delete post</a>
+        {% endif %}
+      </h3>
+      <p>{{ post.owner.username }} at {{ post.created_time }}</p>
+      <hr>
+      <p>{{ post.content }}</p>
+    </div>
+    <p>Comment{{ post.comments.count|pluralize }}: {{ post.comments.count }}</p>
+    {% if post.comments.count > 0 %}
+      {% for comment in post.comments.all %}
+        <section class="w-100 p-4" style="background-color: #eee; border-radius: .5rem .5rem 0 0; margin-top: -35px">
+          <div class="row d-flex justify-content-center">
+            <div class="col-md-12 col-lg-10 col-xl-8">
+              <div class="card" style="padding-left: 5px; padding-bottom: 5px">
+                <div class="card-body" style="margin-bottom: -30px">
+                  <h6 class="fw-bold text-primary mb-1">{{ comment.user.username }}</h6>
+                  <p class="text-muted small mb-0">Shared publicly - {{ comment.created_time }}</p>
+                </div>
+                <hr>
+                {{ comment.content }}
+              </div>
+            </div>
+          </div>
+        </section>
+      {% endfor %}
+    {% else %}
+      Here is no one comment
+    {% endif %}
+    <a href="{% url 'blog:comment-create' %}">
+        <input type="button" value="Add a comment" class="btn btn-secondary">
+      </a>
+  </div>
+{% endblock %}

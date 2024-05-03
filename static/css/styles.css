@@ -1,0 +1,43 @@
+body {
+    background: rgb(153, 204, 255);
+}
+
+.list-group-item {
+    background: rgb(204, 230, 255);
+    margin-bottom: 15px;
+}
+
+.pagination {
+    margin-left: 50%;
+    margin-right: auto;
+    width: 40%;
+}
+
+.post {
+    margin-left: 20%;
+    margin-right: 20%;
+    width: 100%;
+}
+
+.add {
+    float: right;
+    color: rgb(255, 255, 51);
+    background-color: rgb(26, 255, 140);
+    border-color: aqua;
+}
+
+.login {
+    background-color: azure !important;
+}
+
+.registration {
+    float: right;
+}
+
+.post-list {
+    height: 180px;
+}
+
+.fild {
+    margin-right: 20%
+}
