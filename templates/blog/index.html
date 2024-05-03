@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+  {% if post_list %}
+    <ul class="list-group list-group-flush">
+      {% for post in post_list %}
+        <li class="list-group-item">
+          <h4><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h4>
+          <small class="text-body-secondary">{{ post.owner }} at {{post.created_time}}</small>
+          <p class="lead">{{ post.content }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}
