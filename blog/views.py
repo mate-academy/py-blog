@@ -1,6 +1,6 @@
 from django.db.models import Count, Prefetch
 from django.http import HttpResponseRedirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import generic
 from django.views.generic.edit import FormMixin
 
@@ -31,7 +31,7 @@ class PostDetailView(generic.DetailView, FormMixin):
     form_class = CommentaryForm
 
     def get_success_url(self):
-        return reverse_lazy("blog:post_detail", kwargs={"pk": self.object.pk})
+        return reverse_lazy("blog:post-detail", kwargs={"pk": self.object.pk})
 
     def post(self, request, *args, **kwargs) -> HttpResponseRedirect:
         self.object = self.get_object()
