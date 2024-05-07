@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}
+  {{ post_detail.title }}
+{% endblock %}
+{% block content %}
+  <div class="post-page-detail">
+    <div class="post-area-detail">
+      <h1 class="post-title">{{ post_detail.title }}</h1>
+      <p class="post-owner-and-date">created by: {{ post_detail.owner }} created at {{ post_detail.created_time }} </p>
+      <p class="post-content-detail">{{ post_detail.content }}</p>
+      <p class="count-commentary-detail">{{ post_detail.comment_count }} commentary's</p>
+    </div>
+
+    {% for comment in post_detail.commentary.all %}
+      <div class="commentary-detail">
+        <p class="one-line user-comments">{{ comment.user }}</p>
+        <p class="one-line created-time-comments">{{ comment.created_time }}</p>
+        <hr class="horizontal-line"></hr>
+        <p class="content-detail">{{ comment.content }}</p>
+      </div>
+    {% empty %}
+      <p>There are no comments yet.</p>
+    {% endfor %}
+  {% if user.is_authenticated %}
+    {% include 'blog/commentary_form.html' %}
+  {% else %}
+     <p>Only authorised person can write a comment.</p>
+  {% endif %}
+  </div>
+
+{% endblock %}
