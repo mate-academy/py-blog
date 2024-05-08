@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ post_detail.title }}</h1>
+  <p>{{ post_detail.content }}</p>
+  <h2>Comments:</h2>
+  <ul>
+  {% for comment in post_detail.commentary_set.all %}
+    <li>{{ comment.content }}</li>
+  {% empty %}
+    <p>There are no comments yet.</p>
+  {% endfor %}
+  </ul>
+  {% if user.is_authenticated %}
+    {% include "includes/comment_form.html" %}
+  {% else %}
+    <p>You must logg in!</p>
+  {% endif %}
+{% endblock %}
