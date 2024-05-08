@@ -15,7 +15,7 @@ from .forms import CommentForm
 class PostListView(generic.ListView):
     model = Post
     paginate_by = 5
-    ordering = ("-created_time", )
+    ordering = ("-created_time",)
     template_name = "blog/index.html"
     queryset = Post.objects.annotate(comment_count=Count("commentary"))
 
@@ -42,22 +42,3 @@ class PostDetailView(generic.DetailView, FormMixin):
         commentary.post = self.object
         commentary.save()
         return super().form_valid(form)
-
-
-# def comment_create(request, post_id):
-#     post = Post.objects.get(pk=post_id)
-#     if request.method == "POST":
-#         if request.user.is_authenticated:
-#             form = CommentForm(request.POST)
-#             if form.is_valid():
-#                 comment = form.save(commit=False)
-#                 comment.user = request.user
-#                 comment.post = self.o
-#                 comment.save()
-#                 return redirect("blog:post-detail", pk=post_id)
-#         else:
-#             messages.error(request, "You must be logged in to leave a comment.")
-#     else:
-#         form = CommentForm()
-#
-#     return render(request, "blog/comment_form.html", {"form": form})

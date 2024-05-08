@@ -12,16 +12,32 @@ class UserAdmin(UserAdmin):
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ("owner", "title", "content", "created_time", )
-    search_fields = ("title", )
-    list_filter = ("owner", "created_time", )
+    list_display = (
+        "owner",
+        "title",
+        "content",
+        "created_time",
+    )
+    search_fields = ("title",)
+    list_filter = (
+        "owner",
+        "created_time",
+    )
 
 
 @admin.register(Commentary)
 class CommentaryAdmin(admin.ModelAdmin):
-    list_filter = ("post", "created_time", )
-    list_display = ("user", "post", "content", "created_time", )
-    search_fields = ("content", )
+    list_filter = (
+        "post",
+        "created_time",
+    )
+    list_display = (
+        "user",
+        "post",
+        "content",
+        "created_time",
+    )
+    search_fields = ("content",)
 
 
 admin.site.unregister(Group)
