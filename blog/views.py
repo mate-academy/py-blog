@@ -44,15 +44,3 @@ class PostDetailView(generic.DetailView, FormMixin):
             return self.form_valid(form)
 
         return self.form_invalid(form)
-
-    # def post(self, request, *args, **kwargs) -> HttpResponseRedirect:
-    #     self.object = self.get_object()
-    #     form = self.get_form()
-    #     if form.is_valid():
-    #         commentary = form.save(commit=False)
-    #         commentary.user = request.user
-    #         commentary.post = self.object
-    #         commentary.save()
-    #         return self.form_valid(form)
-    #
-    #     return self.form_invalid(form)
