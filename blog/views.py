@@ -1,13 +1,11 @@
 from typing import Any
 
-from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import (
     HttpResponsePermanentRedirect,
     HttpResponseRedirect,
     HttpResponse
 )
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.views import generic
 
 from blog.forms import CommentaryForm
@@ -17,8 +15,9 @@ from blog.models import Post, Commentary
 class IndexView(generic.ListView):
     model = Post
     template_name = "blog/index.html"
-    queryset = Post.objects.select_related("owner")\
-        .prefetch_related("commentaries")
+    queryset = (
+        Post.objects.select_related("owner").prefetch_related("commentaries")
+    )
     paginate_by = 5
 
 

@@ -19,11 +19,11 @@ class Post(models.Model):
     content = models.TextField()
     created_time = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self) -> str:
-        return f"{self.owner} - {self.title}"
-
     class Meta:
         ordering = ("-created_time",)
+
+    def __str__(self) -> str:
+        return f"{self.owner} - {self.title}"
 
 
 class Commentary(models.Model):
@@ -36,8 +36,8 @@ class Commentary(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
 
-    def __str__(self) -> str:
-        return f"{self.post}"
-
     class Meta:
         ordering = ("-created_time",)
+
+    def __str__(self) -> str:
+        return f"{self.post}"
