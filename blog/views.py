@@ -22,20 +22,6 @@ def index(request: HttpRequest) -> HttpResponse:
     return render(request, "blog/index.html", context=context)
 
 
-def comment_form(request, pk: int) -> HttpResponse:
-    if request.method == "POST":
-        form = CommentaryForm(request.POST)
-        if form.is_valid():
-            user = request.user
-            post = Post.objects.get(pk=pk)
-            Commentary.objects.create(
-                user=user, post=post, content=form.cleaned_data["content"]
-            )
-            return redirect("blog:post-detail", pk=post.id)
-    form = CommentaryForm()
-    return render(request, "blog/post_detail.html", {"form": form})
-
-
 class PostListView(ListView):
     model = Post
     context_object_name = "post_list"
@@ -44,7 +30,7 @@ class PostListView(ListView):
     paginate_by = 5
 
 
-class PostDetailView(LoginRequiredMixin, DetailView):
+class PostDetailView(DetailView):
     model = Post
     template_name = "blog/post_detail.html"
     queryset = Post.objects.select_related("owner")
@@ -53,3 +39,13 @@ class PostDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context["comment_form"] = CommentaryForm()
         return context
+
+    def post(self, request, *args, **kwargs):
+        post_object = self.get_object()
+        new_comment = Commentary(
+            content=request.POST.get("content"),
+            user=self.request.user,
+            post=post_object,
+        )
+        new_comment.save()
+        return redirect("blog:post-detail", pk=post_object.pk)

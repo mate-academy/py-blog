@@ -14,10 +14,14 @@
 
   <div class="pt-3">
     <h6>Add a new comment</h6>
-    <form action="{% url 'blog:comment-create' pk=post.id %}" method="post" novalidate>
-        {% csrf_token %}
-        {{ comment_form.as_p }}
-        <button type="submit" class="btn btn-primary btn-lg">Submit</button>
-    </form>
+    {% if user.is_authenticated %}
+        <form action="{% url 'blog:post-detail' pk=post.id %}" method="post" novalidate>
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+        </form>
+    {% else %}
+        <p>You must be logged in to post comments.</p>
+    {% endif %}
 </div>
 {% endblock %}
