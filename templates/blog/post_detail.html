@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8 offset-lg-2">
+            <div class="card shadow-lg">
+                <div class="card-body">
+                    <h1 class="card-title">{{ post.title }}</h1>
+                    <p class="card-text">Author: {{ post.owner }}</p>
+                    <p class="card-text">{{ post.content }}</p>
+                    <p class="card-text">Created: {{ post.created_time }}</p>
+                    <a href="{% url 'blog:post-update' pk=post.pk %}" class="btn btn-primary">Update</a>
+                    <a href="{% url 'blog:post-delete' pk=post.pk %}" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <h2>Comments</h2>
+    {% include "includes/comments.html" %}
+</div>
+{% endblock %}
