@@ -1,0 +1,38 @@
+.btn-blog-purple {
+    color: #212121;
+    background-color: #e0cffc;
+    border-color: #3d0a91;
+}
+
+.btn-blog-purple:hover {
+    color: #fff;
+    background-color: #a370f7;
+    border-color: #3d0a91;
+}
+
+.comments-head {
+    color: #212121;
+    background-color: #e0cffc;
+}
+
+.comments-full {
+    border: 1px solid #3d0a91;
+}
+
+
+.top-bottom-20 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.comment-content {
+  width: 75%;
+}
+
+.comment-user {
+  width: 10%;
+}
+
+.comment-time {
+  width: 15%;
+}
