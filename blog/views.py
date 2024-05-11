@@ -35,6 +35,7 @@ def index(request):
 
 class CommentaryForm(forms.ModelForm):
     """Made to be a mixin in PostDetailView to add detailed view of comments"""
+
     class Meta:
         model = Commentary
         fields = [
@@ -52,7 +53,11 @@ class PostDetailView(DetailView, FormMixin):
         context = super().get_context_data(**kwargs)
         post = self.get_object()
 
-        comments = post.commentaries.all().order_by("created_time")
+        comments = (
+            post.commentaries
+            .select_related("user")
+            .order_by("created_time")
+        )
         paginator = Paginator(comments, 10)
         page_number = self.request.GET.get("page")
         try:
