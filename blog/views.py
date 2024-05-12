@@ -13,7 +13,7 @@ class PostListView(ListView):
     model = Post
     context_object_name = "post_list"
     template_name = "blog/index.html"
-    queryset = Post.objects.all().select_related("owner").order_by("-created_time")
+    queryset = Post.objects.select_related("owner").order_by("-created_time")
     paginate_by = 5
 
 
@@ -28,7 +28,10 @@ class PostDetailView(DetailView, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy("blog:post-detail", kwargs={"pk": self.kwargs["pk"]})
+        return reverse_lazy(
+            "blog:post-detail",
+            kwargs={"pk": self.kwargs["pk"]}
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

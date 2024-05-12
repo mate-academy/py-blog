@@ -10,7 +10,9 @@ from blog.views import (
 urlpatterns = [
     path("", PostListView.as_view(), name="index"),
     path("posts/<int:pk>/", PostDetailView.as_view(), name="post-detail"),
-    path("posts/<int:pk>/comment/", add_comment_to_post, name="add-comment-to-post"),
+    path("posts/<int:pk>/comment/",
+         add_comment_to_post,
+         name="add-comment-to-post"),
     path("comment/<int:pk>/remove/", comment_remove, name="comment-remove"),
 ]
 
