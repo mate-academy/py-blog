@@ -1,4 +1,3 @@
-from django import forms
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Count
 from django.shortcuts import render
@@ -6,7 +5,8 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView
 from django.views.generic.edit import FormMixin
 
-from blog.models import Post, Commentary
+from blog.forms import CommentaryForm
+from blog.models import Post
 
 
 def index(request):
@@ -31,16 +31,6 @@ def index(request):
         "post_list": posts,
     }
     return render(request, "blog/index.html", context=context)
-
-
-class CommentaryForm(forms.ModelForm):
-    """Made to be a mixin in PostDetailView to add detailed view of comments"""
-
-    class Meta:
-        model = Commentary
-        fields = [
-            "content",
-        ]
 
 
 class PostDetailView(DetailView, FormMixin):
