@@ -41,7 +41,7 @@ class PostDetailView(DetailView, FormMixin):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        post = self.get_object()
+        post = context["object"]
 
         comments = (
             post.commentaries
