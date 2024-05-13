@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>Post details</h1>
+  <p><b>{{ post_detail.owner }}</b>, {{ post_detail.created_time }}</p>
+  <p><b>{{ post_detail.title }}</b></p>
+  <hr>
+  <p>{{ post_detail.content }}</p>
+  <hr>
+  {% for comment in post_detail.commentary.all %}
+    <p class="mb-1"><b>{{ comment.user }}</b>, {{ comment.created_time }}</p>
+    <p>{{ comment.content }}</p>
+  {% endfor %}
+  <br>
+  <a href="{% url "blog:commentary-create" pk=post_detail.id %}" class="btn btn-outline-primary">Add my comment</a>
+{% endblock %}
