@@ -8,4 +8,4 @@ urlpatterns = [
     path("post/<int:pk>", PostDetailView.as_view(), name="post-detail")
 ]
 
-app_name = 'blog'
+app_name = "blog"

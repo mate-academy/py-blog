@@ -1,18 +1,27 @@
 from django.shortcuts import reverse
 from django.views import generic
 from django.views.generic.edit import FormMixin
+
 from .forms import CommentaryForm
 from .models import Post
 
 
 class IndexView(generic.ListView):
-    queryset = Post.objects.order_by('-created_time')
+    queryset = (Post.objects
+                .select_related("owner")
+                .prefetch_related("commentary")
+                .order_by("-created_time"))
     paginate_by = 5
 
 
 class PostDetailView(generic.DetailView, FormMixin):
     model = Post
     form_class = CommentaryForm
+
+    def get_queryset(self):
+        return (super().get_queryset()
+                .select_related("owner")
+                .prefetch_related("commentary", "commentary__user"))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

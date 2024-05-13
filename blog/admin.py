@@ -1,9 +1,8 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import Group
 
 from blog.models import User, Post, Commentary
-from django.contrib.auth.models import Group
-from django.contrib.auth.admin import UserAdmin
-
 
 admin.site.unregister(Group)
 
@@ -24,5 +23,10 @@ class PostAdmin(admin.ModelAdmin):
 @admin.register(Commentary)
 class CommentaryAdmin(admin.ModelAdmin):
     list_display = ("user", "post", "created_time")
-    search_fields = ("user__username", "post__title", "post__owner__username", "created_time")
     list_filter = ("user", "post__title", "created_time")
+    search_fields = (
+        "user__username",
+        "post__title",
+        "post__owner__username",
+        "created_time"
+    )
