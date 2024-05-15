@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <div class="container mt-4">
+    <div class="card">
+      <div class="card-body">
+        <h2 class="card-title">{{ post.title }}</h2>
+        <p class="card-text">{{ post.content }}</p>
+        <p class="card-text"><strong>Author:</strong> {{ post.owner.username }}</p>
+        <p class="card-text"><strong>Posting time:</strong> {{ post.created_time }}</p>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <h3>Comments</h3>
+      {% if post.comments.all %}
+        <ul class="list-group">
+          {% for comment in post.comments.all %}
+            <li class="list-group-item">
+              <strong>{{ comment.user.username }}</strong>: {{ comment.content }}
+              <span class="float-right">{{ comment.created_time }}</span>
+            </li>
+          {% endfor %}
+          {% else %}
+        </ul>
+        <p>There is no comments yet.</p>
+      {% endif %}
+    </div>
+    <div class="mt-4">
+      <h3>Add new comment</h3>
+      <form method="POST" enctype="multipart/form-data" action="{% url 'blog:comment-create' post.id %}">
+        {% csrf_token %}
+        <div class="form-group">
+          <textarea class="form-control" id="commentContent" name="content" rows="3" required></textarea>
+        </div>
+        {% if user.is_authenticated %}
+          <button type="submit" class="btn btn-primary">Send</button>
+        {% else %}
+          <button type="submit" class="btn btn-primary" disabled>Send</button>
+        {% endif %}
+      </form>
+    </div>
+  </div>
+{% endblock %}
