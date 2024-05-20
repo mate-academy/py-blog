@@ -4,13 +4,12 @@ from django.conf import settings
 
 
 class User(AbstractUser):
-    def __str__(self):
-        return self.username
+    pass
 
 
 class Post(models.Model):
     owner = models.ForeignKey(
-        User,
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="posts"
     )
