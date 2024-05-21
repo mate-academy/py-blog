@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2 class="pt-3">Posts</h2>
+<ol class="list-group list-group-numbered pb-3">
+{% for post in post_list %}
+  <li class="list-group-item">{{ post.title }}</li>
+    {% endfor %}
+</ol>
+{% endblock %}
