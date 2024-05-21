@@ -1,0 +1,29 @@
+{% if post_list.has_other_pages %}
+  <h4 class="current">Page {{ post_list.number }}
+    of {{ post_list.paginator.num_pages }}</h4>
+  <div class="pagination">
+      <span class="step-links">
+        {% if post_list.has_previous %}
+          <a href="?page=1" class="btn btn-blog-purple">< First</a>
+          <a href="?page={{ post_list.previous_page_number }}"
+             class="btn btn-blog-purple">Previous</a>
+        {% else %}
+          <a href="" class="btn btn-blog-purple disabled">< First</a>
+          <a href=""
+             class="btn btn-blog-purple disabled">Previous</a>
+        {% endif %}
+
+        {% if post_list.has_next %}
+          <a href="?page={{ post_list.next_page_number }}"
+             class="btn btn-blog-purple">Next</a>
+          <a href="?page={{ post_list.paginator.num_pages }}"
+             class="btn btn-blog-purple">Last ></a>
+        {% else %}
+          <a href=""
+             class="btn btn-blog-purple disabled">Next</a>
+          <a href=""
+             class="btn btn-blog-purple disabled">Last ></a>
+        {% endif %}
+      </span>
+  </div>
+{% endif %}

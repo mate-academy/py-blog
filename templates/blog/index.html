@@ -1,0 +1,26 @@
+{% extends '_base.html' %}
+
+{% block pagination %}
+  {% include "includes/index_pagination.html" %}
+{% endblock %}
+
+{% block content %}
+  <h4>Page number: {{ post_list.number }}</h4>
+  {% if post_list %}
+    <ul>
+      {% for post in post_list %}
+        <li>
+          <p><a href="{% url 'blog:post-detail' pk=post.pk %}">
+            <h4>{{ post.title }}</h4></a></p>
+          <p>{{ post.content }}</p>
+          <p>Posted by: {{ post.owner }}</p>
+          <p>Posted at: {{ post.created_time }}</p>
+          <p>Number of comments: {{ post.number_of_comments }}</p>
+        </li>
+        <br>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>NO POSTS YET.</p>
+  {% endif %}
+{% endblock %}

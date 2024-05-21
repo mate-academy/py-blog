@@ -1,0 +1,58 @@
+{% extends "_base.html" %}
+
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block pagination %}
+  {% include 'includes/post_detail_pagination.html' %}
+{% endblock %}
+
+{% block content %}
+  <h4>Post info:</h4>
+  <p><strong>Title: </strong>{{ post.title }}</p>
+  <p><strong>Context: </strong>{{ post.content }}</p>
+  <p><strong>Posted by: </strong>{{ post.owner }}</p>
+  <p><strong>Posted at: </strong>{{ post.created_time }}</p>
+  <br>
+  {% if comments %}
+    <table class="table comments-full">
+      <thead class="comments-head">
+      <tr>
+        <th class="comment-content" scope="col">Comments</th>
+        <th class="comment-user" scope="col">Written by</th>
+        <th class="comment-time" scope="col">Posted at</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for comment in comments %}
+        <tr>
+        <td>{{ comment.content }}</td>
+        <td>{{ comment.user }}</td>
+        <td>{{ comment.created_time }}</td>
+
+      {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    No comments yet.
+  {% endif %}
+
+  {% if user.pk %}
+    <form method="post">
+    <h4>Write your comment below:</h4>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button
+        style="margin-top: 10px;
+          width: 200px;
+          height: 50px"
+        type="submit"
+        class="btn btn-blog-purple">Send
+    </button>
+  {% else %}
+    <input type="hidden" name="next" value="{{ next }}">
+    <h4><a style="text-decoration: none" href="{% url 'login' %}">Login</a> to
+      leave a comment</h4>
+  {% endif %}
+</form>
+{% endblock %}
