@@ -9,7 +9,7 @@ from blog.models import Post, Commentary
 
 
 def index(request: HttpRequest) -> HttpResponse:
-    post_list = Post.objects.all().order_by("-created_time")
+    post_list = Post.objects.order_by("-created_time")
     paginator = Paginator(post_list, 5)
     page_number = request.GET.get("page", 1)
     posts = paginator.get_page(page_number)
