@@ -17,7 +17,10 @@ class IndexView(generic.ListView):
 class PostDetailView(generic.DetailView, FormMixin):
     model = Post
     form_class = CommentaryForm
-    queryset = Post.objects.select_related("owner").prefetch_related("commentaries", "commentaries__user")
+    queryset = Post.objects.select_related("owner").prefetch_related(
+        "commentaries__user",
+        "commentaries"
+    )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
