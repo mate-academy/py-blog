@@ -16,7 +16,7 @@ class Post(models.Model):
 
     def __str__(self):
         return (f"{self.title} by {self.owner} "
-                f"at {self.created_time.strftime("%Y-%m-%d")}")
+                f"at {self.created_time.strftime('%Y-%m-%d')}")  # NOQA: Q000
 
 
 class Commentary(models.Model):
