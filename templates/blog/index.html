@@ -5,12 +5,14 @@
 {% endblock %}
 
 {% block content %}
+  <ul class="list-group-item">
   <h1>Blog Home</h1>
   <p>Welcome to the blog!</p>
   <h3>Blog content:</h3>
+  </ul>
   <br>
   {% if post_list %}
-  <ul class="sidebar-nav list-group">
+  <ul class="main">
     {% for post in post_list %}
       <li class="list-group-item">
         <h4>{{ forloop.counter }}: <a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a></h4>

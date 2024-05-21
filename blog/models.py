@@ -4,7 +4,7 @@ from django.db import models
 
 
 class User(AbstractUser):
-    password = models.CharField(max_length=120)
+    pass
 
 
 class Post(models.Model):

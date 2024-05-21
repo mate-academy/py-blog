@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+  <div style="background: rgba(255,255,255,0.7); padding-left: 20px">
   {% if post %}
     <h1>{{ post.title }}</h1>
     <p>{{ post.owner }} at {{ post.created_time }}</p>
@@ -33,4 +34,5 @@
     </div>
     <br>
   {% endif %}
+  </div>
 {% endblock %}
