@@ -9,7 +9,7 @@ from .models import Post
 class IndexView(generic.ListView):
     queryset = (Post.objects
                 .select_related("owner")
-                .prefetch_related("commentary")
+                .prefetch_related("commentaries")
                 .order_by("-created_time"))
     paginate_by = 5
 
@@ -17,11 +17,7 @@ class IndexView(generic.ListView):
 class PostDetailView(generic.DetailView, FormMixin):
     model = Post
     form_class = CommentaryForm
-
-    def get_queryset(self):
-        return (super().get_queryset()
-                .select_related("owner")
-                .prefetch_related("commentary", "commentary__user"))
+    queryset = Post.objects.select_related("owner").prefetch_related("commentaries", "commentaries__user")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
