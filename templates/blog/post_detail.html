@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.owner.username }} at {{ post.created_time }}</p>
+  <p>{{ post.content }}</p>
+
+  <p>
+    {% with comments_count=post.comments.count %}
+      {{ comments_count }} comment{{ comments_count|pluralize }}
+    {% endwith %}
+  </p>
+
+  {% if post.comments.exists %}
+    {% for comment in post.comments.all %}
+      <div>
+        <strong>{{ comment.user.username }}</strong>
+        <p>{{ comment.content }}</p>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>There are no comments yet.</p>
+  {% endif %}
+
+  <h3>Add a new comment</h3>
+  <form action="{% url 'blog:post-detail' pk=post.id %}" method="post" novalidate>
+    {% csrf_token %}
+    {{ comment_form|crispy }}
+    <input class="btn-primary" type="submit" value="Add comment">
+  </form>
+
+  {% if not user.is_authenticated %}
+    <p>You must be logged in to add a comment.</p>
+  {% endif %}
+{% endblock %}
