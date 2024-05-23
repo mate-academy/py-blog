@@ -1,0 +1,97 @@
+body{
+    background-color: lightgray;
+}
+
+a{
+    color: black;
+    text-decoration: none;
+}
+
+.posts-area {
+    border: 3px solid black;
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    max-width: 800px;
+    background-color: lightgray;
+}
+
+.post-title {
+    text-align: center;
+}
+
+.post-owner {
+    text-align: center;
+}
+
+.post-content {
+    margin: 10px;
+    text-align: justify;
+}
+
+.post-created-time {
+    font-weight: lighter;
+    margin: 10px;
+}
+
+.count-commentary {
+    text-align: center;
+    font-weight: bold;
+}
+
+.post-page-detail {
+    margin-left: 15%;
+    margin-right: 15%;
+}
+
+.one-line {
+    display: inline-block;
+    margin: 5px;
+}
+
+.user-comments {
+    font-weight: bolder;
+}
+
+.created-time-comments {
+    font-weight: lighter;
+}
+
+.post-owner-and-date {
+    font-weight: lighter;
+    text-align: center;
+}
+
+.post-content-detail {
+    text-align: justify;
+}
+
+.horizontal-line {
+    margin-top: 5px;
+    border-top: 1px solid black;
+    opacity: 0.1;
+}
+
+.commentary-detail {
+    border: 1px solid black;
+    margin-top: 10px;
+}
+
+.content-detail {
+    padding-left: 5px;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.textarea{
+    background-color: lightgray;
+    border: 1px solid black;
+}

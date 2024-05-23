@@ -1,2 +1,18 @@
 .venv
 .idea
+
+# Ignore Python compiled files
+*.pyc
+__pycache__/
+
+# Ignore environment files
+.env
+
+# Ignore SQLite database files
+*.sqlite3
+
+# Ignore Django migration files
+**/migrations/*.py
+**/migrations/*.pyc
+
+# Other entries as needed
