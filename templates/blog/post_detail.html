@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.content }}</p>
+
+  <h3>Comments:</h3>
+  <ul>
+    {% for comment in post.commentary_set.all %}
+      <li>
+        <h4>{{ comment.user }}</h4>
+        <p>{{ comment.content }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+
+
+  <h2>Add a Comment</h2>
+  {% if user.is_authenticated %}
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Submit</button>
+    </form>
+  {% else %}
+    <p>You must be <a href="{% url 'login' %}">logged in</a> to add a comment.</p>
+  {% endif %}
+{% endblock %}
