@@ -12,7 +12,7 @@ class PostListView(generic.ListView):
     model = Post
     queryset = (
         Post.objects.select_related("owner")
-        .annotate(comment_count=Count("commentary"))
+        .annotate(comment_count=Count("comments"))
         .all()
     )
     template_name = "blog/post_list.html"
@@ -23,8 +23,8 @@ class PostListView(generic.ListView):
 class PostDetailView(generic.DetailView, FormMixin):
     model = Post
     queryset = Post.objects.annotate(
-        comment_count=Count("commentary")
-    ).prefetch_related(Prefetch("commentary",
+        comment_count=Count("comments")
+    ).prefetch_related(Prefetch("comments",
                                 queryset=Commentary.objects.all()))
     form_class = CommentaryForm
 
