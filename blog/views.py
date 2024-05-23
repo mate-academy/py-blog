@@ -26,8 +26,6 @@ class PostDetailView(generic.DetailView, FormMixin):
         comment_count=Count("commentary")
     ).prefetch_related(Prefetch("commentary",
                                 queryset=Commentary.objects.all()))
-    template_name = "blog/post_detail.html"
-    context_object_name = "post_detail"
     form_class = CommentaryForm
 
     def get_success_url(self):
