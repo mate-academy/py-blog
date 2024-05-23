@@ -15,7 +15,7 @@
 <body>
 <div>
 {% if user.is_authenticated %}
-  <h1>{{ user.username }} | <a href="{% url 'blog:logout' %}">Logout</a></h1>
+  <h1>{{ user.username }} | <a href="{% url 'blog:logout' %}" style="color: blue">Logout</a><a> |</a> <a href="{% url 'blog:index' %}" style="color: #4ac1f7"> Home PAGE</a></h1>
 {% else %}
   <h1><a href="{% url 'blog:login' %}">Login</a></h1>
 {% endif %}
