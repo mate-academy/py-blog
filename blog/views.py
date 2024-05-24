@@ -10,7 +10,7 @@ from blog.models import Post
 
 def index(request: HttpRequest) -> HttpResponse:
     post_list = Post.objects.all()
-    paginator = Paginator(post_list, 5)  # 5 posts per page
+    paginator = Paginator(post_list, 5)
 
     page_number = request.GET.get("page")
     try:
@@ -26,12 +26,12 @@ def index(request: HttpRequest) -> HttpResponse:
 class PostListView(ListView):
     model = Post
     paginate_by = 5
-    queryset = Post.objects.all().order_by("-created_time")
+    queryset = Post.objects.order_by("-created_time")
 
 
 class PostDetailView(DetailView):
     model = Post
-    queryset = Post.objects.all().prefetch_related("commentary_set")
+    queryset = Post.objects.prefetch_related("commentary_set")
     context_object_name = "post"
 
     def get_context_data(self, **kwargs):
