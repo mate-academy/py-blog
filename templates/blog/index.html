@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}
+	<title>Home page</title>
+{% endblock %}
+
+{% block content %}
+	<h1>Welcome to our post</h1>
+	<h3>List of posts:</h3>
+	{% if post_list %}
+		<ul>
+			{% for post in post_list %}
+				<li><a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a></li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		<p>There are not posts</p>
+	{% endif %}
+{% endblock %}
