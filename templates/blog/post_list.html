@@ -11,8 +11,10 @@
 					<div>Author: {{ post.owner }}</div>
 					<div>Created: {{ post.created_time }}</div>
 					<div>
-						<p>{{ post.commentaries.count }}
-							comment{{ post.commentaries.count|pluralize }}</p>
+						<p>
+							{{ post.commentaries.count }}
+							comment{{ post.commentaries.count|pluralize }}
+						</p>
 					</div>
 					<br>
 				</li>
