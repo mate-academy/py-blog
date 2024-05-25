@@ -7,7 +7,7 @@
     {{ post.content }}
   </p>
   <table>
-    {% for comment in post.commentary_set.all %}
+    {% for comment in post.post_comments.all %}
       <tr>
         <td><strong>{{ comment.user.username }} {{ comment.created_time }}</strong></td>
       </tr>

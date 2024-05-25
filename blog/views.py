@@ -31,12 +31,12 @@ class PostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
-    queryset = Post.objects.prefetch_related("commentary_set")
+    queryset = Post.objects.prefetch_related("post_comments")
     context_object_name = "post"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["comments"] = self.object.commentary_set.all()
+        context["comments"] = self.object.post_comments.all()
         context["form"] = CommentaryForm()
         return context
 

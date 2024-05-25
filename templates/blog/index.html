@@ -3,7 +3,7 @@
 {% block content %}
   <h1>Home page</h1>
   <ul>
-    {% for post in post_list %}
+    {% for post in posts %}
       <h5><a href={% url "blog:post-detail" pk=post.id %}>{{ post.title }}</a></h5>
       <li>
         <i>Author: {{ post.owner.username}} | Posted: {{ post.created_time }}</i>
