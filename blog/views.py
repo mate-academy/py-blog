@@ -1,4 +1,3 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, HttpRequest
 from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin
@@ -7,14 +6,14 @@ from blog.models import Post
 from blog.forms import CommentaryForm
 
 
-class PostListView(LoginRequiredMixin, ListView):
+class PostListView(ListView):
     model = Post
     queryset = Post.objects.order_by("-created_time")
     template_name = "blog/post_list.html"
     paginate_by = 5
 
 
-class PostDetailView(LoginRequiredMixin, FormMixin, DetailView):
+class PostDetailView(FormMixin, DetailView):
     model = Post
     form_class = CommentaryForm
 

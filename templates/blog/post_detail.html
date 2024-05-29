@@ -9,11 +9,13 @@
   
   <h3>Commentaries:</h3>
   
-  <form action="" method="post">
-    {% csrf_token %}
-    {{ form|crispy }}
-    <input type="submit" value="Submit">
-  </form>
+  {% if user.is_authenticated %}
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="submit" value="Submit">
+    </form>
+  {% endif %}
   
   {% for commentary in post.commentaries.all %}
     <p>{{ commentary.user }}</p>
