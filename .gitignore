@@ -1,0 +1,8 @@
+.idea/
+.github/
+.venv/
+blog_system_db_data.json
+db.sqlite3
+/db.sqlite3
+/tests/
+.pyc

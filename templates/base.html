@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {% block title %}
+    <title>Py blog</title>
+  {% endblock %}
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+  <div id="content">
+    {% block content %}
+    {% endblock %}
+  </div>
+  <div id="pagination">
+    {% block pagination %}
+      {% include "includes/pagination.html" %}
+    {% endblock %}
+  </div>
+</body>
+</html>
