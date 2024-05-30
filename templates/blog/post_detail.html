@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+  <h3>{{ post.title }}</h3>
+  <p>
+    {{ post.owner.first_name }} {{ post.owner.last_name }}
+    at: {{ post.created_time|date:"D d M Y" }} {{ post.created_time|time:"H:i" }}
+  </p>
+  <p class="text-justify">{{ post.content }}</p>
+  <p>{{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}</p>
+
+  {% if post.commentaries %}
+    {% for commentary in post.commentaries.all %}
+      <div class="card mb-3">
+        <div class="card-body">
+          <p class="card-title font-weight-bold">
+            {{ commentary.user.username }} {{ commentary.created_time }}
+          </p>
+          <p class="card-text"> {{ commentary.content }}.</p>
+        </div>
+      </div>
+    {% empty %}
+      <p>Be the first commentator of this post!</p>
+    {% endfor %}
+  {% endif %}
+
+  <a class="btn btn-primary" href="{% url 'blog:create-comment' pk=post.id %}">
+    Add comment
+  </a>
+  <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-secondary">Back</a>
+
+{% endblock %}
