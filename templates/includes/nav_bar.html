@@ -1,0 +1,19 @@
+<nav class="navbar bg-dark border-bottom border-body">
+  <div class="container-fluid">
+    <a class="nav-item" href="{% url 'blog:index' %}">Home</a>
+  </div>
+  <ul class="nav justify-content-end">
+    {% if user.is_authenticated %}
+      <li class="nav-item">
+        <span class="nav-link" href="{% url 'login' %}">hello {{ user.username }}</span>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+      </li>
+    {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'login' %}">Login</a>
+      </li>
+    {% endif %}
+  </ul>
+</nav>
