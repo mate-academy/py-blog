@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.content }}</p>
+  <small>{{ post.owner }}</small>
+  <small class="float-right">{{ post.created_time }}</small>
+  <hr>
+  <h2>Comments:</h2>
+  {% if post.commentaries.count %}
+    <ul class="list-group">
+      {% for comment in post.commentaries.all %}
+        <li class="list-group-item">
+          <small>{{ comment.user }}</small>
+          <small class="float-right">{{ comment.created_time }}</small>
+          <p>{{ comment.content }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    No comments.
+  {% endif %}
+  <hr>
+  <h2>Leave a new comment:</h2>
+  <form action="{% url 'blog:commentary-create' post.pk %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input class="btn btn-primary" type="submit" value="Submit" />
+  </form>
+{% endblock %}
