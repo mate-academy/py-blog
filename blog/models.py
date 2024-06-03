@@ -50,5 +50,9 @@ class Commentary(models.Model):
         verbose_name_plural = "Commentaries"
 
     def __str__(self) -> str:
-        commentary = get_object_or_404(Commentary.objects.select_related('user', 'post'), pk=self.id)
-        return f"Commentary by {commentary.user.username} on {commentary.post.title}"
+        commentary = get_object_or_404(
+            Commentary.objects.select_related("user", "post"),
+            pk=self.id
+        )
+        return (f"Commentary by {commentary.user.username} "
+                f"on {commentary.post.title}")

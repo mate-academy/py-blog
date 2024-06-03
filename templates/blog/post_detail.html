@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 
 {% block content %}
   <h1>{{ post.title }}</h1>
@@ -20,11 +21,15 @@
   {% else %}
     No comments.
   {% endif %}
-  <hr>
+  <hr id="leave-comment">
   <h2>Leave a new comment:</h2>
-  <form action="{% url 'blog:commentary-create' post.pk %}" method="post">
+  <form action="{% url 'blog:commentary-create' post.pk %}" method="post" novalidate>
     {% csrf_token %}
-    {{ form.as_p }}
-    <input class="btn btn-primary" type="submit" value="Submit" />
+    {% if user.is_authenticated %}
+      {{ form|crispy }}
+      <input class="btn btn-primary" type="submit" value="Submit"/>
+    {% else %}
+      <input class="btn btn-primary" type="submit" value="Login to post comments"/>
+    {% endif %}
   </form>
 {% endblock %}

@@ -2,18 +2,25 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
+
+from blog.forms import CommentaryForm
 from blog.models import Post, Commentary
 
 
-class PostListView(LoginRequiredMixin, generic.ListView):
+class PostListView(generic.ListView):
     model = Post
     template_name = "blog/index.html"
     paginate_by = 5
 
 
-class PostDetailView(LoginRequiredMixin, generic.DetailView):
+class PostDetailView(generic.DetailView):
     model = Post
     template_name = "blog/post_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = CommentaryForm()
+        return context
 
 
 class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
