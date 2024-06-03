@@ -25,7 +25,7 @@ class PostDetailView(generic.DetailView):
 
 class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
     model = Commentary
-    fields = ("content",)
+    form_class = CommentaryForm
     template_name = "blog/post_detail.html"
 
     def form_valid(self, form):
