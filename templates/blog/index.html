@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Blog</h1>
+  {% if post_list %}
+    <ul class="list-group">
+      {% for post in post_list %}
+        <li class="list-group-item">
+          <h2>
+            <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+          </h2>
+          <p>{{ post.content }}</p>
+          <small>Author: {{ post.owner }}</small>
+          <small class="float-right">Comments: {{ post.commentaries.count }}</small>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    No posts.
+  {% endif %}
+{% endblock %}
