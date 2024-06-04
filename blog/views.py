@@ -30,7 +30,6 @@ class PostDetailView(DetailView):
 
 class CommentaryCreateView(CreateView):
     model = Commentary
-    template_name = "blog/comment.html"
     form_class = CommentaryForm
 
     def get_context_data(self, **kwargs):
