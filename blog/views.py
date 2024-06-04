@@ -1,10 +1,11 @@
+from django.urls import reverse_lazy
 from django.views.decorators.http import require_POST
-from django.views.generic import DetailView
+from django.views.generic import DetailView, CreateView, ListView
 
 from blog.forms import CommentaryForm
-from blog.models import Post
-from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render, get_object_or_404
+from blog.models import Post, Commentary
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 
 
@@ -27,24 +28,27 @@ class PostDetailView(DetailView):
         return context
 
 
-@require_POST
-def comment_view(request: HttpRequest, post_id) -> HttpResponse:
-    post = get_object_or_404(
-        Post,
-        id=post_id
-    )
-    comment = None
-    form = CommentaryForm(data=request.POST)
-    if form.is_valid():
-        comment = form.save(commit=False)
-        comment.post = post
-        comment.user = request.user
-        comment.save()
+class CommentaryCreateView(CreateView):
+    model = Commentary
+    template_name = "blog/comment.html"
+    form_class = CommentaryForm
 
-    context = {
-        "form": form,
-        "post": post,
-        "comment": comment,
-    }
+    def get_context_data(self, **kwargs):
+        context = super(CommentaryCreateView, self).get_context_data(**kwargs)
+        post_id = self.kwargs.get("post_id")
+        post = get_object_or_404(Post, pk=post_id)
+        context["post"] = post
+        context["user"] = self.request.user
+        context["form"] = CommentaryForm()
+        return context
 
-    return render(request, "blog/comment.html", context=context)
+    def post(self, request, *args, **kwargs):
+        form = CommentaryForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = self.request.user
+            post_id = self.kwargs.get("post_id")
+            post = get_object_or_404(Post, pk=post_id)
+            comment.post = post
+            comment.save()
+            return redirect("blog:post-detail", pk=post_id)
