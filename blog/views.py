@@ -1,10 +1,8 @@
-from django.urls import reverse_lazy
-from django.views.decorators.http import require_POST
-from django.views.generic import DetailView, CreateView, ListView
+from django.views.generic import DetailView, CreateView
 
 from blog.forms import CommentaryForm
 from blog.models import Post, Commentary
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 
