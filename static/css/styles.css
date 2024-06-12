@@ -1,0 +1,60 @@
+body {
+    margin: 20px;
+}
+
+.post-detail-author-name {
+    font-size: 130%;
+    font-style: italic;
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+.post-detail-date {
+    color: rgb(100, 100, 100);
+    font-size: 80%;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.post-detail-content {
+    font-size: 110%;
+    width: 80%;
+    margin-bottom: 30px;
+}
+
+
+.post-detail-comments-block {
+    margin-top: 10px;
+    width: 50%;
+    list-style: none;
+}
+
+.post-detail-comment {
+    margin-bottom: 5px;
+}
+
+.comment-username {
+    font-size: 110%;
+    font-style: italic;
+    font-weight: 600;
+    margin-bottom: 1px;
+}
+
+.comment-date {
+    color: rgb(100, 100, 100);
+    font-size: 80%;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.comment-content {
+    padding: 10px;
+    border: 1px solid rgb(238, 238, 238);
+    border-radius: 4px;
+}
+
+.text-field {
+    font-size: 90%;
+    width: 50%;
+    height: 100px;
+}
