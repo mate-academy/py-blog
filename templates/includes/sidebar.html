@@ -1,0 +1,11 @@
+<ul style="margin:40px 10px;">
+  {% if user.is_authenticated %}
+    <li style="font-weight:bold;">User: {{ user.get_username }}</li>
+    <hr style="border-top: 1px solid rgba(255, 255, 255, .5);">
+    <li><a class="link" href="{% url 'logout' %}">Logout</a></li>
+  {% else %}
+    <li><a class="link" href="{% url 'login' %}">Login</a></li>
+  {% endif %}
+    <br>
+    <li><a class="link" href="{% url 'blog:index' %}">Home</a></li>
+</ul>
