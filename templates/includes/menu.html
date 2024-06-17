@@ -1,0 +1,14 @@
+<div style="text-align: center">
+  {% if not request.path == "/" %}
+    <a href="{% url "blog:index" %}"><b>All posts</b></a>
+  {% endif %}
+  {% if user.is_authenticated %}
+    you logged in like <b>{{ user.username }}</b>
+    <form action="{% url 'logout' %}" method="post" style="display: inline-block;">
+      {% csrf_token %}
+    <button type="submit">Logout</button>
+    </form>
+  {% else %}
+    <a href="{% url 'login' %}?next={{ request.path }}">Login</a>
+  {% endif %}
+</div>

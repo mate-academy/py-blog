@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Login:</h1>
+  {% if not user.is_authenticated %}
+    {% if form.errors %}
+      <p style="color: red">Invalid credentials</p>
+    {% endif %}
+    <form action="{% url 'login' %}" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" name="Submit">
+      <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+  {% else %}
+    You are logged in!
+  {% endif %}
+{% endblock %}
