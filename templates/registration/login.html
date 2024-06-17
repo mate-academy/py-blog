@@ -10,6 +10,7 @@
       {% csrf_token %}
       {{ form.as_p }}
       <input type="submit" name="Submit">
+      <input type="hidden" name="next" value="{{ next }}" />
     </form>
   {% else %}
     You are logged in!
