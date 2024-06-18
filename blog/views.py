@@ -24,6 +24,7 @@ class PostDetailView(generic.DetailView):
         context["form"] = CommentaryForm()
         return context
 
+
 class CommentaryFormView(generic.FormView, SingleObjectMixin):
     form_class = CommentaryForm
     model = Commentary
@@ -31,8 +32,6 @@ class CommentaryFormView(generic.FormView, SingleObjectMixin):
     success_url = "#"
 
     def post(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return HttpResponseForbidden()
         self.object = self.get_object()
         return super().post(request, *args, **kwargs)
 
