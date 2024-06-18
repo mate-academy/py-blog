@@ -1,10 +1,6 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseForbidden, HttpResponseRedirect
-from django.shortcuts import render
-from django.urls import reverse
+from django.http import HttpResponseRedirect
 from django.views import generic
 from django.views.generic.detail import SingleObjectMixin
-from django.views.generic.edit import FormMixin, FormView
 
 from blog.forms import CommentaryForm
 from blog.models import Post, Commentary
@@ -27,30 +23,6 @@ class PostDetailView(generic.DetailView):
         context = super().get_context_data(**kwargs)
         context["form"] = CommentaryForm()
         return context
-    # form_class = CommentaryForm
-
-    # def get_success_url(self):
-    #     return reverse("blog:post-detail", kwargs={"pk": self.object.pk})
-    #
-    # def get_context_data(self, **kwargs):
-    #     context = super(PostDetailView, self).get_context_data(**kwargs)
-    #     context["form"] = self.get_form()
-    #     return context
-    #
-    # def post(self, request, *args, **kwargs):
-    #     if not request.user.is_authenticated:
-    #         return HttpResponseForbidden()
-    #     form = self.get_form()
-    #     self.object = self.get_object()
-    #     if form.is_valid():
-    #         return self.form_valid(form)
-    #     return self.form_invalid(form)
-
-    # def form_valid(self, form):
-    #     form.instance.user = self.request.user
-    #     form.instance.post = Post.objects.get(pk=self.object.pk)
-    #     return super(PostDetailView, self).form_valid(form)
-
 
 class CommentaryFormView(generic.FormView, SingleObjectMixin):
     form_class = CommentaryForm
