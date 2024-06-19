@@ -1,0 +1,13 @@
+body {
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.comment {
+    border-top: solid 2px lightsteelblue;
+}
+
+.article {
+    font-size: 18px;
+}

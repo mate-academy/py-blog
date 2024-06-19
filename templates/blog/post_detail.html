@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p class="text-muted">
+      Author: {{ post.owner }} ({{ post.created_time }})
+  </p>
+  <p class="article">{{ post.content }}</p>
+  {% for comment in post.commentaries.all %}
+    <p class="comment">{{ comment }}</p>
+  {% endfor %}
+  {% include "blog/commentary_form.html" %}
+{% endblock %}
