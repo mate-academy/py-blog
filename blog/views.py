@@ -45,7 +45,9 @@ class PostCommentView(generic.View):
         view = CommentaryFormView.as_view()
         form = CommentaryForm(request.POST)
         if not request.user.is_authenticated:
-            return HttpResponseRedirect("/accounts/login/")
+            return HttpResponseRedirect(
+                f"/accounts/login/?next={request.path}"
+            )
         form.instance.user = request.user
         form.instance.post = Post.objects.get(id=self.kwargs["pk"])
         if form.is_valid():
