@@ -2,7 +2,6 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 from blog_system import settings
-# Create your models here.
 
 
 class User(AbstractUser):

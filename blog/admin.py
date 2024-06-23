@@ -2,7 +2,6 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
 from blog.models import User, Commentary, Post
-# Register your models here.
 
 
 @admin.register(Post)
