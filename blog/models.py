@@ -16,7 +16,9 @@ class User(AbstractUser):
 
 class Post(models.Model):
     owner = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="posts"
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="posts"
     )
     title = models.CharField(max_length=200)
     content = models.TextField()

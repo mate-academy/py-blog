@@ -36,7 +36,10 @@ class PostDetailView(generic.DetailView, FormMixin):
     form_class = CommentForm
 
     def get_success_url(self) -> str:
-        return reverse("blog:post-detail", kwargs={"pk": self.kwargs["pk"]})
+        return reverse(
+            "blog:post-detail",
+            kwargs={"pk": self.kwargs["pk"]}
+        )
 
     def post(self, request, *args, **kwargs) -> HttpResponse:
         self.object = self.get_object()
