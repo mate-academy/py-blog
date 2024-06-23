@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 style="color: navajowhite">Blog</h1>
+  {% for post in page_obj %}
+    <div class="object">
+    <h2><a style="color: black" href="{% url "blog:post-detail" pk=post.id %}">{{ post.title }}</a></h2>
+    <p>{{ post.content }}</p>
+    <p><strong>Author:</strong> {{ post.owner.username }}</p>
+    <p><strong>Created:</strong> {{ post.created_time }}</p>
+    <p><strong>Commentaries:</strong> {{ post.commentaries.count }}</p>
+    </div>
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="object">
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.owner.username }} at {{ post.created_time }}</p>
+    <p>{{ post.content }}</p>
+  </div>
+  <div class="object">
+  <h2>Commentaries: {{ post.commentaries.count }}</h2>
+  {% for comment in post.commentaries.all %}
+    <div class="object comm">
+      <p><strong>{{ comment.user.username }}</strong> {{ comment.created_time }}</p>
+      <hr>
+      <p>{{ comment.content }}</p>
+    </div>
+  {% endfor %}
+  </div>
+  <div class="object">
+    <form action="" method="post" novalidate>
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="submit" value="add comment">
+    </form>
+  </div>
+{% endblock %}

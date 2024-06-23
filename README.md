@@ -2,7 +2,7 @@
 
 In this task, you will create a simple `Blog` project from start to end.
 
-Let's go through all the steps:
+Let"s go through all the steps:
 
 1. Create a virtual environment, activate it, and install django via pip.
 2. Start project `blog_system` inside the current directory (add . at the end of the command).
@@ -21,12 +21,12 @@ Let's go through all the steps:
    ```python manage.py loaddata blog_system_db_data.json```
 
    _Feel free to add more data using the admin panel if needed._
-9. Inside `blog_system.urls` add a path to the `blog.urls`. Don't forget to specify the namespace.
+9. Inside `blog_system.urls` add a path to the `blog.urls`. Don"t forget to specify the namespace.
 10. Inside `blog.urls` create a path for the home page. Give this path the name `index`.
 11. Inside `blog.views` create a view for the `index` url. This view returns a list of all posts, in descending order by `created_time`.
-12. Before creating a template, you have to create styles. Create a directory `static` next to the directory `blog`. Inside this directory create a file with the following path `css/styles.css`. Don't forget to do all the necessary steps so that Django can serve these static files.
+12. Before creating a template, you have to create styles. Create a directory `static` next to the directory `blog`. Inside this directory create a file with the following path `css/styles.css`. Don"t forget to do all the necessary steps so that Django can serve these static files.
 13. Create a directory `templates` next to the directory `blog`. There you will store templates for pages. Edit settings so that engine knows where to look for template source files.
-14. Create a template for the main page. On this page, make it so that a list of all posts is displayed. The title and content were displayed, the author was visible when this post was created and the number of comments on the post. Make the post's title a link to the detailed page, which you would implement further.
+14. Create a template for the main page. On this page, make it so that a list of all posts is displayed. The title and content were displayed, the author was visible when this post was created and the number of comments on the post. Make the post"s title a link to the detailed page, which you would implement further.
 15.  Add pagination for the main page. Set **5** posts on one page by default.
 16. Create a `PostDetailView` view that returns detailed information about the post by the `id` field.
 17. Add a template for this page and url with a path `posts/pk/` and name `post-detail`.
@@ -37,12 +37,12 @@ Let's go through all the steps:
 
 20. Use crispy forms in your forms to make the website more beautiful. 
 21. Use `python manage.py test` to run tests.
-22. Don't forget to add the `.gitignore` file before pushing. Don't push a lot of extra files(`venv`, `pycache`, `.idea`, etc.).
+22. Don"t forget to add the `.gitignore` file before pushing. Don"t push a lot of extra files(`venv`, `pycache`, `.idea`, etc.).
 
 
 ### Note: Attach screenshots of all created or modified pages to pull request.
 1. Attach screenshots to the comment, NOT in the commit.
-2. It's important to attach images not links to them. 
+2. It"s important to attach images not links to them. 
 
 ## Example of the post detailed page
 
