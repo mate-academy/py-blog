@@ -15,19 +15,20 @@ def index(request: HttpRequest) -> HttpResponse:
         .prefetch_related("commentaries__user")
         .order_by("-created_time")
     )
+    # print(post_list)
     paginator = Paginator(posts, 5)
     page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
+    post_list = paginator.get_page(page_number)
     return render(
         request,
         "blog/index.html",
         {
-            "page_obj": page_obj,
+            "post_list": post_list,
         },
     )
 
 
-class PostDetailView(generic.DetailView, FormMixin):
+class PostDetailView(FormMixin, generic.DetailView):
     template_name = "blog/post_detail.html"
     model = Post
     queryset = Post.objects.select_related("owner").prefetch_related(
