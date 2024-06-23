@@ -13,9 +13,7 @@ class PostAdmin(admin.ModelAdmin):
         "created_time",
     )
     list_filter = ("owner",)
-    search_fields = (
-        "owner__username",
-    )
+    search_fields = ("owner__username",)
 
 
 @admin.register(User)

@@ -21,10 +21,10 @@
         <p>No posts found!</p>
       {% endfor %}
     </ul>
-    {% endif %}
+  {% endif %}
 {% endblock %}
 {% block pagination %}
-	<ul class="pagination">
+  <ul class="pagination">
     {% if page_obj.has_previous %}
       <li class="page-item"><a class="page-link"
                                href="?page={{ page_obj.previous_page_number }}">Prev</a>

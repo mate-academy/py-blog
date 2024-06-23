@@ -1,15 +1,20 @@
 from django.core.paginator import Paginator
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.urls import reverse
 from django.views import generic
+from django.views.generic.edit import FormMixin
 
-from blog.models import Post, Commentary
+from blog.models import Post
+from blog.forms import CommentForm
 
 
 def index(request: HttpRequest) -> HttpResponse:
-    posts = (Post.objects.select_related("owner").
-             prefetch_related("commentaries__user").order_by("-created_time"))
+    posts = (
+        Post.objects.select_related("owner")
+        .prefetch_related("commentaries__user")
+        .order_by("-created_time")
+    )
     paginator = Paginator(posts, 5)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
@@ -18,18 +23,28 @@ def index(request: HttpRequest) -> HttpResponse:
         "blog/index.html",
         {
             "page_obj": page_obj,
-        }
+        },
     )
 
 
-class PostDetailView(generic.DetailView):
-    model = Post
-    queryset = (Post.objects.select_related("owner").
-                prefetch_related("commentaries__user"))
-
-
-class CommentCreateView(generic.CreateView):
-    model = Commentary
-    fields = ["content",]
-    success_url = reverse_lazy("blog:post-detail")
+class PostDetailView(generic.DetailView, FormMixin):
     template_name = "blog/post_detail.html"
+    model = Post
+    queryset = Post.objects.select_related("owner").prefetch_related(
+        "commentaries__user"
+    )
+    form_class = CommentForm
+
+    def get_success_url(self) -> str:
+        return reverse("blog:post-detail", kwargs={"pk": self.kwargs["pk"]})
+
+    def post(self, request, *args, **kwargs) -> HttpResponse:
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid() and request.user.is_authenticated:
+            commentary = form.save(commit=False)
+            commentary.user = request.user
+            commentary.post = self.object
+            commentary.save()
+            return self.form_valid(form=form)
+        return self.form_invalid(form=form)

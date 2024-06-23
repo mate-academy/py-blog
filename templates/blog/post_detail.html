@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 
 {% block content %}
   <div class="container mt-5">
@@ -26,19 +27,12 @@
       </ul>
     </div>
 
-    <!-- Add comment form -->
-    <div class="mt-4">
-      <h4>Add a Comment</h4>
-      <form action=""
-            method="post"
-            novalidate>
-        {% csrf_token %}
-        <div class="form-group">
-          <textarea class="form-control" name="comment_text" rows="3"
-                    placeholder="Write your comment"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary">Submit Comment</button>
-      </form>
-    </div>
+    <br>
+    <h4>Add a Comment</h4>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button type="submit" class="btn btn-primary">Submit Comment</button>
+    </form>
   </div>
 {% endblock %}

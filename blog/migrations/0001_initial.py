@@ -188,4 +188,38 @@ class Migration(migrations.Migration):
                 "ordering": ["created_time"],
             },
         ),
+        migrations.AlterModelOptions(
+            name="commentary",
+            options={
+                "ordering": ["created_time"],
+                "verbose_name_plural": "Commentaries",
+            },
+        ),
+        migrations.AlterField(
+            model_name="commentary",
+            name="post",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="commentaries",
+                to="blog.post",
+            ),
+        ),
+        migrations.AlterField(
+            model_name="commentary",
+            name="user",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="commentaries",
+                to=settings.AUTH_USER_MODEL,
+            ),
+        ),
+        migrations.AlterField(
+            model_name="post",
+            name="owner",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="posts",
+                to=settings.AUTH_USER_MODEL,
+            ),
+        ),
     ]
