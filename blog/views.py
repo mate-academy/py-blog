@@ -13,6 +13,7 @@ def index(request: HttpRequest) -> HttpResponse:
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     content = {
+        "post_list": page_obj.object_list,
         "page_obj": page_obj,
         "paginator": paginator
     }
