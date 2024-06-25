@@ -31,12 +31,12 @@ body {
 .content {
   flex: 1;
   padding: 15px;
-  margin-left: 150px; /* Added margin to accommodate sidebar */
 }
 
 .page-wrapper {
   display: flex;
   flex-direction: column;
+  margin-left: 150px;
 }
 
 .pagination {
@@ -69,12 +69,11 @@ body {
 
 .comment {
   border: 1px solid #ddd;
-  padding: 10px;
   margin-bottom: 10px;
   border-radius: 5px;
   background-color: #f9f9f9;
   position: relative;
-  padding-left: 20px; /* Added padding to accommodate the left border */
+  padding-left: 20px;
 }
 
 .comment:before {
