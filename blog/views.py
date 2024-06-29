@@ -1,12 +1,10 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count
-from django.urls import reverse_lazy, reverse
 from django.views import generic
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import redirect
 from django.contrib import messages
 from django import forms
 
-from blog.models import User, Post, Commentary
+from blog.models import Post, Commentary
 
 
 class IndexView(generic.ListView):
@@ -17,7 +15,7 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        queryset = queryset.select_related("owner")
+        queryset = queryset.select_related("owner").annotate(comment_count=Count('commentary'))
         return queryset
 
 
@@ -29,6 +27,9 @@ class CommentaryForm(forms.ModelForm):
 
 class PostDetailView(generic.DetailView):
     model = Post
+
+    def get_queryset(self):
+        return Post.objects.select_related('owner').annotate(comment_count=Count('commentary'))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
