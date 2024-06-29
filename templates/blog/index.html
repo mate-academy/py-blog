@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Blog Service Home</h1>
+  <p>Welcome to Best Blogs Ever!</p>
+
+  <h1>
+    Posts List
+  </h1>
+
+  {% if post_list %}
+    <div class="accordion mb-2" id="postsList">
+      {% for post in post_list %}
+        <div class="card">
+          <div class="card-header" id="heading{{ post.id }}">
+            <h2 class="mb-0">
+              <button
+                  class="btn btn-link btn-block text-left"
+                  type="button"
+                  data-toggle="collapse"
+                  aria-expanded="false"
+                  data-target="#collapse{{ post.id }}"
+                  aria-controls="collapse{{ post.id }}"
+              >
+                <a
+                  href="{{ post.get_absolute_url }}"
+                >
+                  {{ post.title }}
+                </a>
+              </button>
+            </h2>
+
+            <p class="pl-3">
+              {{ post.owner.first_name }} {{ post.owner.last_name }} |
+              {{ post.created_time }} | Comments number: {{ post.comment_count }}
+            </p>
+          </div>
+
+          <div
+              id="collapse{{ post.id }}"
+              class="collapse"
+              aria-labelledby="headingOne"
+              data-parent="#postsList"
+          >
+            <div class="card-body">
+              {{ post.content }}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+  {% else %}
+      <p>There are no posts in the service.</p>
+  {% endif %}
+{% endblock %}
