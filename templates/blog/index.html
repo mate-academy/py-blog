@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Posts of our blog</h1>
+  <hr>
+  {% if post_list %}
+    {% for post in post_list %}
+      <p><b>{{ post.owner }}</b>
+        {% if post.owner.username == user.username %}
+          (<b style="color: crimson;">Me</b>)
+        {% endif %}, {{ post.created_time }}</p>
+      <p><b><a href="{% url "blog:post-detail" pk=post.id %}">{{ post.title }}</a></b></p>
+      <p class="text-justify">{{ post.content }}</p>
+      <p class="text-right">Number of comments: <b>{{ post.posts.count }}</b></p>
+      <hr>
+    {% endfor %}
+  {% else %}
+    No posts yet!
+  {% endif %}
+{% endblock %}
