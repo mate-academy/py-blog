@@ -5,7 +5,6 @@ from django.contrib.auth.models import Group
 from blog.models import User, Post, Commentary
 
 
-# admin_30(Nimda03)
 @admin.register(User)
 class UserAdmin(UserAdmin):
     pass
