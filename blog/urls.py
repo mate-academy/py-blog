@@ -7,9 +7,9 @@ from blog.views import (
 )
 
 urlpatterns = [
-    path("blog/", PostListView.as_view(), name="index"),
+    path("", PostListView.as_view(), name="index"),
     path(
-        "blog/post/<int:pk>",
+        "post/<int:pk>",
         PostDetailView.as_view(),
         name="post-detail"),
     path(
