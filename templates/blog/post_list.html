@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Welcome to blog</h1>
+<ul>
+  {% for post in post_list %}
+    <li class="post">
+      <h2><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h2>
+      <p class="author">posted by {{ post.owner.username }} | {{ post.created_time }}</p>
+      <p class="content">{{ post.content }}</p>
+      <p>comments : {{ post.commentaries.count }}</p>
+    </li>
+  {% endfor %}
+  {% include "include/pagination.html" %}
+</ul>
+{% endblock %}

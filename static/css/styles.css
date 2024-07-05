@@ -1,0 +1,28 @@
+.post {
+    list-style: none;
+    padding: 15px;
+    border-bottom: 1px solid #ccc;
+}
+
+.post:last-child {
+    border-bottom: none;
+}
+
+.post h2 {
+    margin-bottom: 2px;
+}
+
+.content {
+    margin-bottom: 1px;
+}
+
+.author {
+    padding: 0;
+    margin-bottom: 5px;
+    margin-top: 0;
+    font-size: 11px;
+}
+
+body {
+    margin: 10px;
+}
