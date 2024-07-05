@@ -1,8 +1,7 @@
-from django.shortcuts import render
-from django.http import HttpRequest, HttpResponse
-from blog.models import Post, Commentary
 from django.views import generic
 from django.urls import reverse_lazy
+
+from blog.models import Post, Commentary
 
 
 class PostView(generic.ListView):
