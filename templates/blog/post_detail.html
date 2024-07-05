@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h2> {{ post.title }}</h2>
+  <p>posted by {{ post.owner.username }} | {{ post.created_time }}</p>
+  <p>{{ post.content }}</p>
+  <p>Comments: {{ post.commentaries.count }}</p>
+  <ul>
+    {% for comment in post.commentaries.all %}
+      <li class="post">
+        <p>created by {{ comment.user.username }} | {{ comment.created_time }}</p>
+        <p>{{comment.content}}</p>
+      </li>
+    {% endfor %}
+  </ul>
+<form action="{% url 'blog:commentary-create' %}" method="post">
+  {% csrf_token %}
+  <input type="submit" value="add comment">
+</form>
+<form action="{% url 'blog:index' %}" method="get">
+  {% csrf_token %}
+  <input type="submit" value="go back">
+</form>
+{% endblock %}
