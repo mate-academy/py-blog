@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% for post in post_list %}
+    <li class="post-list">
+      <a href="{% url 'blog:post-detail' pk=post.id %}"><h2>{{ post.title }}</h2></a><br>
+      <p class="author" >
+        {{ post.owner.first_name }} {{ post.owner.last_name }}
+      </p>
+      <p class="publish-date">
+        {{ post.created_time }}
+      </p>
+    </li>
+  {% endfor %}
+{% endblock %}
+{% block footer %}
+  {% include "include/footer.html" %}
+{% endblock %}
