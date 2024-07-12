@@ -26,8 +26,7 @@ class PostDetailView(generic.DetailView):
     context_object_name = "post"
     Post.objects.select_related("owner").prefetch_related("commentaries")
 
-    @staticmethod
-    def get_context_data(**kwargs):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["form"] = CommentaryForm()
         return context
