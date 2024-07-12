@@ -1,0 +1,15 @@
+{#Create a template for the main page. On this page, make it so that a list of all posts is displayed.#}
+{#The title and content were displayed, the author was visible when this post was created and the number of comments on the post.#}
+{#Make the post's title a link to the detailed page, which you would implement further.#}
+
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Blog</h1>
+  <ul>
+    {% for post in post_list %}
+      <p>{{ post }}</p>
+    {% endfor %}
+  </ul>
+
+{% endblock %}
