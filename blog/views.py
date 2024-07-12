@@ -34,11 +34,15 @@ class PostDetailView(generic.DetailView):
 
     @staticmethod
     @login_required
-    def create_comment_view(request: HttpRequest, pk: int) -> HttpResponseRedirect:
+    def create_comment_view(
+            request: HttpRequest, pk: int
+    ) -> HttpResponseRedirect:
         if request.method == "POST":
             form = CommentaryForm(request.POST)
             if form.is_valid():
                 Commentary.objects.create(
                     post_id=pk, user=request.user, **form.cleaned_data
                 )
-        return HttpResponseRedirect(reverse_lazy("blog:post-detail", args=(pk,)))
+        return HttpResponseRedirect(
+            reverse_lazy("blog:post-detail", args=(pk,))
+        )
