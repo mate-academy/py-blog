@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="card mb-4">
+    <div class="card-body">
+      <h1 class="card-title">{{ post.title }}</h1>
+      <p class="card-subtitle text-muted mb-2">{{ post.owner }} at {{ post.created_time }}</p>
+      <div class="card-text">
+        {{ post.content }}
+      </div>
+    </div>
+  </div>
+  <div class="comments-section">
+    <h2>Comments</h2>
+    {% for comment in post.comments.all %}
+      <div class="card mb-3">
+        <div class="card-body">
+          <h6 class="card-subtitle text-muted">{{ comment.user }} at {{ comment.created_time }}</h6>
+          <p class="card-text">{{ comment.content }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  {% if user.is_authenticated %}
+    <div class="add-comment card mt-4">
+      <div class="card-body">
+        <h5 class="card-title">Add a new comment</h5>
+        <form action="{% url 'blog:add-comment' pk=post.id %}" method="post">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  {% else %}
+    <div class="alert alert-warning mt-4">
+      You must be <a href="{% url 'login' %}">logged in</a> to add a comment.
+    </div>
+  {% endif %}
+{% endblock %}
