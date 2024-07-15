@@ -15,7 +15,9 @@ class PostListView(generic.ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        queryset = Post.objects.order_by("-created_time").select_related("owner")
+        queryset = (
+            Post.objects.order_by("-created_time").select_related("owner")
+        )
         return queryset
 
 
@@ -31,12 +33,12 @@ class PostDetailView(generic.DetailView):
 @login_required
 def add_comment(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    if request.method == 'POST':
+    if request.method == "POST":
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.post = post
             comment.user = request.user
             comment.save()
-            return redirect('blog:post-detail', pk=post.pk)
-    return redirect('blog:post-detail', pk=post.pk)
+            return redirect("blog:post-detail", pk=post.pk)
+    return redirect("blog:post-detail", pk=post.pk)
