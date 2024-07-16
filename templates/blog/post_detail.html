@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <div class="ml-3">
+    <p><strong>Author:</strong> {{ post.owner.username }}</p>
+    <p><strong>Posted:</strong> {{ post.created_time }}</p>
+
+
+    <p>{{ post.content }}</p>
+
+    <p><strong>Comments:</strong></p>
+    {% for comment in post.comments.all %}
+      <hr>
+      <p class="text-muted"><strong>{{ comment.user.username }}</strong></p>
+      <p class="text-muted">
+        <strong>Posted:</strong>
+        {{ comment.created_time }}
+      </p>
+      <p>
+        {{ comment.content }}
+      </p>
+    {% empty %}
+      <p>No comments!</p>
+    {% endfor %}
+{#    <h4><a href="{% url 'blog:comment-create'%}">Add comment</a></h4>#}
+    {% if user.is_authenticated %}
+      <form action="{% url 'blog:post-add-comment' post.pk %}" method="post" novalidate>
+        {% csrf_token %}
+        <label for="content" class="form-label"><strong>Add a new comment</strong></label>
+        <textarea class="form-control mb-2" style="height: 100px" name="content"></textarea>
+        <input class="btn btn-primary" type="submit" value="Add comment">
+      </form>
+    {% else %}
+      <a href="{% url 'login' %}">Login to add comments!</a>
+    {% endif %}
+  </div>
+
+{% endblock %}
+
+
