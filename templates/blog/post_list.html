@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>
+    Posts:
+  </h1>
+  <br>
+  {% if user.is_authenticated %}
+    <button class="btn btn-outline-primary btn-block" type="button" data-toggle="collapse" data-target="#newPostForm"
+            aria-expanded="false"
+            aria-controls="newPostForm">
+      Add New Post
+    </button>
+
+    <div class="collapse mt-3" id="newPostForm">
+      <div class="card card-body">
+        <form method="post">
+          {% csrf_token %}
+          {{ new_post_form|crispy }}
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  {% else %}
+    <div class="alert alert-warning" role="alert">
+      <a href="{% url 'login' %}">Login</a> to create a post!
+    </div>
+  {% endif %}
+
+  <br>
+  {% if post_list %}
+    <ul>
+      {% for post in post_list %}
+        <li>
+          <h4>
+            <a class="post-list-title" href="{{ post.get_absolute_url }}">
+              {{ post.title }}
+            </a>
+            {% if user == post.owner %}
+              <span class="post-list-title">(Me)</span>
+              <a style="float: right; text-decoration: none"
+                 href="{% url 'blog:post-delete' pk=post.pk %}">Delete</a>
+            {% else %}
+              <span class="post-list-title">
+                ({{ post.owner.first_name }} {{ post.owner.last_name }})
+              </span>
+            {% endif %}
+          </h4>
+          <p>({{ post.created_time }})</p>
+          {% if post.content|length > 255 %}
+            <p>{{ post.content|slice:":255" }}...</p>
+          {% else %}
+            <p>{{ post.content }}</p>
+          {% endif %}
+
+          <p>
+            <a href="{{ post.get_absolute_url }}">
+              Comments({{ post.commentaries.count }})
+            </a>
+          </p>
+        </li>
+
+      {% endfor %}
+
+    </ul>
+  {% endif %}
+
+{% endblock %}

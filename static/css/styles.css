@@ -1,0 +1,13 @@
+body {
+    margin-top: 20px;
+}
+
+.sidebar-nav {
+    padding: 0;
+    list-style: none;
+}
+
+.post-list-title {
+    text-decoration: none;
+    color: inherit;
+}
