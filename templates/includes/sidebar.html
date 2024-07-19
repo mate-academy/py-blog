@@ -8,7 +8,7 @@
       </form>
     </li>
   {% else %}
-    <a class="btn btn-outline-primary btn-sm" href="{% url 'login' %}">login</a>
+    <a class="btn btn-outline-primary btn-sm" href="{% url 'login' %}?next={{ request.path }}">login</a>
   {% endif %}
   <br>
   <li>

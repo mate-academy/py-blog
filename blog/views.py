@@ -41,7 +41,7 @@ class PostListView(generic.ListView):
         return self.get(request, *args, **kwargs)
 
 
-class PostDetailView(LoginRequiredMixin, generic.DetailView):
+class PostDetailView(generic.DetailView):
     model = Post
     queryset = Post.objects.select_related("owner").prefetch_related(
         "commentaries__user"

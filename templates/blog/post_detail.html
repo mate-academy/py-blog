@@ -6,14 +6,21 @@
   <p>({{ post.created_time }})</p>
   <p>{{ post.content }}</p>
   <br>
-  <h3>Commentaries:</h3>
-  {% include "blog/commentary_list.html" %}
-  <h3>
-    Add a new commentary:
-  </h3>
-  <form method="post">
-    {% csrf_token %}
-    {{ new_commentary_form|crispy }}
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+  {% if user.is_authenticated %}
+    <h3>Commentaries:</h3>
+    {% include "blog/commentary_list.html" %}
+    <h3>
+      Add a new commentary:
+    </h3>
+    <form method="post">
+      {% csrf_token %}
+      {{ new_commentary_form|crispy }}
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  {% else %}
+    <div class="alert alert-warning" role="alert">
+      <a href="{% url 'login' %}?next={{ request.path }}">Login</a> to see commentaries!
+    </div>
+  {% endif %}
+
 {% endblock %}

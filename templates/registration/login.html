@@ -5,14 +5,14 @@
   <h1>Login</h1>
   {% if form.non_field_errors %}
     <p style="color: red">
-    Invalid credentials!
+      Invalid credentials!
     </p>
   {% endif %}
   <form action="{% url 'login' %}" method="post">
     {% csrf_token %}
-      {{ form|crispy }}
+    {{ form|crispy }}
     <br>
     <input class="btn btn-primary" type="submit" value="submit">
-    <input type="hidden" name="next" value="{{ next }}">
+    <input type="hidden" name="next" value="{{ request.GET.next }}">
   </form>
 {% endblock %}
