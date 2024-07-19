@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p>({{ post.created_time }})</p>
+  <p>{{ post.content }}</p>
+  <br>
+  <h3>Commentaries:</h3>
+  {% include "blog/commentary_list.html" %}
+  <h3>
+    Add a new commentary:
+  </h3>
+  <form method="post">
+    {% csrf_token %}
+    {{ new_commentary_form|crispy }}
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+{% endblock %}

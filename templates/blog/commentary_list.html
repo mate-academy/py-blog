@@ -1,0 +1,18 @@
+{% load crispy_forms_filters %}
+{% if commentary_list %}
+  <ul>
+    {% for commentary in commentary_list %}
+      <li>
+        {% if user == commentary.user %}
+        <a style="float: right; text-decoration: none"
+           href="{% url 'blog:commentary-delete' pk=commentary.pk %}">Delete</a>
+        {% endif %}
+        <p><a href="#">{{ commentary.user.username }}</a>
+          ({{ commentary.created_time }})</p>
+        <p>{{ commentary.content }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  There are no commentaries yet. Be the first!
+{% endif %}
