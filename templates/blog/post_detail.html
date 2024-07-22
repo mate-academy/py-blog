@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container">
+    <h1>{{ post.title }}</h1>
+    <p><strong>Author:</strong> {{ post.owner }}</p>
+    <p><strong>Created time:</strong> {{ post.created_time }}</p>
+    <div class="post-content">
+      <p>{{ post.content }}</p>
+    </div>
+    <div class="commentaries">
+      <h2>Commentaries:</h2>
+      {% if post.commentary_set.all %}
+        <ul>
+          {% for commentary in post.commentary_set.all %}
+            <li>
+              <p><strong>{{ commentary.user }}:</strong> {{ commentary.content }}</p>
+              <p><small>Posted on {{ commentary.created_time }}</small></p>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No commentaries yet.</p>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
