@@ -2,4 +2,4 @@ django==5.0.4
 django-crispy-forms>=2.0
 crispy-bootstrap4
 django-debug-toolbar
-
+flake8
