@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+<h1> {{post.title}} </h1>
+<div>
+    {{ post.content }} <br>
+    <p>Author: <strong><em>{{ post.owner }}</em></strong></p>
+    <p>Created at: {{post.created_time}}</p>
+</div>
+<div>
+    <h1>Comments</h1>
+    {% include "blog/commentary_list.html" %}
+</div>
+<div>
+    {% if user.is_authenticated %}
+    <h3>Leave a Comment:</h3>
+    <form action="{% url 'blog:post-detail' pk=post.pk %}" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input class="btn btn-primary" type="submit" value="Submit">
+    </form>
+    {% else %}
+    <h3>Login to leave a comment</h3>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,10 @@
+{{ commentary_list }}
+
+{% for comment in commentaries %}
+<ul>
+    <li><strong>{{ comment.user }}</strong></li>
+    <div>{{ comment.content }}</div>
+</ul>
+{% empty %}
+There is no comments
+{% endfor %}
