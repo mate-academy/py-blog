@@ -1,8 +1,8 @@
 from django.shortcuts import redirect
 from django.views import generic
+
 from blog.models import Post, Commentary
 from blog.forms import CommentaryForm
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class PostListView(generic.ListView):
