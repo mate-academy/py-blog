@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="container">
+    <h1>List all posts</h1>
+    {% if post_list %}
+      {% for post in post_list %}
+        <div class="post-list">
+          <h2><a href="{% url 'blog:blog-detail' pk=post.id %}">{{ post.title }}</a></h2>
+          <p>{{ post.content }}</p>
+          <p>Author: {{ post.owner }}</p>
+          <p>Created time: {{ post.created_time }}</p>
+          <p>Count of commentaries: {{ post.commentaries.count }}</p>
+        </div>
+      {% endfor %}
+      <div class="pagination">
+        {% include "includes/pagination.html" %}
+      </div>
+    {% else %}
+      <p>There are no posts</p>
+    {% endif %}
+  </div>
+{% endblock %}
