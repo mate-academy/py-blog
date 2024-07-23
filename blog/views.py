@@ -14,7 +14,6 @@ from blog.models import Post, Commentary
 class PostListView(ListView):
     model = Post
     template_name = "blog/index.html"
-    context_object_name = "post_list"
     paginate_by = 5
     ordering = "-created_time"
 
