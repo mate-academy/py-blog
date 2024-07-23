@@ -1,0 +1,7 @@
+.idea/
+*.iml
+.venv/
+db.sqlite3
+staticfiles/
+__pycache__/
+.idea/
