@@ -37,7 +37,7 @@ class PostDetailView(DetailView, FormView):
     template_name = "blog/post_detail.html"
     context_object_name = "post"
     form_class = CommentaryForm
-    success_url = reverse_lazy("blog:blog-detail")
+    success_url = reverse_lazy("blog:post-detail")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -68,7 +68,7 @@ class AddCommentView(CreateView):
 
     def get_success_url(self):
         return reverse_lazy(
-            "blog:blog-detail", kwargs={"pk": self.kwargs["pk"]}
+            "blog:post-detail", kwargs={"pk": self.kwargs["pk"]}
         )
 
 
@@ -78,4 +78,4 @@ class CommentaryDeleteView(DeleteView):
 
     def get_success_url(self):
         post_id = self.object.post.pk
-        return reverse_lazy("blog:blog-detail", kwargs={"pk": post_id})
+        return reverse_lazy("blog:post-detail", kwargs={"pk": post_id})

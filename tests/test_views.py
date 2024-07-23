@@ -38,7 +38,7 @@ class PostDetailTest(TestCase):
     ]
 
     def test_post_detail_response_with_sorrect_template(self):
-        response = self.client.get(reverse("blog:blog-detail", args=[1]))
+        response = self.client.get(reverse("blog:post-detail", args=[1]))
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "blog/post_detail.html")
