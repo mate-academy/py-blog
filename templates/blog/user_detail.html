@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>User Profile</h1>
+  <p><strong>Username:</strong> {{ user.username }}</p>
+  <p><strong>Email:</strong> {{ user.email }}</p>
+  <p><strong>First Name:</strong> {{ user.first_name }}</p>
+  <p><strong>Last Name:</strong> {{ user.last_name }}</p>
+
+  <h2>Comments</h2>
+  <ul>
+    {% for comment in user.commentary_set.all %}
+      <li>
+        <p><strong>{{ comment.post.title }}:</strong> {{ comment.content }}</p>
+        <small>Created on: {{ comment.created_time }}</small>
+      </li>
+    {% empty %}
+      <li>No comments yet.</li>
+    {% endfor %}
+  </ul>
+
+  <a href="{% url 'blog:user-update' pk=user.id %}">Edit Profile</a>
+{% endblock %}

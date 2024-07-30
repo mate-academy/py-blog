@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Post: {{ post.title }}</h1>
+  <p><strong>Written by: {{ post.owner }}</strong></p>
+  <p><strong>Time of publication: {{ post.created_time }}</strong></p>
+  <h3>Content:</h3>
+  <p>{{ post.content }}</p>
+
+  <h2>Comments</h2>
+  <div id="comments-container">
+    <ul>
+      {% for comment in comments %}
+        <li>
+          <p><strong>{{ comment.user }}:</strong> {{ comment.content }}</p>
+          <small>Created on: {{ comment.created_time }}</small>
+        </li>
+      {% empty %}
+        <li>No comments yet.</li>
+      {% endfor %}
+    </ul>
+
+    {% if is_paginated %}
+      <div class="pagination-container">
+        <div class="pagination-navigation">
+          <ul class="pagination">
+            {% if comments.has_previous %}
+              <li class="page-item"><a class="page-link" href="?page={{ comments.previous_page_number }}">Prev</a></li>
+            {% endif %}
+
+            <li class="page-item active"><span class="page-link">{{ comments.number }} of {{ paginator.num_pages }}</span></li>
+
+            {% if comments.has_next %}
+              <li class="page-item"><a class="page-link" href="?page={{ comments.next_page_number }}">Next</a></li>
+            {% endif %}
+          </ul>
+        </div>
+
+        <div class="page-selection">
+          <form action="" method="get">
+            <label>
+              Go to page: <input type="number" name="page" value="{{ comments.number }}" class="form-control" min="1" max="{{ paginator.num_pages }}">
+            </label>
+            <button type="submit" class="btn btn-primary">Go</button>
+          </form>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+
+  {% if user.is_authenticated %}
+    <h3>Add a Comment</h3>
+    <form method="post" action="{% url 'blog:comment-create' pk=post.pk %}">
+      {% csrf_token %}
+      <textarea name="content" rows="3" placeholder="Write your comment here..." required></textarea>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  {% else %}
+    <p>You need to be logged in to add a comment. <a href="{% url 'login' %}">Login</a></p>
+  {% endif %}
+{% endblock %}
