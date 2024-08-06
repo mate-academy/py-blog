@@ -17,6 +17,9 @@ class Post(models.Model):
     class Meta:
         ordering = ["-created_time"]
 
+    def __str__(self) -> str:
+        return self.title
+
 
 class User(AbstractUser):
     pass
@@ -35,3 +38,9 @@ class Commentary(models.Model):
     )
     created_time = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
+
+    class Meta:
+        verbose_name_plural = "comments"
+
+    def __str__(self) -> str:
+        return self.content
