@@ -1,0 +1,26 @@
+{% load static %}
+{% block header %}
+	<nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="{% url 'blog:index' %}">UkrReddit</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'blog:index' %}">Home</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'blog:about' %}">About</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'blog:contact' %}">Contact</a></li>
+                {% if not user.is_authenticated %}
+                  <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'login' %}">Sign In</a></li>
+                  <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'blog:register' %}">Sign Up</a></li>
+                {% else %}
+                  <li class="nav-item"> <a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ user.get_absolute_url }}">Welcome, {{ user.username }}</a></li>
+                  <li class="nav-item"> <a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'logout' %}">Logout</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+  </nav>
+{% endblock %}
