@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect, HttpResponse, HttpRequest
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -8,7 +9,7 @@ from blog.forms import RegisterForm, CommentForm
 from blog.models import Post, User
 
 
-class PostListView(generic.ListView):
+class PostListView(LoginRequiredMixin, generic.ListView):
     model = Post
     queryset = Post.objects.all().select_related("owner")
     template_name = "blog/home.html"
