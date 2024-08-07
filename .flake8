@@ -9,3 +9,4 @@ exclude =
     venv
     tests
     blog_system/settings.py
+    .venv
