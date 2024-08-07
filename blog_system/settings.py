@@ -105,8 +105,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 AUTH_USER_MODEL = "blog.User"
 CRISPY_TEMPLATE_PACK = "bootstrap4"
-LOGIN_REDIRECT_URL = "blog:home"
-LOGOUT_REDIRECT_URL = "blog:home"
+LOGIN_REDIRECT_URL = "blog:index"
+LOGOUT_REDIRECT_URL = "blog:index"
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
