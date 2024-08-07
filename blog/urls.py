@@ -1,13 +1,13 @@
 from django.urls import path
 
-from blog.views import PostListView, PostDetailView, create_commentary_view
+from blog.views import PostListView, PostDetailView, CommentaryCreateView
 
 urlpatterns = [
     path("", PostListView.as_view(), name="index"),
     path("posts/<int:pk>/", PostDetailView.as_view(), name="post-detail"),
     path(
-        "posts/<int:pk>/create/",
-        create_commentary_view,
+        "commentary/<int:post_id>/",
+        CommentaryCreateView.as_view(),
         name="commentary-create"
     ),
 ]
