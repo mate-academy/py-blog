@@ -1,6 +1,6 @@
 from django.urls import path
 
-from blog.views import PostListView, PostDetailView,create_commentary_view
+from blog.views import PostListView, PostDetailView, create_commentary_view
 
 urlpatterns = [
     path("", PostListView.as_view(), name="index"),

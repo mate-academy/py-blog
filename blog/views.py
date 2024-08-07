@@ -10,12 +10,14 @@ from blog.models import Post, Commentary
 class PostListView(generic.ListView):
     model = Post
     paginate_by = 5
-    queryset = Post.objects.select_related("owner").prefetch_related("comments")
+    queryset = (Post.objects.select_related("owner")
+                .prefetch_related("comments"))
 
 
 class PostDetailView(generic.DetailView):
     model = Post
-    queryset = Post.objects.select_related("owner").prefetch_related("comments__user")
+    queryset = (Post.objects.select_related("owner")
+                .prefetch_related("comments__user"))
 
     def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
@@ -24,7 +26,10 @@ class PostDetailView(generic.DetailView):
 
 
 @login_required
-def create_commentary_view(request: HttpRequest, pk: int) -> HttpResponseRedirect:
+def create_commentary_view(
+        request: HttpRequest,
+        pk: int
+) -> HttpResponseRedirect:
     if request.method == "POST":
         form = CommentaryForm(request.POST)
         if form.is_valid():
