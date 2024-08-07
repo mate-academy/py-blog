@@ -1,4 +1,33 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 {% block content %}
-  Detail
+  <div class="post">
+    <h1>{{ post.title }}</h1>
+    <p><i>{{ post.owner.username }} {{ post.created_time }}</i></p>
+    <p>{{ post.content }}</p>
+    <p>Comments {{ post.comments.count }}</p>
+    <br>
+  </div>
+  <div>
+    {% if post.comments %}
+      {% for comment in post.comments.all %}
+        <div class="comment">
+          <p>{{ comment.user.username }} {{ comment.created_time }}</p>
+          <hr>
+          <p>{{ comment.content }}</p>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>There are no comments yet</p>
+    {% endif %}
+  </div>
+  <div>
+    <p><strong>Add new comment</strong></p>
+    <form action="{% url "blog:commentary-create" pk=post.id %}" method="post" novalidate>
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="submit" value="Add comment" class="btn btn-primary">
+    </form>
+  </div>
+
 {% endblock %}
