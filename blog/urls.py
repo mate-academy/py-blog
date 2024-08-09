@@ -4,7 +4,7 @@ from blog.views import (
     PostListView,
     PostDetailView,
     CommentaryCreateView,
-    CommentaryDeleteView
+    CommentaryDeleteView,
 )
 
 urlpatterns = [
@@ -15,11 +15,10 @@ urlpatterns = [
         CommentaryCreateView.as_view(),
         name="commentary-create"
     ),
-
     path(
         "comments/<int:pk>/delete/",
         CommentaryDeleteView.as_view(),
-        name="commentary-delete"
+        name="commentary-delete",
     ),
 ]
 

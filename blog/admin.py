@@ -9,7 +9,11 @@ from blog.models import Post, User, Commentary
 class PostAdmin(admin.ModelAdmin):
     search_fields = ("title", "owner")
     list_filter = ("owner", "created_time")
-    list_display = ("title", "created_time", "owner",)
+    list_display = (
+        "title",
+        "created_time",
+        "owner",
+    )
 
 
 @admin.register(User)
