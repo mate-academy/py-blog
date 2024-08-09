@@ -37,4 +37,3 @@ class CommentaryDeleteView(LoginRequiredMixin, DeleteView):
 
     def get_success_url(self) -> HttpResponse:
         return self.object.post.get_absolute_url()
-
