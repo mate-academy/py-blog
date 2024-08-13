@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Post {{ post.title }}</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static "css/styles.css" %}">
+</head>
+<body>
+  <div class="content">
+    <div class="container">
+      <h1>{{ post.title }}</h1>
+    <div class="post-content">
+      <p><em>{{ post.owner }} at {{ post.created_time }}</em></p>
+      <p>{{ post.content }}</p>
+    </div>
+    <div></div>
+    <p>Commentaries</p>
+    {% for comment in post.commentaries.all %}
+      <div class="comment">
+        <div class="comment-head"><p>{{ comment.user }} at {{ comment.created_time }}</p></div>
+        <div class="comment-content"><p>{{ comment.content }}</p></div>
+      </div>
+      {% empty %}
+        <p>There are no comments yet</p>
+    {% endfor %}
+    </div>
+</body>
+</html>
