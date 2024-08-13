@@ -4,6 +4,7 @@ from django.contrib.auth.models import Group
 
 from blog.models import User, Post, Commentary
 
+
 @admin.register(User)
 class DriverAdmin(UserAdmin):
     list_display = UserAdmin.list_display

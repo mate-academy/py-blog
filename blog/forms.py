@@ -1,4 +1,6 @@
 from django import forms
+from django.core.exceptions import ValidationError
+
 from blog.models import Commentary
 
 
@@ -7,7 +9,3 @@ class CommentaryForm(forms.ModelForm):
         model = Commentary
         fields = ["content"]
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        # Optional: Customize form widgets or add CSS classes
-        self.fields["content"].widget.attrs.update({"class": "form-control", "placeholder": "Enter your comment here"})

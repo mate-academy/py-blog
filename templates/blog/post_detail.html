@@ -4,26 +4,39 @@
   <meta charset="UTF-8">
   <title>Post {{ post.title }}</title>
   {% load static %}
+  {% load crispy_forms_filters %}
   <link rel="stylesheet" href="{% static "css/styles.css" %}">
 </head>
 <body>
   <div class="content">
     <div class="container">
       <h1>{{ post.title }}</h1>
-    <div class="post-content">
-      <p><em>{{ post.owner }} at {{ post.created_time }}</em></p>
-      <p>{{ post.content }}</p>
-    </div>
-    <div></div>
-    <p>Commentaries</p>
-    {% for comment in post.commentaries.all %}
-      <div class="comment">
-        <div class="comment-head"><p>{{ comment.user }} at {{ comment.created_time }}</p></div>
-        <div class="comment-content"><p>{{ comment.content }}</p></div>
+      <div class="post-content">
+        <p><em>{{ post.owner }} at {{ post.created_time }}</em></p>
+        <p>{{ post.content }}</p>
       </div>
-      {% empty %}
-        <p>There are no comments yet</p>
-    {% endfor %}
+      <div></div>
+      <p>Commentaries</p>
+      {% for commentary in post.commentaries.all %}
+        <div class="comment">
+          <div class="comment-head"><p>{{ commentary.user }} at {{ commentary.created_time }}</p></div>
+          <div class="comment-content"><p>{{ commentary.content }}</p></div>
+        </div>
+        {% empty %}
+          <p>There are no comments yet</p>
+      {% endfor %}
+      {% if user.is_authenticated %}
+      <h3>Leave a Comment</h3>
+      <form method="post" action="{% url 'blog:post-detail' post.pk %}">
+        {% csrf_token %}
+        {{ commentary_form | crispy }}
+        <br>
+        <button type="submit" class="btn btn-primary">Post Comment</button>
+      </form>
+      {% else %}
+        <p><a href="#">Log in</a> to leave a comment.</p>
+      {% endif %}
     </div>
+  </div>
 </body>
 </html>
