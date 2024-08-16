@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+  {% if post_list %}
+    <div class="post-list">
+      {% for post in post_list %}
+        <div class="content">
+          <h6><i>{{ post.owner.username }} {{ post.created_time }}</i></h6>
+          <p>{{ post.content }}</p>
+          <p>Comments {{ post.commentary_set.count }}</p>
+        </div>
+        <hr>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>There are no posts!</p>
+  {% endif %}
+{% endblock %}
