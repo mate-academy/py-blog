@@ -1,3 +1,11 @@
 from django.shortcuts import render
+from django.views import generic
 
-# Create your views here.
+from blog.models import Post
+
+
+class PostListView(generic.ListView):
+    model = Post
+    queryset = (Post.objects.select_related("owner")
+                .prefetch_related("commentary_set"))
+
