@@ -10,3 +10,8 @@ class PostListView(generic.ListView):
     queryset = (Post.objects.select_related("owner")
                 .prefetch_related("commentary_set"))
 
+
+class PostDetailView(generic.DetailView):
+    model = Post
+    queryset = (Post.objects.select_related("owner")
+                .prefetch_related("commentary_set__user"))
