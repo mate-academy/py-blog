@@ -3,21 +3,7 @@ from django.db import models
 
 
 class User(AbstractUser):
-    groups = models.ManyToManyField(
-        'auth.Group',
-        related_name='custom_user_set',  # Change 'custom_user_set' to any unique name
-        blank=True,
-        help_text=('The groups this user belongs to. A user will get all permissions '
-                   'granted to each of their groups.'),
-        related_query_name='user',
-    )
-    user_permissions = models.ManyToManyField(
-        'auth.Permission',
-        related_name='custom_user_permissions_set',  # Change 'custom_user_permissions_set' to any unique name
-        blank=True,
-        help_text='Specific permissions for this user.',
-        related_query_name='user',
-    )
+    username = models.CharField(max_length=30, unique=True)
 
 
 class Post(models.Model):
