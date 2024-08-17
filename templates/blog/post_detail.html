@@ -10,22 +10,30 @@
   <div class="content">
     <h4>Comments</h4>
     {% if post.commentary_set %}
-    {% for comment in post.commentary_set.all %}
+      {% for comment in post.commentary_set.all %}
         <div>
-            <p><b>{{ comment.user.username }} {{ comment.created_time }}</b></p>
-            <p>> {{ comment.content }}</p>
-            {% if not forloop.last %}
-                <hr>
-            {% endif %}
+          <p><b>{{ comment.user.username }} {{ comment.created_time }}</b></p>
+          <p>> {{ comment.content }}</p>
+          {% if not forloop.last %}
+            <hr>
+          {% endif %}
         </div>
-    {% endfor %}
-{% else %}
-    <p>No comments yet</p>
-{% endif %}
+      {% endfor %}
+    {% else %}
+      <p>No comments yet</p>
+    {% endif %}
 
   </div>
-  <div>
-    <p><strong>Add new comment</strong></p>
-  </div>
-
+  <hr>
+  {% if user.is_authenticated %}
+    <div class="content">
+    <h4>Add a comment</h4>
+    <form action="{% url 'blog:commentary-create' post.id %}" method="post">
+      {% csrf_token %}
+      {{ commentary_form|crispy }}
+    </form>
+  {% else %}
+    <p>You must be logged in to comment.</p>
+  {% endif %}
+    </div>
 {% endblock %}
