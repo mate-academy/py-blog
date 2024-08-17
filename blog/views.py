@@ -12,18 +12,19 @@ from blog.models import Post, Commentary
 class PostListView(generic.ListView):
     paginate_by = 5
     model = Post
-    queryset = (Post.objects.select_related("owner")
-                .prefetch_related("commentary_set"))
+    queryset = (Post.objects.select_related("owner").
+                prefetch_related("commentary_set"))
 
 
 class PostDetailView(generic.DetailView):
     model = Post
-    queryset = (Post.objects.select_related("owner")
-                .prefetch_related("commentary_set__user"))
+    queryset = Post.objects.select_related("owner").prefetch_related(
+        "commentary_set__user"
+    )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['commentary_form'] = CommentaryForm()
+        context["commentary_form"] = CommentaryForm()
         return context
 
     def post(self, request, *args, **kwargs):
@@ -36,9 +37,8 @@ class PostDetailView(generic.DetailView):
             comment.post = self.object
             comment.user = request.user
             comment.save()
-            return redirect('blog:post-detail', pk=self.object.pk)
+            return redirect("blog:post-detail", pk=self.object.pk)
 
         context = self.get_context_data(object=self.object)
-        context['commentary_form'] = form
+        context["commentary_form"] = form
         return self.render_to_response(context)
-
