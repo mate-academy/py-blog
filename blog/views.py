@@ -26,18 +26,19 @@ class PostDetailView(generic.DetailView):
         context['commentary_form'] = CommentaryForm()
         return context
 
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = CommentaryForm(request.POST)
 
-class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
-    model = Commentary
-    form_class = CommentaryForm
+        if form.is_valid():
+            # Создаем комментарий, не сохраняя его в базу данных
+            comment = form.save(commit=False)
+            comment.post = self.object
+            comment.user = request.user
+            comment.save()
+            return redirect('blog:post-detail', pk=self.object.pk)
 
-    def form_valid(self, form):
-        post_id = self.kwargs.get("post_id")
-        post = get_object_or_404(Post, pk=post_id)
-        form.instance.user = self.request.user
-        form.instance.post = post
-        return super().form_valid(form)
+        context = self.get_context_data(object=self.object)
+        context['commentary_form'] = form
+        return self.render_to_response(context)
 
-    def get_success_url(self):
-        post_id = self.kwargs.get("post_id")
-        return redirect("blog:post-detail", pk=post_id)

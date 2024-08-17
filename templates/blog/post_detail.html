@@ -22,18 +22,18 @@
     {% else %}
       <p>No comments yet</p>
     {% endif %}
-
   </div>
-  <hr>
+
   {% if user.is_authenticated %}
     <div class="content">
-    <h4>Add a comment</h4>
-    <form action="{% url 'blog:commentary-create' post.id %}" method="post">
-      {% csrf_token %}
-      {{ commentary_form|crispy }}
-    </form>
+      <h4>Add a comment</h4>
+      <form action="{% url 'blog:post-detail' post.id %}" method="post">
+        {% csrf_token %}
+        {{ commentary_form|crispy }}
+        <button type="submit" class="btn btn-primary">Add Comment</button>
+      </form>
+    </div>
   {% else %}
     <p>You must be logged in to comment.</p>
   {% endif %}
-    </div>
 {% endblock %}
