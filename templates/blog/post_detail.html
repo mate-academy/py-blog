@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <div class="content">
+    <h1>{{ post.title }}</h1>
+    <p><i>{{ post.owner.username }} {{ post.created_time }}</i></p>
+    <p>{{ post.content }}</p>
+  </div>
+  <hr>
+
+  {% if post.commentary_set.all %}
+    <div class="content">
+      <h4>Comments</h4>
+      {% for comment in post.commentary_set.all %}
+        <div>
+          <p><b>{{ comment.user.username }} {{ comment.created_time }}</b></p>
+          <p>> {{ comment.content }}</p>
+          {% if not forloop.last %}
+            <hr>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+
+  {% if user.is_authenticated %}
+    <div class="content">
+      <h4>Add a comment</h4>
+      <form action="{% url 'blog:post-detail' post.id %}" method="post">
+        {% csrf_token %}
+        {{ commentary_form|crispy }}
+        <button type="submit" class="btn btn-primary">Add Comment</button>
+      </form>
+    </div>
+  {% else %}
+    <p>You must be logged in to comment.</p>
+  {% endif %}
+{% endblock %}
