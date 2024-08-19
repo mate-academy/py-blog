@@ -1,0 +1,23 @@
+{#{% extends "base.html" %}#}
+{##}
+{#{% block content %}#}
+{#  <form action="blog:comment-create" method="post">#}
+{#    <label>#}
+{#      add new comment:#}
+{#      <input type="text" name="content">#}
+{#    </label>#}
+{##}
+{#    <input type="hidden" name="user" value="{{ user.id }}">#}
+{#    <input type="hidden" name="post" value="{{ post.id }}">#}
+{#    <input type="submit" value="Add comment">#}
+{#  </form>#}
+{#{%  endblock %}#}
+
+{#<form method="post">#}
+{#    {% csrf_token %}#}
+{#    <div class="form-group">#}
+{#        {{ form.text.label_tag }}#}
+{#        {{ form.text }}#}
+{#    </div>#}
+{#    <input type="submit" class="btn btn-primary" value="Add comment">#}
+{#</form>#}
