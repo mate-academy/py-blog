@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}
+  <title>Homepage</title>
+{% endblock %}
+{% block content %}
+  <h1>Welcome to the Greatest Blog Ever</h1>
+    {% for post in post_list %}
+      <div class="card" style="width: 60%;">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <a href="{% url 'blog:post-detail' pk=post.id %}"><h3><strong>{{ post.title }}</strong></h3></a>
+            <p>
+              <strong>
+              {{ post.owner.first_name }} {{ post.owner.last_name }}
+              </strong>
+              at {{ post.created_time }}
+            </p>
+            <p> </p>
+            <p  style="text-align: justify">{{ post.content }} </p>
+            <p>{{ post.comments.count }} comment{{ post.comments.count|pluralize }}</p>
+          </li>
+        </ul>
+      </div>
+    {% endfor %}
+{% endblock %}

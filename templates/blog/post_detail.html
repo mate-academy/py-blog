@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h3>{{ post.title }}</h3>
+  <h5>{{ post.owner }} at {{ post.created_time }}</h5>
+
+    <p style="width: 60%; text-align: justify">{{ post.content }}</p>
+    <h4>{{ post.comments.count }} comment{{ post.comments.count|pluralize }}:</h4>
+    <div class="card" style="width: 60%;">
+      <ul class="list-group list-group-flush">
+        {% for comment in post.comments.all %}
+          <li class="list-group-item">
+
+            <h5>{{ comment.user }} </h5> at {{ comment.created_time }}
+            <hr>
+{#            <p class="text-muted">{{ comment.user.id }}</p>#}
+              <p>{{ comment.content }}</p>
+          {% empty %}
+            <p>No comments yet!</p>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <p></p>
+  <form action="{% url 'blog:comment-create' pk=post.id %}" method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label>
+        <strong>Add a new comment:</strong>
+        <textarea class="form-control" name="content" style="height: 100px; width: 740px"></textarea>
+      </label>
+    </div>
+    <input type="hidden" name="user" value="{{ user.id }}">
+    <input type="hidden" name="post" value="{{ post.id }}">
+    <input type="submit" value="Add comment">
+  </form>
+{% endblock %}
