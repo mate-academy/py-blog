@@ -61,4 +61,4 @@ class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
         commentary.post = post
         commentary.user = self.request.user
         commentary.save()
-        return redirect("blog:post_detail", pk=post.id)
+        return redirect("blog:post-detail", pk=post.id)
