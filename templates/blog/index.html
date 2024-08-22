@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}
+<title>Home Page</title>
+{% endblock %}
+{% block content %}
+  <h1>Blog home</h1>
+  {% if page_obj %}
+    <ul class="list-group" style="width: 86%">
+      {% for post in page_obj.object_list %}
+        <li class="list-group-item">
+          <a href="{% url 'blog:post-detail' pk=post.id %}" style="font-size: 1.5em; font-weight: bold; display: block; margin: 10px 0;">{{ post.title }}</a>
+          <p style="font-size: 1.1em">Created by <strong>{{ post.owner }}</strong>({{ post.created_time }})</p>
+          <p style="font-size: 1.1em; text-align: justify">{{ post.content }}</p>
+          <p style="font-size: 1.0em; ">Comments: {{ post.commentaries.count }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no posts(</p>
+  {% endif %}
+{% endblock %}
+{% block pagination %}
+<div class="pagination">
+  <span class="step-links">
+    {% if page_obj.has_previous %}
+      <a href="?page=1&paginate_by={{ paginate_by }}">First</a>
+      <a href="?page={{ page_obj.previous_page_number }}&paginate_by={{ paginate_by }}">Previous</a>
+    {% endif %}
+
+    <span class="current" style="font-size: 1.2em">
+      Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+    </span>
+
+    {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}&paginate_by={{ paginate_by }}">Next</a>
+      <a href="?page={{ page_obj.paginator.num_pages }}&paginate_by={{ paginate_by }}">Last</a>
+    {% endif %}
+  </span>
+</div>
+{% endblock %}
