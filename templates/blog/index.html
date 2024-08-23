@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}<title>Home page</title>{% endblock %}
+{% block content %}
+  <h1>Blog Home</h1>
+  <p>The Blog has the following record posts:</p>
+  <h2>Posts:</h2>
+  <ul>
+    {% for post in posts %}
+      <li>
+        <p>{{ post.title }}</p>
+      </li>
+    {% empty %}
+      <li>No posts available.</li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}
