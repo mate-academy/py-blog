@@ -32,17 +32,19 @@ class Commentary(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name="commentary"
+        related_name="comments"
     )
     post = models.ForeignKey(
         Post, on_delete=models.CASCADE,
-        related_name="commentary"
+        related_name="comments"
     )
     created_time = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
 
     class Meta:
         ordering = ("user", "created_time",)
+        verbose_name = "commentary"
+        verbose_name_plural = "commentaries"
 
     def __str__(self):
         return f"{self.user}, '{self.post.title}'"
