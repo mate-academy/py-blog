@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="col-sm-8">
+    <h3>{{ post.title }}</h3>
+    <p><small>{{ post.owner.username }} at {{ post.created_time }}</small></p>
+    <p>{{ post.content }}</p>
+    <br>
+
+    <p>
+      <small><b>{{ post.comments.count }} comment{{ post.comments.count|pluralize }}</b></small>
+    </p>
+    <ul class="list-group list-group-flush">
+      {% for comment in post.comments.all %}
+        <li class="list-group-item">
+          <p><small>{{ comment.user.username }} {{ comment.created_time }}</small></p>
+          <hr>
+          <p>{{ comment.content }} </p>
+        </li>
+        <br>
+      {% empty %}
+        <p><small>There are no comments yet.</small></p>
+      {% endfor %}
+    </ul>
+    <br>
+
+    {% if user.is_authenticated %}
+      <form action="{% url 'blog:comment-create' pk=post.id %}" method="post" novalidate>
+      {% csrf_token %}
+      {{ form|crispy }}
+      <div class="form-group">
+        <label>
+          <small><b>Add a new comment</b></small>
+          <textarea class="form-control" name="content" style="height: 100px; width: 800px"></textarea>
+        </label>
+      </div>
+{#      <input type="hidden" name="user" value="{{ user.id }}">#}
+      <input type="hidden" name="post" value="{{ post.id }}">
+      <input class="btn-light" type="submit" value="Add comment" style="margin-bottom: 300px;">
+    {% else %}
+      <p style="margin-bottom: 300px;">You must be logged in to comment.</p>
+    {% endif %}
+    </form>
+
+  </div>
+{% endblock %}
