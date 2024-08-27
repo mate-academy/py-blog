@@ -7,9 +7,10 @@ from blog.models import Post, Commentary
 
 class IndexView(generic.ListView):
     model = Post
-    queryset = Post.objects.all().order_by("-created_time").prefetch_related("comments")
+    posts = Post.objects.all().order_by("-created_time")
     paginate_by = 5
     template_name = "blog/index.html"
+    queryset = Post.objects.all().prefetch_related("comments")
 
 
 class PostDetailView(generic.DetailView):
