@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content }}</p>
+    <p><strong>Author:</strong> {{ post.owner.username }}</p>
+    <p><strong>Created at:</strong> {{ post.created_time }}</p>
+    <p><strong>Comments:</strong></p>
+    <ul>
+        {% for comment in post.comments.all %}
+            <li>{{ comment.content }} - {{ comment.user.username }}, <em>{{ comment.created_time }}</em></li>
+        {% endfor %}
+    </ul>
+    {% if user.is_authenticated %}
+        <form method="post" action="{% url 'blog:add-comment' post.pk %}">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <p><input type="submit" value="Add comment"></p>
+        </form>
+    {% else %}
+        <p>Please log in to add a comment.</p>
+    {% endif %}
+{% endblock %}
