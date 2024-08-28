@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="width-70rem">
+    <h2>{{ user.get_full_name }}</h2>
+    <p>@{{ user.username }}</p>
+    <div class="card">
+      <div class="card-header">
+        <strong>Posts:</strong>
+      </div>
+      {% if user.posts.all %}
+        <ul class="list-group list-group-flush">
+          {% for post in user.posts.all %}
+            <li class="list-group-item">
+              <a href="{% url "blog:post-detail" pk=post.id %}">{{ post.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>This user has no posts yet.</p>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
