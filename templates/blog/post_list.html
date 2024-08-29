@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+  <h1 class="text-center">All Posts</h1>
+  <ul class="list-group">
+    {% for post in post_list %}
+      <li class="list-group-item align-items-center">
+        <div class="d-flex justify-content-between">
+          <a href="{% url 'blog:post-detail' pk=post.pk %}" class="list-group-item-action">
+            <h5 class="mb-1">{{ post.title }}</h5>
+            <p class="mb-1 text-truncate" style="max-width: 500px;">{{ post.content }}</p>
+          </a>
+          <small>{{ post.owner.username }}</small>
+        </div>
+        <span class="badge badge-primary badge-pill">{{ post.comments.count }}</span>
+        <small>{{ post.created_time }}</small>
+      </li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}
