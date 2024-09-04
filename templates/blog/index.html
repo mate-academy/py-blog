@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 class="title">Blog</h1>
+
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Content</th>
+      <th scope="col">Author</th>
+      <th scope="col">Created at</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for post in post_list %}
+      <tr>
+        <td><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></td>
+        <td>{{ post.content }}</td>
+        <td>{{ post.owner }}</td>
+        <td>{{ post.created_time }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+  {% if is_paginated %}
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a href="?page={{ page_obj.previous_page_number }}" class="page-link">prev</a>
+      </li>
+    {% endif %}
+
+    <li class="page-item active">
+      <span class="page-link">{{ page_obj.number }} of {{ paginator.num_pages }}</span>
+    </li>
+
+    {% if page_obj.has_next %}
+      <li class="page-item">
+        <a href="?page={{ page_obj.next_page_number }}" class="page-link">next</a>
+      </li>
+    {% endif %}
+  </ul>
+  {% endif %}
+{% endblock %}

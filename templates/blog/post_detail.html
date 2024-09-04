@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1 class="title">Blog</h1>
+  <ul>Title: {{ post.title }}</ul>
+  <ul>Author: {{ post.owner }}</ul>
+  <ul>Created at: {{ post.created_time }}</ul>
+  <ul>Post: {{ post.content }}</ul>
+  <ul>Comment{{ number_of_comments|pluralize }} ({{ number_of_comments }}):</ul>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col" class="w-25">Author</th>
+        <th scope="col" class="w-50">Comment</th>
+        <th scope="col" class="w-25">Created at</th>
+        <th scope="col" class="w-25">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for comment in comments %}
+        <tr>
+          <td>{{ comment.user}}</td>
+          <td>{{ comment.content }}</td>
+          <td>{{ comment.created_time }}</td>
+          <td><a href="{% url 'blog:comment-delete' pk=comment.id %}">X</a></td>
+        <tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% if user.is_authenticated %}
+    <form action="" method="post" novalidate>
+      {% csrf_token %}
+      {{ comment_form|crispy }}
+      <input type="submit" value="Add Comment" class="btn btn-primary">
+    </form>
+  {% else %}
+    <p>You must be logged in to add a comment</p>
+  {% endif %}
+{% endblock %}
