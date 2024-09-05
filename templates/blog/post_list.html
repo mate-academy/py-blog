@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <h1 class="text-center my-4">All Posts</h1>
+
+  <div class="container">
+    <ul class="list-group">
+      {% for post in post_list %}
+        <li class="list-group-item align-items-center mb-2 shadow-sm">
+          <div class="d-flex justify-content-between">
+
+            <!-- Заголовок поста та текст -->
+            <a href="{% url 'blog:post-detail' pk=post.pk %}" class="list-group-item-action text-decoration-none">
+              <h5 class="mb-1 text-info">{{ post.title }}</h5>
+              <p class="mb-1 text-muted text-truncate" style="max-width: 500px;">{{ post.content }}</p>
+            </a>
+
+            <!-- Власник поста -->
+            <div class="text-end">
+              <p class="mb-0 text-secondary">{{ post.owner.first_name }}&nbsp;{{ post.owner.last_name }}</p>
+              <small class="text-muted">{{ post.created_time }}</small>
+            </div>
+          </div>
+
+          <!-- Кількість коментарів -->
+          <div class="d-flex justify-content-start align-items-center mt-2">
+            <span class="badge bg-dark text-white me-2">{{ post.commentaries.count }} Commentaries</span>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+{% endblock %}
