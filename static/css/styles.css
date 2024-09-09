@@ -1,11 +1,47 @@
 body {
-    margin: 20px;
 }
 
 .title  {
+    position: sticky;
+    top: 0;
     color: white;
     font-weight: bold;
     text-align: center;
     background-color: darkslategrey;
     border-radius: 10px;
+    width: 80rem;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.box {
+    border: 2px solid;
+    border-radius: 5px;
+    width: 80rem;
+    padding: 10px 10px;
+}
+
+.post {
+    background-color: powderblue;
+}
+
+.comment {
+    background-color: aliceblue;
+    width: 60rem;
+}
+
+.post_title {
+    text-decoration: none;
+    font-weight: bold;
+    padding-left: 10px;
+}
+
+.author_timestamp {
+    text-align: right;
 }

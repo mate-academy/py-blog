@@ -1,28 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1 class="title">Blog</h1>
+  {% for post in post_list %}
+    <div>
+      <a class="post_title" href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a>
+      <div class="box post">
+        <p>{{ post.content }}</p>
+      </div>
+      <p class="author_timestamp">{{ post.owner }}, {{ post.created_time }}</p>
+    </div>
+  {% endfor %}
 
-  <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Title</th>
-      <th scope="col">Content</th>
-      <th scope="col">Author</th>
-      <th scope="col">Created at</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for post in post_list %}
-      <tr>
-        <td><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></td>
-        <td>{{ post.content }}</td>
-        <td>{{ post.owner }}</td>
-        <td>{{ post.created_time }}</td>
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
 
   {% if is_paginated %}
   <ul class="pagination">
