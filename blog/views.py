@@ -10,7 +10,7 @@ from blog.models import Post, User, Commentary
 
 def index(request: HttpRequest) -> HttpResponse:
     post = (
-        Post.objects.all()
+        Post.objects
         .order_by("-created_time")
         .select_related("owner")
         .prefetch_related("commentaries")
