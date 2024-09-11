@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>{{ post.title }} (by {{ post.owner.first_name }} {{ post.owner.last_name }})</h1>
+  <h2>{{ post.created_time }}</h2>
+  <p>{{ post.content }}</p>
+  {% if post.comments.exists %}
+    <h2>Comments:</h2>
+    {% for comment in post.comments.all %}
+      <h3>{{ comment.user.username }}:</h3>
+      <p>{{ comment.content }}</p>
+    {% endfor %}
+  {% else %}
+    <h2>No comments</h2>
+  {% endif %}
+  <h2>Add a comment:</h2>
+  <form action="create-comment/" method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" class="btn btn-primary" value="Submit">
+  </form>
+{% endblock %}
