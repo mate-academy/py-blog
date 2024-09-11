@@ -5,8 +5,8 @@
   {% for post in post_list %}
     <p><a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a> by {{ post.owner.first_name }} {{ post.owner.last_name }}
       at {{ post.created_time }}
-      {% if post.comments.all|length %}
-        ({{ post.comments.all|length }} comment{{ post.comments.all|length|pluralize }})
+      {% if post.comments.exists %}
+        ({{ post.comments.count }} comment{{ post.comments.count|pluralize }})
       {% else %}
         (no comments)
       {% endif %}

@@ -6,7 +6,7 @@
   <h1>{{ post.title }} (by {{ post.owner.first_name }} {{ post.owner.last_name }})</h1>
   <h2>{{ post.created_time }}</h2>
   <p>{{ post.content }}</p>
-  {% if post.comments.all %}
+  {% if post.comments.exists %}
     <h2>Comments:</h2>
     {% for comment in post.comments.all %}
       <h3>{{ comment.user.username }}:</h3>
