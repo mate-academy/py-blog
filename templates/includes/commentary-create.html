@@ -1,0 +1,11 @@
+<h4>Add new comment</h4>
+<form action="{% url 'blog:commentary-create' %}" method="post" novalidate>
+  {% csrf_token %}
+  <label>
+    <textarea cols="90" rows="5" name="content" required></textarea>
+  </label>
+
+  <br>
+  <input type="hidden" value="{{ post.id }}" name="post_id">
+  <input type="submit" value="Comment" class="btn btn-primary">
+</form>

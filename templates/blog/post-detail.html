@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Post: {{ post.title }}</h1>
+  <p>'{{ post.owner }}' at {{ post.created_time }}</p>
+  <p><strong>Content:</strong> {{ post.content }}</p>
+
+  <br>
+  <h3>{{ post.commentary.count }}
+    comment{{ post.commentary.count|pluralize }}</h3>
+  <ul class="list-group">
+    {% for comment in post.commentary.all %}
+      <li class="list-group-item disabled">
+        <p>{{ comment.user }} at {{ comment.created_time }}</p>
+      </li>
+      <li class="list-group-item">
+        <p>{{ comment.content }}</p>
+        {% if user == comment.user %}
+          <form action="{% url 'blog:commentary-delete' comment.pk %}"
+                method="post">
+            {% csrf_token %}
+            <input type="submit" value="Delete" class="btn btn-danger">
+          </form>
+        {% endif %}
+      </li>
+    {% empty %}
+      <p>This post have no comments yet.</p>
+    {% endfor %}
+  </ul>
+
+  {% if user.is_authenticated %}
+    {% include 'includes/commentary-create.html' %}
+  {% else %}
+    <p style="color: red">You should authorize before writing comment!</p>
+    <a href="{% url 'login' %}">Click here to login.</a>
+  {% endif %}
+{% endblock %}
