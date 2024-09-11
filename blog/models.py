@@ -41,4 +41,4 @@ class Commentary(models.Model):
         ordering = ["-created_time"]
 
     def __str__(self):
-        return f"{self.content}"
+        return self.content
