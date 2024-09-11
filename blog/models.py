@@ -1,8 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
-from blog_system import settings
-
+from django.conf import settings
 
 class User(AbstractUser):
     class Meta:
@@ -17,7 +16,7 @@ class User(AbstractUser):
 
 class Post(models.Model):
     owner = models.ForeignKey(
-        User, on_delete=models.CASCADE,
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE,
         related_name="posts"
     )
     title = models.CharField(max_length=255)
