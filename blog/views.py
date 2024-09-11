@@ -1,6 +1,6 @@
 from django.views import generic
 
-from .models import Post
+from blog.models import Post
 
 
 class BlogListView(generic.ListView):
@@ -9,7 +9,7 @@ class BlogListView(generic.ListView):
     template_name = "blog/index.html"
     paginate_by = 5
     queryset = (
-        Post.objects.all().select_related("owner").order_by("-created_time")
+        Post.objects.select_related("owner").order_by("-created_time")
     )
 
 
