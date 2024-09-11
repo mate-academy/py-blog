@@ -15,7 +15,7 @@ urlpatterns = [
     path("posts/<int:pk>/", BlogDetailView.as_view(), name="post-detail"),
     path("users/<int:pk>/", UserDetailView.as_view(), name="user-detail"),
     path(
-        "post/<int:pk>/commentary/",
+        "posts/<int:pk>/commentary/",
         CommentaryCreateView.as_view(),
         name="commentary_create",
     ),
