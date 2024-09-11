@@ -16,7 +16,7 @@
     <h2>No comments</h2>
   {% endif %}
   <h2>Add a comment:</h2>
-  <form action="create-comment" method="post">
+  <form action="create-comment/" method="post">
     {% csrf_token %}
     {{ form|crispy }}
     <input type="submit" class="btn btn-primary" value="Submit">

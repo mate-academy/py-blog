@@ -9,7 +9,7 @@ urlpatterns = [
     path("", PostListView.as_view(), name="index"),
     path("posts/<int:pk>/", PostDetailView.as_view(), name="post-detail"),
     path(
-        "posts/<int:pk>/create-comment",
+        "posts/<int:pk>/create-comment/",
         commentary_create_view,
         name="post-create-comment",
     ),
