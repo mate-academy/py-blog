@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>{{ post.title }}</title>
+{% endblock %}
+
+{% block content %}
+  <div>
+    <h3 class="card-title">
+      {{ post.title }}
+    </h3>
+    <h6 class="card-subtitle mb-2 text-muted">
+      By {{ post.owner }} on {{ post.created_time|date:"F j, Y, g:i a" }}
+    </h6>
+    <p class="card-text">{{ post.content }}</p>
+  </div><br>
+
+  <p>{{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}</p>
+  {% if post.commentaries %}
+    {% for commentary in post.commentaries.all %}
+      <div class="card shadow-sm mb-2">
+        <div class="card-header text-muted">
+          <p><strong>{{ commentary.user }}</strong> {{ commentary.created_time|date:"F j, Y, g:i a" }}</p>
+        </div>
+        <div class="card-body">
+          <p class="card-text">{{ commentary.content }}</p>
+        </div>
+      </div>
+    {% empty %}
+      <p>There are no comments yet.</p>
+    {% endfor %}
+  {% endif %}
+
+  {% if user.is_authenticated %}
+    {% csrf_token %}
+    <h6><strong>Add a new comment</strong></h6>
+    <form method="POST" action="{% url 'blog:add-commentary' post.id %}">
+      {% csrf_token %}
+      <div class="input-group mb-3">
+        <textarea name="comment" class="form-control" aria-label="With textarea"></textarea>
+      </div>
+      <button type="submit" class="btn btn-secondary">
+        Add comment
+      </button>
+    </form>
+  {% endif %}
+
+
+{% endblock %}
