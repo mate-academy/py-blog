@@ -1,0 +1,13 @@
+    <ul class="sidebar-nav">
+        {% if user.is_authenticated %}
+          <li><a class="btn btn-primary" href="{% url 'blog:user-detail' pk=user.id %}">User: {{ user.username }}</a></li>
+          <li><a class="btn btn-primary" href="{% url 'logout' %}">Logout</a></li>
+          <br>
+        {% else %}
+          <li><a class="btn btn-primary" href="{% url 'login' %}">Login</a></li>
+        {% endif %}
+        <li><a class="btn btn-primary" href="{% url 'blog:index' %}">Home</a></li>
+        {% if user.is_authenticated %}
+          <li><a class="btn btn-primary" href="{%  url 'blog:post-create' %}">Create post</a></li>
+        {% endif %}
+    </ul>

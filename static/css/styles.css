@@ -1,0 +1,96 @@
+.col-sm-8 {
+    margin: 0;
+    padding-top: 10px;
+}
+
+.col-sm-2 {
+    position: sticky;
+    background-image: url("../img/bg.png");
+    background-position: center;
+    background-size: contain;
+    background-repeat: repeat-y;
+    min-height: 100vh;
+}
+
+ul {
+    margin-top: 10px;
+    list-style: none;
+    padding: 0;
+    clear: both;
+}
+
+li {
+    margin-top: 10px;
+}
+
+.blog-link:hover {
+    text-decoration: none;
+}
+
+.card {
+    width: 100%;
+    /*height: 150px;*/
+    color: black;
+}
+
+.card:hover  {
+    color: black;
+    background-color: lightcyan;
+    box-shadow: 0 5px 5px black;
+}
+
+.blog-link:visited {
+    background-color: lightgreen;
+}
+
+.card:active  {
+    box-shadow: none;
+}
+
+.card-text {
+    text-indent: 45px;
+}
+
+.head-text {
+    margin-top: 15px;
+    float: left;
+    width: 374px;
+    height: 110px;
+    text-align: center;
+}
+
+.head-img {
+    float: right;
+    width: 374px;
+    height: 145px;
+}
+
+.speaker {
+    width: 32px;
+    height: 32px;
+    margin-right: 10px;
+    flex-basis: 32px;
+}
+
+.comment {
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    flex-grow: 1;
+}
+
+.comment-text {
+    display: flex;
+}
+
+.title-img {
+    margin: 10px;
+}
+
+.post-nav {
+    display: block;
+}
+
+.line {
+    margin-top: 50px;
+}
