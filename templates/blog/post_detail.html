@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load crispy_forms_filters %}
+  <h1>Post detail info</h1>
+  {% if post %}
+    By {{ post.owner }}
+    <br>{{post.content}}
+    <br><small>{{post.commentaries.count}} comment{{post.commentaries.count|pluralize}}</small>
+    <br>
+    <ul class="no_style_list">
+      {% for comment in post.commentaries.all %}
+        <div class="comment">
+        <li>
+          {{ comment.user }} {{ comment.created_time }}
+        </li>
+        <li>
+          {{ comment.content }}
+        </li>
+        </div>
+      {% endfor %}
+    </ul>
+  <form action="" method="post" novalidate class="comentary_form">
+    {% csrf_token %}
+    {{ form|crispy }}
+
+    <input type="submit" value="Add new comment">
+  </form>
+  {% else %}
+    <p>There are no such a post yet</p>
+  {% endif %}
+
+{% endblock %}
