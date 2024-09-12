@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <center><h1>{{ post.title }}</h1></center>
+  <hr>
+  <p><strong>Author:</strong> {{ post.owner.last_name }} {{ post.owner.first_name }} ({{post.owner.username}})</p>
+  <p><strong>Created at:</strong> {{post.created_time}}</p>
+  <hr>
+  <p><strong>Post:</strong></p>
+  <p class="content">{{ post.content }}</p>
+  <hr>
+  {% if post.commentaries.all %}
+  <p><strong>Comments:</strong></p>
+  {% for comment in post.commentaries.all %}
+  <p><strong>by</strong> {{ comment.user.username }} <strong>added</strong> {{ comment.created_time }}</p>
+  <p class="comment">{{ comment.content }}</p>
+  <hr>
+  {% endfor %}
+  {% else %}
+    <p>No comments now, but you can be first!</p>
+  {% endif %}
+  {% if user.is_authenticated %}
+    <form action="{% url 'blog:create-comment' post.pk %}" method="post" novalidate>
+        {% csrf_token %}
+        <label class="form-label"><strong>Add comment</strong></label>
+        <textarea class="form-control mb-3" style="height: 100px" name="content"></textarea>
+        <input class="btn btn-primary" type="submit" value="Add comment">
+    </form>
+  {% else %}
+    <p><a href="{% url 'login' %}">Click here to login</a></p>
+  {% endif %}
+{% endblock %}
