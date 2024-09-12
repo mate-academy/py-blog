@@ -1,0 +1,11 @@
+h1{
+    text-align: center;
+}
+
+.comments{
+    padding-left: 100px;
+}
+
+.errorlist{
+    color: red;
+}
