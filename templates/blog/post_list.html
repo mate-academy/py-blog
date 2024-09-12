@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% if post_list %}
+    {% for post in post_list %}
+     <div class="border border-3 rounded m-2 p-2">
+       <h3><a href="{% url "blog:post-detail" pk=post.pk%}">{{ post.title }}</a></h3>
+       <p class="datetime">{{ post.owner.username }} at {{ post.created_time }}</p>
+       <p class="content">{{ post.content }}</p>
+       <p class="text-sm">{{ post.commentaries.count }} user{{  post.commentaries.count|pluralize }} commented this post.</p>
+     </div>
+    {% endfor %}
+  {% endif %}
+{% endblock %}

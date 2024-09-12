@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h3>{{ post.title }}</h3>
+  <p class="datetime">{{ post.owner.username }} at {{ post.created_time }}</p>
+  <p class="content">{{ post.content }}</p>
+
+  <p>{{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}</p>
+  {% for comment in post.commentaries.all %}
+  <div class="border border-1 rounded p-2">
+    <div class="border-bottom border-1">{{ comment.user.username }} <p class="datetime">{{ comment.created_time }}</p></div>
+    <div>{{ comment.content }}</div>
+  </div>
+  {% endfor %}
+
+  {% load crispy_forms_filters %}
+
+  <h3>Create comment</h3>
+  <form action="" method="post" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input class="btn btn-primary" type="submit" value="Submit">
+  </form>
+
+{% endblock %}
