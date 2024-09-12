@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Blog {{ post.id }}</title>
+{% endblock %}
+
+{% block content %}
+  <h1> {{ post.title }}</h1>
+  <p> {{ post.content }}</p>
+  <p>Created by: {{ post.owner }}</p>
+  <p>Created at: {{ post.created_time }}</p>
+  <br>
+  <h4>Commentaries:</h4>
+  {%  for comment in post.commentary.all %}
+    <p>{{ comment.content }}</p>
+    <p>created by {{ comment.user }} at {{ comment.created_time }} </p>
+    <br>
+  {% empty %}
+    <p>There is no commentary </p>
+  {% endfor %}
+{% endblock %}
