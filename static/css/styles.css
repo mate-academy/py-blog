@@ -1,0 +1,14 @@
+.post_list ul {
+    list-style: none;
+    margin: 10px 0;
+    padding: 0;
+}
+.post_list p {
+    margin: 0 20px;
+
+}
+.post_list li  {
+    border: 1px solid rgba(0,0,0,.125);;
+    border-radius: 5px;
+    margin: 5px 0;
+}
