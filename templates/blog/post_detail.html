@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="list-group list-group-item list-group-item-action">
+    <div class="w-100 justify-content-between">
+      <a href="{% url 'blog:post-detail' pk=post.id %}">
+        <h3>{{ post.title }}</h3>
+      </a>
+      <p>
+        Created at <strong>{{ post.created_time }}</strong> by
+        <strong>{{ post.owner.username }}</strong>
+      </p>
+      <p>{{ post.content|linebreaks }}</p>
+      <hr>
+      <p>
+        Post have {{ post.commentaries.count }}
+        comment{{ post.commentaries.count|pluralize }}:
+      </p>
+      <div class="list-group">
+        {% for comment in post.commentaries.all %}
+          <div class="list-group-item">
+            <p class="lead">
+              <strong>{{ comment.user.username }}</strong>
+              commented at {{ comment.created_time }}
+            </p>
+            <p><strong>{{ comment.content }}</strong></p>
+          </div>
+        {% endfor %}
+        <hr>
+        {% if user.is_authenticated %}
+          <form action="{% url 'blog:create-comment' pk=post.id %}" method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div class="form-group">
+              <label for="content">
+                <strong>Add a new comment</strong>
+              </label>
+              <textarea class="form-control" rows="3" id="content" name="content"></textarea>
+              <input type="submit" value="Add comment" class="btn btn-primary">
+            </div>
+          </form>
+        {% else %}
+          <p><strong>Log in to leave a comment!</strong></p>
+          <form action="{% url 'login' %}">
+            <input type="hidden" name="next" value="{% url 'blog:post-detail' post.id %}">
+            <input type="submit" value="Login" class="btn btn-primary">
+          </form>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
