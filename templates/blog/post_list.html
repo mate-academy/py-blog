@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}
+  SuperBlog
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    {% for post in post_list %}
+      <a href="{% url 'blog:post-detail' pk=post.id %}" class="text-decoration-none text-dark">
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2 class="card-title">{{ post.title }}</h2>
+            <p class="card-text text-muted">Published on {{ post.created_time|date:"F d, Y" }}</p>
+            <p class="card-text">{{ post.content }}</p>
+          </div>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+{% endblock %}
