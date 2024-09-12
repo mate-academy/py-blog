@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ object.title }}</h1>
+  <p>{{ object.content }}</p>
+  <hr>
+  <h2>Comments</h2>
+  <ul>
+    {% for comment in object.comments.all %}
+      <li>{{ comment.content }}</li>
+    {% empty %}
+      <li>No comments yet.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
