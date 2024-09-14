@@ -14,8 +14,8 @@ class RegisterForm(UserCreationForm):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.helper = FormHelper(self)
-        self.helper.form_method = 'post'
-        self.helper.add_input(Submit('submit', 'Register'))
+        self.helper.form_method = "post"
+        self.helper.add_input(Submit("submit", "Register"))
 
 
 class CommentForm(forms.ModelForm):
@@ -23,17 +23,17 @@ class CommentForm(forms.ModelForm):
         model = Commentary
         fields = ["content"]
         widgets = {
-            "content": forms.Textarea(attrs={
-                "rows": 4,
-                "class": "form-control",  # Optional if using crispy forms
-            }),
+            "content": forms.Textarea(
+                attrs={
+                    "rows": 4,
+                    "class": "form-control",  # Optional if using crispy forms
+                }
+            ),
         }
-        labels = {
-            "content": "Add a comment"
-        }
+        labels = {"content": "Add a comment"}
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self.helper = FormHelper(self)
-        self.helper.form_method = 'post'
-        self.helper.add_input(Submit('submit', 'Add Comment'))
+        self.helper.form_method = "post"
+        self.helper.add_input(Submit("submit", "Add Comment"))
