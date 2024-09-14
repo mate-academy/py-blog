@@ -7,13 +7,17 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('blog', '0002_alter_commentary_options'),
+        ("blog", "0002_alter_commentary_options"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='commentary',
-            name='post',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='commentaries', to='blog.post'),
+            model_name="commentary",
+            name="post",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="commentaries",
+                to="blog.post",
+            ),
         ),
     ]
