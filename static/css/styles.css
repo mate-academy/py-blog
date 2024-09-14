@@ -1,0 +1,16 @@
+body {
+    padding: 30px;
+}
+
+.post-content {
+    font-size: 25px;
+    text-align: justify;
+}
+
+.comment-content {
+    padding: 10px;
+}
+
+.date-comment {
+    font-size: 15px;
+}

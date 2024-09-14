@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <h5>by {{ post.owner }} at {{ post.created_time }}</h5>
+  <p class="post-content">{{ post.content }}</p>
+
+  <p><strong>{{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}</strong></p>
+  {% if post.commentaries.all %}
+    {% for comment in post.commentaries.all %}
+      <div class="comment-content">
+        <h4>{{ comment.user }} <span class="date-comment">at {{ comment.created_time }}</span></h4>
+        <p>{{ comment.content }}</p>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p><i>No comments yet.</i></p>
+  {% endif %}
+
+  {% if user.is_authenticated %}
+    <hr>
+    <p>Add a new comment:</p>
+    <form action="" method="post" novalidate>
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input class="btn btn-primary" type="submit" value="Add comment">
+    </form>
+  {% endif %}
+
+  <hr>
+  <a href="{% url 'blog:index' %}"><- Back to posts</a>
+
+{% endblock %}
