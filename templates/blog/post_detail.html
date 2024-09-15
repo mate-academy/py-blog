@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="block-post">
+    <p class="post-title-link">
+      <h3 class="post-title">
+        {{ post.title }}
+      </h3>
+    </p>
+    <em>{{ post.content }}</em>
+
+    <br>
+    <br>
+
+    <strong>Author: {{ post.owner.username }}</strong>
+    <strong style="position: absolute; right: 20px">
+      {% if post.commentaries.count %}
+        {{ post.commentaries.count }} Commentar{{ post.commentaries.count|pluralize:"y,ies" }}
+      {% else %}
+        No Commentaries
+      {% endif %}
+    </strong>
+    <br>
+    <p style="position: absolute; right: 20px">{{ post.created_time }}</p>
+    <br>
+
+  </div>
+
+  <div class="block-post">
+    <h4 style="margin-left: 20px">Commentaries:</h4>
+    {% for commentary in post.commentaries.all %}
+      <div class="block-post" style="background-color:#dadada; position: relative">
+        <p style="color: #480000">({{ commentary.user.username }})</p>
+        <p style="position: absolute; right: 20px; top: 20px">{{ commentary.created_time }}</p>
+        <strong style="font-size: 20px; ">{{ commentary.content }}</strong>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div style="max-width: 750px; margin: 0 auto; border-radius: 10px; background-color:#ffffff; padding: 20px 40px">
+    <div style="font-weight: bold">
+      <form action="{% url 'blog:commentary-create' pk=post.pk %}" method="post" novalidate>
+      {% csrf_token %}
+      {{ form|crispy }}
+
+
+      <input class="btn btn-dark comment-submit" type="submit" value="Add comment" />
+
+      </form>
+    </div>
+
+  </div>
+
+  <br>
+  <br>
+{% endblock %}
