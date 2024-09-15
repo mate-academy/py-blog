@@ -1,0 +1,102 @@
+body {
+    margin: 20px;
+    background: rgba(157, 157, 231, 0.25);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.content-block {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.post {
+  width: 50%;
+  margin: 0 auto;
+  padding: 20px;
+  background: rgba(157, 157, 231, 0.2);
+  border: 2px solid black;
+  margin-bottom: 20px;
+  border-radius: 5px;
+
+}
+
+.post h5 {
+  font-size: 20px;
+  color: #333;
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+.post p.content {
+  font-size: 18px;
+  margin: 5px 0;
+}
+
+.post p.author {
+  font-weight: bold;
+}
+
+.post p.created {
+  color: #888;
+}
+
+.post p.comments {
+  margin-top: 25px;
+  margin-bottom: 0;
+}
+
+.post p.comments span {
+  font-weight: 600;
+}
+
+
+.post p.comments-detail {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 15px;
+}
+
+.pagination {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.custom-textarea {
+    height: 100px;
+}
+
+label[for="id_content"] {
+  display: none;
+}
+
+ul.errorlist {
+    list-style: none;
+    color: red;
+    padding: 0
+}
+
+.logged-user {
+    list-style: none;
+    margin-bottom: 5px;
+}
+
+.form {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+.asteriskField {
+    color: red;
+}
