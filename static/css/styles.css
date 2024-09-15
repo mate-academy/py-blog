@@ -1,0 +1,100 @@
+body {
+    font-weight: 450;
+    font-style: normal;
+    font-size: 18px;
+    background-color: #f3f8f8;
+}
+header {
+    background-color: #b5d1ee;
+    padding: 10px 20px;
+    border-bottom: 1px solid #e1e1e1;
+}
+
+.header-title {
+    font-size: 24px;
+    margin: 0;
+    display: inline;
+
+}
+
+.header-button {
+    margin-left: 20px;
+    padding: 5px 10px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#card-box {
+    background-color: #ecf0f1;
+}
+
+.custom {
+    padding: 2rem 15.5rem;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.post_detail_and_comments {
+    width: 60%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #e3e9f0;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+.comments {
+    margin: 10px 100px 0 0;
+
+    /*background-color: #d7d3d3;*/
+}
+
+.home_button {
+    text-decoration: none;
+    color: inherit;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.pagination-container {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.pagination-container .step-links a {
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+.pagination-container .step-links .current {
+    margin: 0 10px;
+
+}
+
+.card {
+    background: linear-gradient(135deg, #8cdbd7, #eaeaea);
+    border-radius: 15px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+}
+
+.form-control {
+    display: block;
+    width: 50%;
+    height: auto;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}

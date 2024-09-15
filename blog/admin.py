@@ -19,14 +19,16 @@ class UserAdmin(UserAdmin):
         )
     )
 
+
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     list_display = ["title", "owner", "created_time"]
     search_fields = ("title", "content")
     list_filter = ("owner", "created_time")
 
+
 @admin.register(Commentary)
 class CommentaryAdmin(admin.ModelAdmin):
-    list_display = ["content","post", "created_time"]
+    list_display = ["content", "post", "created_time"]
     list_filter = ("user",)
     search_fields = ("content",)
