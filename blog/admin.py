@@ -5,6 +5,7 @@ from django.contrib.auth.models import Group
 
 admin.site.unregister(Group)
 
+
 @admin.register(User)
 class UserAdmin(UserAdmin):
     add_fieldsets = UserAdmin.add_fieldsets + (
@@ -31,6 +32,6 @@ class PostAdmin(admin.ModelAdmin):
 
 @admin.register(Commentary)
 class CommentaryAdmin(admin.ModelAdmin):
-    list_display = ["content", "post","user", "created_time"]
+    list_display = ["content", "post", "user", "created_time"]
     list_filter = ("user",)
-    search_fields = ("content", "user__username",)
+    search_fields = ("content", "user__username")
