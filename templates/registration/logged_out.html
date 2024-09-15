@@ -1,0 +1,20 @@
+{% extends "index.html" %}
+{% block content %}
+  <br>
+  <br>
+  <br>
+  <br>
+  <div class="post small">
+    <p>
+      Thank you so much for choosing our platform and being a part of our community.
+      Your presence means a lot to us, and we're grateful for the time you've spent here.
+      Remember, our doors are always open for your return!
+      If you ever have any thoughts, feedback, or ideas that could help improve our platform, we'd love to hear from you.
+      Wishing you a fantastic day ahead and looking forward to seeing you again soon!
+    </p>
+    <a href="{% url 'login'%}">Click here to login again.</a>
+  </div>
+  <a href="{% url 'login' %}">
+  </a>
+
+{% endblock %}
