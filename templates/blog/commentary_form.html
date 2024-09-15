@@ -1,0 +1,12 @@
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>Add a new comment</h1>
+
+  <form action="{% url 'blog:add-comment' pk=post.id %}" method="post" novalidate>
+    {% csrf_token %}
+    <textarea name="content" class="form-control" rows="3" placeholder="Write a comment..."></textarea>
+    {{ form|crispy }}
+    <input type="submit" value="Submit">
+  </form>
+{% endblock %}
