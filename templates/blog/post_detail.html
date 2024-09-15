@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 class="text-center">{{ post_detail.title }} post pag</h1>
+  <section class="p-3 mb-2 bg-secondary text-white">
+    <h3>Author: {{ post_detail.owner.first_name }} {{ post_detail.owner.last_name }}</h3>
+    <p>{{ post_detail.created_time }}</p>
+    <h3>{{ post_detail.title }}</h3>
+    <p>{{ post_detail.content }}</p>
+  </section>
+
+  <br><br><br>
+
+  <section>
+    <h1 class="text-center">Commentaries</h1>
+    <div class="p-3 mb-2 bg-secondary text-white">
+      <h4>Count of commentaries: {{ post_detail.commentaries.count }}</h4>
+    </div>
+    {%  for commentary in post_detail.commentaries.all %}
+      <div class="alert alert-secondary" role="alert">
+        <h4 class="alert-heading">{{ commentary.user.username }}</h4>
+        <p>{{ commentary.content }}</p>
+        <hr>
+        <p class="mb-0">{{ commentary.created_time }}</p>
+      </div>
+    {% endfor %}
+  {% if user.is_authenticated %}
+      <form action="{% url 'blog:post-create-comment' pk=post_detail.id %}" method="post" novalidate>
+        {% csrf_token %}
+        <label for="content" class="form-label"><strong>Add a new comment</strong></label>
+        <textarea class="form-control mb-2" style="height: 100px" name="content"></textarea>
+        <input class="btn btn-primary" type="submit" value="Add comment">
+      </form>
+  {% else %}
+    <br>
+    <a href="{% url 'login' %}" class="btn btn-primary">Login to add comments!</a>
+  {% endif %}
+    <br><br><br>
+
+  </section>
+
+{% endblock %}
