@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% if user.is_authenticated %}
+    <div class="registration">
+      <p>User: <a href="{{ user.get_absolute_url }}">{{ user.get_username }}</a></p>
+      <p><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></p>
+    </div>
+  {% else %}
+    <p class="registration"><a href="{% url 'login'%}?next={{request.path}}">Login</a></p>
+  {% endif %}
+
+
+  {% if post_list %}
+    <ul>
+      {% for post in post_list %}
+        <div class="post">
+          <li>
+            <a href="{% url "blog:post-detail" pk=post.id %} ">{{ post.title }}</a>
+
+            ({{ post.owner.first_name }} {{ post.owner.last_name }}, at {{ post.created_time }})
+          </li>
+          <p>
+            {{ post.content }}
+          </p>
+          <p>
+            Number of commentaries: {{ post.commentaries.count }}
+          </p>
+        </div>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no posts in this blog :(</p>
+  {% endif %}
+
+  <div>
+    <span>
+      {% if page_obj.has_previous %}
+          <a href="?page={{ page_obj.previous_page_number }}"><</a>
+      {% endif %}
+
+      <span class="current">
+          Page {{ page_obj.number }} of {{ paginator.num_pages }}
+      </span>
+
+      {% if page_obj.has_next %}
+          <a href="?page={{ page_obj.next_page_number }}">></a>
+      {% endif %}
+    </span>
+  </div>
+{% endblock %}
