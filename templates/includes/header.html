@@ -1,0 +1,11 @@
+<div class="header">
+  <div class="header__blog"><a class="btn btn-primary" href="{% url "blog:index" %}">Blog</a></div>
+  <div class="header__login-logout">
+    {% if user.is_authenticated %}
+      <div class="header__user btn btn-primary">User: {{ user.username }}</div>
+      <div><a class="btn btn-danger" href="{% url 'logout' %}">Logout</a></div>
+    {% else %}
+      <div><a class="header__user btn btn-primary" href="{% url 'login' %}">Login</a></div>
+    {% endif %}
+  </div>
+</div>
