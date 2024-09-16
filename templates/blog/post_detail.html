@@ -6,7 +6,7 @@
   <p>{{ post.owner }} at {{ post.created_time }}</p>
   <p style="font-size: 20px">{{ post.content }}</p>
   <p><b>{{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}</b></p>
-  {% if post.commentaries.all %}
+  {% if post.commentaries.exists %}
     <div class="card">
       <ul class="list-group list-group-flush">
         {% for commentary in post.commentaries.all %}
@@ -20,7 +20,7 @@
   {% if user.is_authenticated %}
     <p><b>Add a new comment</b></p>
 
-    <form action="" method="post">
+    <form action="{% url 'blog:post-comment' pk=post.id %}" method="post">
       {% csrf_token %}
       {{ form|crispy }}
       <input class="btn btn-primary" type="submit" value="Add comment">
