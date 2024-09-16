@@ -1,0 +1,7 @@
+<p><a href="{% url 'blog:index' %}">Home</a></p>
+{% if user.is_authenticated %}
+  <p>Username: {{ user.username }}</p>
+  <a href="{% url 'logout' %}">Click here to log out</a>
+{% else %}
+  <a href="{% url 'login' %}">Click here to login</a>
+{% endif %}
