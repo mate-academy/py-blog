@@ -12,7 +12,8 @@ class Post(models.Model):
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         related_name="posts",
-        on_delete=models.CASCADE)
+        on_delete=models.CASCADE
+    )
     title = models.CharField(
         max_length=250,
         blank=False,

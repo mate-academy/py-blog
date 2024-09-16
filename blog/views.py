@@ -1,22 +1,23 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
-
 from django.db.models import Count
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpRequest
 from django.shortcuts import render, get_object_or_404, redirect
-
 from django.urls import reverse_lazy
-
 from django.views import generic
 
 from blog.models import Post, Commentary
 
 
-def index(request) -> HttpResponse:
-    posts = (Post.objects.all()
-             .annotate(num_comments=Count("comments"))
-             .order_by("-created_time"))
+def index(request: HttpRequest) -> HttpResponse:
+    posts = (
+        Post.objects
+        .annotate(
+            num_comments=Count("comments")
+        )
+        .order_by("-created_time")
+    )
     for post in posts:
         words = post.content.split()
         if len(words) > 10:
@@ -39,14 +40,14 @@ class PostDetailView(generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         post = self.get_object()
-        comments = Commentary.objects.filter(post=post)
+        comments = post.comments
         context["comments"] = comments
         context["comment_count"] = comments.count()
         return context
 
 
 @login_required
-def comment_create(request, pk: int) -> HttpResponseRedirect:
+def comment_create(request: HttpRequest, pk: int) -> HttpResponseRedirect:
     post = get_object_or_404(Post, pk=pk)
 
     if request.method == "POST":

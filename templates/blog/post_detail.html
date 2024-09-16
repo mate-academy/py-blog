@@ -21,9 +21,9 @@
         {% else %}
           <p class="text-muted"><small>{{ comment_count }} comments</small></p>
         {% endif %}
-        {% if comment_count %}
+        {% if comments.count %}
           <ul class="list-group">
-          {% for comment in comments %}
+          {% for comment in post.comments.all %}
             <li class="list-group-item" style="border-radius: 8px;">
               <pre>{{ comment.user }}<small class="text-muted">  {{ comment.created_time }}</small></pre>
               <hr>

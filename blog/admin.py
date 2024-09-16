@@ -1,9 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User, Post, Commentary
 from django.contrib.auth.models import Group
 
-admin.site.unregister(Group)
+from .models import User, Post, Commentary
 
 
 @admin.register(User)
@@ -35,3 +34,6 @@ class CommentaryAdmin(admin.ModelAdmin):
     list_display = ["content", "post", "user", "created_time"]
     list_filter = ("user",)
     search_fields = ("content", "user__username")
+
+
+admin.site.unregister(Group)
