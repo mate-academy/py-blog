@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Blog page</title>
+{% endblock %}
+
+{% block content %}
+
+  <h1>Post list</h1>
+  <div>
+    {% for post in post_list %}
+      <p><strong><a style="color: white; background-color: blue; padding: 5px 10px; text-decoration: none;"
+                    href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></strong></p>
+      <p class="info">{{ post.owner }} at {{ post.created_time }}</p>
+      <h5 class="content">{{ post.content }}</h5>
+      {% if post.post_commentaries.count > 1 or post.post_commentaries.count == 0 %}
+        <p><strong>{{ post.post_commentaries.count }} comments </strong></p>
+      {% else %}
+        <p><strong>{{ post.post_commentaries.count }} comment </strong></p>
+      {% endif %}
+    {% endfor %}
+  </div>
+  {% if is_paginated %}
+    <ul class="pagination">
+      {% if page_obj.has_previous %}
+        <div>
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Prev</a></li>
+        </div>
+      {% endif %}
+      <li class="page-item-active"><span class="page-link">{{ page_obj.number }} of {{ paginator.num_pages }}</span>
+      </li>
+      {% if page_obj.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+      {% endif %}
+
+    </ul>
+  {% endif %}
+
+
+{% endblock %}
