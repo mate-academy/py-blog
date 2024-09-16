@@ -1,0 +1,21 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav mr-auto">
+      {% if user.is_authenticated %}
+        <li class="nav-item">
+          <p class="navbar-brand font-weight-bolder">User: {{ user.username }}</p>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+        </li>
+      {% else %}
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="{% url 'login' %}">Login</a>
+        </li>
+      {% endif %}
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="{% url 'blog:index' %}">Home</a>
+        </li>
+    </ul>
+  </div>
+</nav>
