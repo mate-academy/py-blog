@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <br>
+  {% for post in post_list %}
+    <p>
+      <a href="{% url "blog:post-detail" post.pk %}">{{ post.title }}</a>
+    </p>
+    <p>
+      <strong>
+        Published {{ post.created_time }}
+        by {{ post.owner }},
+        number of comments: {{ post.comments.count }}
+      </strong>
+    <small><a href="{% url "blog:post-update" post.pk%}">Edit</a></small>
+    <small><a href="{% url "blog:post-delete" post.pk%}">Delete</a></small>
+
+    </p>
+    <p>{{ post.content|truncatewords:30|linebreaks }}</p>
+  {% endfor %}
+{% endblock %}
