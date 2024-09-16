@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <div class="container mt-4">
+    <div class="mb-4">
+      <h2 class="display-4">{{ post.title }}</h2>
+      <p class="lead"><strong>Author:</strong> {{ post.owner.first_name }} {{ post.owner.last_name }}</p>
+      <p class="text-muted"><strong>Created at:</strong> {{ post.created_time }}</p>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Content:</h4>
+        {% if post.content %}
+          <p class="card-text">{{ post.content }}</p>
+        {% else %}
+          <p class="card-text text-muted">No content!</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+<div class="comments-section">
+      <h4 class="mb-3">Comments:</h4>
+      {% if post.commentaries.all %}
+        <div class="list-group">
+          {% for commentary in post.commentaries.all %}
+            <div class="list-group-item">
+              <p class="mb-1"><strong>{{ commentary.user }}:</strong> {{ commentary.created_time }}</p>
+              <p>{{ commentary.content }}</p>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p class="text-muted">No comments yet.</p>
+      {% endif %}
+      <div class="mt-4">
+        <h5>Add a Comment:</h5>
+        <form action="{% url 'blog:commentary_create' pk=post.id %}" method="post" novalidate>
+          {% csrf_token %}
+          {{ form|crispy }}
+          <input type="hidden" name="post_id" value="{{ post.id }}">
+          <button class="btn btn-primary" type="submit">Submit Comment</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
