@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
   <h1>Main page</h1>
+  {% include "includes/sidebar.html" %}
   <ul>
     {% for post in posts %}
       <li>
