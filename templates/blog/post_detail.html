@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Commentaries</h2>
+  <ul>
+    {% for comment in post.commentaries.all %}
+      <li>
+        <h5>{{ comment.user.username }}</h5>
+        <p>{{ comment.content }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+  <form method="post">
+    {% load crispy_forms_filters %}
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit">Post comment</button>
+  </form>
+{% endblock %}
