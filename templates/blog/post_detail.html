@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>{{ post.title }}</h1>
+      <p>{{ post.content }}</p>
+
+      <div class="card mb-3">
+        <div class="card-body">
+          {% if user.is_authenticated %}
+          <form method="post" action="{% url 'blog:comment-create' pk=post.pk %}">
+            {% csrf_token %}
+            <div class="form-group">
+              <textarea class="form-control" name="content" rows="3" placeholder="Write a comment...">{{ comment_form.content.value|default_if_none:'' }}</textarea>
+            </div>
+            <div class="form-group text-right">
+              <button type="submit" class="btn btn-primary">
+                <span class="emoji">✍️</span>
+              </button>
+            </div>
+          </form>
+          {% else %}
+          <p class="text-center mt-3">Please <a href="{% url 'login' %}?next={{ request.path }}">log in</a> to post a
+            comment.</p>
+          {% endif %}
+        </div>
+      </div>
+
+      {% if post.comments.all %}
+      <div class="card mb-3">
+        <div class="card-body">
+          {% for comment in post.comments.all %}
+          <div class="comment-item">
+            <div class="d-flex justify-content-between align-items-center">
+              <h5 class="card-title">{{ comment.user.username }}</h5>
+              {% if user.is_authenticated and comment.user == user %}
+              <div class="comment-actions">
+                <form method="post" action="{% url 'blog:comment-update' comment.pk %}">
+                  {% csrf_token %}
+                  {{ comment_form|crispy }}
+                  <button type="submit" class="btn btn-sm btn-primary">Update</button>
+                </form>
+                <form method="post" action="{% url 'blog:comment-delete' comment.pk %}">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                </form>
+              </div>
+              {% endif %}
+            </div>
+            {% if not update_mode_comment_id or update_mode_comment_id != comment.pk %}
+            <p class="card-text">{{ comment.content }}</p>
+            {% else %}
+            <form method="post" action="{% url 'blog:comment-update' comment.pk %}">
+              {% csrf_token %}
+              {{ comment_form|crispy }}
+              <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+            {% endif %}
+            <p class="card-text"><small class="text-muted">{{ comment.created_time }}</small></p>
+          </div>
+          {% empty %}
+          <p>No comments yet.</p>
+          {% endfor %}
+        </div>
+      </div>
+      {% else %}
+      <p>No comments yet.</p>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+{% endblock %}
