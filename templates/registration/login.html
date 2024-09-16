@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container h-100">
+  <div class="row h-100 justify-content-center align-items-center">
+    <div class="col-md-4">
+      <br><br><br><br><br><br>
+      {% if form.errors %}
+      <div class="alert alert-danger">
+        Your username and password didn't match. Please try again.
+      </div>
+      {% endif %}
+      <h1 class="text-center">Login</h1>
+      <hr>
+
+      {% if next %}
+      <p class="text-center">Please log in to see this page.</p>
+      {% endif %}
+
+      <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="form-group text-center">
+          <span>{{ form.username.label_tag }}</span>
+          <br>
+          {{ form.username }}
+        </div>
+        <div class="form-group text-center">
+          <span>{{ form.password.label_tag }}</span>
+          <br>
+          {{ form.password }}
+        </div>
+        <div class="form-group text-center">
+          <input type="submit" value="Login" class="btn btn-primary btn-block"/>
+        </div>
+        <input type="hidden" name="next" value="{{ next }}"/>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

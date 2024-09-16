@@ -1,0 +1,8 @@
+/* custom.css */
+.vertical-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* Ensure it takes up at least the full viewport height */
+}
