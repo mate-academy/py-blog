@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Welcome to our Blog!</h1><br>
+
+  {% if post_list %}
+    <h3>Here are our recent posts!</h3><br>
+
+    <div class="posts">
+      {% for post in post_list %}
+        <hr>
+        <h4><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h4>
+        <p class="info"><strong>Author: </strong>{{ post.owner }}</p>
+        <p class="info"><strong>Posted at: </strong>{{ post.created_time }}</p>
+        <p class="info">
+          <strong>Comments: </strong>
+          {% if post.commentaries.count %}
+            {{ post.commentaries.count }}
+            {% else %} Be the first to comment!
+          {% endif %}
+        </p>
+        <p>
+          {% if post.content|length <= 200 %}
+            {{ post.content }}
+            {% else %}
+              {{ post.content|linebreaks|safe|truncatechars:200 }}
+              <a href="{% url 'blog:post-detail' pk=post.id%}">read more</a>
+          {% endif %}
+        </p>
+      {% endfor %}
+    </div>
+
+  {% endif %}
+
+{% endblock %}

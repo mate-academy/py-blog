@@ -1,0 +1,43 @@
+body {
+    margin-top: 20px;
+}
+
+.posts,.comments {
+    width: 80%;
+}
+
+.posts,.info {
+    margin-bottom: 5px;
+    font-style: italic;
+}
+
+.post {
+    margin: 0 auto;
+    display: block;
+    padding: 20px;
+    width: 80%;
+    background-color: gray;
+    border-radius: 8px;
+    color: #fff;
+    text-align: justify;
+
+}
+
+.comment {
+    width: 40%;
+    margin: 10px 100px;
+    padding: 10px;
+    background-color: #eee;
+    border-radius: 5px;
+}
+
+.comment .info {
+    font-size: 14px;
+}
+.right {
+    text-align: right;
+}
+.login {
+    margin-left: 100px;
+    font-size: 20px;
+}
