@@ -55,6 +55,7 @@ class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
     form_class = CommentaryForm
 
     def form_valid(self, form):
+        # post_id = self.kwargs["pk"]  # Получаем pk из URL
         post_id = self.request.POST.get("post_id")
         post = get_object_or_404(Post, id=post_id)
         commentary = form.save(commit=False)
