@@ -1,0 +1,26 @@
+<ul class="sidebar-nav list-group">
+  {% if user.is_authenticated %}
+    <li class="list-group-item bg-primary text-white">
+      User:
+      <a class="text-white font-weight-bold" href="{{ user.get_absolute_url }}">
+        {{ user.get_username }}
+      </a>
+    </li>
+    <li class="list-group-item font-weight-bold">
+      <a href="{% url 'logout'%}">Logout</a>
+    </li>
+  {% else %}
+    <li class="list-group-item bg-primary text-white">
+      User: <strong>not authorized</strong>
+    </li>
+    <li class="list-group-item font-weight-bold">
+      <a href="{% url 'login'%}">Login</a>
+    </li>
+  {% endif %}
+  <li></li>
+</ul>
+<ul class="sidebar-nav list-group">
+  <li class="list-group-item">
+    <a href="{% url 'blog:index' %}">Home page</a>
+  </li>
+</ul>
