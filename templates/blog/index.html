@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Posts list</h1>
+
+  {% if post_list %}
+    <table class="table">
+      <tr>
+        <th>Owner</th>
+        <th>Title</th>
+        <th colspan="2">Content</th>
+        <th>created_time</th>
+        <th>Comments count</th>
+        <th>View/leave a comment</th>
+      </tr>
+    {% for post in post_list %}
+      <tr>
+        <td>{{ post.owner }}</td>
+        <td>{{ post.title }}</td>
+        <td colspan="2">{{ post.content }}</td>
+        <td>{{ post.created_time }}</td>
+        <td>{{ post.comments.count }}</td>
+        <td><a href="{% url 'blog:post-detail' pk=post.pk %}">Comment</a></td>
+      </tr>
+    {% endfor %}
+    </table>
+
+  {% else %}
+    <p>There are no posts in the service.</p>
+  {% endif %}
+{% endblock %}
