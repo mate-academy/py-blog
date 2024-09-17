@@ -22,9 +22,9 @@ urlpatterns = [
         name="post-delete"
     ),
     path("", PostListView.as_view(), name="index"),
-    path("blog/<int:pk>", PostDetailView.as_view(), name="post-detail"),
+    path("blog/<int:pk>/", PostDetailView.as_view(), name="post-detail"),
     path(
-        "blog/<int:pk>/create_comment",
+        "blog/<int:pk>/create_comment/",
         CommentaryCreateView.as_view(),
         name="comment-create"
     ),
