@@ -1,0 +1,32 @@
+body {
+    margin: 40px 20px;
+
+}
+
+.post_list {
+    list-style: none;
+}
+
+.admin_list {
+    list-style: none;
+}
+
+.post_info {
+    max-width: 70vw;
+    margin: 0 auto;
+}
+
+
+.list-group-item {
+    margin-bottom: 20px;
+}
+
+.post_item {
+    list-style: none;
+    border-radius: 5px;
+}
+
+.post_content {
+    font-size: large;
+    text-align: justify;
+}
