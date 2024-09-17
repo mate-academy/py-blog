@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 class="page_title"><strong>{{ post.title }}</strong></h1>
+  <div class="container_for_post">
+    <a href="{% url 'blog:post-detail' post.id %}"><h4><strong>{{ post.title }}</strong></h4></a>
+    <p><strong>{{ post.content }}</strong></p>
+    <p>comments to the post: <strong>{{ post.commentaries.count }}</strong></p>
+  </div>
+  {% if  post.commentaries.all %}
+    {% for commentary in post.commentaries.all %}
+      <div class="container_for_commentary">
+        <strong>{{ commentary.user.username }}</strong> in {{ commentary.created_time }}
+        <p>{{ commentary.content }}</p>
+      </div>
+    {% endfor %}
+  {% else %}
+    <strong>No comment</strong>
+  {% endif %}
+  <br>
+  {#  <div class="button_sidebar"><a href="{% url 'blog:post-create-commentary' post.id%}}"><h3>Add commentary</h3></a></div>#}
+  <form method="post" action="{% url 'blog:post-create-commentary' post.id %}">
+    {% csrf_token %}
+    <button class="button_sidebar"><strong>Add commentary</strong></button>
+  </form>
+{% endblock %}
