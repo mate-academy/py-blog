@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Home page</title>
+{% endblock %}
+
+{% block content %}
+  <h1>My blog <a href="{% url 'blog:post-create' %}" style="float: right ">+</a></h1>
+  <h3>Blog content:</h3>
+  {% if post_list %}
+    {% for post in post_list %}
+      <a href="{% url 'blog:post-detail' pk=post.id %}"><h5 >Title: {{ post.title }}</h5></a>
+      <p class="color: text-black-50"> {{ post.content }}</p>
+      <p class="color: text-black-50">created by: {{ post.owner }} at: {{ post.created_time }} || number of comments: {{ post.commentary.count }} </p>
+      <br>
+    {% endfor %}
+  {% else %}
+    <p>There are no posts</p>
+  {% endif %}
+{% endblock %}
