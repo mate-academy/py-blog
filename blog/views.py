@@ -3,7 +3,7 @@ from audioop import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views import generic
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect
 
 from blog.forms import CommentaryForm
 from blog.models import User, Post, Commentary
@@ -20,7 +20,7 @@ class PostListView(generic.ListView, LoginRequiredMixin):
     model = Post
     context_object_name = "post_list"
     queryset = (Post.objects.order_by("-created_time").
-                prefetch_related("commentary"))
+                prefetch_related("commentaries"))
     paginate_by = 5
 
 
