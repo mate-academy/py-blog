@@ -1,49 +1,43 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.paginator import Paginator
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpRequest, HttpResponse
-from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
+from django.shortcuts import redirect, get_object_or_404
+from django.urls import reverse_lazy, reverse
 from django.views import generic
+from django.contrib import messages
 
 from blog.forms import CommentForm
 from blog.models import Post, Commentary
 
 
-def index(request: HttpRequest) -> HttpResponse:
-    posts = Post.objects.all().order_by("-created_time")
-    paginator = Paginator(posts, 5)
-    page_num = request.GET.get("page")
-    page_obj = paginator.get_page(page_num)
-    context = {
-        "posts": posts,
-        "page_obj": page_obj
-    }
+class PostListView(generic.ListView):
+    model = Post
+    template_name = "blog/index.html"
+    paginate_by = 5
+    ordering = ("-created_time",)
 
-    return render(request, "blog/index.html", context=context)
 
-def post_detail(request: HttpRequest, pk: int) -> HttpResponse:
-    post = get_object_or_404(Post, pk=pk)
-    comments = post.commentaries.all()
+class PostDetailView(generic.DetailView):
+    model = Post
+    template_name = "blog/post_detail.html"
+    context_object_name = "post"
 
-    if request.method == "POST":
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = CommentForm()
+        context["comments"] = self.object.commentaries.all()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
         form = CommentForm(request.POST)
         if form.is_valid() and request.user.is_authenticated:
             new_comment = form.save(commit=False)
-            new_comment.post = post
+            new_comment.post = self.object
             new_comment.owner = request.user
             new_comment.save()
-    else:
-        form = CommentForm()
-
-    return render(
-        request,
-        "blog/post_detail.html",
-        {
-            "post": post,
-            "comments": comments,
-            "form": form
-        }
-    )
+            return HttpResponseRedirect(reverse("blog:index"))
+        else:
+            messages.error(request, "You have to login or data is not valid")
 
 
 class PostCreateView(LoginRequiredMixin, generic.CreateView):

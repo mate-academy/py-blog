@@ -3,12 +3,12 @@
   <h1>Main page</h1>
   {% include "includes/sidebar.html" %}
   <ul>
-    {% for post in posts %}
+    {% for post in post_list %}
       <li>
         <div>
           <div>
             <a style="display: flex; flex-direction: row; justify-content: space-between"
-               href="{% url "blog:post_detail" post.pk %}">
+               href="{% url "blog:post-detail" post.pk %}">
               <h5>{{ post.title }}</h5>
               <p>{{ post.created_time }}</p>
             </a>

@@ -12,6 +12,13 @@
   <form method="post">
     {% load crispy_forms_filters %}
     {% csrf_token %}
+    {% if messages %}
+      <ul class="messages">
+          {% for message in messages %}
+              <li style="color: red" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+          {% endfor %}
+      </ul>
+    {% endif %}
     {{ form|crispy }}
     <button type="submit">Post comment</button>
   </form>
