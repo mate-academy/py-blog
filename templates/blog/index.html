@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content%}
+  <h1>Blog System Home</h1>
+
+  <p>The blog system has the following posts:</p>
+    {% if post_list %}
+      {% for post in post_list %}
+
+        <p><a class="title" href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a><br>
+          Author:
+          <strong>{{ post.owner }}</strong>.
+          Date create:
+          <b>{{ post.created_time }}</b>
+        </p>
+        <p>
+          {{ post.content }}</p>
+        <p>
+        <b>{{ post.comments.count }} Comments</b>
+        </p>
+        <br>
+        <hr>
+      {% endfor %}
+    {% else %}
+      <p>No blogs.</p>
+    {% endif %}
+{% endblock %}
