@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+   <section class="p-3 mb-2 bg-success text-white">
+    <h3>Author: {{ post_detail.owner.first_name }} {{ post_detail.owner.last_name }}</h3>
+    <p>Created: {{ post_detail.created_time }}</p>
+    <h3>Post: "{{ post_detail.title }}"</h3>
+    <p>Content: "{{ post_detail.content }}"</p>
+  </section>
+
+  <br>
+
+  <section>
+    <h1 class="text-center"><strong>Commentaries</strong></h1>
+    <div class="p-3 mb-2 bg-dark text-white">
+      <h4>Count of commentaries: {{ post_detail.commentaries.count }}</h4>
+    </div>
+    {%  for commentary in post_detail.commentaries.all %}
+      <div class="alert alert-secondary" role="alert">
+        <h4 class="alert-heading">{{ commentary.user.username }}</h4>
+        <p>{{ commentary.content }}</p>
+        <hr>
+        <p class="mb-0">{{ commentary.created_time }}</p>
+      </div>
+    {% endfor %}
+  {% if user.is_authenticated %}
+      <form action="{% url 'blog:post-create-comment' pk=post_detail.id %}" method="post" novalidate>
+        {% csrf_token %}
+        {{ form|crispy }}
+        <label for="content" class="form-label"><strong>Create new comment:</strong></label>
+        <textarea class="form-control mb-2" style="height: 100px" name="content"></textarea>
+        <input class="btn btn-success" type="submit" value="Submit">
+      </form>
+  {% else %}
+    <a href="{% url 'login' %}">Login to add comments!</a>
+  {% endif %}
+
+  </section>
+
+{% endblock %}
