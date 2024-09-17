@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <div class="list_posts">
+    <div class="post">
+      <div class="title_post">
+        <a href="{% url 'blog:post-detail' post.pk %}">
+          <h2>{{ post.title }}</h2>
+        </a>
+        <h5>{{ post.created_time }}</h5>
+      </div>
+      <p class="owner">Owner: {{ post.owner }}</p>
+      <p>{{ post.content }}</p>
+    </div>
+    <h1>Commentary</h1>
+    <br>
+    {% for comment in post.Comments.all %}
+      <div class="post">
+        <div class="title_post">
+          <h2>{{ comment.user }}</h2>
+          <h5>{{ comment.created_time }}</h5>
+        </div>
+        <br>
+        <p>{{ comment.content }}</p>
+      </div>
+    {% endfor %}
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form_comment|crispy }}
+      {% if user.is_authenticated %}
+      <button type="submit">Add new commentary</button>
+      {% endif %}
+    </form>
+  </div>
+{% endblock %}
