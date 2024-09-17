@@ -1,0 +1,22 @@
+<nav class="sidebar-nav">
+  <ul class="nav flex-column">
+    <br>
+    {% if user.is_authenticated %}
+      <li>
+        <strong>User: {{ user.username }}</strong>
+      </li>
+      {% csrf_token %}
+      <li>
+        <a href="{% url 'logout' %}?next={{ request.path }}">Logout</a>
+      </li>
+    {% else %}
+      <li>
+        <a href="{% url 'login' %}">Login</a>
+      </li>
+    {% endif %}
+
+    <li>
+      <a href="{% url 'blog:index' %}">Home page</a>
+    </li>
+  </ul>
+</nav>
