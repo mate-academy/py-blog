@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.contrib.auth.admin import Group, UserAdmin
+from django.contrib.auth.admin import Group
 
 from blog.models import Post, Commentary, User
 
