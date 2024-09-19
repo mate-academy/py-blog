@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  {% block title %}
+  <title>Title</title>
+  {% endblock %}
+</head>
+<body style="padding: 10px">
+  {% block content %}
+  {% endblock %}
+    {% block pagination %}
+      {% include "includes/pagination.html" %}
+    {% endblock %}
+</body>
+</html>
