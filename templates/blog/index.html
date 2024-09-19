@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h1>Blog</h1>
+    {% for post in post_list %}
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">
+            <a href="{% url 'blog:post-detail' pk=post.id %}" class="text-decoration-none">{{ post.title }}</a>
+          </h5>
+          <p class="card-text text-muted">Created time: {{ post.created_time }}</p>
+          <p class="card-text">Author of the post: {{ post.owner }}</p>
+          <p class="card-text">{{ post.content|slice:":90" }} 
+            {% if post.content|slice:"90:" %}
+          	...
+          {% endif %} </p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
