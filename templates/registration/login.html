@@ -17,8 +17,8 @@
 <form method="post" class="mb-3">
   {% csrf_token %}
   {{ form.as_p }}
-  <button type="submit" class="btn btn-primary">Login</button>
-  <input type="hidden" name="next" value="{{ next }}" />
+  <button type="submit" class="btn btn-primary">Register</button>
+  <input type="hidden" name="next" value="{% url 'blog:index' %}" />
 </form>
 
 {% endblock %}
