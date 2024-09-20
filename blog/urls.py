@@ -4,8 +4,8 @@ from blog.views import (
     PostListView,
     PostDetailView,
     PostCreateView,
-    UserDetailView,
-    )
+    UserDetailView
+)
 
 app_name = "blog"
 
