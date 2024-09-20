@@ -1,11 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.paginator import Paginator
-from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from django.shortcuts import render, redirect
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.views import generic
 
-from .models import Post, Commentary, User
+from blog.models import Post, Commentary, User
 from blog.form import CommentaryForm
 
 
