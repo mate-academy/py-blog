@@ -1,0 +1,34 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}
+    {{ post.title }} - My Blog
+{% endblock %}
+
+{% block content %}
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content }}</p>
+    <p>Автор: {{ post.owner }}</p>
+    <p>Дата публікації: {{ post.created_time }}</p>
+
+    <hr>
+    <h2>Коментарі</h2>
+    <ul>
+        {% for commentary in commentaries %}
+            <li>{{ commentary.user }}: {{ commentary.content }} ({{ commentary.created_time }})</li>
+        {% empty %}
+            <li>Немає коментарів. Будьте першим!</li>
+        {% endfor %}
+    </ul>
+
+    <hr>
+    <h2>Залишити коментар</h2>
+    {% if request.user.is_authenticated %}
+        <form method="post">
+            {% csrf_token %}
+            {{ commentary_form.as_p }}
+            <button type="submit">Додати коментар</button>
+        </form>
+    {% else %}
+        <p>Щоб залишити коментар, будь ласка, <a href="{% url 'login' %}">увійдіть</a>.</p>
+    {% endif %}
+{% endblock %}
