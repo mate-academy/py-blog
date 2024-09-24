@@ -19,7 +19,7 @@ from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('login/', auth_views.LoginView.as_view(), name='login'),
-    path('blog/', include(('blog.urls', 'blog'), namespace='blog')),
+    path("admin/", admin.site.urls),
+    path("login/", auth_views.LoginView.as_view(), name="login"),
+    path("blog/", include(("blog.urls", "blog"), namespace="blog")),
 ]
