@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <title>{% block page_title %}Blog{% endblock page_title %}</title>
+  {% load static %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+{% block content %}
+  {% if user.is_authenticated %}
+    <li class="list-group-item">User: <a
+        href="{{ user.get_absolute_url }}">{{ user.get_username }}</a></li>
+    <li class="list-group-item"><a
+        href="{% url 'logout' %}?next={{ request.path }}">Logout</a></li>
+  {% else %}
+    <li class="list-group-item"><a
+        href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
+    <li class="list-group-item"><a
+        href="{% url 'blog:sign_up' %}?next={{ request.path }}">Signup</a></li>
+  {% endif %}
+  <h1>All Posts</h1>
+  <ul class="list-group">
+    {% for post in post_list %}
+      <li class="list-group-item">
+        <h2><a href="{% url 'blog:post-detail' post.pk %}">{{ post.title }}</a>
+        </h2>
+        <p><strong>Author:</strong> {{ post.owner.username }}</p>
+        <p><strong>Created:</strong> {{ post.created_time }}</p>
+        <p><strong>Comments:</strong> {{ post.comments.count }}</p>
+        <p>{{ post.content|slice:":150" }}...</p>
+      </li>
+    {% empty %}
+      <li class="list-group-item">No posts available.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
+
+{% block pagination %}
+  {% include "includes/pagination.html" %}
+{% endblock %}
+
+<footer>
+  <p>&copy; 2024 My Blog</p>
+</footer>
+</body>
+</html>

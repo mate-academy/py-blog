@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block page_title %}All Posts{% endblock %}
+
+{% block content %}
+  <h1>All Posts</h1>
+  <ul class="list-group">
+    {% for post in post_list %}
+      <li class="list-group-item">
+        <h2><a href="{% url 'blog:post-detail' post.pk %}">{{ post.title }}</a></h2>
+        <p>Author: {{ post.owner.username }}</p>
+        <p>Created: {{ post.created_time }}</p>
+        <p>Comments: {{ post.comments.count }}</p>
+        <p>{{ post.content|slice:":100" }}...</p>
+      </li>
+    {% empty %}
+      <li class="list-group-item">No posts available.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
+
+{% block pagination %}
+  {% include "includes/pagination.html" %}
+{% endblock %}
