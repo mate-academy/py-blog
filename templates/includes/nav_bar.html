@@ -1,0 +1,24 @@
+{% load static %}
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top bar">
+  <a href="{% url 'logout' %}">
+    <img  class="navbar-brand logo" src="{% static 'images/torch.jpg' %}" alt="logo">
+  </a>
+  <ul class="navbar-nav">
+    <li class="navbar nav-item">
+      <a class="btn btn-dark" href="{% url 'blog:index' %}">Home</a>
+    </li>
+    {% if user.is_authenticated %}
+      <li class="navbar nav-item">
+        <a class="btn btn-dark" href="#">{{ user.username }}</a>
+      </li>
+      <li class="navbar nav-item">
+        <a class="btn btn-dark" href="{% url 'logout' %}">Logout</a>
+      </li>
+    {% else %}
+      <li class="navbar nav-item">
+        <a class="btn btn-dark" href="{% url 'login' %}">Login</a>
+      </li>
+    {% endif %}
+  </ul>
+</nav>

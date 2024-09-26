@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="d-flex justify-content-center heading">All posts</h1>
+  <ul class="list-group list-group-flush">
+    {% for post in post_list %}
+      <li class="list-group-item">
+          <a class="font-weight-bold btn btn-light"
+             href="{% url 'blog:post-detail' post.id %}">
+            {{ post.title }}
+          </a>
+          <span class="font-weight-light font-italic ml-4 d-flex justify-content-end">
+            Author: <span class="font-weight-bold">{{ post.owner.username }}</span>,
+            added: {{ post.created_time }},
+            {{ post.num_comments }} comment{{ post.num_comments|pluralize }}
+          </span>
+      </li>
+    {% empty %}
+      <li>Start this blog!</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
