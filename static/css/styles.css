@@ -1,0 +1,89 @@
+body {
+    background-color: #222831;
+    color: #CBE4DE;
+}
+
+.sticky-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #F05454;
+    color: #DDDDDD;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sticky-top h1 {
+    margin: 0; /* Remove default margin for h1 */
+}
+
+.sticky-top nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.sticky-top nav ul li {
+    margin-right: 20px; /* Adjust spacing between navigation items */
+}
+
+.sticky-top nav ul li:last-child {
+    margin-right: 0; /* Remove margin for the last navigation item */
+}
+
+.sticky-top nav ul li a {
+    text-decoration: none;
+    color: #fff; /* Customize the link color */
+}
+
+.container-fluid {
+    margin-top: 80px;
+    padding-left: 250px;
+    padding-right: 250px;
+}
+
+.card {
+    border-radius: 25px;
+    border-color: #222831;
+}
+
+.card-body {
+    background-color: #30475E;
+    border-color: #222831;
+    border-radius: 20px;
+}
+
+.card-text {
+    font-size: 24px;
+}
+
+.custom-card-text {
+    font-size: 18px;
+}
+
+.pagination .page-link {
+    background-color: #30475e;
+    color: #CBE4DE;
+}
+
+.pagination .page-link {
+    background-color: #30475e;
+    border-color: #30475e;
+    color: #CBE4DE;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #f05454;
+    border-color: #30475e;
+    color: #CBE4DE;
+}
+
+.btn {
+    background-color: #f05454;
+    border-color: #30475e;
+    color: #CBE4DE;
+}
