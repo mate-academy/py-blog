@@ -1,0 +1,42 @@
+# Python-related files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Django-related files
+*.log
+*.pot
+*.pyc
+db.sqlite3
+
+# Virtual environment
+venv/
+.env
+
+# IDE and editor files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Local development
+*.bak
+*.swp
+*.bak2
+
+# Compiled files
+*.pyc
+*.pyo
+
+# Temporary files
+*~
+*.swp
+*.bak
+*.cache
+
+# Database
+*.db
+*.sqlite
+
+# Dependency directories
+node_modules/
