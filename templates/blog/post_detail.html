@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p><i>{{ post.owner.username }} at {{ post.created_time }}</i></p>
+  <p>{{ post.content }}</p>
+
+  {% if post.commentary_set.all %}
+    <h5>Comments:</h5>
+    {% for comment in post.commentary_set.all %}
+      <p>{{ comment.user }} <i> - {{ comment.created_time }}</i></p>
+      <p class="border-bottom ">{{ comment.content }}</p>
+    {% endfor %}
+  {% else %}
+    <p>No comment</p>
+  {% endif %}
+
+  {% if user.is_authenticated %}
+    <a href="{% url "blog:commentary-create" pk=post.id%}" class="btn btn-primary btn-sm" role="button" aria-pressed="true">Add comment</a>
+  {% else %}
+    <a href="{% url 'login' %}">Login to add comments!</a>
+  {% endif %}
+
+{% endblock %}
