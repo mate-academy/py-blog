@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Blog Home Page</h1>
+  {% if post_list %}
+    <ul>
+    {% for post in post_list %}
+      <hr>
+      <li>
+        <a class="title" href="{{ post.get_absolute_url }}">{{ post.title }}</a><br>
+        <p class="text-muted">by {{ post.owner }} at {{ post.created_time }}</p>
+        <p><i>{{ post.content }}</i></p>
+        <p style="float: right">Number of comments: {{ post.commentaries.count }}</p>
+      </li>
+      <br>
+    {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no posts to read!</p>
+  {% endif %}
+{% endblock %}
