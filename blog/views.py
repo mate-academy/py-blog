@@ -33,7 +33,7 @@ class CommentAddView(LoginRequiredMixin, generic.CreateView):
         comment.user = self.request.user
         post = get_object_or_404(Post, pk=self.kwargs.get("pk"))
         comment.post = post
-        comment.save()
+        comment.save(update_fields=["user", "post"])
         return super().form_valid(form)
 
     def get_success_url(self):
