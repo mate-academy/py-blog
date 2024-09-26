@@ -1,6 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
-from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 from django.contrib import messages
@@ -30,18 +29,21 @@ class PostDetailView(generic.DetailView):
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         form = CommentForm(request.POST)
-        if form.is_valid() and request.user.is_authenticated:
-            new_comment = form.save(commit=False)
-            new_comment.post = self.object
-            new_comment.owner = request.user
-            new_comment.save()
-            return HttpResponseRedirect(reverse("blog:index"))
+        if request.user.is_authenticated:
+            if form.is_valid():
+                new_comment = form.save(commit=False)
+                new_comment.post = self.object
+                new_comment.user = request.user
+                new_comment.save()
+                new_comment.save(update_fields=["user", "post"])
+                return HttpResponseRedirect(reverse("blog:index"))
+            else:
+                messages.error(request, "Your data is not valid")
         else:
-            messages.error(request, "You have to login or data is not valid")
+            messages.error(request, "You have to login")
 
 
 class PostCreateView(LoginRequiredMixin, generic.CreateView):
     model = Commentary
-    fields = "__all__"
+    form_class = CommentForm
     success_url = reverse_lazy("blog:index")
-    template_name = "crud/post_form.html"
