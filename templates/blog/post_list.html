@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Latest posts</h1>
+  {% if post_list %}
+    {% for post in post_list %}
+      <h5 class="post-class"><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h5>
+      <div class="content">{{ post.content }}</div>
+      <p><strong>Author:</strong> {{ post.owner.first_name }} {{ post.owner.last_name }}</p>
+      <p><strong>Created at:</strong> {{ post.created_time }}</p>
+      <p><strong>Comments:</strong> {{ post.commentary_set.count }}</p>
+      <hr>
+    {% endfor %}
+  {% endif %}
+{% endblock %}
