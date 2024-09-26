@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="col-sm-6">
+  <h1 style="padding-left: 170px">Let's create new Post!</h1>
+  <form action="" method="post" novalidate>
+    {% csrf_token %}
+    {{ form | crispy }}
+  <input class="btn btn-success" type="submit" value="Submit">
+  <a class="btn btn-secondary" href="{% url 'blog:index' %}">Cancel</a>
+  </form>
+  </div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Best Blog Ever<a style="margin-left: 220px" class="btn btn-secondary" href="{% url "blog:post-create" %}"><strong>+</strong></a></h1>
+  <br>
+  {% for post in post_list %}
+    <div class="col-sm-6">
+    <h4><a style="color: black" href="{% url "blog:post-detail" pk=post.id %}" class="post-title">{{ post.title }}</a></h4>
+    <br>
+    <h6>Created by
+    <a href="">@{{ post.owner.username }}</a> at {{ post.created_time }}
+    <br>
+    Number of comments: {{ post.commentaries.count }}
+    </h6>
+  </div>
+  <br>
+  {% endfor %}
+
+{% endblock %}
