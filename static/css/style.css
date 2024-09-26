@@ -1,0 +1,13 @@
+.posts {
+    background: white;
+    margin-bottom: 8px;
+    padding: 10px;
+    border: 1px solid #D3D3D3;
+    border-radius: 10px;
+    text-align: justify;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.alert {
+    font-family: serif;
+}
