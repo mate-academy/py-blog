@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <div class="content_post">
+    <p class="title_post">{{ post.title }}</p>
+    <p class="detail">{{ post.owner }}, {{ post.created_time }}</p>
+    <div class="post-details">
+      {{ post.content }}
+    </div>
+  </div>
+  <div>
+    <br>
+    {% if post.comments.count %}
+      <p class="count_comment">
+        {{ post.comments.count }} comment{{ post.comments.count|pluralize }}
+      </p>
+    {% else %}
+      <p>0 comment</p>
+    {% endif %}
+  </div>
+  <div>
+    {% if user.is_authenticated %}
+      <p>Add comment</p>
+      <div class="comment_user">
+        <p class="commentator"> {{ user.username }}</p>
+      </div>
+      <div class="content_post comment_margin">
+      <form method="post" action="">
+       {% csrf_token %}
+       {{ form|crispy }}
+       <button type="submit" class="update_color_btn">Add Comment</button>
+      </form>
+    </div>
+  {% else %}
+    <p>You need to <a href="{% url 'login' %}">log in</a> to post comments!</p>{% endif %}
+    <br>
+    {% if post.comments.all %}
+      {% for comment in post.comments.all %}
+        <div class="comment_user">
+          <p class="commentator"> {{ comment.user }}, {{ comment.created_time }}</p>
+        </div>
+        <div class="content_post comment_margin">
+          <p>{{ comment.content }}</p>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>0 comment</p>
+    {% endif %}
+  </div>
+{% endblock %}
