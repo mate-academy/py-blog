@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Posts list</h1>
+  {% if post_list %}
+    {% for post in post_list %}
+      <div class="post-box">
+          <b><a href="{% url "blog:post-detail" pk=post.id %}">{{ post.title }}</a></b>
+          <br>
+          <i>Created by {{ post.owner }} at {{ post.created_time }} Comments: {{ post.commentaries.count }}</i>
+        <br>
+      </div>
+    {% endfor %}
+    {% else %}
+    <p>There are still no posts here</p>
+  {% endif %}
+{% endblock %}
