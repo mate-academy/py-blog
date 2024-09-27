@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <h1>Post: {{ post.title }}</h1>
+  <div class="ml-3">
+    <h3>Data:</h3>
+    <hr>
+    <p><strong>Owner: </strong>{{ post.owner }}</p>
+    <p><strong>Created time: </strong>{{ post.created_time }}</p>
+    <h4>Content</h4>
+    <p>{{ post.content }}</p>
+  </div>
+  <div class="ml-3">
+    <h4><strong>Commentaries:</strong></h4>
+    {% for commentary in post.commentaries.all %}
+      <hr>
+      <p class="text-muted">{{ commentary.id }} </p>
+    <div>
+      <p><strong>Posts time:</strong> {{ commentary.created_time }}</p>
+      <p><strong>Commentaries by {{ commentary.user.first_name }}:</strong></p>
+      <p>{{ commentary.content }}</p>
+    </div>
+    {% empty %}
+      <p>No Commentaries</p>
+    {% endfor %}
+  </div>
+  <div class="ml-3">
+        <h3>Add Commentary</h3>
+        <form method="post" action="{% url 'blog:post-detail' pk=post.pk %}">
+          {% csrf_token %}
+          {{ commentary_form|crispy }}
+          <button type="submit">Add Commentary</button>
+        </form>
+  </div>
+{% endblock %}
