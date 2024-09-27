@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 {% load crispy_forms_tags %}
 
 {% block content %}
@@ -24,7 +25,7 @@
 	{% if user.is_authenticated %}
 		<form method="post">
 			{% csrf_token %}
-			{{ form.as_p }}
+			{{ form|crispy }}
 			<button type="submit">Add</button>
 		</form>
 	{% else %}
