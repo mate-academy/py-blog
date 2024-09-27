@@ -1,27 +1,27 @@
 <ul class="list-group sidebar-nav">
-	{% if user.is_authenticated %}
-		<li class="list-group-item d-flex justify-content-between align-items-center">
+  {% if user.is_authenticated %}
+    <li class="list-group-item d-flex justify-content-between align-items-center">
       <span>
         User: <a href="{{ user.get_absolute_url }}" class="text-decoration-none">{{ user.get_username }}</a>
       </span>
-			<form method="POST" action="{% url 'logout' %}" class="d-inline">
-				{% csrf_token %}
-				<button type="submit" class="btn btn-outline-danger btn-sm">
-					Logout
-				</button>
-			</form>
-		</li>
-	{% else %}
-		<li class="list-group-item">
-			<a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-outline-primary">
-				Login
-			</a>
-		</li>
-	{% endif %}
+      <form method="POST" action="{% url 'logout' %}" class="d-inline">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-danger btn-sm">
+          Logout
+        </button>
+      </form>
+    </li>
+  {% else %}
+    <li class="list-group-item">
+      <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-outline-primary">
+        Login
+      </a>
+    </li>
+  {% endif %}
 
-	<li class="list-group-item">
-		<a href="{% url 'blog:index' %}" class="text-decoration-none">
-			Home
-		</a>
-	</li>
+  <li class="list-group-item">
+    <a href="{% url 'blog:index' %}" class="text-decoration-none">
+      Home
+    </a>
+  </li>
 </ul>

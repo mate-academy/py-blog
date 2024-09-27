@@ -3,32 +3,32 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-	<div class="object mb-4">
-		<h1 class="post-title">{{ post.title }}</h1>
-		<p class="text-muted">Posted by {{ post.owner.username }} at {{ post.created_time|date:"Y-m-d H:i" }}</p>
-		<p>{{ post.content }}</p>
-	</div>
+  <div class="object mb-4">
+    <h1 class="post-title">{{ post.title }}</h1>
+    <p class="text-muted">Posted by {{ post.owner.username }} at {{ post.created_time|date:"Y-m-d H:i" }}</p>
+    <p>{{ post.content }}</p>
+  </div>
 
-	<h3>Comments:</h3>
-	<ul class="list-unstyled">
-		{% for comment in post.commentary_set.all %}
-			<li class="mb-3">
-				<h4>{{ comment.user.username }}</h4>
-				<p>{{ comment.content }}</p>
-			</li>
-		{% empty %}
-			<li>No comments yet.</li>
-		{% endfor %}
-	</ul>
+  <h3>Comments:</h3>
+  <ul class="list-unstyled">
+    {% for comment in post.commentary_set.all %}
+      <li class="mb-3">
+        <h4>{{ comment.user.username }}</h4>
+        <p>{{ comment.content }}</p>
+      </li>
+    {% empty %}
+      <li>No comments yet.</li>
+    {% endfor %}
+  </ul>
 
-	<h2>Add a Comment</h2>
-	{% if user.is_authenticated %}
-		<form method="post">
-			{% csrf_token %}
-			{{ form|crispy }}
-			<button type="submit">Add</button>
-		</form>
-	{% else %}
-		<p>You must be <a href="{% url 'login' %}">logged in</a> to add a comment.</p>
-	{% endif %}
+  <h2>Add a Comment</h2>
+  {% if user.is_authenticated %}
+    <form method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button type="submit">Add</button>
+    </form>
+  {% else %}
+    <p>You must be <a href="{% url 'login' %}">logged in</a> to add a comment.</p>
+  {% endif %}
 {% endblock %}
