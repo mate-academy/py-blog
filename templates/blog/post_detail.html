@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p class="post-description">{{ post.owner }} at {{ post.created_time }}</p>
+  <p>{{ post.content }}</p>
+  <br>
+  <p>{{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize:"s" }}</p>
+  {% if post.commentaries.all %}
+    <div class="table-responsive">
+      <table class="table">
+        <tr>
+          <th>Info</th>
+          <th>Content</th>
+        </tr>
+        {% for comment in post.commentaries.all %}
+          <tr>
+            <td> {{ comment.user }} {{ comment.created_time }}</td>
+            <td>{{ comment.content }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+  {% endif %}
+  {% block comment %}
+    {% include "includes/commentary_form.html" %}
+  {% endblock %}
+{% endblock %}
