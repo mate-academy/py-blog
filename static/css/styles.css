@@ -1,0 +1,38 @@
+body {
+    margin: 20px;
+    background-color: antiquewhite;
+    font-family: Book Antiqua;
+
+}
+
+.sidebar-nav, .autor_list {
+    padding: 0;
+    list-style: none;
+}
+
+p {
+    padding-left: 10px;
+    font-size: larger;
+}
+
+h1, h2, h3 {
+    color: darkblue;
+}
+
+h4, h5, h6 {
+    color: navy;
+}
+
+.hint {
+    color: slategrey;
+}
+
+.delete_item {
+    color: brown;
+}
+
+.autor_list {
+    font-size: medium;
+    padding: 5px;
+    list-style: none;
+}
