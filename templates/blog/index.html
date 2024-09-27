@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Home page</h1>
+  <p>Welcome to Best Blog service Ever!</p>
+  <li class="list-group-item"><a href="{% url 'blog:post-list' %}">All posts</a></li>
+  <li class="list-group-item"><a href="{% url 'blog:user-list' %}">All users</a></li>
+  <li class="list-group-item"><a href="{% url 'blog:commentary-list' %}">All commentaries</a></li>
+{% endblock %}

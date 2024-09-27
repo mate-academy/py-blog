@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>
+      User List
+{#      <a href="{% url 'blog:user-create' %}" class="btn btn-primary link-to-page">#}
+{#        Create#}
+{#      </a>#}
+    </h1>
+
+    {% block searh_form %}
+      {% include "includes/search_form.html"%}
+    {% endblock %}
+
+    {% if user_list %}
+    <table class="table">
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+      </tr>
+    {% for user in user_list %}
+      <tr>
+        <td>{{ user.id }}</td>
+        <td><a href="{{ user.get_absolute_url }}">{{ user.username }} {% if user == user %} (Me){% endif %}</a></td>
+      </tr>
+    {% endfor %}
+
+    </table>
+    {% else %}
+      <p>There are no users in the service.</p>
+    {% endif %}
+{% endblock %}
