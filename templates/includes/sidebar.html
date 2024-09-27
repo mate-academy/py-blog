@@ -1,0 +1,13 @@
+<nav class="navbar navbar-light bg-light sticky-top">
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item active">
+      <a class="nav-link" href="{% url 'blog:index' %}">Home <span class="sr-only">(current)</span></a>
+    </li>
+  </ul>
+  {% if user.is_authenticated %}
+    <a class="nav-link">{{ user.username }}</a>
+    <a href="{% url 'logout' %}" class="nav-link">logout</a>
+  {% else %}
+    <a class="nav-link" href="{% url 'login' %}">Login</a>
+  {% endif %}
+</nav>
