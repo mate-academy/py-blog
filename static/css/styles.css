@@ -1,0 +1,14 @@
+body {
+    margin-top: 20px;
+}
+
+.side {
+    padding: 0;
+    list-style: none;
+}
+
+.comment {
+    display: inline-block;
+    border: black solid;
+    border-radius: 8px;
+}
