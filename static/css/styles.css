@@ -1,0 +1,26 @@
+body {
+    margin: 0 40px;
+}
+
+.posted {
+    font-size: 14px;
+    font-style: italic;
+}
+
+.paginator {
+    margin-left: 40px;
+}
+.detail {
+    margin-left: 40px;
+
+}
+.comments {
+    background-color: lightcyan;
+    font-size: 16px;
+    border-radius: 10px;
+    border-style: inset;
+    border-color: lightcyan;
+}
+.invalid {
+    color: red;
+}
