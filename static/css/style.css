@@ -1,0 +1,60 @@
+html {
+    font-family: Arial, Helvetica, sans-serif;
+}
+body {
+    background-color: #fff;
+    text-align: justify;
+    margin-left: 20 px;
+    padding-left: 10%;
+    padding-right: 10%;
+    margin-top: 10px;
+}
+.content {
+    padding: 15px 10px;
+    font-size: 22px;
+    border: 1px solid silver;
+    border-radius: 4px;
+    box-shadow: 10px -10px #dfe3e3;
+}
+.post-title {
+    text-decoration: none;
+
+}
+.post-title > a {
+    text-decoration: underline;
+}
+h1 {
+    margin-bottom: 20px;
+    text-shadow:
+  1px 1px 1px gray,
+  2px 2px 1px bisque;
+}
+a {
+    color: #FF4500;
+    display: inline-block;
+}
+a:focus {
+    background-color: yellow;
+}
+a:hover {
+    color: #FF4500;
+    text-decoration: none;
+    background-color: orange;
+}
+.author {
+    font-style: italic;
+    font-weight: 600;
+    color: gray;
+}   
+.content > div:last-child {
+    font-size: 13px;
+}
+.content > div:nth-child(2n+1) {
+    margin: 10px 0;
+}
+.delete-comment {
+    float: right;
+}
+h5 {
+    padding-top: 20px;
+}
