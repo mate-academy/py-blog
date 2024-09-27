@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container">
+    <div class="jumbotron">
+      <h1 class="display-4">Logged out!</h1>
+      <a href="{% url 'blog:index' %}" class="btn btn-primary btn-lg mt-3">Back to main page</a>
+    </div>
+  </div>
+{% endblock %}
