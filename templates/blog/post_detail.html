@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}<title>Post {{ post.id }} details</title>{% endblock %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <h6 class="owner_created">{{post.owner}} at {{post.created_time}}, comments: {{ post.comments.count }}</h6>
+  <p>{{post.content}}</p>
+  <br>
+  <h6>{{ post.comments.count }} comment{{ post.comments.count|pluralize }}</h6>
+  {% for comment in post.comments.all %}
+    <div class="comments">
+      <p>{{ comment.user.username }} {{ comment.created_time }}</p>
+      <hr class="hr_comments">
+      <p>{{ comment.content }}</p>
+    </div>
+    <br>
+  {% empty %}
+    There are not comments yet.
+  {% endfor %}
+  <br>
+  <h6>Add a new comment</h6>
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Add comment" class="btn btn-primary" />
+  </form>
+{% endblock %}
