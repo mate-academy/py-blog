@@ -3,9 +3,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import DetailView
+from django.contrib import messages
 
 from blog.forms import CommentaryForm
-from blog.models import Post, Commentary
+from blog.models import Post
 
 
 def index(request):
@@ -32,19 +33,6 @@ class PostDetailView(DetailView):
         context["form"] = CommentaryForm
         return context
 
-    # def post(self, request, *args, **kwargs):
-    #     if request.user.is_authenticated:
-    #         post = self.get_object()
-    #         form = CommentaryForm(request.POST)
-    #
-    #         if form.is_valid():
-    #             commentary = form.save(commit=False)
-    #             commentary.post = post
-    #             commentary.user = request.user
-    #             commentary.save()
-    #             return redirect("blog:post-detail", pk=post.pk)
-    #     return redirect("login")
-
 
 class PostAddCommentView(View):
     def post(self, request, *args, **kwargs):
@@ -58,4 +46,8 @@ class PostAddCommentView(View):
                 commentary.user = request.user
                 commentary.save()
                 return redirect("blog:post-detail", pk=post.pk)
+            else:
+                messages.error(request, form.errors)
+                return redirect("blog:post-detail", pk=post.pk)
+
         return redirect("login")

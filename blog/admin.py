@@ -9,16 +9,14 @@ from blog.models import Post, Commentary, User
 class UserAdmin(UserAdmin):
     add_fieldsets = UserAdmin.add_fieldsets + (
         (
-            (
-                "Additional info",
-                {
-                    "fields": (
-                        "first_name",
-                        "last_name",
-                    )
-                },
-            ),
-        )
+            "Additional info",
+            {
+                "fields": (
+                    "first_name",
+                    "last_name",
+                ),
+            },
+        ),
     )
 
 

@@ -23,9 +23,7 @@ class Post(models.Model):
 
 class Commentary(models.Model):
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name="commentaries"
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="commentaries"
     )
     post = models.ForeignKey(
         Post, on_delete=models.CASCADE, related_name="commentaries"
