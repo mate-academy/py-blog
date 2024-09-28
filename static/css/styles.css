@@ -1,0 +1,32 @@
+body {
+    padding-top: 40px;
+}
+
+.container{
+    margin-left: 0;
+    margin-right: auto;
+
+    width: 50vw;
+}
+
+.sidebar{
+    width: 25vw;
+    padding: 0 40px 0;
+
+}
+
+.custom-list{
+    list-style: none;
+    padding: 0;
+}
+
+.custom-list li {
+    margin: 0 auto 20px;
+}
+
+.fixed-pagination-top-right {
+    position: fixed;
+    bottom: 50px;
+    right: 12vw;
+    z-index: 1000;
+}

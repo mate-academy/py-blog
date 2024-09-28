@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  {% if post_list %}
+    <h2>Posts</h2>
+    <ul class="custom-list">
+      {% for post in post_list %}
+        <li>
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h5>
+              <h6 class="card-subtitle mb-2 text-muted">
+                Author: {{ post.owner.first_name }} {{ post.owner.last_name }}</h6>
+              <p class="card-text">{{ post.content }}</p>
+              <p>Comments: {{ post.commentaries.count }}</p>
+            </div>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    There no posts
+  {% endif %}
+{% endblock %}
+
+{% block pagination %}
+  {% include 'includes/pagination.html' %}
+{% endblock %}
