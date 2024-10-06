@@ -1,19 +1,17 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Blog</title>
-</head>
-<body>
-  <ul>
-    {% for post in posts %}
-      <li>{{ post.title}}</li>
-      <span>{{ post.content }}</span>
-    {% endfor %}
-  </ul>
+{% extends "base.html" %}
 
-</body>
-</html>
+{% block content %}
+  <section class="post-list">
+    {% for post in page_obj %}
+      <article class="post">
+        <h2><a href="#">{{ post.title }}</a></h2>
+        <p class="content">{{ post.content|slice:":200" }}...</p>
+        <p class="meta">
+          Автор: <span class="author">{{ post.owner.first_name }}</span> | Дата:
+          <span class="date">{{ post.created_time }}</span> | Коментарів:
+          <span class="comments-count">{{ post.commentaries.count }}</span>
+        </p>
+      </article>
+    {% endfor %}
+  </section>
+{% endblock %}
