@@ -20,6 +20,9 @@ class Post(models.Model):
     content = models.TextField(max_length=255)
     created_time = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ["-created_time"]
+
     def __str__(self) -> str:
         return f"{self.owner}: ({self.title})"
 

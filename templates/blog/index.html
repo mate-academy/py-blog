@@ -4,7 +4,7 @@
   <section class="post-list">
     {% for post in page_obj %}
       <article class="post">
-        <h2><a href="#">{{ post.title }}</a></h2>
+        <h2><a href="{% url 'blog:post-detail' post.pk %}">{{ post.title }}</a></h2>
         <p class="content">{{ post.content|slice:":200" }}...</p>
         <p class="meta">
           Автор: <span class="author">{{ post.owner.first_name }}</span> | Дата:
