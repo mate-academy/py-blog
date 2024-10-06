@@ -38,13 +38,3 @@ class PostDetailView(generic.DetailView, generic.CreateView):
         commentary.user = self.request.user  # Автором є поточний користувач
         commentary.save()
         return super().form_valid(form)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["comments"] = (
-            self.get_object().commentaries.all()
-        )  # Отримуємо всі коментарі
-        context["form"] = (
-            self.get_form()
-        )  # Переконайтеся, що форма порожня при завантаженні сторінки
-        return context
