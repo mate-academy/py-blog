@@ -1,0 +1,101 @@
+.post-detail {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+}
+
+.post-detail h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.post-detail .content {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.post-detail .meta {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 30px;
+}
+
+.comments-section {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 40px;
+}
+
+.comments-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.comments-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.comments-list .comment {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.comments-list .comment:last-child {
+    border-bottom: none;
+}
+
+.comment strong {
+    font-size: 1rem;
+}
+
+.comment-meta {
+    font-size: 0.8rem;
+    color: #999;
+    margin-top: 5px;
+}
+
+.comment-form-section {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.comment-form-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.comment-form-section form {
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-form-section textarea {
+    font-size: 1rem;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    resize: none;
+}
+
+.comment-form-section button {
+    font-size: 1rem;
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.comment-form-section button:hover {
+    background-color: #0056b3;
+}
