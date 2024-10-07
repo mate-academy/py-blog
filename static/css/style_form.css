@@ -1,4 +1,3 @@
-/* Стиль контейнера форми */
 form {
   width: 100%;
   max-width: 400px;
@@ -10,7 +9,6 @@ form {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Заголовок сторінки */
 h1 {
   text-align: center;
   color: #333;
@@ -18,12 +16,10 @@ h1 {
   margin-bottom: 20px;
 }
 
-/* Стиль для елементів форми */
 form p {
   margin-bottom: 15px;
 }
 
-/* Стіль для текстових полів і паролю */
 form input[type="text"],
 form input[type="password"] {
   width: calc(100% - 20px);
@@ -34,7 +30,6 @@ form input[type="password"] {
   box-sizing: border-box;
 }
 
-/* Стіль для кнопок */
 form input[type="submit"] {
   width: 100%;
   padding: 10px 20px;
@@ -51,19 +46,16 @@ form input[type="submit"]:hover {
   background-color: #0056b3;
 }
 
-/* Повідомлення про помилку */
 p[style="color: red"] {
   text-align: center;
   font-size: 1em;
   margin-bottom: 15px;
 }
 
-/* Додатковий стиль для невидимого поля "next" */
 form input[type="hidden"] {
   display: none;
 }
 
-/* Стиль для покращення зовнішнього вигляду label */
 form label {
   display: block;
   margin-bottom: 5px;

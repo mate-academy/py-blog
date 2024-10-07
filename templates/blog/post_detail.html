@@ -11,11 +11,9 @@
     </p>
   </article>
 
-  <!-- Секція для коментарів -->
   <section class="comments-section">
     <h3>Коментарі ({{ post.commentaries.count }})</h3>
 
-    <!-- Виведення коментарів -->
     <ul class="comments-list">
       {% for commentary in post.commentaries.all %}
       <li class="comment">
@@ -28,7 +26,6 @@
     </ul>
   </section>
 
-<!-- Форма для додавання коментаря -->
 {% if user.is_authenticated %}
   <section class="comment-form-section">
     <h3>Додати коментар</h3>
