@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404, redirect
+from django.utils.decorators import method_decorator
 from django.views import generic
 
 from .models import Post, Commentary
@@ -17,11 +18,10 @@ class PostDetailView(generic.DetailView):
     template_name = "blog/post_detail.html"
 
 
-@login_required
-def add_comment(request, post_id):
-    post = get_object_or_404(Post, pk=post_id)
-
-    if request.method == "POST":
+class CommentCreateView(generic.View):
+    @method_decorator(login_required)
+    def post(self, request, post_id):
+        post = get_object_or_404(Post, pk=post_id)
         comment = request.POST.get("comment")
 
         if comment:
@@ -30,4 +30,4 @@ def add_comment(request, post_id):
                 user=request.user,
                 content=comment,
             )
-    return redirect("blog:post-detail", pk=post_id)
+        return redirect("blog:post-detail", pk=post_id)
