@@ -16,18 +16,23 @@ class PostDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = CommentaryForm()
+        context['form'] = kwargs.get('form') or CommentaryForm()  # Load the form or pass the one with errors
         return context
 
     def post(self, request, *args, **kwargs):
+        self.object = self.get_object()  # Get the current post
         form = CommentaryForm(request.POST)
-        post = self.get_object()
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.user = request.user  # Assign the current user to the comment
-            comment.post = post  # Assign the current post to the comment
-            comment.save()
-            return redirect('blog:post-detail', pk=post.pk)  # Redirect back to the post detail page
 
-        # If the form is not valid, re-render the page with the form errors
-        return self.get(request, *args, form=form)
+        # If the user is not authenticated, make the form invalid and add an error
+        if not request.user.is_authenticated:
+            form.add_error(None, "You must be logged in to post a comment.")
+        elif form.is_valid():
+            # If the form is valid and the user is authenticated, save the comment
+            comment = form.save(commit=False)
+            comment.user = request.user
+            comment.post = self.object
+            comment.save()
+            return redirect('post_detail', pk=self.object.pk)  # Redirect back to the post detail
+
+        # Re-render the page with the form (including errors)
+        return self.render_to_response(self.get_context_data(form=form))

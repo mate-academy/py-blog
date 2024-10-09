@@ -9,25 +9,28 @@
   <div>
     <div> Author: {{ post.owner }} Created: {{ post.created_time }}</div>
     <div>{{ post.content }}</div>
-    <br>
-    <b>{{ post.commentary.count }} comments </b>
+
+    <b>Comments</b>
     <ul>
       {% for comment in post.commentary.all %}
         <li>
-          <div>{{ comment.user }}</div>
-          <div>{{ comment.created_time }}</div>
+          <div><strong>{{ comment.user }}</strong> - {{ comment.created_time }}</div>
           <div>{{ comment.content }}</div>
         </li>
       {% empty %}
         <li>No comments yet.</li>
       {% endfor %}
     </ul>
-    <h3>Add a Comment</h3>
-      <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
-      </form>
-  </div>
 
+    <h3>Add a Comment</h3>
+    <form method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+
+
+
+      <button type="submit">Submit</button>
+    </form>
+
+  </div>
 {% endblock %}
