@@ -13,7 +13,7 @@
           <h3><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h3>
           <div> Author: {{ post.owner }}</div>
           <div>{{ post.created_time }}</div>
-          <div>{{ post.content }}</div>
+          <div>{{ post.content|truncatewords:30 }}</div>
           <div>Comments: {{ post.commentary.count }}</div>
         </li>
 
