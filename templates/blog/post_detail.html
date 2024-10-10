@@ -9,13 +9,16 @@
   <div>
     <div> Author: {{ post.owner }} Created: {{ post.created_time }}</div>
     <div>{{ post.content }}</div>
-
+    <br>
     <b>Comments</b>
-    <ul>
+    <ul class="list-group">
       {% for comment in post.commentary.all %}
-        <li>
-          <div><strong>{{ comment.user }}</strong> - {{ comment.created_time }}</div>
-          <div>{{ comment.content }}</div>
+        <li class="list-group-item">
+          <div>
+            <strong>{{ comment.user }}</strong> - <small>{{ comment.created_time }}</small>
+            <hr>
+            {{ comment.content }}
+          </div>
         </li>
       {% empty %}
         <li>No comments yet.</li>
@@ -27,7 +30,6 @@
     <form method="POST">
       {% csrf_token %}
       {{ form|crispy }}
-
 
 
       <button type="submit">Submit</button>
