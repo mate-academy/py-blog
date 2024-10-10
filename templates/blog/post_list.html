@@ -10,7 +10,7 @@
     <ul>
       {% for post in post_list %}
         <li>
-          <h3><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h3>
+          <h3><a href="{% url 'blog:post-detail' pk=post.id %}" title="Go to the details of {{ post.title }}">{{ post.title }}</a></h3>
           <div> Author: {{ post.owner }}</div>
           <div>{{ post.created_time|date:"F j, Y, P" }}</div>
           <div>{{ post.content|truncatewords:30 }}</div>
