@@ -23,9 +23,10 @@
     </ul>
 
     <h3>Add a Comment</h3>
+    {% load crispy_forms_tags %}
     <form method="POST">
       {% csrf_token %}
-      {{ form.as_p }}
+      {{ form|crispy }}
 
 
 

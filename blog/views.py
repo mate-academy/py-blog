@@ -32,7 +32,7 @@ class PostDetailView(DetailView):
             comment.user = request.user
             comment.post = self.object
             comment.save()
-            return redirect('post_detail', pk=self.object.pk)  # Redirect back to the post detail
+            return redirect('blog:post-detail', pk=self.object.pk)  # Redirect back to the post detail
 
         # Re-render the page with the form (including errors)
         return self.render_to_response(self.get_context_data(form=form))
