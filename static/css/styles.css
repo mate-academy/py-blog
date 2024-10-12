@@ -1,0 +1,32 @@
+.post {
+    margin: auto;
+    margin-top: 15px;
+    width: 50%;
+    border: 3px solid #9D7753;
+    padding: 50px;
+}
+
+body {
+    background-color: wheat;
+}
+
+.comment {
+    border: 2px solid black;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    padding: 12px;
+}
+
+.error {
+    color: red;
+    text-emphasis: black;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+.greeting {
+    text-align: right;
+}
