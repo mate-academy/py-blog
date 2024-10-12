@@ -20,7 +20,6 @@ class PostAdmin(admin.ModelAdmin):
 
 @admin.register(Commentary)
 class CommentaryAdmin(admin.ModelAdmin):
-    search_fields = ["user"]
     list_filter = ["user", "created_time", "post"]
     list_display = ["user", "created_time", "post"]
     ordering = ["-created_time", "user__username"]
