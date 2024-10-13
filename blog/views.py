@@ -1,12 +1,10 @@
-import copy
-
 from django.http import HttpResponse, HttpRequest, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.views import generic
 
 from blog.forms import CommentaryForm
-from blog.models import Post, Commentary
+from blog.models import Post
 
 
 class PostListView(generic.ListView):
@@ -17,18 +15,32 @@ class PostListView(generic.ListView):
     paginate_by = 5
 
 
-def post_detail_view(request: HttpRequest, pk: int) -> HttpResponse:
-    user = request.user
-    post = Post.objects.prefetch_related("commentaries__user").get(id=pk)
-    form = CommentaryForm(request.POST or None)
-    if form.is_valid():
-        form.cleaned_data["user"], form.cleaned_data["post"] = user, post
-        Commentary.objects.create(**form.cleaned_data)
+class PostDetailView(generic.DetailView):
+    model = Post
 
-        return HttpResponseRedirect(
-            reverse("blog:post-detail", kwargs={"pk": pk})
+    def get_object(self, queryset=None) -> Post:
+        return Post.objects.prefetch_related("commentaries__user").get(
+            id=self.kwargs["pk"]
         )
 
-    return render(
-        request, "blog/post_detail.html", context={"post": post, "form": form}
-    )
+    def get_context_data(self, **kwargs) -> dict:
+        context = super().get_context_data(**kwargs)
+        context["form"] = CommentaryForm
+
+        return context
+
+    def post(self, request, **kwargs) -> HttpResponse:
+        form = CommentaryForm(request.POST)
+        post = self.get_object()
+        if form.is_valid():
+            form.instance.user = self.request.user
+            form.instance.post = post
+            form.save()
+            return HttpResponseRedirect(
+                reverse("blog:post-detail", kwargs={"pk": post.id})
+            )
+        return render(
+            request, "blog/post_detail.html", context={
+                "post": post, "form": form
+            }
+        )
