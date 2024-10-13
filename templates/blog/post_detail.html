@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="post">
+    <h2 class="text-center">{{ post.title }}</h2>
+    <hr style="height: 2px; background-color: #9D7753">
+    <p style="font-size: large">{{ post.content }}</p>
+    <br>
+    <br>
+    <p>{{ post.commentaries.all.count }} Comment{{ post.commentaries.all.count|pluralize }}:</p>
+
+    {% for comment in post.commentaries.all %}
+      <div class="comment">
+        <p><b>{{ comment.user.username }}</b> at {{ comment.created_time }}</p>
+        <hr>
+        <p>{{ comment.content }}</p>
+      </div>
+    {% endfor %}
+    {% if user.is_authenticated %}
+      <form action="" method="post" novalidate>
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" value="Add a Comment" class="btn btn-primary">
+
+      </form>
+      </div>
+    {% endif %}
+
+{% endblock %}
