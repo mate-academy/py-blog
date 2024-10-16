@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}
+  <title>{{ post.title }}</title>
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <div class="post mb-5">
+      <h3 class="post-title mb-2">{{ post.title }}</h3>
+      <i class="text-muted">by {{ post.owner }} on {{ post.created_time }}</i>
+      <p class="post-content mt-3 mb-2">{{ post.content }}</p>
+      <hr class="my-4">
+
+      {% if post.commentary.count %}
+        <h5>{{ post.commentary.count }} comment{{ post.commentary.count|pluralize }}</h5>
+      {% else %}
+        <i>There are no comments</i>
+      {% endif %}
+
+      {% for comment in post.commentary.all %}
+        <div class="card my-3">
+          <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-muted">{{ comment.user }} <small>{{ comment.created_time }}</small></h6>
+            <p class="card-text">{{ comment.content }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    {% if user.is_authenticated %}
+      <div class="comment-form mb-5">
+        <h5>Add a new comment</h5>
+        <form method="POST" action="{% url 'blog:add-comment' post.id %}">
+          {% csrf_token %}
+          <div class="form-group">
+            <textarea class="form-control" id="comment" name="comment" rows="3"
+                      placeholder="Write your comment..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Add comment</button>
+        </form>
+      </div>
+    {% else %}
+      <div class="alert alert-warning" role="alert">
+        You must be logged in to add a comment.
+      </div>
+    {% endif %}
+  </div>
+
+  {% if messages %}
+    <div class="container mt-4">
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endblock %}

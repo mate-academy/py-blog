@@ -1,0 +1,68 @@
+.post {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.post-title {
+  font-size: 1.75rem;
+  font-weight: bold;
+}
+
+.post-content {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+
+.pagination {
+  margin-top: 30px;
+}
+
+.pagination .page-item .page-link {
+  color: #007bff;
+  border-radius: 50%;
+}
+
+.pagination .page-item .page-link:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.post:hover {
+  transform: translateY(-5px);
+  transition: transform 0.3s ease;
+}
+
+.card {
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card-subtitle {
+  font-size: 0.9rem;
+}
+
+.card-text {
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.comment-form textarea {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 1rem;
+}
+
+.comment-form button {
+  background-color: #007bff;
+  border-color: #007bff;
+  border-radius: 5px;
+  padding: 10px 15px;
+}
+
+.comment-form button:hover {
+  background-color: #0056b3;
+}
