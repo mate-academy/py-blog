@@ -7,7 +7,6 @@ from django.views import generic
 from blog.models import Post, Commentary
 
 
-
 class PostDetailView(generic.DetailView):
     model = Post
 
