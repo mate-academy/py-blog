@@ -1,27 +1,22 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.views import generic
 
 from blog.models import Post, Commentary
 
 
-def index(request):
-    posts = Post.objects.all().order_by("created_time")
-    paginator = Paginator(posts, 5)
-    page = request.GET.get("page")
-    page_obj = paginator.get_page(page)
-    context = {
-        "posts": page_obj,
-    }
-    return render(request,
-                  "blog/index.html",
-                  context=context, )
-
 
 class PostDetailView(generic.DetailView):
     model = Post
+
+
+class PostListView(generic.ListView):
+    model = Post
+    template_name = "blog/index.html"
+    paginate_by = 5
+    context_object_name = "post_list"
 
 
 @login_required
