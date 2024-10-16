@@ -11,13 +11,13 @@
       <p class="post-content mt-3 mb-2">{{ post.content }}</p>
       <hr class="my-4">
 
-      {% if post.commentary.count %}
-        <h5>{{ post.commentary.count }} comment{{ post.commentary.count|pluralize }}</h5>
+      {% if post.commentaries.count %}
+        <h5>{{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}</h5>
       {% else %}
         <i>There are no comments</i>
       {% endif %}
 
-      {% for comment in post.commentary.all %}
+      {% for comment in post.commentaries.all %}
         <div class="card my-3">
           <div class="card-body">
             <h6 class="card-subtitle mb-2 text-muted">{{ comment.user }} <small>{{ comment.created_time }}</small></h6>

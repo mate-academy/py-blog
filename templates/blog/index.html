@@ -8,8 +8,8 @@
         <i class="text-muted">by {{ post.owner }} on {{ post.created_time }}</i>
         <p class="post-content mt-3 mb-2">{{ post.content }}</p>
         <hr class="my-4">
-        {% if post.commentary.count %}
-          <i>{{ post.commentary.count }} comment{{ post.commentary.count|pluralize }}</i>
+        {% if post.commentaries.count %}
+          <i>{{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}</i>
         {% else %}
           <i>There are no comments</i>
         {% endif %}
