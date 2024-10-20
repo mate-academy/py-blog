@@ -11,5 +11,4 @@ urlpatterns = [
     path("posts/<int:id>/create",
          CommentaryCreateView.as_view(),
          name="create"),
-
 ]
