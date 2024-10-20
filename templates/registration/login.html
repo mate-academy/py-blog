@@ -1,7 +1,6 @@
 {% extends "base.html" %}
-
 {% block content %}
-
+  {% load crispy_forms_tags %}
   {% if form.errors %}
   <p>Your username and password didn't match. Please try again.</p>
   {% endif %}
@@ -14,7 +13,6 @@
 
   <form method="post" action="{% url 'login' %}">
   {% csrf_token %}
-  {% load crispy_forms_tags %}
   {{ form|crispy }}
 
   <input type="submit" value="Login" class="btn btn-primary" />
