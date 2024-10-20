@@ -19,7 +19,8 @@ Let's go through all the steps:
 7. Use `python manage.py test` to run tests.
 8. Use the following command to load prepared data from the fixture to test and debug your code:
    ```python manage.py loaddata blog_system_db_data.json```
-
+  - Login: `admin`
+  - Password: `1qazcde3`
    _Feel free to add more data using the admin panel if needed._
 9. Inside `blog_system.urls` add a path to the `blog.urls`. Don't forget to specify the namespace.
 10. Inside `blog.urls` create a path for the home page. Give this path the name `index`.

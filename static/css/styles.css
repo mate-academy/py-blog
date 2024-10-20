@@ -1,0 +1,15 @@
+.navbar {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+}
+
+.sidebar-nav {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-nav .list-group-item {
+  margin: 5px 0;
+}
