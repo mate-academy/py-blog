@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <h1>Додати коментар до поста</h1>
+
+  <form method="post" action="{% url 'blog:create' post.id %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Додати коментар</button>
+    <button type="button" class="btn btn-secondary" onclick="window.history.back();">Назад до поста</button>
+  </form>
+{% endblock %}
