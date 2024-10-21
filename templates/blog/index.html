@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Index</title>
+{% endblock %}
+
+{% block content %}
+  <h1>Hello, welcome to the blog!</h1>
+  <h2>All posts:</h2>
+  <br>
+  <ul>
+    {% for post in post_list %}
+      <li>
+        <a href="{% url 'blog:post-detail' post.id %}"><strong>{{ post.title }}</strong></a>
+        <br>
+        <em>by {{ post.owner.username }}</em> on {{ post.created_time|date:"F d, Y H:i" }}<br>
+        <p>{{ post.content }}</p>
+        <p>{{ post.commentary_count }}</p>
+        <br>
+        <hr>
+      </li>
+     {% empty %}
+      <p>No posts available.</p>
+    {% endfor %}
+  </ul>
+{% endblock %}
