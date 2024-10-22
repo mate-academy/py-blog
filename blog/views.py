@@ -1,4 +1,3 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView
 from .models import Post
 
@@ -10,6 +9,6 @@ class PostListView(ListView):
     model = Post
 
 
-class PostDetailView(DetailView, LoginRequiredMixin):
+class PostDetailView(DetailView):
     model = Post
     queryset = Post.objects.all().prefetch_related("comm_post__user")

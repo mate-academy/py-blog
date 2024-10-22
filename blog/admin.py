@@ -20,8 +20,8 @@ class CommentaryAdmin(admin.ModelAdmin):
 
 class UserAdmin(admin.ModelAdmin):
     search_fields = (
-        "username", "first_name", "last_name", "email", "password"
+        "username", "first_name", "last_name", "email",
     )
     list_filter = (
-        "username", "first_name", "last_name", "email", "password"
+        "username", "first_name", "last_name", "email",
     )

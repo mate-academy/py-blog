@@ -38,10 +38,10 @@
       {% csrf_token %}
         {{ form|crispy }}
         <h6>Add a new comment</h6>
-        <label>
-          <input type="text" size="200">
-        </label>
-        <br>
+      <label>
+        <input type="text" size="200">
+      </label>
+      <br>
         <input type="submit" value="Add comment">
       </form>
   {% endif %}

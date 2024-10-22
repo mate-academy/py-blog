@@ -3,12 +3,12 @@ from django.db import models
 
 
 class User(AbstractUser):
-    password = models.CharField(max_length=128)
+    pass
 
 
 class Post(models.Model):
     owner = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="post_user"
+        User, on_delete=models.CASCADE, related_name="posts"
     )
     title = models.CharField(max_length=255)
     content = models.TextField()
@@ -17,7 +17,7 @@ class Post(models.Model):
 
 class Commentary(models.Model):
     user = models.ForeignKey(
-        "User", on_delete=models.CASCADE, related_name="comm_user"
+        "User", on_delete=models.CASCADE, related_name="commentaries"
     )
     post = models.ForeignKey(
         Post, on_delete=models.CASCADE, related_name="comm_post"
