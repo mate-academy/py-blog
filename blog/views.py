@@ -18,7 +18,7 @@ class Posts(generic.ListView):
     queryset = (
         Post.objects.order_by("-created_time")
         .prefetch_related("commentaries")
-        .annotate(commetaries_count=Count("commentaries"))
+        .annotate(commentaries_count=Count("commentaries"))
     )
     context_object_name = "post_list"
 

@@ -41,7 +41,7 @@ class CommentaryAdmin(admin.ModelAdmin):
     list_display_links = ("short_content",)
     ordering = ("-created_time",)
     list_per_page = LIST_PER_PAGE
-    search_fields = ("user", "post", "content")
+    search_fields = ("user__username", "post__title", "content")
 
     def short_content(self, obj):
         return (
