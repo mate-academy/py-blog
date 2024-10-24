@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <p>{{ post.owner }}</p>
+  <p>title: {{ post.title }}</p>
+  <p>created at: {{ post.created_time}}</p>
+  <h6>{{ post.content }}</h6>
+  <br><br>
+  <p>Comments:</p>
+
+  {% for commentary in post.commentaries.all %}
+    <li>{{ commentary.content }}</li>
+  {% endfor %}
+  <br>
+  {% if user.is_authenticated %}
+    <h6>Leave a comment:</h6>
+    <form method="POST">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input class="btn btn-primary" type="submit" value="Submit"></input>
+    </form>
+    {% else %}
+    <h4>You must login first to create commentary</h4>
+    {% endif %}
+{% endblock %}
