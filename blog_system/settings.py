@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv("VARABLE", "dummy-key")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("VARABLE", "dummy-key")
+DEBUG = "True"
 
 ALLOWED_HOSTS = []
 
