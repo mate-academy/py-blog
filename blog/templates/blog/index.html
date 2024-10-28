@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Blog</title>
+</head>
+<body>
+    <h1>Blog Posts</h1>
+    <ul>
+        {% for post in posts %}
+        <li>
+            <a href="{% url 'blog:post-detail' post.pk %}">{{ post.title }}</a>
+            <p>{{ post.content }}</p>
+            <small>by {{ post.author }} on {{ post.created_time }}</small>
+            <p>Comments: {{ post.comments.count }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+    <div class="pagination">
+        <!-- Add pagination logic here -->
+    </div>
+</body>
+</html>
