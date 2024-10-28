@@ -5,5 +5,6 @@ from .views import index, PostDetailView
 urlpatterns = [
     path("", index, name="index"),
     path("posts/<int:pk>/", PostDetailView.as_view(), name="post-detail"),
-    path("blog/", RedirectView.as_view(url="/blog/", permanent=False), name="redirect"),
+    path("blog/", RedirectView.as_view(url="/blog/",
+                                       permanent=False), name="redirect"),
 ]
