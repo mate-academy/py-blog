@@ -1,0 +1,8 @@
+# Ignore virtual environment directory
+venv/
+__pycache__/
+.idea/
+db.sqlite3
+
+# Allow manage.py to be tracked
+!manage.py
