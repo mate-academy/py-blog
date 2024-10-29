@@ -1,10 +1,8 @@
-from django.contrib.auth.models import AnonymousUser
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views import generic
 from .models import Post
 from .forms import CommentForm
-
 
 
 class IndexListView(generic.ListView):
