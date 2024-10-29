@@ -1,0 +1,9 @@
+.link_to_post {
+    text-decoration: none;
+    color: black;
+}
+
+.link_to_post:hover {
+    color: #372b6c;
+    text-decoration: underline;
+}

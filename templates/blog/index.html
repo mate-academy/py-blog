@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% for post in post_list %}
+    <div class="mt-5">
+      <h3><a class="link_to_post" href="{% url 'blog:post-detail' pk=post.pk %}">{{ post.title }}</a></h3>
+      <div class="mb-3">{{ post.content }}</div>
+      <div class="row">
+        <div class="row justify-content-between mb-1">
+          <div class="col col-sm-2 col-6 text-muted">Owner: {{ post.owner }}</div>
+          <div class="col col-sm-2 col-6 text-muted">{{ post.created_time }}</div>
+        </div>
+      </div>
+      <div>{{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}</div>
+    </div>
+  {% empty %}
+    <p>No posts!</p>
+  {% endfor %}
+{% endblock %}
