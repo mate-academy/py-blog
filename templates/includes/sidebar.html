@@ -1,0 +1,16 @@
+<ul class="sidebar-nav">
+  {% if user.is_authenticated %}
+    <li>User: {{ user.username }}</li>
+    <form action="{% url 'logout' %}" method="POST">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger">Logout</button>
+    </form>
+
+  {% else %}
+    <form action="{% url 'login' %}" method="POST">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+
+  {% endif %}
+</ul>
