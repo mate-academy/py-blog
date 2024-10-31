@@ -36,4 +36,6 @@ class Commentary(models.Model):
     content = models.TextField()
 
     def __str__(self):
-        return f"Title: {self.post.title} Content: {self.content[:10]} Created: {self.created_time}"
+        return (f"Title: {self.post.title} "
+                f"Content: {self.content[:10]} "
+                f"Created: {self.created_time}")
