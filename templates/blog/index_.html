@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Blog</h1>
+  {% if post_list %}
+    <ul>
+      {% for post in page_obj %}
+        <a href="{% url 'blog:post-detail' post.pk %}"><h2>{{ post.title }}</h2></a>
+        <p>{{ post.content }}</p> <br>
+        <b>{{ post.owner }}</b> <br>
+        <b>{{ post.created_time }}</b> <br>
+        <h4>Numbers commentary: {{ post.comments.count }}</h4>
+        <hr>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no posts</p>
+  {% endif %}
+  
+{% endblock %}
