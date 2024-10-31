@@ -26,14 +26,14 @@ class Commentary(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name="commentary"
+        related_name="commentaries"
     )
     post = models.ForeignKey(
         Post,
         on_delete=models.CASCADE,
-        related_name="commentary")
+        related_name="commentaries")
     created_time = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
 
     def __str__(self):
-        return self.post.title
+        return f"Title: {self.post.title} Content: {self.content[:10]} Created: {self.created_time}"
