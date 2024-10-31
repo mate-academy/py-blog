@@ -1,10 +1,11 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
+from django.db.models.signals import post_save
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.utils.datastructures import MultiValueDict
 from django.views import generic
 from django.views.generic import CreateView
 
@@ -13,19 +14,20 @@ from blog.models import Post, Commentary
 
 
 def index(request: HttpRequest) -> HttpResponse:
-    post_list = Post.objects.all()
+    post_list = Post.objects.all().order_by("-created_time")
 
     paginator = Paginator(post_list, 5)
-    page_number = request.GET.get("page", 1)
-    page_obj = paginator.get_page(page_number)
+    page = request.GET.get("page", 1)
+    page_obj = paginator.get_page(page)
 
     print(
-        f"page_number: {page_number}, "
-        f"paginator.num_pages: {paginator.num_pages}"
+        f"page: {page}, "
+        f"paginator.num_pages: {paginator.num_pages}, "
+        f"page_obj.object_list: {len(page_obj.object_list)}"
     )
 
     context = {
-        "post_list": post_list,
+        "post_list": page_obj.object_list,
         "is_paginated": page_obj.has_other_pages(),
         "paginator": paginator,
         "page_obj": page_obj,
@@ -38,7 +40,7 @@ def index(request: HttpRequest) -> HttpResponse:
     )
 
 
-class PostDetailView(LoginRequiredMixin, generic.DetailView):
+class PostDetailView(generic.DetailView):
     model = Post
 
     def get_context_data(self, **kwargs):
