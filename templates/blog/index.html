@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="container">
+    <div class="sidebar">
+      {% include "includes/sidebar.html" %}
+    </div>
+    <div class="post_container">
+      <h1>Main page</h1>
+      <ul>
+        {% for post in post_list %}
+          <li class="post_item">
+            <div>
+              <a style="display: flex; flex-direction: row; justify-content: space-between"
+                 href="{% url "blog:post-details" post.pk %}">
+                <h5>{{ post.title }}</h5>
+                <p>{{ post.created_time }}</p>
+              </a>
+              <p><strong>{{ post.owner }}</strong></p>
+              <p>Comments: ({{ post.commentaries.count }})</p>
+            </div>
+            <p class="post_content">{{ post.content }}</p>
+            <hr/>
+          </li>
+        {% endfor %}
+      </ul>
+      {% include "includes/pagination.html" %}
+    </div>
+  </div>
+{% endblock %}
