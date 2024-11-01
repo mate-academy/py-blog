@@ -11,7 +11,7 @@
           <li class="post_item">
             <div>
               <a style="display: flex; flex-direction: row; justify-content: space-between"
-                 href="{% url "blog:post-detail" post.pk %}">
+                 href="{% url "blog:post-details" post.pk %}">
                 <h5>{{ post.title }}</h5>
                 <p>{{ post.created_time }}</p>
               </a>
