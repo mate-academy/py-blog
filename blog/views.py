@@ -1,5 +1,6 @@
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
@@ -16,9 +17,15 @@ class PostListView(generic.ListView):
 class CommentCreateView(LoginRequiredMixin, generic.CreateView):
     model = Commentary
     fields = "__all__"
-    success_url = reverse_lazy("blog:post-detail", kwargs={"pk": 1})
+    success_url = reverse_lazy("blog:index")
     template_name = "blog/comment_form.html"
 
 
 class PostDetailView(generic.DetailView):
     model = Post
+
+
+@login_required
+def user_logout(request):
+    logout(request)
+    return render(request, "registration/logged_out.html")
