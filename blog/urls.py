@@ -1,5 +1,8 @@
 from django.urls import path
-from blog.views import PostDetailView, CommentCreateView, PostListView, user_logout
+from blog.views import (PostDetailView,
+                        CommentCreateView,
+                        PostListView,
+                        user_logout)
 
 urlpatterns = [
     path("", PostListView.as_view(), name="index"),
