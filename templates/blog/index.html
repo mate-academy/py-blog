@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <div class="custom">
+    <div class="container-fluid">
+      <div class="row">
+
+        {% for post in page_obj %}
+          <div class="col-md-6">
+            <div class="card mb-4" id="card-box">
+
+              <div class="card-body">
+                <h5 class="card-title"><a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a></h5>
+                <p class="card-text"><small class="text-muted">by {{ post.owner }}</small></p>
+                <p class="card-text">{{ post.content }}</p>
+                <p class="card-text"><small class="text-muted">Created: {{ post.created_time }}</small></p>
+              </div>
+
+              <p class="text-right" style="margin-right: 30px;">
+                <small class="text-muted">comments: {{ post.num_comments }}</small>
+              </p>
+            </div>
+          </div>
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+
+  {% include 'includes/pagination.html' %}
+
+{% endblock %}

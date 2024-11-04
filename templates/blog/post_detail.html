@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <div style="margin-top: 20px">
+
+    <div class="post_detail_and_comments">
+      <h4>{{ post.title }}</h4>
+
+      <small class="text-muted">
+        <pre>{{ post.owner }} {{ post.created_time }}</pre>
+      </small>
+
+      <hr style="margin-top: 30px">
+      <p>{{ post.content }}</p>
+      <strong><p class="text-muted">Add new comment</p></strong>
+
+      <form method="post" action="{% url 'blog:comment-create' post.id %}" novalidate name="content">
+        {% csrf_token %}
+        <textarea class="form-control" name="comment" cols="50"></textarea>
+        <br>
+        <button class="btn btn-primary btn-sm active" type="submit">Submit</button>
+      </form>
+
+      <div class="comments">
+
+        {% if comment_count == 1 %}
+          <p class="text-muted"><small>{{ comment_count }} comment</small></p>
+        {% else %}
+          <p class="text-muted"><small>{{ comment_count }} comments</small></p>
+        {% endif %}
+
+        {% if comment_count %}
+          <ul class="list-group">
+
+          {% for comment in post.comments.all %}
+            <li class="list-group-item" style="border-radius: 8px;">
+              <pre>{{ comment.user }}<small class="text-muted"> {{ comment.created_time }}</small></pre>
+              <hr>
+              {{ comment.content }}
+            </li>
+            <br>
+          {% endfor %}
+
+        {% else %}
+          <p>There are no comments yet.</p>
+        {% endif %}
+
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+
+{% endblock %}
