@@ -2,23 +2,19 @@
 
 {% block content %}
 <h1>Title post: {{ post.title }}<a style="float: right" href="{% url 'blog:commentary-create' post.id %}">+</a>
-    <input type="hidden" name="post_id" value="{{ post.id }}">
+    <input type="hidden" name="post" value="{{ post }}">
 </h1>
 <h5><a href="#" onclick="history.go(-1)">Back</a></h5>
 <p><strong>Author: </strong>{{ post.owner }}</p>
 <p><strong>Created time: </strong>{{ post.created_time }}</p>
-
 
 {% if post.commentarys.all %}
 <table class="table">
     <tr>
         <th>Author</th>
         <th>Content</th>
-        
     </tr>
-    
     {% for comment in post.commentarys.all %}
-
     <tr>
         <td>{{ comment.user }}</td>
         <td>{{ comment.content }}</td>

@@ -18,7 +18,6 @@ class Post(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ["-created_time"]
         verbose_name = "Post"
         verbose_name_plural = "Posts"
 
