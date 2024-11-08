@@ -36,7 +36,7 @@ def post_detail(request, pk):
             new_comment.post = post
             new_comment.user = request.user
             new_comment.save()
-            return redirect("posts:post-detail", pk=post.pk)
+            return redirect("blog:post-detail", pk=post.pk)
     else:
         comment_form = CommentForm()
 
