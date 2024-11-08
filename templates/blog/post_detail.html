@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container top-container">
+    <div class="row">
+      {% block blog_logo %}
+        {% include "includes/blog_logo.html" %}
+      {% endblock %}
+
+      <div class="col-8 col-offset-2">
+        <h1>{{ post.title }}</h1>
+        {% if post.owner.first_name or post.owner.last_name %}
+          <h2>{{ post.owner.first_name }} {{ post.owner.last_name }}</h2>
+        {% else %}
+          <h6>{{ post.owner }}</h6>
+        {% endif %}
+          <p style="font-weight: lighter">{{ post.created_time|date:"d M, Y H:m" }}</p>
+      </div>
+      <div class="col-2">
+
+        {% block log_in_out %}
+          {% include "includes/log_in_out.html" %}
+        {% endblock %}
+
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+        <div class="card" style="margin-bottom: 5px; padding: 10px">
+          {{ post.content }}
+        </div>
+    </div>
+  </div>
+
+  <div class="container col-10" style="margin: auto;">
+    <div class="card">
+      <div class="card-header comment">
+        {% if post.comments.all|length %}
+        {{ post.comments.all|length }} comment{{ post.comments.all|pluralize }}:
+        {% else %}
+          There are no comments yet
+        {% endif %}
+
+      </div>
+      <div class="card" style="margin: 10px 0">
+        {% if post.comments %}
+          {% for comment in post.comments.all %}
+            <div class="card" style="margin-bottom: 10px">
+              <div class="card-text user_comment">
+                <a href="" title="{{ comment.user.first_name }} {{ comment.user.last_name }}" disabled>{{ comment.user }} </a>  {{ comment.created_time|timesince }}<br>
+              </div>
+              <div class="card-text comment">
+                {{ comment }}
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="card" style="margin-top: 5px;">
+      {% if user.is_authenticated %}
+        {% load crispy_forms_tags %}
+        <div class="card-header comment">
+          Add a new comment:
+        </div>
+        <div class="card comment">
+          <form method="post">
+            {% csrf_token %}
+            {{ comment_form|crispy }}
+            <p><button type="submit" class="btn btn-dark comment">Add comment</button></p>
+          </form>
+        </div>
+      {% else %}
+        <div class="card-header comment">
+           <i style="color: tomato">Only registered users can leave comments</i>
+        </div>
+        <div class="card">
+          <div class="card-text user_comment" style="text-align: center">
+            Please Login
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+{% if user.is_authenticated %}
+  <p>User: {{ user.username }}<br>
+    <form method="post" action="{% url 'logout' %}?next={{ request.path }}">
+      {% csrf_token %}
+      <p><button type="submit" class="btn btn-light">Logout</button></p>
+    </form>
+{% else %}
+  <p><a href="{% url 'login' %}?next={{ request.path }}" class="nav-fill nav-but">
+    <button type="submit" class="btn btn-light">Login</button>
+  </a></p>
+{% endif %}
