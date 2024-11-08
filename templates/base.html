@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% block title %}
+    <title>Blog</title>
+    {% endblock title %}
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>li {list-style-type: none;}</style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3">
+                {% block sidebar %}
+                    {% include "includes/sidebar.html" %}
+                {% endblock sidebar %}
+            </div>
+            <div class="col-sm-9">
+                {% block content %}
+                {% endblock content %}
+
+                {% block pagination %}
+                {% if paginator.num_pages > 1 %}
+                    <ul class="pagination">
+                        {% if post_list.has_previous %}
+                        <li class="page-item"><a class="page-link" href="?page={{ post_list.previous_page_number }}">Previous page</a></li>
+                        {% endif %}
+                        <li class="page-item active">
+                            <span class="page-link">{{ post_list.number }} of {{ paginator.num_pages }}</span>
+                        </li>
+                        {% if post_list.has_next %}
+                        <li class="page-item"><a class="page-link" href="?page={{ post_list.next_page_number }}">Next page</a></li>
+                        {% endif %}
+                    </ul>
+                    {% endif %}
+                {% endblock pagination %}
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
