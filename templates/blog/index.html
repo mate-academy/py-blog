@@ -13,7 +13,13 @@
               <div class="card-body">
                 <h5 class="card-title"><a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a></h5>
                 <p class="card-text"><small class="text-muted">by {{ post.owner }}</small></p>
-                <p class="card-text">{{ post.content }}</p>
+
+                {% if post.content|length > 50 %}
+                  <p class="card-text">{{ post.short_content }}</p>
+                {% else %}
+                  <p class="card-text">{{ post.content }}</p>
+                {% endif %}
+
                 <p class="card-text"><small class="text-muted">Created: {{ post.created_time }}</small></p>
               </div>
 

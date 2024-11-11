@@ -1,7 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
-from django.db.models import Count
+from django.db.models import Count, Value
+from django.db.models.functions import Concat, Substr
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
@@ -13,14 +14,10 @@ from blog.models import Commentary, Post
 def index(request: HttpRequest) -> HttpResponse:
     posts = (
         Post.objects.annotate(
-            num_comments=Count("comments")
+            num_comments=Count("comments"),
+            short_content=Concat(Substr("content", 1, 50), Value("..."))
         ).order_by("-created_time")
     )
-
-    for post in posts:
-        words = post.content.split()
-        if len(words) > 10:
-            post.content = " ".join(words[:10]) + "..."
 
     paginator = Paginator(posts, 5)
     page_number = request.GET.get("page")
@@ -66,9 +63,6 @@ class PostCreateView(LoginRequiredMixin, generic.CreateView):
     success_url = reverse_lazy("blog:index")
 
     def form_valid(self, form):
-        user = self.request.user
         post = form.save(commit=False)
-        post.owner = user
-        post.save()
-        print(f"Post saved with owner: {post.owner}")
+        post.owner = self.request.user
         return super().form_valid(form)
