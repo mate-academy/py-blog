@@ -11,7 +11,7 @@
   <ol>
     {% for post in post_list %}
       <li>
-        <a href="#">{{ post.title }}</a>
+        <a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a>
         <p>Created: {{ post.created_time }}</p>
         <p>Author: {{ post.owner.first_name }} {{ post.owner.last_name }}</p>
         <p>

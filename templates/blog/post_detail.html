@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.owner.first_name }} {{ post.owner.last_name }} at {{ post.created_time }}</p>
+  <p>{{ post.content }}</p>
+
+  <p>{{ post.commentary.count }} comment{{ post.commentary.count|pluralize }}</p>
+  {% if not post.commentary.exists %}
+    <p>There are no comments yet!</p>
+  {% endif %}
+
+{% endblock %}
