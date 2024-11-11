@@ -1,6 +1,10 @@
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.views import generic
 
-# Create your views here.
-def index(request) -> HttpResponse:
-    return HttpResponse("Hello, world. You're at the polls index.")
+from blog.models import User, Post, Commentary
+
+
+class IndexListView(generic.ListView):
+    model = Post
+    template_name = "blog/index.html"
+    paginate_by = 5
+

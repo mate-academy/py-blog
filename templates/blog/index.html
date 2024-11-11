@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Home page</title>
+{% endblock %}
+
+
+{% block content %}
+  <h1>All posts:</h1>
+
+  <ol>
+    {% for post in post_list %}
+      <li>
+        <a href="#">{{ post.title }}</a>
+        <p>Created: {{ post.created_time }}</p>
+        <p>Author: {{ post.owner.first_name }} {{ post.owner.last_name }}</p>
+        <p>
+          Content: <br> {{ post.content }}
+        </p>
+        <p>Count of comments: {{ post.commentary.count }}</p>
+      </li>
+    {% endfor %}
+  </ol>
+
+
+  <p>{% include 'includes/pagination.html' %}</p>
+{% endblock %}
