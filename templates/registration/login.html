@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_filters %}
+
+{% block content %}
+
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+
+      <div class="col-md-6">
+        <h1 class="text-center">Sign in</h1>
+
+        {% if form.errors %}
+          <div class="alert alert-danger" role="alert">
+            Invalid credentials
+          </div>
+        {% endif %}
+
+        <form method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            {{ form|crispy }}
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+
+{% endblock %}
