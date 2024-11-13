@@ -1,0 +1,350 @@
+[
+  {
+    "model": "blog.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$6uM28XWOFX6ewyloJzjqmt$L+ZhofPylneoaL2iZS4sZu4ZMUNb4oIevfAdzOMn/eE=",
+      "last_login": "2022-08-08T14:14:03Z",
+      "is_superuser": true,
+      "username": "admin.user",
+      "first_name": "Admin",
+      "last_name": "User",
+      "email": "admin.user@taxi.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2022-08-08T13:58:29Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "blog.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$73Z1Y57bcoscZ37s9rE9v0$4SEQ0TtXwJKzO5/CRdFSrTifatiPjkZ38gM2H8Kqsdg=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "joyce.byers",
+      "first_name": "Joyce",
+      "last_name": "Byers",
+      "email": "joyce.byers@taxi.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-08-08T14:17:04Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "blog.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$QtPol3T7x9quBj4BnbnVwW$UwT4kihkRfSvQEWEeuqVKwMgis2ikKVZfJDBcQMvOKY=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "jim.hopper",
+      "first_name": "Jim",
+      "last_name": "Hopper",
+      "email": "jim.hopper@taxi.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-08-08T14:19:09Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "blog.user",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$9yU0PLTDKlL02PedUtk2l1$LKjj8O1xGiPGEkDpjsHk87db1iLgt8dgDqECzcsivio",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "jonathan.byers",
+      "first_name": "Jonathan",
+      "last_name": "Byers",
+      "email": "jonathan.byers@taxi.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-08-08T14:19:09Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "blog.user",
+    "pk": 5,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$9yU0PLTDKlL02PedUtk2l1$LKjj8O1xGiPGEkDpjsHk87db1iLgt8dgDqECzcsivio",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "dustin.henderson",
+      "first_name": "Dustin",
+      "last_name": "Henderson",
+      "email": "dustin.henderson@taxi.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-08-09T14:19:09Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "blog.user",
+    "pk": 6,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$9yU0PLTDKlL02PedUtk2l2$LKjj8O1xGiPGEkDpjsHk87db1iLgt8dgDqECzcsivio",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "mike.wheeler",
+      "first_name": "Mike",
+      "last_name": "Wheeler",
+      "email": "mike.wheeler@taxi.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-08-09T14:19:09Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "blog.user",
+    "pk": 7,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$9yU0PLTDKlL02PedUtk2l2$LKjj8O1xGiPGEkDpjsHk87db1iLgt8dgDqECzcsivio",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "lucas.sinclair",
+      "first_name": "Lucas",
+      "last_name": "Sinclair",
+      "email": "lucas.sinclair@taxi.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-08-09T14:19:09Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "blog.user",
+    "pk": 8,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$9yU0PLTDKlL02PedUtk2l2$LKjj8O1xGiPGEkDpjsHk87db1iLgt8dgDqECzcsivio",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "nancy.wheeler",
+      "first_name": "Nancy",
+      "last_name": "Wheeler",
+      "email": "nancy.wheeler@taxi.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-08-09T14:19:09Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "blog.user",
+    "pk": 9,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$9yU0PLTDKlL02PedUtk2l2$LKjj8O1xGiPGEkDpjsHk87db1iLgt8dgDqECzcsivio",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "martin.brenner",
+      "first_name": "Martin",
+      "last_name": "Brenner",
+      "email": "martin.brenner@taxi.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-08-09T14:19:09Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "blog.user",
+    "pk": 10,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$9yU0PLTDKlL02PedUtk2l2$LKjj8O1xGiPGEkDpjsHk87db1iLgt8dgDqECzcsivio",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "billy.hargrove",
+      "first_name": "Billy",
+      "last_name": "Hargrove",
+      "email": "billy.hargrove@taxi.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-08-09T14:19:09Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+    {
+    "model": "blog.user",
+    "pk": 11,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$9yU0PLTDKlL02PedUtk2l2$LKjj8O1xGiPGEkDpjsHk87db1iLgt8dgDqECzcsivio",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "bob.newby",
+      "first_name": "Bob",
+      "last_name": "Newby",
+      "email": "bob.newby@taxi.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-08-09T14:19:09Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "blog.Post",
+    "pk": 1,
+    "fields": {
+      "owner": 1,
+      "title": "About Django",
+      "content": "Django is a high-level Python web framework that encourages rapid development and clean, pragmatic design. Built by experienced developers, it takes care of much of the hassle of web development, so you can focus on writing your app without needing to reinvent the wheel. It’s free and open source.",
+      "created_time": "2022-11-23T14:19:09Z"
+    }
+  },
+  {
+    "model": "blog.Post",
+    "pk": 2,
+    "fields": {
+      "owner": 1,
+      "title": "About Python",
+      "content": "Python is a programming language that lets you work quickly and integrate systems more effectively",
+      "created_time": "2022-11-23T14:19:09Z"
+    }
+  },
+  {
+    "model": "blog.Post",
+    "pk": 3,
+    "fields": {
+      "owner": 4,
+      "title": "10 Most In-Demand Programming Languages in 2022",
+      "content": "1. Javascript\n2. Python\n 3. HTML\n4. CSS\n5. Java\n6. SQL\n7. NoSQL\n8. C#\n9. Rust\n10. Perl",
+      "created_time": "2022-11-23T14:19:09Z"
+    }
+  },
+  {
+    "model": "blog.Post",
+    "pk": 4,
+    "fields": {
+      "owner": 4,
+      "title": "About Javascript and other languages",
+      "content": "According to Stack Overflow’s 2020 Developer Survey, JavaScript currently stands as the most commonly-used language in the world (69.7%), followed by HTML/CSS (62.4%), SQL (56.9%), Python (41.6%) and Java (38.4%). It is also the most sought-out programming language by hiring managers in the Americas (PDF, 2.4 MB). \n\nJavaScript is used to manage the behavior of web pages. With it, coders can create dynamic web elements such as animated graphics, interactive maps, clickable buttons and more. Programmers who use HTML, CSS and JavaScript in tandem obtain a higher level of website control and can provide a better user experience in terms of navigation and readability. \n\nJavaScript is the most common coding language in use today around the world. This is for a good reason: most web browsers utilize it and it’s one of the easiest languages to learn. JavaScript requires almost no prior coding knowledge — once you start learning, you can practice and play with it immediately. \n\nMoreover, because the language is so ubiquitous, there are countless communities, courses and avenues of professional support available online. This support, in addition to the language’s top-notch usability, makes JavaScript number one on our list of the most in-demand programming languages. ",
+      "created_time": "2022-11-23T14:19:09Z"
+    }
+  },
+  {
+    "model": "blog.Post",
+    "pk": 5,
+    "fields": {
+      "owner": 4,
+      "title": "About Python",
+      "content": "Python is a general-purpose programming language that empowers developers to use several different programming styles (i.e., functional, object-oriented, reflective, etc.) when creating programs. Several popular digital tools and platforms were developed with Python, including YouTube, Google Search and iRobot machines. It is also, according to HackerRank, the second-most in-demand programming language for hiring managers in the Americas after Python (PDF, 2.4 MB).\n\nAs one of the more easy-to-learn and -use languages, Python is ideal for beginners and experienced coders alike. The language comes with an extensive library that supports common commands and tasks. Its interactive qualities allow programmers to test code as they go, reducing the amount of time wasted on creating and testing long sections of code.  \n\nThat said, even advanced users would benefit from adding Python to their mental catalog of programming languages; with over 50% of hiring managers (PDF, 2.4MB) seeking candidates who know the language, Python is easily one of the most marketable and in-demand programming languages of 2022. \n\n",
+      "created_time": "2022-11-23T14:19:09Z"
+    }
+  },
+  {
+    "model": "blog.Post",
+    "pk": 6,
+    "fields": {
+      "owner": 4,
+      "title": "What is iteration",
+      "content": "Iteration, in the context of computer programming, is a process wherein a set of instructions or structures are repeated in a sequence a specified number of times or until a condition is met. When the first set of instructions is executed again, it is called an iteration",
+      "created_time": "2022-11-23T14:19:09Z"
+    }
+  },
+  {
+    "model": "blog.Commentary",
+    "pk": 1,
+    "fields": {
+      "user": 2,
+      "post": 1,
+      "content": "Cool!",
+      "created_time": "2022-11-23T16:28:09Z"
+    }
+  },
+  {
+    "model": "blog.Commentary",
+    "pk": 2,
+    "fields": {
+      "user": 3,
+      "post": 1,
+      "content": "Wooow",
+      "created_time": "2022-11-23T16:28:09Z"
+    }
+  },
+  {
+    "model": "blog.Commentary",
+    "pk": 3,
+    "fields": {
+      "user": 4,
+      "post": 1,
+      "content": "Interesting",
+      "created_time": "2022-11-23T16:28:09Z"
+    }
+  },
+  {
+    "model": "blog.Commentary",
+    "pk": 4,
+    "fields": {
+      "user": 6,
+      "post": 1,
+      "content": "Not bad",
+      "created_time": "2022-11-23T16:28:09Z"
+    }
+  },
+  {
+    "model": "blog.Commentary",
+    "pk": 5,
+    "fields": {
+      "user": 6,
+      "post": 3,
+      "content": "I didn't know that",
+      "created_time": "2022-11-23T16:28:09Z"
+    }
+  },
+  {
+    "model": "blog.Commentary",
+    "pk": 6,
+    "fields": {
+      "user": 3,
+      "post": 4,
+      "content": "I am interested:)",
+      "created_time": "2022-11-23T16:28:09Z"
+    }
+  },
+  {
+    "model": "blog.Commentary",
+    "pk": 7,
+    "fields": {
+      "user": 1,
+      "post": 4,
+      "content": "I love Python more. Python is a better-designed language that makes it easy to maintain, whereas JavaScript is poor. Python is not good for mobile development, whereas Java-Script is good. Python is slow to run compared to JavaScript. Python provides a huge standard library, whereas JavaScript has a limited standard library.",
+      "created_time": "2022-11-23T16:28:09Z"
+    }
+  },
+  {
+    "model": "blog.Commentary",
+    "pk": 8,
+    "fields": {
+      "user": 1,
+      "post": 5,
+      "content": "I knew that!",
+      "created_time": "2022-11-23T16:28:09Z"
+    }
+  },
+  {
+    "model": "blog.Commentary",
+    "pk": 8,
+    "fields": {
+      "user": 5,
+      "post": 6,
+      "content": "I had that question at tech-check in IT-company...",
+      "created_time": "2022-11-23T16:28:09Z"
+    }
+  }
+]
