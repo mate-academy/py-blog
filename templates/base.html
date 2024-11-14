@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   {% block title %}
-    <title>Library</title>
+    <title>Blog</title>
   {% endblock %}
 
   {% load static %}
@@ -15,6 +15,13 @@
 </head>
 <body>
 <div class="container-fluid">
+  <header>
+    {% if user.is_authenticated %}
+      <a href="{% url 'blog:logout' %}" class="btn btn-secondary">Logout</a>
+    {% else %}
+      <a href="{% url 'blog:login' %}" class="btn btn-primary">Login</a>
+    {% endif %}
+  </header>
   <div class="row">
     <div class="col-sm-3">
     </div>

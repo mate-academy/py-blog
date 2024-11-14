@@ -6,8 +6,15 @@
   <p>{{ post.content }}</p>
 
   <p>{{ post.commentary.count }} comment{{ post.commentary.count|pluralize }}</p>
+
+  {% for commentary in post.commentary.all %}
+    <h6>{{ commentary.user }} at {{ commentary.created_time }}</h6>
+    <p>{{ commentary.content }}</p>
+  {% endfor %}
   {% if not post.commentary.exists %}
     <p>There are no comments yet!</p>
   {% endif %}
+
+  <a href="{% url 'blog:commentary-create' post.id %}" class="btn btn-primary">Add commentary</a>
 
 {% endblock %}
