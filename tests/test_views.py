@@ -39,7 +39,7 @@ class PostDetailTest(TestCase):
         "blog_system_db_data.json",
     ]
 
-    def test_post_detail_response_with_sorrect_template(self):
+    def test_post_detail_response_with_correct_template(self):
         response = self.client.get(reverse("blog:post-detail", args=[1]))
 
         self.assertEqual(response.status_code, 200)
