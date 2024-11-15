@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>Blog Main Page</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>All Posts</h1>
+    <ul>
+        {% for post in post_list %}
+            <li>
+                <h2><a href="{% url 'blog:post-detail' post.pk %}">{{ post.title }}</a></h2>
+                <p>{{ post.content|truncatewords:30 }}</p>
+                <p>By {{ post.owner.username }} on {{ post.created_time }}</p>
+                <p>Comments: {{ post.comment_count }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if is_paginated %}
+
+
+            {% endif %}
+        </span>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    <title>{{ post.title }}</title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ post.title }}</h1>
+    <p class="border">{{ post.content }}</p>
+    <p>By {{ post.owner.username }} on {{ post.created_time }}</p>
+
+    <h2>Comments</h2>
+    <br>
+    <ul>
+        {% for comment in comments %}
+            <li>
+              <h4><strong>{{ comment.user.username }}:</strong></h4>
+              <p>{{ comment.content }}</p>
+              <small>{{ comment.created_time }}</small>
+            </li>
+            <br>
+        {% endfor %}
+    </ul>
+
+    <h2>Add a new comment</h2>
+    {% if user.is_authenticated %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Add Comment</button>
+        </form>
+    {% else %}
+        <p>You must be <a href="{% url 'blog:login' %}">logged in</a> to post a comment.</p>
+    {% endif %}
+    {% if messages %}
+        {% for message in messages %}
+            <p class="alert alert-info">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+</div>
+{% endblock %}
