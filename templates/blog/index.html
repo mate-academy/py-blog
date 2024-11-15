@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Wellcome to our blog!</h1>
+  {% for post in object_list %}
+    <hr>
+    <ul>
+    <li>
+      <h3><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h3>
+    </ul>
+    </li>
+    <strong>{{ post.owner }} {{ post.created_time }}</strong><br>
+       {{ post.content }}
+    <br>
+    {% endfor %}
+  <br>
+{% endblock %}
