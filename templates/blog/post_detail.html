@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <h3>Author: <strong>{{ post.owner }}</strong></h3>
+  <hr>
+  <p>{{ post.content }}</p>
+  <p>created: <strong>{{ post.created_time }}</strong></p>
+  <hr>
+
+  {% if post.commentaries.all %}
+    <h4>Commentaries:</h4>
+    <ul>
+      {% for comment in post.commentaries.all %}
+        <hr>
+        <li>
+        <p>{{ comment.content }}</p>
+        <p>author: {{ comment.user }}</p>
+        <p>created: {{ comment.created_time }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <strong>There are no commentaries!</strong>
+  {% endif %}
+
+  {% if user.is_authenticated %}
+    <form action="" method="post" novalidate>
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="submit" value="Submit" class="btn btn-primary">
+    </form>
+  {% else %}
+    <p style="color: red">Please log in to post comments</p>
+  {% endif %}
+
+{% endblock %}
