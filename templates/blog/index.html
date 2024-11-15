@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>All posts:</h1>
+  <table class="table">
+    <tr>
+      <th>Title</th>
+      <th>Content</th>
+      <th>Author</th>
+      <th>Date</th>
+      <th>Num of comments</th>
+    </tr>
+    {% for post in page_obj %}
+      <tr>
+        <td><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></td>
+        <td>{{ post.content }}</td>
+        <td>{{ post.owner }}</td>
+        <td>{{ post.created_time }}</td>
+        <td>{{ post.commentary_set.count }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}

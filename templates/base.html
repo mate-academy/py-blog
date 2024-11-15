@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <div class="login">
+    {% if user.is_authenticated %}
+      <h2><a href="{% url 'logout' %}">LOGOUT</a></h2>
+    {% else %}
+      <h2><a href="{% url 'login' %}">LOGIN</a></h2>
+    {% endif %}
+  </div>
+  <div class="content">
+    {% block login %}
+    {% endblock %}
+    {% block content %}
+    {% endblock %}
+    {% block pagination %}
+      {% include "includes/pagination.html" %}
+    {% endblock %}
+  </div>
+</body>
+</html>
