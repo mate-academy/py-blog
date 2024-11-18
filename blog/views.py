@@ -59,4 +59,7 @@ class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
         return redirect("blog:post-detail", pk=kwargs["pk"])
 
     def get_success_url(self):
-        return reverse_lazy('blog:post-detail', kwargs={'pk': self.object.post.pk})
+        return reverse_lazy(
+            "blog:post-detail", 
+            kwargs={"pk": self.object.post.pk}
+        )
