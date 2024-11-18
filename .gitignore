@@ -1,5 +1,6 @@
 venv
 .idea
+.vscode/
 db.sqlite3
 pyc
 **__pycache__

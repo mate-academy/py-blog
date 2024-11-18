@@ -7,7 +7,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import CommentaryForm
 
-from .models import Post
+from .models import Post, Commentary
 
 
 def index(request: HttpRequest) -> HttpResponse:
@@ -38,14 +38,13 @@ class PostDetailView(generic.DetailView):
 class PostCreateView(LoginRequiredMixin, generic.CreateView):
     model = Post
     fields = "__all__"
-    success_url = reverse_lazy("blog:post-detail")
+    success_url = reverse_lazy("blog:post-list")
     template_name = "blog/post_form.html"
 
 
 class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
     model = Post
     fields = ["content"]
-    success_url = reverse_lazy("blog:post-detail")
     template_name = "blog/commentary_form.html"
 
     def post(self, request, *args, **kwargs):
@@ -58,3 +57,6 @@ class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
             commentary.user = self.request.user
             commentary.save()
         return redirect("blog:post-detail", pk=kwargs["pk"])
+
+    def get_success_url(self):
+        return reverse_lazy('blog:post-detail', kwargs={'pk': self.object.post.pk})
