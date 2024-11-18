@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>Home page</title>
+{% endblock title %}
+
+{% block content %}
+<h1>Blog Home<a style="float: right" href="{% url 'blog:post-create' %}">+</a></h1>
+<p>Welcome to the Blog</p>
+<h3>Blog content</h3>
+
+{% if posts %}
+{% for post in posts %}
+<ul style="padding-left: 0;">
+  <li><strong>Title: <a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a></strong></li>
+  <li>Author: {{ post.owner }}</li>
+  <li>Created date: {{ post.created_time }}</li>
+  <li>Number comments: {{ post.commentarys.count }}</li>
+  <li>Content: {{ post.content }}</li>
+  <br>
+</ul>
+{% endfor %}
+
+{% else %}
+  <p>No posts!</p>
+{% endif %}
+
+{% endblock content %}
