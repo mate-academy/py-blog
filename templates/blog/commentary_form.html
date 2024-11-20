@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block title %}
+  <title>Comments</title>
+{% endblock %}
+
+{% block content %}
+  <h1>Add your comment</h1>
+  {{ next }}
+  <form method="post" action="" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    {% if user.is_authenticated %}
+      <button type="submit" class="btn btn-primary">Submit Comment</button>
+      <input type="hidden" name="next" value="{{ next }}">
+    {% else %}
+      <p>Please log in to leave comment</p>
+    {% endif %}
+  </form>
+{% endblock %}
