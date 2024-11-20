@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h2 class="subtitle">Post Info</h2>
+  
+  {% if post %}
+    <h5 class="mb-3">{{ post.title }}</h5>
+    <p class="mb-2 font-italic owner-info">{{ post.owner }} at {{ post.created_time }}</p>
+    <p class="card-text card-content">{{ post.content }}</p>
+    <span class="card-text card-content">Comments:</span>
+    <ul class="list-group list-group-flush pb-3">
+      {% for comment in post.comments.all %}
+        <li class="list-group-item border-0 pl-0 pb-0 pr-0">
+          <div class="card">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <div>
+                  <span class="text font-weight-normal">{{ comment.user }}</span>
+                  <span class="font-italic owner-info">{{ comment.created_time }}</span>
+                </div>
+              </li>
+              <li class="list-group-item">
+                <span class="text">{{ comment.content }}</span>
+              </li>
+            </ul>
+          </div>
+        </li>
+        
+        {% empty %}
+        <p class="font-italic">There are no comments yet</p>
+      {% endfor %}
+    </ul>
+    
+    {% if user.is_authenticated %}
+      <p class="card-text card-content">Add new comment</p>
+      <form method="post" action="{% url 'blog:comment-create' post.id %}" class="pb-3">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <div class="form-group">
+          <textarea aria-label="add-comment" class="form-control" name="content" rows="3" required></textarea>
+        </div>
+        <div class="d-flex justify-content-end align-items-center">
+          <button class="btn btn-primary d-flex justify-content-center align-items-center addBtn" type="submit">
+            Add
+          </button>
+        </div>
+      </form>
+    {% endif %}
+    {% else %}
+    <p>No data</p>
+  {% endif %}
+{% endblock %}
