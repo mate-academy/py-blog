@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>All Posts</h1>
+  {% for post in post_list %}
+    <div class="post">
+      <a href="{% url 'blog:post-detail' pk=post.id %}"><h3>{{ post.title }}</h3></a>
+      <h>{{ post.owner.username }} at {{ post.created_time }}</h>
+      <h4 class="post-content">{{ post.content }}</h4>
+      <h>{{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}</h>
+    </div>
+    <br>
+  {% endfor %}
+{% endblock %}
+
+{% block pagination %}
+  {% include "includes/pagination.html" %}
+{% endblock %}
