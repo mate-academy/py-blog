@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.content }}</p>
+  <p>{{ post.owner }}, {{ post.created_time}}</p>
+  <div class="ml-3">
+    <h4>Comments:</h4>
+    {% for comment in post.posts.all %}
+      <hr>
+      <p class="text-muted">{{ comment.user }}, {{ comment.created_time }}</p>
+      <p>{{ comment.content }}</p>
+    {% empty %}
+      <p>No comments!</p>
+    {% endfor %}
+    <h4>Add a new comment:</h4>
+    {% if error %}
+      <div style="color: red">{{ error }}</div>
+    {% endif %}
+    <form action="{% url 'blog:post-detail' pk=post.id %}" method="post">
+      {% csrf_token %}
+      {% for form_field in comment_form %}
+        <div class="form-group">
+          {{ form_field.label_tag }}
+          {{ form_field }}
+          {{ form_field.errors }}
+        </div>
+      {% endfor %}
+      <input class="btn btn-primary" type="submit" value="Add comment">
+    </form>
+  </div>
+{% endblock %}
