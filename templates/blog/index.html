@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters%}
+
+{% block content %}
+  <h1>
+    Posts List
+
+    <a href="{% url 'blog:post-create' %}" class="btn btn-primary link-to-page">
+      Create post
+    </a>
+  </h1>
+<!--  <form action="" method="get">-->
+<!--    {{ search_form|crispy }}-->
+<!--  <input type="submit" class="bnt btn-primary">-->
+<!--  </form>-->
+
+  {% if post_list %}
+    <ul>
+      {% for post in post_list %}
+        <li>
+          <a href="{% url "blog:post-detail" pk=post.id %} ">{{ post.title }}</a>
+          <br><small>{{ post.owner }} {{ post.created_time }}</small>
+          <p>{{ post.content }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+      <p>There are no posts in the service.</p>
+  {% endif %}
+{% endblock %}
