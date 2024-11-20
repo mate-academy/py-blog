@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block title %}
+  <title>{{ post.title }}</title>
+{% endblock %}
+
+{% block content %}
+
+  <h1>{{ post.title }}</h1>
+  <p>Created by {{ post.owner }} at {{ post.created_time }}</p>
+
+  <hr>
+
+  <div class="col-sm-10">
+    {{ post.content }}
+  </div>
+
+  <br>
+
+  <h2>{{ post.comments.count }} Comments</h2>
+
+  {% if post.comments.all %}
+    {% for commentary in post.comments.all %}
+      <div>
+        <div class="font-weight-bold">
+          {{ commentary.user }} {{ commentary.created_time }}
+        </div>
+        <div>{{ commentary.content }}</div>
+      </div>
+
+      <hr>
+
+    {% endfor %}
+
+  {% else %}
+    <div>No comments!</div>
+  {% endif %}
+
+  {% if user.is_authenticated %}
+    <h4>Leave commentary</h4>
+    {% if error %}
+      <div>{{ error }}</div>
+    {% endif %}
+
+    <form action="{% url 'blog:add-commentary' pk=post.id %}" method="post">
+      {% csrf_token %}
+      <label>
+        <input type="text" style="width: 600px;" name="content">
+      </label>
+
+      <br>
+
+      <input oninput="" class="btn btn-primary" type="submit" value="Add commentary">
+    </form>
+  {% else %}
+    <a href="{% url 'login' %}">
+    <h5>Login to add commentary</h5>
+    </a>
+  {% endif %}
+{% endblock %}
