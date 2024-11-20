@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% if post %}
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.owner }} at {{ post.created_time }}</p>
+    <p>{{ post.content }}</p>
+    {% for comment in post.commentaries.all %}
+      {% if comment %}
+        <h6>{{ forloop.counter }} comment</h6>
+        <p>{{ comment.user }} {{ comment.created_time }}</p>
+        <p>{{ comment.content }}</p>
+      {% endif %}
+    {% empty %}
+      <h6>0 comments</h6>
+      <p>There are no comments yet.</p>
+    {% endfor %}
+  {% else %}
+    <h1>Post not found</h1>
+  {% endif %}
+  {% if user.is_authenticated %}
+    {% include "blog/commentary_form.html" %}
+
+    {% else %}
+    <div>
+      <p><strong> Please register to write a comment</strong></p>
+    </div>
+    <br>
+  {% endif %}
+{% endblock %}
