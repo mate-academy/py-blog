@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+	<h2>{{ post.title }}</h2>
+	<p>{{ post.content }}</p>
+
+	<h3>Comments</h3>
+		<ul>
+			{% for comment in post.commentary_set.all %}
+				<li>{{ user.username }}: {{ comment.content }}</li>
+			{% endfor %}
+		</ul>
+	{% if user.is_authenticated %}
+		<form method="post" action="{% url "blog:add-comment" pk=post.id %}" novalidate>
+			{% csrf_token %}
+			{{ form|crispy }}
+			<button type="submit">Add Comment</button>
+		</form>
+	{% endif %}
+{% endblock %}
