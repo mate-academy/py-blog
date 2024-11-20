@@ -1,0 +1,10 @@
+<ul style="list-style: none">
+  {% if user.is_authenticated %}
+    <li>User: {{ user.get_username }}</li>
+    <li><a href="{% url "logout" %}">Logout</a></li>
+  {% else %}
+    <li><a href="{% url "login" %}">Login</a></li>
+  {% endif %}
+</ul>
+<br>
+<a href="{% url "blog:index" %}">Home</a>
