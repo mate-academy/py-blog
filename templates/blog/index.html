@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% for post in post_list %}
+    <div class="list-group list-group-item list-group-item-action">
+      <div class="w-100 justify-content-between">
+        <a href="{% url 'blog:post-detail' pk=post.id %}">
+          <h3>{{ post.title }}</h3>
+        </a>
+        <p>
+          Created at
+          <strong>
+            {{ post.created_time }}
+          </strong> by
+          <strong>
+            {{ post.owner.username }}
+          </strong>
+        </p>
+        <p>{{ post.content|linebreaks }}</p>
+        <hr>
+        <p>
+          Post have {{ post.commentaries.count }}
+          comment{{ post.commentaries.count|pluralize }}
+        </p>
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}
