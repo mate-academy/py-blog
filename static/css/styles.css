@@ -1,0 +1,23 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.container-fluid {
+    padding: 10px 15px;
+}
+
+.pagination {
+    justify-content: center;
+}
+
+.post-list .table tr {
+    max-height: 100px;
+    overflow: hidden;
+}
+
+.post-list .table .td-content,
+ .post-list .table .th-content {
+    max-width: 600px;
+}
