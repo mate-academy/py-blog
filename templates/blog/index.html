@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% for post in post_list %}
+    <div>
+      <a class="post_title" href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a>
+      <div class="box post">
+        <p>{{ post.content }}</p>
+      </div>
+      <p class="author_timestamp">{{ post.owner }}, {{ post.created_time }}</p>
+    </div>
+  {% endfor %}
+
+
+  {% if is_paginated %}
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a href="?page={{ page_obj.previous_page_number }}" class="page-link">prev</a>
+      </li>
+    {% endif %}
+
+    <li class="page-item active">
+      <span class="page-link">{{ page_obj.number }} of {{ paginator.num_pages }}</span>
+    </li>
+
+    {% if page_obj.has_next %}
+      <li class="page-item">
+        <a href="?page={{ page_obj.next_page_number }}" class="page-link">next</a>
+      </li>
+    {% endif %}
+  </ul>
+  {% endif %}
+{% endblock %}
