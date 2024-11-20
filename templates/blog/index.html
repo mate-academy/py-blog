@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+ <h1 style="text-align: center">Welcome to blog</h1>
+
+ {% if post_list %}
+   {% for post in post_list %}
+      <div class="container">
+        <hr>
+      <h2><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h2>
+      <h6>
+        <i class="fa-regular fa-user"></i> {{ post.owner }},
+        <i class="fa-regular fa-clock"></i> {{ post.created_time }},
+        <i class="fa-regular fa-comment-dots"></i> Comments({{ post.commentaries.count }})
+      </h6>
+      <p>{{ post.content }}</p>
+      <br><br>
+      </div>
+   {% endfor %}
+   {% else %}
+     <div class="container">
+       <h5 style="text-align: center">No any posts!</h5>
+     </div>
+ {% endif %}
+  {% block pagination %}
+    {% include "includes/pagination.html" %}
+  {% endblock %}
+{% endblock %}
