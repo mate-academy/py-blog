@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+  <h2>{{ post.title }}</h2>
+  <p>Author: <strong style="color: #003366">{{ post.owner }}</strong> </p>
+
+  <div class="article_text">
+    {{ post.content }}
+  </div>
+  <br>
+  <p>Created on: <strong style="color: #003366"> {{ post.created_time }}</strong></p>
+   <p>Number of comments: <strong style="color: #003366">{{ post.commentary_set.count }}</strong></p>
+
+  <h3 style="color: #417690 ">Comments</h3>
+  {% if comments %}
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>User</th>
+          <th>Comment</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for comment in comments %}
+          <tr>
+            <td>{{ comment.user.username }}</td>
+            <td>{{ comment.content }}</td>
+            <td>{{ comment.created_time }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No comments yet.</p>
+  {% endif %}
+
+{% endblock %}
+{% block comment_form %}
+{% include "blog/comment_form.html" %}
+{% endblock %}
+
+<h1>{{ post.title }}</h1>
+<p>{{ post.content }}</p>
+
+<h3>Add Comment</h3>
+<form method="post">
+    {% csrf_token %}
+      {{ form.as_p }}
+    <button type="submit">Submit</button>
+</form>
