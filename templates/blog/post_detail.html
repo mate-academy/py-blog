@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <h1>Title: {{ post.title }}</h1>
+  <p>by {{ post.owner }} at {{ post.created_time}}</p>
+  <p>{{ post.content }}</p>
+
+  <p>{{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}</p>
+  {% if post.commentaries.count == 0 %}
+    There are no comments yet...
+  {% else %}
+    {% for comment in post.commentaries.all %}
+      <p>
+        <h5>{{ comment.user }}</h5> at {{ comment.created_time }}
+        <br>
+        {{ comment.content }}
+      </p>
+    {% endfor %}
+  {% endif %}
+  <h2>Leave your comment!</h2>
+  <div id="comments_section">
+    {% if user.is_authenticated %}
+    <form method="POST">
+      {% csrf_token %}
+      <div class="form-group">
+{#        {{ comment_form|crispy }}#}
+          {{ form|crispy }}
+        <button class="btn btn-info" type="submit">Add comment <i class="fas fa-comments"></i></button>
+      </div>
+    </form>
+    {% else %}
+    <a class="btn btn-outline-info" href="{% url 'login' %}?next={{request.path}}">Log in to add a comment!</a><br>
+    {% endif %}
+  </div>
+  <p><a href="{% url 'blog:index' %}">Back to homepage click here</a></p>
+{% endblock %}
