@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.owner.username }} {{ post.created_time }}</p>
+  <p class="text-content">{{ post.content }}</p>
+
+  <p>{{ post.comments.count }} comment{{ post.comments.count|pluralize }}</p>
+  {% if post.comments %}
+    {% for comment in post.comments.all %}
+      <div class="comment">
+        <p>{{ comment.user.username }}  {{ comment.created_time }}</p>
+        <hr>
+        <p class="comment-content">{{ comment.content }}</p>
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  <p>
+    <a href="{% url 'blog:commentary-create' pk=post.id %}">Create new comment</a>
+  </p>
+
+{% endblock %}
