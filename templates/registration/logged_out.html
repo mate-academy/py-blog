@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% csrf_token %}
+  <h3>Logged Out</h3>
+  <a href="{% url "login" %}">Click here to log again</a>
+{% endblock %}
