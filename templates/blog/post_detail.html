@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="detail-container">
+    <div class="post-detail">
+      <h4>{{ post.title }}</h4>
+      {{ post.owner.username }} at {{ post.created_time }}
+      <h6>{{ post.content }}</h6>
+    </div>
+    <div class="comment-detail">
+      {{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}
+        {% for commentary in post.commentaries.all %}
+          <div class="comment-data">
+            {{ commentary.user.username }} {{ commentary.created_time }}<br>
+          </div>
+          <div class="comment-data">
+            {{ commentary.content }}
+          </div>
+          <br>
+        {% empty %}
+          <p>There are no comments yet.</p>
+        {% endfor %}
+    </div>
+    {% block add_comment %}
+      {% include "blog/commentary_form.html" %}
+    {% endblock %}
+  </div>
+
+{% endblock %}
