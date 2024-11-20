@@ -1,0 +1,21 @@
+{% load crispy_forms_filters %}
+
+<div class="card-footer py-3 border-0">
+  <div class="d-flex flex-start w-100">
+    <div class="form-outline w-100">
+      {% if user.is_authenticated %}
+      <form class="comment-action" method="post" action="{% url 'blog:comment-create' pk=post_id %}">
+        {% csrf_token %}
+          {{ form|crispy }}
+        <div style="margin-top: 5px">
+        <button type="submit" class="btn btn-primary btn-sm">Post comment</button>
+        </div>
+      </form>
+      {% else %}
+      <p class="text-center mt-3">
+        Please <a style="color:#0085A1" href="{% url 'login' %}?next={{ request.path }}">login</a> to post a comment.
+      </p>
+      {% endif %}
+    </div>
+  </div>
+</div>
