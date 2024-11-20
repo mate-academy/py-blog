@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <small class="text-body-secondary">{{ post.owner }} at {{post.created_time}}</small>
+  <br>
+  <br>
+  <p class="lead">{{ post.content }}</p>
+  <br>
+  <p class="lead">{{ post.comments.count }} comment{{ post.comments.count|pluralize }}</p>
+  {% if post.comments.count == 0 %}
+    <small class="text-body-secondary">There are no comments yet.</small>
+  {% endif %}
+  <ul class="list-group list-group-flush">
+    {% for comment in post.comments.all %}
+      <li class="list-group-item">
+        <b>{{ comment.user }}</b>
+        <small class="text-body-secondary">{{ comment.owner }} at {{comment.created_time}}</small>
+        <p class="lead"> {{ comment.content }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+  {% if user.is_authenticated %}
+    {% load crispy_forms_filters %}
+    <h3>Add a new comment:</h3>
+    <form method="post" action="{% url 'blog:post-detail' pk=post.id %}">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input class="btn btn-outline-secondary" type="submit" value="Add a comment">
+    </form>
+  {% else %}
+    <p>To add a comment please <a href="{% url 'login' %}">log in</a>.</p>
+  {% endif %}
+{% endblock %}
