@@ -1,0 +1,34 @@
+{% extends 'blog/home_page.html' %}
+
+{% block content %}
+  <div class="detail-page">
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.owner.first_name }} at {{ post.created_time }}</p>
+    <p class="post-content">{{ post.content }}</p>
+    <h4 style="text-align: left">{{ post.comment.count }} comments</h4>
+    <div class="comment">
+        {% for comment in post.comment.all %}
+          <p class="comment-element">{{ comment.user.username }}({{ comment.created_time }}) <br>
+            {{ comment.content }}</p>
+        {% endfor %}
+      </div>
+    <br>
+  {% if user.is_authenticated %}
+    <h3 style="text-align: center;">Add comment to push this post in top!</h3>
+    {% if error %}
+      <p>{{ error }}</p>
+    {% endif %}
+    <form action="" method="post" >
+      {% csrf_token %}
+      <label>
+        <input type="text" size="50px" name="content">
+      </label>
+      <br>
+      <input class="btn btn-success" type="submit" value="Add comment">
+    </form>
+  {% else %}
+    <h5 style="color: red">Login to write comments</h5>
+  {% endif %}
+ </div>
+{% endblock %}
+
