@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block title %}
+  {{ post.title }}
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <div class="card mb-4">
+      <div class="card-body">
+        <h2 class="card-title">{{ post.title }}</h2>
+        <p class="card-text text-muted">
+          Author: {{ post.owner.username }}
+        </p>
+        <p class="card-text text-muted">Published on {{ post.created_time|date:"F d, Y" }}</p>
+        <p class="card-text">{{ post.content }}</p>
+      </div>
+    </div>
+
+    <h3>{{ post.comments.count }} comments:</h3>
+    <h5><strong>Add a new comment:</strong></h5>
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <br>
+      <input type="submit" value="Comment" class="button">
+    </form>
+    <br>
+    {% for comment in post.comments.all %}
+      <div class="card mb-2">
+        <div class="card-body">
+          <p><strong>{{ comment.user.username }} {% if comment.user == user %} <span class="text-muted">(You)</span>{% endif %}</strong> - {{ comment.created_time|date:"F d, Y H:i" }}</p>
+          <p>{{ comment.content }}</p>
+        </div>
+      </div>
+    {% empty %}
+      <li class="list-group-item">
+        <h5 class="text-muted">There are no comments for this post.</h5>
+      </li>
+    {% endfor %}
+
+  </div>
+{% endblock %}
