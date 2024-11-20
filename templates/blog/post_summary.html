@@ -1,0 +1,5 @@
+<h2><a href="{% url 'blog:post-detail' post.pk %}">{{ post.title }}</a></h2>
+<p>{{ post.content }}</p>
+<p>Author: {{ post.owner }}</p>
+<p>Created Time: {{ post.created_time }}</p>
+<p>Number of Comments: {{ post.commentary_set.count }}</p>

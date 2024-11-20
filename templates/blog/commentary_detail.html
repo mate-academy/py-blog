@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Commentary Details</h1>
+  <hr>
+  <p>User: {{ commentary.user }} ({{ commentary.created_time }})</p>
+  <p>Content: {{ commentary.content }}</p>
+
+{% endblock %}
