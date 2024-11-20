@@ -1,0 +1,42 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+  <div class="container p-4">
+  {% if post_list %}
+    {% for post in post_list %}
+        <div class="border rounded p-2 mb-4">
+          <div class="d-flex w-100 justify-content-between">
+            <a class="h4 mb-1 text-decoration-none link-primary" href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+            {% with num_comments=post.comments.count %}
+              <small>{{ num_comments }} comment{{ num_comments|pluralize }}</small>
+            {% endwith %}
+          </div>
+          <p class="mb-1">{{ post.content|truncatewords:50 }}</p>
+          <small class="text-muted">{{ post.owner.first_name }} {{ post.owner.last_name }}, {{ post.created_time }}</small>
+        </div>
+    {% endfor %}
+  {% else %}
+    <p>
+      There are no posts yet.
+    </p>
+  {% endif %}
+  </div>
+
+  {% if is_paginated %}
+    <nav class="container">
+      <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Prev</a></li>
+        {% else %}
+          <li class="page-item"><a class="page-link disabled" href="">Prev</a></li>
+        {% endif %}
+        <li class="page-item"><a class="page-link disabled" href="#">{{ page_obj.number }}</a></li>
+        {% if page_obj.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a></li>
+        {% else %}
+          <li class="page-item"><a class="page-link disabled" href="">Next</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+  <div class="container p-4">
+    <div class=" mb-4">
+      <div class="d-flex w-100 justify-content-between">
+        <span class="h4 mb-1 text-primary">{{ post.title }}</span>
+      </div>
+      <p class="mb-1">{{ post.content }}</p>
+      <small class="text-muted">{{ post.owner.first_name }} {{ post.owner.last_name }}, {{ post.created_time }}</small>
+
+      <br><br>
+
+      {% with num_comments=post.comments.count %}
+        <span>{{ num_comments }} comment{{ num_comments|pluralize }}</span>
+      {% endwith %}
+        {% for comment in post.comments.all %}
+          <div class="border rounded p-2 mb-4">
+            <p>
+              {{ comment.user.username }} <small class="text-muted">{{ comment.created_time }}</small>
+            </p>
+            <hr>
+            <p>{{ comment.content }}</p>
+          </div>
+        {% empty %}
+          <div class="mb-4">
+            There are no comments yet.
+          </div>
+        {% endfor %}
+
+      {% if user.is_authenticated %}
+        <form action="{% url 'blog:post-add-comment' post.pk %}" method="post" novalidate>
+          {% csrf_token %}
+          <label for="content" class="form-label"><strong>Add a new comment</strong></label>
+          <textarea class="form-control mb-2" style="height: 100px" name="content"></textarea>
+          <input class="btn btn-primary" type="submit" value="Add comment">
+        </form>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
