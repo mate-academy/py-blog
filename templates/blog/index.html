@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>All Posts</h1>
+  {% for post in post_list %}
+
+    <div class="list-group">
+      <a href="{% url 'blog:post-detail' pk=post.id %}" class="list-group-item list-group-item-action flex-column align-items-start">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{ post }}</h5>
+        <small>{{ post.created_time }}</small>
+      </div>
+      <p class="mb-1">{{ post.content }}</p>
+      <small>Comments: {{ post.post_comments.count }}</small>
+      </a>
+    </div>
+    <br>
+  {% endfor %}
+{% endblock %}
