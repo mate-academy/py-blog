@@ -1,0 +1,22 @@
+<hr>
+
+{% extends "base.html" %}
+    {% block content %}
+    <h3><strong>Welcome to Our Blog!</strong></h3>
+      <hr>
+    <h2>Posts</h2>
+    <ul>
+        {% for post in post_list %}
+            <li><h2 style="text-decoration: underline"><a href="{% url "blog:post-detail" pk=post.id %}">{{ post.title }}</a> </h2></li>
+            <strong>{{ post.owner }}</strong> ({{ post.created_time }})
+            <br>
+            <hr>
+            <strong>content:</strong> <div style="font-style: italic; font-size: 18px">
+          <li>
+              {{ post.content }} </li>
+          </div>
+            <li><strong>commentaries:</strong> {{ post.commentaries.all.count }}</li>
+            <br>
+        {% endfor %}
+    </ul>
+{% endblock %}
