@@ -1,0 +1,36 @@
+.title {
+    text-align: center;
+    padding: 15px;
+}
+.main_block {
+    width: 900px;
+    margin: 10px auto;
+}
+.post {
+    margin-bottom: 50px;
+}
+.p-style {
+    margin: 4px
+}
+.post_content {
+    padding: 15px;
+    background-color: cornsilk;
+    text-align: justify;
+}
+.username_time {
+    font-size: 14px;
+}
+.commentaries_count {
+    font-size: 17px;
+}
+.pagination {
+  margin: 0 auto 30px;
+}
+
+th {
+    font-weight: normal;
+}
+.logout {
+    margin: 50px auto 10px;
+    text-align: center;
+}
