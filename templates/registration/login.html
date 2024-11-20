@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% load static %}
+{% block content %}
+  <h1 class="custom-header">Sign in</h1>
+  <div class="custom-form">
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+    <br>
+    <a href="{% url 'sign-up' %}">
+      <button class="btn btn-primary" type="submit">Create an account</button>
+    </a>
+  </div>
+{% endblock %}
