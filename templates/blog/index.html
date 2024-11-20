@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Blog System Home</h1>
+  <p>Welcome to Best Blog Ever!</p>
+  <h2>Dynamic content</h2>
+  <p>The Blog system has the following record counts:</p>
+  <ul>
+    <li><strong>Posts:</strong> {{ num_posts }}</li>
+    <li><strong>Users:</strong> {{ num_users }}</li>
+    <li><strong>Commentaries:</strong> {{ num_commentaries }}</li>
+  </ul>
+
+  <p>You have visited this page
+    {{ num_visits }} time{{ num_visits|pluralize }}.
+  </p>
+
+{% endblock %}
