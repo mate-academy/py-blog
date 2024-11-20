@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ post.title }}
+    <button onclick="history.back()" class="btn btn-outline-primary">←</button>
+  </h1>
+  <p>{{ post.owner }} {{ post.created_time }}</p>
+  <p class="text-justify">{{ post.content }}</p>
+  <p>{{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}</p>
+  {% if post.commentaries.all %}
+    {% for comment in post.commentaries.all %}
+      <div class="mb-3 pl-2 pr-2 table-bordered">
+        <p>
+          <p class="border-bottom pb-2"><strong>{{ comment.user.username }}</strong> {{ comment.created_time }}
+        </p>
+        <p class="text-justify">{{ comment.content }}</p>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>There are no comments yet</p>
+  {% endif %}
+  {% include "includes/commentary_form.html" %}
+{% endblock %}
