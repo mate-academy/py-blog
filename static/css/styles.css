@@ -1,0 +1,115 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    background-color: lightgrey;
+
+}
+
+.container-fluid {
+    max-width: 980px;
+}
+
+.nav-item {
+    font-size: 25px;
+    color: white;
+    text-decoration: none;
+}
+
+.nav-item:hover {
+    color: green;
+}
+
+.content {
+    margin: 0 auto;
+    background-color: white;
+    max-width: 980px;
+    min-height: 100vh;
+}
+
+.head-title {
+    padding: 20px;
+    text-align: center;
+}
+
+.post-content {
+    margin: 0;
+    padding: 20px;
+}
+
+.post-content:hover {
+    background-color: #f7f7f7;
+}
+
+.head-post {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.post-link {
+    text-decoration: none;
+    color: green;
+}
+
+.post-link:hover {
+    color: #006b1b;
+}
+
+.post-info {
+    font-style: italic;
+    color: gray;
+}
+
+.post-body {
+    text-align: justify;
+}
+
+.comment-info {
+    font-weight: bold;
+}
+
+hr {
+    margin: 0;
+}
+
+.post-detail {
+    padding: 20px;
+}
+
+.commentary {
+    padding: 10px;
+    margin: 10px;
+    border: 2px solid rgba(3, 3, 3, 0.2);
+    border-radius: 8px;
+}
+.commentary:hover {
+    background-color: #f7f7f7;
+}
+
+.head-login {
+    text-align: center;
+    padding: 20px;
+}
+
+.logged {
+    text-align: center;
+}
+
+.logged-link {
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.logged-link:hover {
+    color: red;
+}
+
+.button-login {
+    margin: 30px 0;
+}
+
+.form-login {
+    max-width: 480px;
+    margin: 0 auto;
+}

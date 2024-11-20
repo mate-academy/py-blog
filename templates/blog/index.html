@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Home page{% endblock %}
+
+{% block content %}
+  <h1 class="head-title">Posts List</h1>
+  <hr>
+  {% for post in post_list %}
+    <div class="post-content">
+      <h3 class="head-post">
+        <a class="post-link" href="{% url 'blog:post-detail' pk=post.pk %}">{{ post.title }}</a>
+      </h3>
+      <p class="post-info">
+        {{ post.owner|capfirst }} at {{ post.created_time }}
+      </p>
+      <p class="post-body">
+        {{ post.content|truncatewords:20 }}
+      </p>
+      {% with post.comments.count as total_comments %}
+        <p class="comment-info">This post has {{ total_comments }} comment{{ total_comments|pluralize }}</p>
+      {% endwith %}
+    </div>
+    {% if not forloop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+  
+  {% include 'includes/pagination.html' with page=post_list %}
+  
+{% endblock %}
