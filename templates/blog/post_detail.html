@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.content }}</p>
+  <p>Author: {{ post.owner.username }}</p>
+  <p>Created: {{ post.created_time }}</p>
+
+  <h5>Comments: {{ post.commentaries.count }}</h5>
+  <ul>
+      {% for commentary in post.commentaries.all %}
+        <li style="list-style-type: none">{{ commentary.user }}</li>
+        <li style="list-style-type: none">{{ commentary.created_time }}</li>
+        <li style="list-style-type: none">{{ commentary.content }}</li>
+        <hr style="border-top: 3px solid black;">
+    {% endfor %}
+  </ul>
+  {% if user.is_authenticated %}
+    {% include "blog/commentary_form.html" %}
+    {% else %}
+    <div>
+    <p> <strong> Please register to write a comment</p>
+    </div>
+    <br>
+  {% endif %}
+
+{% endblock %}
