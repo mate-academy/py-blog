@@ -1,0 +1,14 @@
+<span class="name">Simple blog</span>
+
+{% block pagination %}
+  {% include "includes/pagination.html" %}
+{% endblock %}
+
+<nav class="nav">
+  {% if user.is_authenticated %}
+    <span class="nav_link">User: {{ user.username }}</span>
+    <a class="nav_link" href="{% url 'logout' %}">Logout</a>
+  {% else %}
+    <a class="nav_link" href="{% url 'login' %}">Login</a>
+  {% endif %}
+</nav>

@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="post">
+    <h2>Logged out!</h2>
+    <a class="nav_link" href="{% url 'login'%}">Click here to login again.</a>
+  </div>
+{% endblock %}
