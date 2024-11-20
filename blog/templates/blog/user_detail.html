@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <p>User: {{ user.username }}, ({{ user.first_name }} {{ user.last_name }})</p>
+  <h1>Posts</h1>
+  <hr>
+  <ul>
+    {% for post in user.posts.all %}
+      <li><a href="{% url "blog:post-detail" pk=post.id %}">{{ post.title }}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}
