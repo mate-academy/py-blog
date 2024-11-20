@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  {% block title %}
+    <title>Головна сторінка</title>
+  {% endblock %}
+
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link rel="stylesheet" href="{% static 'css/styles_of_pagination.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style_post_detail.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style_header.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style_form.css' %}">
+
+</head>
+<body>
+
+{% block header %}
+  <header>
+    <h1 style="color: white">Блог</h1>
+    <nav aria-label="Main Navigation">
+      <ul class="nav-links">
+        <li><a href="{% url 'blog:index' %}">Home</a></li>
+
+        {% if user.is_authenticated %}
+          <li>{{ user.username }}</li>
+          <li><a href="#">Profile</a></li>
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+        {% else %}
+          <li><a href="{% url 'login' %}">Login</a></li>
+          <li><a href="#">Register</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+  </header>
+{% endblock %}
+
+<main>
+  {% block content %}
+  {% endblock %}
+
+  {% block pagination %}
+    {% include "includes/pagination.html" %}
+  {% endblock %}
+</main>
+
+<footer>
+  <p>&copy; 2024 Блог. Всі права захищені.</p>
+</footer>
+
+</body>
+</html>
