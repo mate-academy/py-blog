@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="blog-post">
+    <h2 class="blog-post-title">{{ post.title }}</h2>
+    <p class="blog-post-meta">{{ post.created_time }} by <a href="#">{{ post.owner }}</a></p>
+    <p>{{ post.content }}</p>
+  </div>
+  <h4>Comments:</h4>
+  {% if post.commentaries.all %}
+    {% for commentary in post.commentaries.all %}
+      <div class="card">
+        <div class="card-body">
+          <h6 class="card-subtitle mb-2 text-muted">{{ commentary.created_time }}, <a href="#">{{ commentary.user }}</a>
+          </h6>
+          <p class="card-text">{{ commentary.content }}</p>
+        </div>
+      </div>
+      <br>
+    {% endfor %}
+  {% else %}
+    <p>There are no commentaries in this post.</p>
+  {% endif %}
+  <h4>Create a new comment:</h4>
+
+  <form action="" method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <label>Add some text:
+      <input type="text" name="comment">
+    </label>
+    <br>
+  </form>
+  {% if user.is_authenticated %}
+    <input type="submit" value="Add comment">
+  {% else %}
+    <p>can not add comment</p>
+  {% endif %}
+
+{% endblock %}
