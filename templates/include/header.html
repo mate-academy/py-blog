@@ -1,0 +1,19 @@
+<header>
+  <nav>
+    <h3>
+      <a href="{% url 'blog:index' %}">Home</a>
+    </h3>
+    <h2>
+      <strong>Welcome to the blog!</strong>
+    </h2>
+    {% if user.is_authenticated %}
+      <h3>
+        <a href="{% url 'logout' %}">Logout</a>
+      </h3>
+    {% else %}
+      <h3>
+        <a href="{% url 'login' %}">Log in</a>
+      </h3>
+      {% endif %}
+  </nav>
+</header>

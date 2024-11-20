@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block header %}
+  {% include "include/header_login.html" %}
+{% endblock %}
+
+{% block content %}
+  {% if form.errors %}
+  <p style="color: red">Invalid credentials</p>
+  {% endif %}
+  <form class="form-login" action="{% url 'login' %}" method="post">
+  {% csrf_token %}
+    {{ form.as_p }}
+    <input class="btn btn-primary"  type="submit" name="submit" value="Log in">
+    <input type="hidden" name="next" value="{{ next }}">
+  </form>
+{% endblock %}

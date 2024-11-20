@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <li class="post-section">
+    <h2>{{ post.title }}</h2>
+    <p class="author" >
+      {{ post.owner.first_name }} {{ post.owner.last_name }}
+    </p>
+    <p class="publish-date">
+      {{ post.created_time }}
+    </p>
+    <p class="post-content">{{ post.content }}</p>
+  </li>
+  {% if post.commentaries.all %}
+    <li class="post-section">
+      <h4>Commentaries:</h4>
+      {% for comment in post.commentaries.all %}
+        <hr>
+        <p class="author" >
+          {{ comment.user.username }}
+        </p>
+        <p class="publish-date">
+          {{ comment.created_time }}
+        </p>
+        <p class="comment">
+          {{ comment.content }}
+        </p>
+      {% endfor %}
+    </li>
+  {% endif %}
+  <li class="post-section">
+    <h4>Add a comment:</h4>
+    <form action="{% url 'blog:post-create-comment' post.pk %}" method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="submit" class="btn btn-primary" value="Submit">
+    </form>
+  </li>
+{% endblock %}
