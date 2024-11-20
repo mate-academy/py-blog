@@ -1,0 +1,17 @@
+<ul class="nav flex-column">
+  {% if user.is_authenticated %}
+    <li class="nav-item">User: {{ user.username }}</li>
+    <li>
+      <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <input class="btn btn-outline-secondary btn-sm" type="submit" value="logout">
+      </form>
+    </li>
+  {% else %}
+    <a class="btn btn-outline-primary btn-sm" href="{% url 'login' %}?next={{ request.path }}">login</a>
+  {% endif %}
+  <br>
+  <li>
+    <a href="{% url 'blog:post-list' %}">Posts</a>
+  </li>
+</ul>
