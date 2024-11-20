@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <h1>{{ post.title }}</h1>
+        <p>{{ post.content }}</p>
+        <h3>Comments</h3>
+        <ul class="list-group">
+          {% if post.comments %}
+            {% for comment in post.comments.all %}
+              <li class="list-group-item">{{ comment.content }}</li>
+            {% endfor %}
+          {% else %}
+            <li class="list-group-item">No comments yet.</li>
+          {% endif %}
+        </ul>
+        <h5 class="mt-4">Add a Comment</h5>
+        <form method="post" action="">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <button type="submit" class="btn btn-primary mt-2">Add Comment</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
