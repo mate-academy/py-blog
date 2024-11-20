@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 class="page_title"><strong>Welcome to the BLOG</strong></h1>
+
+  {% for post in post_list %}
+    <div class="container_for_post">
+      <a href="{% url 'blog:post-detail' post.id%}"><h4><strong>{{ post.title }}</strong></h4></a>
+      <p><strong>{{ post.content }}</strong></p>
+      <p>comments to the post: <strong>{{ post.commentaries.count }}</strong></p>
+    </div>
+  {% endfor %}
+
+{% endblock %}
