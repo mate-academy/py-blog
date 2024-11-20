@@ -1,0 +1,12 @@
+{% load crispy_forms_filters %}
+{% block add_comment %}
+    <h8>Leave a comment</h8>
+    <form method="post" action="" novalidate>
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="text" class="content">
+      <input type="submit" value="Submit" class="btn btn-primary">
+      <br>
+      <br>
+    </form>
+{% endblock %}

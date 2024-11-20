@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  Author: {{ post.owner }}
+  <br>
+  Created: {{ post.created_time }}
+
+  <h1>{{ post.title }}</h1>:
+  <br>
+  {{ post.content }}
+  <br>
+  <br>
+
+  <br>
+  <br>
+  {% block add_comment %}
+    {% include "includes/add_comment.html" %}
+  {% endblock %}
+  Comments:
+  {% if comments %}
+  <ul>
+    {% for comment in comments %}
+      <h5>{{ comment.user }}:</h5>
+      {{ comment }}   ({{ comment.created_time }})
+      <br><br>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+{% endblock %}
