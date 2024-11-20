@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+
+<div class="db-block">
+  <h2 style="font-size: 50px; text-align: center;">Login</h2>
+  <hr style="border-top: 1px solid rgba(255, 255, 255, .5);">
+
+  <form class="login" action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input class="btn btn-outline-light" type="submit" value="Submit">
+    <input type="hidden" name="next" value="{{ next }}">
+  </form>
+</div>
+{% endblock %}
