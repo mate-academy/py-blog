@@ -1,0 +1,10 @@
+body {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+
+.post_title{
+    text-align: center;
+    color: blue;
+}

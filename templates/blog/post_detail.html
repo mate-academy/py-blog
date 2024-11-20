@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <h1 class="post_title">
+      {{ post.title }}
+    </h1>
+    <p>
+        <strong>Username:</strong> {{ post.owner.username }}
+    </p>
+    <p>
+      <strong>Created:</strong> {{ post.created_time }}
+    </p>
+
+    <div>
+      <strong>Content</strong>
+      <p> {{ post.content }}</p>
+    </div>
+    <p><strong>Comments:</strong></p>
+    {% for comment in post.commentary_set.all %}
+      <hr>
+      <p class="text-success"><strong>{{ comment.user.username }}</strong></p>
+      <p class="text-muted">
+        <strong>Posted:</strong>
+        {{ comment.created_time }}
+      </p>
+      <p>
+        {{ comment.content }}
+      </p>
+    {% empty %}
+      <p>No comments!</p>
+    {% endfor %}
+    
+    {% if request.user.is_authenticated %}
+    <a href="{% url "blog:add-comment" pk=post.id %}">Write a comment!</a>
+  {% else %}
+    <p>You need to "login" in order to comment on this post.</p>
+    <a href="{% url "login" %}" class="text-danger">Please login for write comment</a>
+  {% endif %}
+
+{% endblock %}
