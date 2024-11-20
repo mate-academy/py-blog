@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Post {{ post.title }}</h1>
+  <h3>Owner of post: </h3>{{ post.owner}}
+  <h4>Content:</h4> {{ post.content }}
+  <br>
+  {% if post.commentaries %}
+    <ul>
+      {% for commentary in post.commentaries.all %}
+        <li>
+          <p>Time: {{ commentary.created_time }}</p>
+          <p><strong>User </strong> {{ commentary.user }}:  {{ commentary.content }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no comment to this post</p>
+  {% endif %}
+   <a class= "btn-danger" href="{% url "blog:commentary-create" pk=post.id%}"> Create new comment</a>
+{% endblock %}
+
