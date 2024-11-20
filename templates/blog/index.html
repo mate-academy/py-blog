@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-11 col-md-11 col-11 pb-4">
+      <div class="comment mt-4 text-justify float-left">
+        <h1>Posts</h1>
+      </div>
+        {% for post in post_list %}
+          {% if forloop.counter|divisibleby:2 == 0 %}
+            <div class="comment mt-4 text-justify float-left">
+              <h4>
+                <a
+                  href="{% url 'blog:post-detail' pk=post.id %}">
+						    {{ post.title }}
+					      </a>
+              </h4>
+              <span>{{ post.owner.username }}.user at {{ post.created_time }}</span>
+              <br>
+              <p>{{ post.content }}</p>
+              <p>Comments ({{ post.comments.count }})</p>
+            </div>
+          {% else %}
+            <div class="darker mt-4 text-justify">
+              <h4>
+                <a
+                  href="{% url 'blog:post-detail' pk=post.id %}">
+                  {{ post.title }}
+                </a>
+              </h4>
+              <span>{{ post.owner.username }}.user at {{ post.created_time }}</span>
+              <br>
+              <p> {{ post.content }}</p>
+              <p>Comments ({{ post.comments.count }})</p>
+            </div>
+          {% endif %}
+        {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
