@@ -1,0 +1,17 @@
+<h3 class="title is-3"><a href="{% url 'blog:index' %}">Main page</a></h3>
+<br>
+{% if user.is_authenticated %}
+  <h4 class="title is-4"><a href="{{ user.get_absolute_url }}">{{ user.get_username }}</a></h4>
+  <p><a href="{% url 'logout' %}">logout</a></p>
+{% else %}
+  <h5><a href="{% url 'login' %}">login</a></h5>
+{% endif %}
+
+{% if num_users %}
+  <br>
+  <table class="table is-striped">
+    <tr><td><strong>Users registered: </strong>{{ num_users }}</tr></td>
+    <tr><td><strong>Posts: </strong>{{ num_posts }}</tr></td>
+    <tr><td><strong>Commentaries: </strong>{{ num_comments }}</tr></td>`
+  </table>
+{% endif %}

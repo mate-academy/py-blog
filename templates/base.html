@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <title>Blog - {% block title %}{% endblock %}</title>
+</head>
+<body>
+  <section class="hero is-small is-success mb-4">
+    <div class="hero-body">
+      <p class="subtitle is-4">
+        Small Blog on Django
+      </p>
+    </div>
+  </section>
+  <div class="columns">
+      <div class="column is-one-fifth">
+        <div class="box">
+        {% block sidebar %}
+          {% include "includes/sidebar.html" %}
+        {% endblock %}
+      </div>
+      </div>
+      <div class="column">
+        {% block content %}{% endblock %}
+        {% block pagination %}
+          {% include "includes/pagination.html" %}
+        {% endblock %}
+      </div>
+  </div>
+</body>
+</html>

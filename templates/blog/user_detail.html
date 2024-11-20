@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {{ author.username }}
+{% endblock %}
+
+{% block content %}
+  <h1 class="title">
+    {{ author.username }}
+    {% if author == user %}
+      (my profile)
+    {% endif %}
+  </h1>
+  <hr>
+  <h4 class="subtitle is-4"><strong>First name:</strong> {{ author.first_name }}</h4>
+  <h4 class="subtitle is-4"><strong>Last name:</strong> {{ author.last_name }}</h4>
+  <h4 class="subtitle is-4"><strong>Email:</strong> {{ author.email }}</h4>
+  <p><strong>User posts:</strong> {{ author.posts__count }}</p>
+  <p><strong>User commentaries:</strong> {{ author.comments__count }}</p>
+{% endblock %}

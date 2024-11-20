@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Login
+{% endblock %}
+
+{% block content %}
+
+{% if next %}
+  <p>You got to be logged in to proceed!</p>
+  <br>
+{% endif %}
+
+{% if form.errors %}
+  <p style="color: crimson">Invalid credentials!</p>
+{% endif %}
+
+  <form class="box" method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <div class="field">
+      <label class="label">Username</label>
+      <div class="control">
+        <input name="username" class="input" type="text qq">
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Password</label>
+      <div class="control">
+        <input name="password" class="input" type="password">
+      </div>
+    </div>
+    <button type="submit" name="login" class="button is-primary">Login</button>
+    <input type="hidden" name="next" value="{{ next }}">
+  </form>
+{% endblock %}
