@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+  {% block title %}
+    <h1>All messages</h1>
+  {% endblock %}
+
+  {% block content %}
+    {% if user.is_authenticated %}
+    User: {{ user.username }}<br>
+    <a style="color: maroon" href="{% url 'logout' %}">Logout</a>
+  {% else %}
+  <a style="color: maroon" href="{% url 'login' %}">Login</a>
+  {% endif %}
+  <br>
+  {% for post in page_obj %}
+    <div class="container">
+      <h3><a class="link" href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h3>
+      <br>
+      <span>{{ post.owner }} at {{ post.created_time }}</span>
+      <p>
+        <br>
+          {{ post.content }}
+        <br>
+      <span style="font-weight: bold">{{ post.comments.count }} comment{{ post.comments.count|pluralize }}</span>
+    </div>
+    <hr>
+  {% endfor %}
+  {% endblock %}
+  {% block pagination %}
+    {% include "includes/pagination.html" %}
+  {% endblock %}

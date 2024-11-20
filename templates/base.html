@@ -1,0 +1,16 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <title>Blog</title>
+</head>
+<body>
+
+  {% block title %}{% endblock %}
+  {% block content %}{% endblock %}
+  {% block pagination %}{% endblock %}
+</body>
+</html>
