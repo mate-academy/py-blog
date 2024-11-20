@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    {% for post in post_list %}
+
+      <a class="container" href="{% url "blog:post-detail" pk=post.pk %}" style="text-decoration: none;">
+
+
+      <div class="card text-white bg-dark mb-2" style="max-width: 110rem; margin-left: 100px;">
+        <div class="card-header">
+            <span>{{ post.title }}</span>
+
+        </div>
+        <div class="card-body">
+          <p class="card-text">{{ post.content}}.</p>
+         </div>
+      </div>
+
+      </a>
+      {% empty %}
+      <p>There are no posts in our blog yet...</p>
+      {% endfor %}
+
+{% endblock %}
