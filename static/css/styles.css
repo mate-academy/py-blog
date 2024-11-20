@@ -1,0 +1,42 @@
+body {
+    margin-top: 20px;
+    background: #b7ddb7;
+}
+.sidebar-nav {
+    padding: 0;
+    list-style: none;
+}
+.list-group-item {
+    background-color: powderblue;
+}
+.item_list {
+    width: 500px;
+    display: inline-block;
+}
+.bold-text {
+    font-weight: bold;
+    font-size: 20px;
+}
+.title {
+    margin-right: 40px;
+}
+textarea.form-control{
+    height: 60px;
+}
+.truncate-text {
+  padding: 1rem;
+  width: 800px;
+  height: 104px;
+  overflow: hidden;
+  position: relative;
+}
+
+.truncate-text:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(180deg, transparent, #b7ddb7 50%);
+}
