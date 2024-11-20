@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <h3>Created date: {{ post.created_time }}</h3>
+  <h3>Commentaries:</h3>
+  <hr>
+  {% if post.comments %}
+    {% for comment in post.comments.all %}
+      <h5>
+        User: {{ comment.user }} {{ comment.created_time }}
+        <br>
+        Comment: {{ comment.content }}
+      </h5>
+      <hr>
+    {% endfor %}
+
+  {% endif %}
+
+    <form action="{% url 'blog:comment-create' post.id %}" method="post" novalidate>
+      {% csrf_token %}
+      <label for="content" class="form-label"><strong>Add a new commentary</strong></label>
+      <textarea class="form-control mb-2" style="height: 100px" name="content"></textarea>
+      <input class="btn btn-primary" type="submit" value="Add comment">
+  </form>
+
+{% endblock %}
