@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+
+  <div class="card">
+
+    <h1 class="mb-1 text-center card-header">{{ post.title }}</h1>
+    <div class="card-body">
+      <h6 class="card-title">Created by <span class="text-primary">{{ post.owner.username }}</span></h6>
+      <p class="card-text">{{ post.content }}</p>
+      <small class="card-title d-flex justify-content-end">{{ post.created_time }}</small>
+    </div>
+
+    <div class="card-footer">
+      <ul class="list-group">
+        {% for comment in post.comments.all %}
+          <li class="list-group-item">
+            <small class="text-primary">{{ comment.user.username }}</small>
+            <p class="text">{{ comment.content }}</p>
+            <small class="d-flex justify-content-end">{{ comment.created_time }}</small>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    {% if user.is_authenticated %}
+      <form class="col-md" method="post" action="{% url 'blog:post-detail' pk=post.pk %}">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input class="btn btn-primary" type="submit" value="Submit">
+      </form>
+    {% else %}
+      <div class="d-flex justify-content-center">
+        <p>
+          You should
+          <a href="{% url 'login' %}?next={{ request.path }}">log in </a>
+          to add comments!
+        </p>
+      </div>
+    {% endif %}
+  </div>
+
+{% endblock %}
