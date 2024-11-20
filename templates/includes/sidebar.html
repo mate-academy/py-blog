@@ -1,0 +1,11 @@
+<ul class="sidebar-nav">
+  {% if user.is_authenticated %}
+    User: {{ user.username }}
+    <br>
+    <a href="{% url 'logout' %}">Logout</a>
+    <br>
+  {% else %}
+    <a href="{% url 'login' %}">Account login</a>
+    <br>
+  {% endif %}
+</ul>
