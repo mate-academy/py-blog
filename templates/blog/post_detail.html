@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h1>{{ post.title }}</h1>
+    <p class="text-muted">{{ post.owner.username }} at {{ post.created_time }}</p>
+    <p>{{ post.content }}</p>
+    <div class="mt-4">
+      <p><strong>{{ post.comments.count }} comment{{ post.comments.count|pluralize }}</strong></p>
+      {% for comment in post.comments.all %}
+        <div class="card mb-3">
+          <div class="card-header">
+            <p class="text-muted">{{ comment.user.username }} at {{ comment.created_time }}</p>
+          </div>
+          <div class="card-body">
+            <p class="card-text">{{ comment.content }}</p>
+          </div>
+        </div>
+      {% endfor %}
+      {% if user.is_authenticated %}
+        <form action="" method="post">
+          {% csrf_token %}
+          {{ comment_form|crispy }}
+
+          <input type="submit" value="Submit">
+        </form>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
