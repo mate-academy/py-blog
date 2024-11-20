@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <br>
+  <h6>{{ post.owner.first_name }} {{ post.owner.last_name }} {{ post.created_time }}</h6>
+  <p>{{ post.content }}</p>
+  <h6>{{ post.comments.count }} comment{{ post.comments.count|pluralize }}</h6>
+    {% for comment in post.comments.all %}
+      <div class="list-group-item">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <h6 class="mb-0"> {{ comment.user.username }}, <small><i>{{ comment.created_time }}</i></small></h6>
+          </div>
+        </div>
+        <div>
+          <p style="font-size: 15px; font-weight: normal;">{{ comment.content }}</p>
+        </div>
+      </div>
+    {% endfor %}
+    {% if user.is_authenticated %}
+      <div class="comments">
+        <h3> Create comment</h3>
+        <form action="{% url 'blog:commentary-create' post.id %}" method="post">
+          {% csrf_token %}
+          <div>
+            <input class="list-group-item" type="text" name="content" value="{{ content }}">
+            <input type="hidden" name="post_id" value="{{ post.id }}">
+            <input type="hidden" name="user_id" value="{{ user.id }}">
+            <input type="hidden" name="created_time" value="{{ created_time }}">
+
+            <br>
+            <input type="submit"  value="Create">
+          </div>
+        </form>
+      </div>
+    {% endif %}
+{% endblock %}
