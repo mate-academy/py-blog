@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Welcome to My Awesome Blog{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'blog/css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>My Awesome Blog</h1>
+        <nav>
+            <a href="{% url 'blog:index' %}">Home</a>
+            <a href="{% url 'blog:about' %}">About</a>
+            <a href="{% url 'blog:contact' %}">Contact</a>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2024 My Awesome Blog. All rights reserved.</p>
+    </footer>
+
+    <script src="{% static 'blog/js/scripts.js' %}"></script>
+</body>
+</html>
