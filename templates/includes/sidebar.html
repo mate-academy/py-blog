@@ -1,0 +1,9 @@
+<div style="text-align: center">
+  <a href="{% url 'blog:index' %}"><b>All posts</b></a>
+  {% if user.is_authenticated %}
+    <b>{{ user.username }}</b>
+       <a href="{% url 'logout' %}">Logout</a>
+  {% else %}
+    <a href="{% url 'login' %}?next={{ request.path }}">Login</a>
+  {% endif %}
+</div>
