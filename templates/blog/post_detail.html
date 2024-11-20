@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+  <div class="container row col-md-8">
+    <ul>
+      <li>Post title: {{ post.title }}</li>
+      <li>Author: {{ post.owner.username }}</li>
+      <br>
+      <p>Text: <br>{{ post.content }}</p>
+      <li>
+        {% if post.commentary_set.all %}
+          <h4>Comments:</h4>
+          <ul>
+            {% for comment in comments %}
+              <li>{{ comment.user.username }} - {{ comment.content }} ({{ comment.created_time }})</li>
+            {% endfor %}
+          </ul>
+          {% if comments.has_other_pages %}
+            <ul class="pagination">
+              {% if comments.has_previous %}
+                <li><a href="?page={{ comments.previous_page_number }}">Previous</a></li>
+              {% endif %}
+              {% for i in comments.paginator.page_range %}
+                {% if comments.number == i %}
+                  <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+                {% else %}
+                  <li><a href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+              {% endfor %}
+              {% if comments.has_next %}
+                <li><a href="?page={{ comments.next_page_number }}">Next</a></li>
+              {% endif %}
+            </ul>
+          {% endif %}
+        <h4>Add a Comment:</h4>
+          <form action="{% url 'blog:commentary-create' post.pk %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="content">
+            <input type="submit" value="Submit" class="btn btn-primary">
+          </form>
+        {% endif %}
+          </li>
+        </ul>
+  </div>
+
+
+{% endblock %}
