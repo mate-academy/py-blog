@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="my-3">
+  <h2>{{ post.title }}</h2>
+  <small class="text-muted">{{ post.owner }} {{ post.created_time }}</small>
+  <p class="fs-4">{{ post.content }}</p>
+</div>
+<div class="my-3">
+  {% for comment in post.comments.all %}
+  <div class="card my-3">
+    <div class="card-header">
+      {{ comment.user }}
+    </div>
+    <div class="card-body">
+      <p class="card-text">{{ comment.content }}</p>
+      <small class="text-muted">{{ comment.created_time }}</small>
+    </div>
+  </div>
+  {% endfor %}
+  <hr>
+  <form class="form-control my-4" method="POST" action="{% url 'blog:add-comment' pk=post.pk %}">
+    {% csrf_token %}
+    <label for="comment-area" class="form-label">Add comment</label>
+    <textarea class="form-control" id="comment-area" rows="3" name="content"></textarea>
+    <input type="text" name="post_id" value="{{ post.pk }}" hidden>
+    <button class="btn btn-secondary my-2">Add comment</button>
+  </form>
+</div>
+{% endblock content %}
