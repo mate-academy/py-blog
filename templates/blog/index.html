@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <br>
+  <h1>Lates News</h1>
+  <style>
+    h1 {
+        font-family: Tahoma;
+        background-color: mediumpurple;
+        text-align: center;
+
+    }
+    h2 {
+        margin-top: 100px;
+        font-family: Arial, Helvetica, sans-serif;
+        border-color: #94b24d;
+
+    }
+
+  </style>
+
+  <br>
+
+  {% for post in post_list %}
+    <a href="{% url "blog:post-detail" pk=post.id %}"><h2>{{ post.title }}</h2></a>
+    <small>{{ post.owner }} at {{ post.created_time }} </small>
+    <br>
+    <br>
+    <p class="text-justify">{{ post.content|truncatewords:30 }}</p>
+
+    <br>
+    Number of comments: {{ post.comments.count }}
+    <br>
+    <br>
+  {% endfor %}
+
+{% endblock %}
