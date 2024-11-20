@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="width-70rem">
+    <h1 class="posts-title">Posts
+      <a
+          style="float: right"
+          class="btn btn-primary"
+          href="{% url 'blog:post-create' %}"
+      >Add Post</a>
+    </h1>
+    {% if post_list %}
+      {% for post in post_list %}
+        <div class="card mb-3">
+          <div class="card-body">
+            <h3 class="card-title">
+              <a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a>
+              <span class="badge bg-primary">{{ post.commentaries.count }}</span>
+            </h3>
+            <h6 class="card-subtitle mb-2 text-body-secondary">
+              {{ post.created_time|date:"Y-m-d H:i" }}, created by
+              <a href="{% url 'blog:user-detail' pk=post.owner.id %}">#{{ post.owner.username }}</a>
+            </h6>
+            <p class="card-text">{{ post.content|truncatewords:20 }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>No posts.</p>
+    {% endif %}
+  </div>
+{% endblock %}
