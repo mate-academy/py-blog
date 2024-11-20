@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <a href="{% url "blog:index" %}">Go back</a>
+  <h1>
+    {{ post.title }}
+    {% if request.user == post.owner %}
+      | <a href="{% url "blog:post-update" post.id %}" class="btn btn-secondary">Edit</a>
+        <a href="{% url "blog:post-delete" post.id %}" class="btn btn-secondary">Delete</a>
+    {% endif %}
+  </h1>
+  <p class="text-muted">{{ post.owner }} at {{ post.created_time }}</p>
+  <p>{{ post.content }}</p>
+  <br>
+
+  <p>{{ post.get_comments.count }} comment{{ post.get_comments.count | pluralize }}</p>
+
+  {% if not post.get_comments %}
+    <p>There are no comments yet.</p>
+  {% endif %}
+
+  {% for comment in post.get_comments %}
+    <div class="border card-body">
+      {{ comment.user }} <small class="text-muted">{{ comment.created_time }}</small>
+      <hr>
+      {{ comment.content }}
+    </div>
+    <br>
+  {% endfor %}
+
+  <p><strong>Add a new comment</strong></p>
+  {% if request.user.is_authenticated %}
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form | crispy }}
+      <input type="submit" value="Add comment" class="btn btn-dark">
+    </form>
+  {% else %}
+    <a href="{% url "login" %}">Login first</a>
+  {% endif %}
+
+{% endblock %}
