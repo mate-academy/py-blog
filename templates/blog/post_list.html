@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>The best blogs</h1>
+  <br>
+  {% for post in post_list %}
+    <div class="card">
+      <div class="card-body">
+        <h4><a href="{% url "blog:post-detail" post.id %}">{{ post.title }}</a></h4>
+        <h6 class="card-subtitle mb-2 text-muted">
+          {{ post.owner.get_full_name }} at {{ post.created_time }}
+        </h6>
+        <p class="card-text"> {{ post.content|truncatewords_html:30 }}</p>
+        <p> Comments count : <span class="badge badge-primary">{{ post.commentaries.count }}</span></p>
+      </div>
+    </div>
+    <br>
+  {% endfor %}
+{% endblock %}

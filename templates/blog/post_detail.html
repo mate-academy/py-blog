@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h2> {{ object.title }} </h2>
+  <h4> {{ object.owner.get_full_name }} at {{ object.created_time }} </h4>
+  <br>
+  <p> {{ object.content }}</p>
+  <br>
+  <hr>
+  <h6>Commentaries:</h6>
+  {% for commentary in object.commentaries.all %}
+    <div class="card">
+      <div class="card-body">
+        <h6> {{ commentary.user.get_full_name }} at {{ commentary.created_time }} </h6>
+        {{ commentary.content }}
+      </div>
+    </div>
+    <br>
+  {% endfor %}
+  <form action="" method="POST">
+    {% csrf_token %}
+    {{ form|crispy }}
+    {% if user.is_authenticated %}
+      <button type="submit" class="btn btn-primary">Add comment</button>
+    {% else %}
+      <button type="submit" class="btn btn-primary" disabled>Add comment</button>
+      <p>Please <a href="{% url 'login' %}">login</a> to comment</p>
+    {% endif %}
+  </form>
+{% endblock %}
