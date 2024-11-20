@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block header %}
+  <div class="header">
+      Welcome to the FacePalm blogs!
+  </div>
+{% endblock %}
+
+{% block content %}
+
+  <h1>Latest posts</h1>
+
+  {% for post in post_list %}
+    <div class="post">
+      <h4><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a>
+      <small>by {{ post.owner.username }} at {{ post.created_time }}</small>
+      </h4>
+      <p>{{ post.content }}</p>
+      {% with comment_num=post.comments.count %}
+        {{ comment_num }} comment{{ comment_num|pluralize }}
+      {% endwith %}
+    </div>
+  {% endfor %}
+
+{% endblock %}
