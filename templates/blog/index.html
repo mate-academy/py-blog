@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Blog Home page!</h1>
+  <h3>It`s awesome project, where you can find people for you!</h3>
+
+  <br>
+  <h3>All posts</h3>
+  <ul>
+    {% for post in post_list %}
+      <li>
+        <h5>
+          Title: <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+        </h5>
+        <p><strong>Content = </strong>{{ post.content }}</p>
+        <p>
+          <strong>Author: </strong> {{ post.owner }} |
+          <strong>Created at: </strong>{{ post.created_time }} |
+          <strong>Number of comments: </strong> {{ post.commentary.count }}
+        </p>
+      </li>
+    {% endfor %}
+  </ul>
+  <br>
+
+
+{% endblock %}
