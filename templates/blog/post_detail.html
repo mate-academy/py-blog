@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% if post.comments.all %}
+    <h1>{{ post.title }}</h1>
+    <h6>{{ post.owner }} at {{ post.created_time }}</h6>
+    <p>{{ post.content }}</p>
+
+    <br>
+    {{ post.comments.count }} comments
+    {% for comment in post.comments.all %}
+      <ul class="list-group">
+        <li class="list-group-item">{{ comment.user }}, {{ comment.created_time }}</li>
+        <li class="list-group-item">{{ comment.content }}</li>
+      </ul>
+      <br>
+    {% endfor %}
+
+  {% endif %}
+  <a class="btn btn-primary" href="{% url 'blog:comment-create' post.id%}">Add comment</a>
+{% endblock %}
