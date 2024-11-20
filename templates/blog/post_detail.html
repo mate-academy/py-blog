@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+
+
+{% block content %}
+  <p>Post: ({{ post.title }})</p>
+
+  <h1>{{ post.title }} </h1><h3>{{ post.owner }}</h3>
+  <p>{{ post.created_time }}</p>
+  <hr>
+  <fieldset>
+      <p>{{ post.content }}</p>
+  </fieldset>
+  <hr>
+  <ul>
+  {% for comment in post.commentaries.all %}
+        <hr>
+        <p><strong>{{ comment.user  }}</strong> {{ comment.content }}</p>
+        <p>{{comment.created_time }}</p>
+
+
+    {% empty %}
+      <p>No comments!</p>
+    {% endfor %}
+  </ul>
+  <a  href="{% url 'blog:commentary-create' pk=post.id %}" class="btn btn-secondary" >Comment</a>
+    {% if user.is_superuser or post.owner == user %}
+      <a  href="{% url 'blog:post-update' pk=post.id %}" class="btn btn-secondary" >Update</a>
+      <a href="{% url 'blog:post-delete' pk=post.id %}" class="btn btn-danger ">
+          Delete
+      </a>
+  {% endif %}
+{% endblock %}
