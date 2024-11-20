@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <br>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-7">
+        <h1>{{ post.title }}
+          <button onclick="history.back()" class="btn btn-outline-primary">←</button>
+        </h1>
+        <p>
+          {{ post.content }}
+        </p>
+        <p class="mb-3 table-bordered">
+          Author: {{ post.owner }}
+          <br>
+          Edited at: {{ post.created_time }}
+        </p>
+        <h4>Comments</h4>
+        {% if post.commentaries.all %}
+          {% for comment in post.commentaries.all %}
+            <p class="mb-3 table-bordered">
+            <p><strong>{{ comment.user.username }}</strong> commented at {{ comment.created_time }}
+            </p>
+            <p>{{ comment.content }}</p>
+            </p>
+          {% endfor %}
+        {% else %}
+          <p>No comments yet.</p>
+        {% endif %}
+        {% if user.is_authenticated %}
+          {% include "blog/commentary_form.html" %}
+        {% else %}
+          <p>Please <a href="{% url 'login' %}">log in</a> to add a comment.</p>
+        {% endif %}
+      </div>
+      <div class="col-md-4 col-lg-5"></div>
+    </div>
+  </div>
+{% endblock %}
