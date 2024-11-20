@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="card-container">
+    <div class="card p-3">
+      <h3>{{ post.title }}</h3>
+      <p style="margin-bottom: 0">{{ post.owner }}</p>
+      <p class="text-secondary"><i>{{ post.created_time }}</i></p>
+      <p>{{ post.content }}</p>
+    </div>
+    <div class="card mb-3 p-3" id="commentaries">
+      <b class="pl-3 mb-3" id="commentaries">Commentaries</b>
+      <ul class="list-group">
+        {% if post.commentaries %}
+          {% for commentary in post.commentaries.all %}
+            <li class="list-group-item p-2">
+              <b>{{ commentary.user.first_name }} {{ commentary.user.last_name }}</b>
+              <p class="text-secondary mb-1" style="font-size: 0.8em">{{ commentary.created_time }}</p>
+              <p>{{ commentary.content }}</p>
+            </li>
+          {% endfor %}
+        {% endif %}
+      </ul>
+      <div id="commentary-form" class="pt-3">
+        {% if user.is_authenticated %}
+          <form action="" method="post">
+            {% csrf_token %}
+            {{ commentary_form|crispy }}
+            <input type="submit" value="Submit" class="btn btn-primary">
+          </form>
+        {% else %}
+          <p class="pl-3 pt-2">
+            <a href="{% url 'login' %}?next={{ request.path }}#commentary-form">Log in</a> to leave a commentary.
+          </p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
