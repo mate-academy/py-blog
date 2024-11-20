@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h1>All Posts</h1>
+  {% for post in page_obj %}
+    <div>
+      <h2><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h2>
+      <p>{{ post.content|truncatechars_html:200 }}</p>
+      <p>Author: {{ post.owner }}</p>
+      <p>Created time: {{ post.created_time }}</p>
+      <p>Number of comments: {{ post.commentaries.count }}</p>
+    </div>
+    <hr>
+  {% empty %}
+    <p>No posts available.</p>
+  {% endfor %}
+{% endblock %}
