@@ -1,0 +1,54 @@
+<div class="comments">
+    <p>{{ post.comments.count }} comment{{ post.comments.count|pluralize }}</p>
+    <form action="{% url 'blog:post-detail' pk=post.pk %}" method="post">
+      {% csrf_token %}
+      {% if user.is_authenticated %}
+        <div class="comment-input">
+          <div class="row">
+            <div class="col-sm-3 col-xs-4">
+              {{ comment_form.as_p }}
+            </div>
+            <button class="btn btn-primary btn-xs" type="submit">Comment</button>
+          </div>
+        </div>
+      {% else %}
+        <p><a href="{% url 'login' %}?next={{ request.path }}">Log in</a> to write a comment</p>
+      {% endif %}
+    </form>
+    {% if post.comments %}
+      <ul>
+        {% for comment in post.comments.all %}
+          <li>
+            <div class="row">
+              <div class="col-sm-2">
+                <strong>{{ comment.user }}</strong>
+              </div>
+              {{ comment.created_time }}
+            </div>
+            <p>{{ comment.content }}</p>
+            {% if user.is_authenticated and user == comment.user %}
+              <div class="row">
+                <form method="post" action="{% url 'blog:edit-comment' comment.id %}">
+                  {% csrf_token %}
+                  <div class="col-sm-1">
+                    <textarea name="edited_content">{{ comment.content }}</textarea>
+                  </div>
+                  <div class="col-sm-1">
+                    <button class="btn btn-warning" type="submit">Edit</button>
+                  </div>
+                </form>
+                <form method="post" action="{% url 'blog:delete-comment' comment.id %}">
+                  {% csrf_token %}
+                  <div class="col-sm-1">
+                    <button class="btn btn-danger" type="submit">Delete</button>
+                  </div>
+                </form>
+              </div>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <strong class="text-secondary">No comments yet...</strong>
+    {% endif %}
+  </div>
