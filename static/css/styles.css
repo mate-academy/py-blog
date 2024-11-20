@@ -1,0 +1,9 @@
+.page-link {
+    height: 100%;
+}
+
+.disabled-link {
+    color: black;
+    background-color: dimgrey;
+    pointer-events: none;
+}
