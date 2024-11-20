@@ -1,0 +1,36 @@
+body {
+    margin-top: 40px;
+}
+
+h1 {
+    text-align: center;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.login, .logout {
+    text-align: center;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.comment {
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid grey
+}
+
+.article {
+    font-size: 20px;
+    font-style: italic;
+    text-align: justify;
+}
