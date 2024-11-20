@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div style="background: rgba(255,255,255,0.7); padding-left: 20px">
+  {% if post %}
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.owner }} at {{ post.created_time }}</p>
+    <p>{{ post.content }}</p>
+    <hr>
+    {% for comment in post.comments.all %}
+      <div class="comment">
+          <div class="date">
+              {{ comment.created_time }}
+              {% if not comment.approved %}
+                  <a class="btn btn-default" style="color: red" href="{% url 'blog:comment-remove' pk=comment.pk %}">
+                      Remove
+                  </a>
+              {% endif %}
+          </div>
+          <strong>{{ comment.user }}</strong>
+          <p>{{ comment.content|linebreaks }}</p>
+      </div>
+    {% empty %}
+      <p>No comments here yet :(</p>
+    {% endfor %}
+  {% else %}
+    <h1>Post not found</h1>
+  {% endif %}
+  {% if user.is_authenticated %}
+    {% include "includes/add_comment_to_post.html" %}
+  {% else %}
+    <div>
+      <p><strong>Please register to write a comment</strong></p>
+    </div>
+    <br>
+  {% endif %}
+  </div>
+{% endblock %}
