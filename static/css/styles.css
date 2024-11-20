@@ -1,0 +1,19 @@
+body {
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.main-page-posts{
+    list-style-type: none;
+}
+
+.commentary {
+    border: 2px solid #aaa;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-bottom: 30px;
+}
+
+.sidebar-nav {
+    list-style: none;
+}
