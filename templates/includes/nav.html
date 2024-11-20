@@ -1,0 +1,13 @@
+<div class="navig">
+  <div class="logo">
+    <a href="{% url "blog:index" %}"><strong>Blog Web Page</strong></a>
+  </div>
+  <div class="status">
+    {% if user.is_authenticated %}
+      <strong>{{ user.username }}</strong>
+      <a href="{% url "logout" %}">Log out</a>
+    {% else %}
+      <a href="{% url "login" %}">Log in</a>
+    {% endif %} 
+  </div>
+</div>

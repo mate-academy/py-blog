@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block nav %}
+
+{% endblock %}
+
+
+{% block content %}
+  
+  <h1>Log in</h1>
+  
+  {% if form.errors %}
+    <p>Invalid credentials</p>
+  {% endif %} 
+  
+  <form method="POST" action="{% url "login" %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Login">
+  </form>
+  
+  
+{% endblock %}
