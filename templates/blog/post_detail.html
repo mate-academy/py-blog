@@ -1,0 +1,40 @@
+{% extends "blog/../base.html" %}
+
+{% block content %}
+  <div class="modal-content"><h2>
+    Title: {{ post.title }}
+  </h2>
+
+    <p><strong>First name:</strong> {{ post.owner }}</p>
+    <p><strong>Created at:</strong> {{ post.created_time|date:'d-m-Y G:i' }}</p>
+
+
+    <div style="margin-bottom: 20px">
+      <h3>
+        See comments below:
+      </h3>
+    </div>
+    <div>
+      {% for comment in post.commentary_set.all %}
+        <p style="color: grey; font-size: 12px; padding: 0">
+          <strong>{{ comment.user }}</strong>
+          commented at
+          {{ comment.created_time|date:'d-m-Y G:i' }}
+        </p>
+        <p>{{ comment.content }}</p>
+        <hr>
+      {% empty %}
+        No comments yet, be first :)
+      {% endfor %}
+    <div class="posts_create posts_blocks">
+    <h2 class="posts_create posts_blocks">
+      <a href="{% url 'blog:create-comment' %}"
+         class="posts_blocks ">
+        Create comment
+      </a>
+    </h2>
+    </div>
+
+    </div>
+  </div>
+{% endblock %}

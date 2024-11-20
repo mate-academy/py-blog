@@ -1,0 +1,86 @@
+html {
+    background-color: azure;
+}
+
+body {
+    margin: 100px;
+}
+
+
+ul {
+    list-style-type: none;
+}
+
+
+.posts_blocks {
+    text-align: center;
+    border: 2px cadetblue;
+    border-radius: 6px;
+    color: black;
+    font-size: 30px;
+}
+
+.posts_header {
+    background-color: lightgray;
+}
+
+.posts_create {
+    background-color: cornflowerblue;
+}
+
+.top_block {
+    width: 100%;
+    height: 60px;
+    display: inline-flex;
+}
+
+.welcome_title {
+    text-align: center;
+    justify-content: center;
+    background-color: antiquewhite;
+    border: 2px cadetblue;
+    border-radius: 6px;
+    width: 80%;
+    height: 100%;
+}
+
+.registration {
+    background-color: lightsalmon;
+    border: 2px cadetblue;
+    border-radius: 6px;
+    width: 20%;
+    height: 100%;
+
+}
+
+.index_pagination {
+    margin: 20px auto;
+    padding-bottom: 20px;
+    width: 12em
+}
+
+
+.buttons {
+    border: solid 1px;
+    border-radius: 6px;
+    width: 150px;
+    margin-bottom: 5px;
+}
+
+.button_details {
+    color: green;
+}
+
+.button_update {
+    color: cornflowerblue;
+}
+
+.button_delete {
+    color: red;
+}
+
+.modal-content {
+    padding: 20px;
+}
+
+
