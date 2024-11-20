@@ -1,0 +1,16 @@
+<ul class="list-group">
+  {% if user.is_authenticated %}
+    <li class="list-group-item">
+      <a class="btn btn-primary" href="{% url 'blog:profile' %}" role="button">
+        User: {{ user.username }}
+      </a>
+    </li>
+  {% else %}
+    <li class="list-group-item">
+      <a href="{% url 'blog:profile' %}">Profile</a>
+    </li>
+  {% endif %}
+  <li class="list-group-item">
+    <a href="{% url 'blog:index' %}">Home</a>
+  </li>
+</ul>
