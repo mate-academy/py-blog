@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Home Page</h1>
+  <table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Authors</th>
+      <th scope="col">Title</th>
+      <th scope="col">Content</th>
+      <th scope="col">Commentaries</th>
+      <th scope="col">Date</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for post in post_list %}
+    <tr>
+      <th scope="row">
+        {{ post.owner.first_name }} {{ post.owner.last_name }}
+      </th>
+      <td><a href="{%  url "blog:post-detail" pk=post.id %}">{{ post.title }}</a></td>
+      <td>{{ post.content }}</td>
+      <td>{{ post.commentaries.all.count }}</td>
+      <td>{{ post.created_time }}</td>
+    </tr>
+  {% endfor %}
+
+
+  </tbody>
+  </table>
+{% endblock %}
