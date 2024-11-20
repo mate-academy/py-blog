@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Blog WORK</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+    }
+    h1 {
+      margin-top: 20px;
+      text-align: center;
+      font-size: 32px;
+      font-weight: bold;
+    }
+    ul {
+      margin: 20px 0;
+      list-style: none;
+    }
+    li {
+      margin: 10px 0;
+    }
+    l {
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <h1>List of Posts:</h1>
+  {% if post_list %}
+  <ul>
+    {% for post in post_list %}
+      <li><h3><a href="{% url "blog:post-detail" pk=post.id %} ">{{ post.title }}</a></h3></li>
+      <li>{{ post.content }}</li>
+        <l>Created by {{ post.owner }} on {{ post.created_time }} Commented: {{ post.count_comments }}</l>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</body>
+{% endblock %}
+</html>
