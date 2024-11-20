@@ -1,0 +1,12 @@
+.venv
+.idea
+
+# Ignore Python compiled files
+*.pyc
+__pycache__/
+
+# Ignore environment files
+.env
+
+# Ignore SQLite database files
+*.sqlite3
