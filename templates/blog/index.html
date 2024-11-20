@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="alert alert-dark" role="alert">
+    <div class="d-flex justify-content-center">
+      <h1>WELCOME TO OUR BLOG!</h1>
+    </div>
+  </div>
+  <hr><hr><hr>
+
+  {% if post_list %}
+    {% for post in post_list %}
+      <h2>
+        <a href="{% url 'blog:post-detail' pk=post.id %}">
+          <div class="d-flex justify-content-center">
+            {{ post.title }}
+          </div>
+        </a>
+      </h2>
+
+      <p>
+        <b>
+        Created by: {{ post.owner }}.
+        Created at: {{ post.created_time }}
+        </b>
+      </p>
+
+      <div class="alert alert-success" role="alert">
+        <br><p>{{ post.content }}</p>
+      </div>
+
+      <hr>
+      <div class="post-comment">
+        <p>
+          Number of commentaries: {{ post.commentaries.count }}
+        </p>
+      </div>
+      <hr>
+    {% endfor %}
+
+  {% else %}
+    <hr>
+    <h3>There are no posts yet.</h3>
+    <hr>
+  {% endif %}
+
+{% endblock %}
