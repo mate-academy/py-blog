@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+  <h1>Main page</h1>
+  
+  {% if post_list %}
+    {% for post in post_list %}
+    <div class="list-group-item">
+      <h3><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post }}</a></h3>
+      <p>{{ post.content|truncatewords:10 }}</p>
+      <p>
+        Commentar{{ post.commentaries.count|pluralize:"y,ies" }}: {{ post.commentaries.count }}; 
+      </p>
+      <p><i>Date: {{ post.created_time }}</i></p>
+    </div>
+    <br>
+    {% endfor %}
+  {% else %}
+    <p>There is no any post</p>
+  {% endif %}
+    
+    
+{% endblock  %}
