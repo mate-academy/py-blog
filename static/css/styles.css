@@ -1,0 +1,31 @@
+* {
+    font-family: sans-serif;
+}
+
+.content {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.content p {
+    line-height: 1.5rem;
+}
+
+.post-list {
+    list-style: none;
+}
+
+.pagination-list {
+    list-style: none;
+}
+
+.pagination-item {
+    display: inline-block;
+    padding: 5px;
+    border: black 1px solid;
+}
+
+.comment-header {
+    display: inline-block;
+    margin-right: 20px;
+    margin-bottom: 0;
+}
