@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h5><a href="{% url "login" %}">Login</a></h5>
+	<h5><a href="{% url "logout" %}">logout</a></h5>
+	{% for post in post_list %}
+	    <h1><a href="{% url "blog:post-detail" post.pk %}">{{ post.title }}</a></h1>
+        <h2>Created by: {{ post.owner }}</h2>
+        <h3>{{ post.content }}</h3>
+        <h4>Posted at: <strong>{{ post.created_time }}</strong></h4>
+        <h4>{{ post.comments.count }} <strong>comments</strong></h4>
+        <hr>
+	{% endfor %}
+
+{% endblock %}
