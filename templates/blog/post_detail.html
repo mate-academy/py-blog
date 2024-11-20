@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <h6>{{ post.owner.username }} at {{ post.created_time }}</h6>
+  <p>{{ post.content }}</p>
+  <h5>Comment{{ post.comments_counter|pluralize }}: {{ post.comments_counter }}</h5>
+  <ul class="blog-list">
+    {% for commentary in post.commentaries.all %}
+      <li class="blog-item">
+        {{ commentary.user.username }} at {{ commentary.created_time }}
+        <br>
+        {{ commentary.content }}
+      </li>
+    {% endfor %}
+  </ul>
+  <form action="" method="post" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    {% if form.errors %}
+      <p style="color: red">{{ form.errors.unauthorized }}</p>
+    {% endif %}
+    <input type="submit" value="Submit" class="btn btn-primary">
+  </form>
+
+{% endblock %}
