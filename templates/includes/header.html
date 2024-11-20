@@ -1,0 +1,15 @@
+<div class="navbar navbar-dark bg-dark shadow">
+  <div class="container">
+    <a href="{% url "blog:index" %}" class="navbar-brand d-flex align-items-center">
+      <strong>Blog</strong>
+    </a>
+    <div class="auth">
+      {% if user.is_authenticated %}
+        <span class="text-white">Welcome, {{ user.username }}</span>
+        <a class="auth_button" href="{% url "logout" %}?next={{ request.path }}">Log out</a>
+      {% else %}
+        <a class="auth_button" href="{% url "login" %}?next={{ request.path }}">Log in</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
