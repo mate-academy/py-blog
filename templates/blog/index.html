@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+  <title>Home page</title>
+{% endblock %}
+
+
+{% block content %}
+  <h1>Blog home</h1>
+  <p>Welcome to the new blog-site!</p>
+  <h5>Blog content:</h5>
+  <ul>
+    <li>Num users: {{ num_users }}</li>
+    <li>Num posts: {{ num_posts }}</li>
+  </ul>
+
+  {% if post_list %}
+    <h5>Here you can see the list of posts:</h5>
+    {% for post in post_list %}
+      <li><a style="font-size: x-large" href="{% url 'blog:post-detail'  pk=post.id %}">{{ post.title }}</a>
+        <h6 style="font-size: small">post by: {{ post.owner.username }} ({{ post.owner.first_name }} {{ post.owner.last_name }})</h6>
+        <h6 style="font-size: small">created at: {{ post.created_time }}, post has {{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}</h6>
+        <p>{{ post.content }}</p>
+      </li>
+    {% endfor %}
+  {% endif %}
+{% endblock %}
+
+
+{% block pagination %}
+  {% include "includes/pagination.html" %}
+{% endblock %}
