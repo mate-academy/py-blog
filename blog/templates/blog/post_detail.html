@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1> {{ post.title }}</h1>
+<div class="post"> {{ post.content }}</div>
+{{ num_comments }} comment{{ num_comments|pluralize }}
+
+{% for commentary in comments %}
+  <div class="comment">
+    <div class="user"> {{ commentary.user }}, {{commentary.created_time}}</div>
+    <div class="line"></div>
+    <p> {{ commentary.content }} </p>
+  </div>
+{% empty %}
+<br>
+<p>Нет комментариев</p>
+{% endfor %}
+
+<div class="add_comment">Добавить комментарий</div>
+
+<form action="{% url 'blog:post-detail' post.id %}" method="post">
+  {% csrf_token %}
+  {{ form.content }}
+  <br>
+  <input class="btn btn-primary" type="submit" value="Комментировать">
+</form>
+
+{% endblock %}
