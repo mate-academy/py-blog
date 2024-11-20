@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Home page`s blog</h1>
+  <br>
+  <h2>New posts</h2>
+  <ul style="list-style-type: none">
+    {% if post_list %}
+      {% for post in post_list %}
+        <li>
+          <div class="block-post">
+            <a class="post-title-link" href="{% url 'blog:post-detail' pk=post.pk %}"><h3 class="post-title">{{ post.title }}</h3></a>
+            <em>{{ post.content }}</em>
+
+            <br>
+            <br>
+
+            <strong>Author: {{ post.owner.username }}</strong>
+            <strong style="position: absolute; right: 20px">
+              {% if post.commentaries.count %}
+                {{ post.commentaries.count }} Commentar{{ post.commentaries.count|pluralize:"y,ies" }}
+              {% else %}
+                No Commentaries
+              {% endif %}
+            </strong>
+            <br>
+            <p style="position: absolute; right: 20px">{{ post.created_time }}</p>
+            <br>
+
+          </div>
+
+        </li>
+      {% endfor %}
+
+    {% endif %}
+  </ul>
+
+{% endblock %}

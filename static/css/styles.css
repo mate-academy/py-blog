@@ -1,0 +1,42 @@
+body {
+    margin: 20px 10px 10px 0;
+    background-color: #000000;
+}
+
+.block-post {
+    background-color: #fff;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 20px;
+    position: relative;
+}
+
+.post-title-link:hover {
+    text-decoration: none;
+}
+
+.post-title:hover {
+    background-color: #cccccc;
+    color: #000000;
+    width: 100%;
+    padding: 5px 5px 5px 62px;
+    cursor: pointer;
+}
+
+.post-title {
+    color: #595959;
+    border-radius: 10px;
+    padding: 5px 5px 5px 60px;
+    background-color: #f1f1f1;
+}
+
+.comment-submit:hover {
+
+    border-radius: 10px;
+
+}
+
+.comment-submit {
+    border-radius: 10px;
+}
+

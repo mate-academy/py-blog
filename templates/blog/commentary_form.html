@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>Create commentary</h1>
+
+  <div style="max-width: 750px; margin: 0 auto; border-radius: 10px; background-color:#ffffff; padding: 20px 40px">
+    <div style="font-weight: bold">
+      <form action="" method="post" novalidate>
+        {% csrf_token %}
+        {{ form|crispy }}
+
+
+        <input class="btn btn-dark comment-submit" type="submit" value="Add comment" />
+
+      </form>
+    </div>
+
+  </div>
+
+{% endblock %}
