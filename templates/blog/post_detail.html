@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h2>{{ post.title }}</h2>
+  <h6><a href="{% url "blog:user-detail" pk=post.owner_id %}">{{ post.owner }}</a>
+    at {{ post.created_time|date:"Y-m-d H:i" }}</h6>
+  <p>{{ post.content }}</p>
+  <strong> {{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}</strong>
+  <div class="card">
+    <ul class="list-group list-group-flush">
+      {% for comment in post.commentaries.all %}
+        <li class="list-group-item">{{ comment.content }} <i
+            style="font-size: 0.7rem;">{{ comment.user.username }}, {{ comment.created_time|date:"Y-m-d H:i" }}</i></li>
+      {% endfor %}
+    </ul>
+  </div>
+  <br>
+  <h4>Add a new comment</h4>
+  <form action="" method="post" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input class="btn btn-primary" type="submit" value="Comment">
+  </form>
+
+{% endblock %}
