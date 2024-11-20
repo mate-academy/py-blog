@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container">
+    <h1>{{ post.title }}</h1>
+    <p><strong>Author:</strong> {{ post.owner }}</p>
+    <p><strong>Created time:</strong> {{ post.created_time }}</p>
+    <div class="post-content">
+      <p>{{ post.content }}</p>
+    </div>
+    <div class="commentaries">
+      <h2>Commentaries:</h2>
+      {% if post.commentaries.all %}
+        <ul>
+          {% for commentary in post.commentaries.all %}
+            <li>
+              <p><strong>{{ commentary.user }}:</strong> {{ commentary.content }}</p>
+              <p><small>Posted on {{ commentary.created_time }}</small></p>
+              <a href="{% url 'blog:commentary-delete' pk=commentary.pk %}" class="btn btn-danger">Delete</a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No commentaries yet.</p>
+      {% endif %}
+    </div>
+    <div class="add-commentary">
+    <h3>Add a commentary:</h3>
+    <form method="post" action="{% url 'blog:add-comment' pk=post.pk %}">
+      {% csrf_token %}
+      <textarea name="content" rows="4" cols="50" placeholder="Add your comment"></textarea>
+      <button type="submit">Submit</button>
+    </form>
+    </div>
+  </div>
+{% endblock %}
