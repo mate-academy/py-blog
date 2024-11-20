@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Username: {{ user.username }}</h1>
+  {% if user.last_name and user.first_name %}
+    <h3>First name: {{ user.first_name }}</h3>
+    <h3>Last name: {{ user.last_name }}</h3>
+  {% endif %}
+  <hr>
+  {% with user.posts.count as total_post %}
+    <p>You have been posted {{ total_post }} post{{ total_post|pluralize }}</p>
+  {% endwith %}
+  {% with user.commentaries.count as total_comments%}
+    <p>You have been added {{ total_comments }} comment{{ total_comments|pluralize }}</p>
+  {% endwith %}
+{% endblock %}
