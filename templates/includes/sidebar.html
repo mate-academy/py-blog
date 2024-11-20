@@ -1,0 +1,17 @@
+<ul class="sidebar-nav list-group">
+  <li>
+    <a
+        style="text-decoration: none;
+        font-size: 24px"
+        href="{% url 'blog:index' %}">Home
+    </a>
+  </li>
+  <br>
+  {% if user.pk %}
+    <li><a style="text-decoration: none" href="{% url 'logout' %}">Logout</a>
+    </li>
+  {% else %}
+    <li><a style="text-decoration: none" href="{% url 'login' %}">Login</a>
+    </li>
+  {% endif %}
+</ul>

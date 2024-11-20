@@ -1,0 +1,30 @@
+{% if comments.has_other_pages %}
+  <br>
+  <h4 class="current">Page {{ comments.number }}
+    of {{ comments.paginator.num_pages }}</h4>
+  <div class="pagination">
+      <span class="step-links">
+        {% if comments.has_previous %}
+          <a href="?page=1" class="btn btn-blog-purple">< First</a>
+          <a href="?page={{ comments.previous_page_number }}"
+             class="btn btn-blog-purple">Previous</a>
+        {% else %}
+          <a href="" class="btn btn-blog-purple disabled">< First</a>
+          <a href=""
+             class="btn btn-blog-purple disabled">Previous</a>
+        {% endif %}
+
+        {% if comments.has_next %}
+          <a href="?page={{ comments.next_page_number }}"
+             class="btn btn-blog-purple">Next</a>
+          <a href="?page={{ comments.paginator.num_pages }}"
+             class="btn btn-blog-purple">Last ></a>
+        {% else %}
+          <a href=""
+             class="btn btn-blog-purple disabled">Next</a>
+          <a href=""
+             class="btn btn-blog-purple disabled">Last ></a>
+        {% endif %}
+      </span>
+  </div>
+{% endif %}
