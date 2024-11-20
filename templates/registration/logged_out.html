@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="card" style="width: 40rem;">
+      <div class="card-header">
+        <h1>Logged out</h1>
+        <hr>
+        <p class="card-text lead text-muted">
+          Actions of unauthorized users are restricted.
+          You won't be able to leave comments on the blog.
+          Please log in again to have full access to the site's functionality.
+        </p>
+        <a class="card-link" href="{% url 'login' %}">Click here to login.</a>
+    </div>
+  </div>
+{% endblock %}
