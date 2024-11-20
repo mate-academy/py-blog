@@ -1,0 +1,29 @@
+<ul class="sidebar-nav list-group">
+  {% if user.is_authenticated %}
+    <li class="list-group-item bg-success text-white">
+      <span>User: {{ user.username }}</span>
+    </li>
+    <li class="list-group-item">
+      <a href="{% url 'logout' %}" class="btn btn-danger btn-sm"
+         style="display: block; margin-bottom: 10px;">
+        Logout
+      </a>
+    </li>
+  {% else %}
+    <li class="list-group-item">
+      <a href="{% url 'login' %}" class="btn btn-primary btn-sm"
+         style="display: block; margin-bottom: 10px;">
+        Login
+      </a>
+    </li>
+  {% endif %}
+  <hr>
+<li class="list-group-item">
+  <a href="{% url 'blog:index' %}" class="btn btn-info btn-sm" style="display: block; margin-bottom: 10px;">
+    Main page
+  </a>
+  <a href="{% url 'blog:create-post' %}" class="btn btn-info btn-sm" style="display: block; margin-bottom: 10px;">
+    Create post
+  </a>
+</li>
+</ul>
