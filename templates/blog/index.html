@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+{% if page_obj %}
+	<ul>
+		{% for post in page_obj %}
+			<li>
+				<h4><a href="{% url "blog:post-detail" post.id %}">{{ post.title }}</a></h4>
+				<p>{{ post.content }}</p> {{ post.owner.first_name }} {{ post.owner.last_name }} {{ post.created_time }}
+				<hr>
+			</li>
+		{% endfor %}
+	</ul>
+{% else %}
+<p>No posts!</p>
+{% endif %}
+{% endblock %}
