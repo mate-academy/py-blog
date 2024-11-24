@@ -40,4 +40,5 @@ class CommentaryAdmin(admin.ModelAdmin):
 
     post_title.short_description = "Post title"
 
+
 admin.site.unregister(Group)

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Blog Home Page</h1>
+  <hr>
+  <p>
+    Welcome to the main page of our Blog! Here you can write your blogs, read articles
+    by other authors, and also discuss topics you like with other users!
+  </p>
+  <p><strong>At the moment we have:</strong></p>
+  <p>Number of users: {{ user_count }}</p>
+  <p>Number of posts: {{ post_count }}</p>
+  <p>Number of comments: {{ comment_count }}</p>
+  <br>
+
+  {% if post_list %}
+    <h3>Our posts</h3>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>№</th>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Content</th>
+          <th>Date of creation</th>
+          <th>Number of comments</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for post in page_obj.object_list %}
+          <tr>
+            <td>{{ forloop.counter|add:page_obj.start_index|add:"-1" }}</td>
+            <td><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></td>
+            <td>{{ post.owner }}</td>
+            <td>{{ post.content|truncatechars:100}}</td>
+            <td>{{ post.created_time }}</td>
+            <td>{{ post.comments_count }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>There are no posts at the moment</p>
+  {% endif %}
+
+  {% include "includes/pagination.html" %}
+
+{% endblock %}
