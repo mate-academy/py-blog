@@ -1,0 +1,23 @@
+body {
+  margin-top: 10px;
+  background-color: #3c3c3c;
+  padding: 5px;
+}
+
+h1, h2, h6, p {
+  text-align: center;
+  color: #f8f9fa;
+}
+
+.img_logo {
+  width: 70px;
+}
+
+.comment {
+  padding: 0 10px;
+  font-size: 0.85rem;
+}
+
+.user_comment {
+  font-size: 0.70rem;
+}
