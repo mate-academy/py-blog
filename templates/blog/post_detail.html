@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+<div style="display: flex; justify-content: space-between;">
+  <a href="{% url 'blog:index' %}">Back to all posts</a>
+    {% if user.is_authenticated %}
+      <form id="logout-form" method="post" action="{% url 'admin:logout' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+      </form>
+    {% else %}
+    <a href="{% url 'login'%}?next={{request.path}}">Login</a>
+    {% endif %}
+</div>
+<h1>{{ post }}</h1>
+  <p>{{ post.content }}<br><br>
+    {% if comments %}
+      {{ num_comments }} comment{{ num_comments|pluralize }}</p>
+      <table>
+        {% for comment in comments %}
+          <tr><td>
+            {{ comment.user }}, <date>{{ comment.created_time }}</date><br>
+            <div class="separator"></div>
+            <div class="comment">{{ comment.content }}</div>
+          </td></tr>
+        {% endfor %}
+      </table>
+    {% else %}
+      <p class="num_comments">No comments yet</p>
+    {% endif %}
+  <br>
+  {% if user.is_authenticated %}
+  <p>Add a new comment</p>
+  <form method="post" action="">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <br>
+    <button class="btn btn-primary" type="submit">Submit</button>
+    <input type="hidden" name="next" value="{{ next }}"/>
+  </form>
+    {% else %}
+    <p>Please log in to post a comment</p>
+  {% endif %}
+{% endblock %}
