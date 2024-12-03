@@ -13,7 +13,8 @@ from blog.models import Post
 
 # Create your views here.
 def index(request: HttpRequest) -> HttpResponse:
-    posts = Post.objects.annotate(num_comments=Count("comments")).all().order_by('-created_time')
+    posts = Post.objects.annotate(
+        num_comments=Count("comments")).all().order_by("-created_time")
     paginator = Paginator(posts, 5)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
@@ -52,8 +53,4 @@ class PostDetailView(FormMixin, DetailView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy("blog:post-detail", kwargs={'pk': self.object.pk})
-
-# def logout(request: HttpRequest) -> HttpResponseRedirect:
-#     auth.logout(request)
-#     return HttpResponseRedirect(reverse_lazy("blog:index"))
+        return reverse_lazy("blog:post-detail", kwargs={"pk": self.object.pk})

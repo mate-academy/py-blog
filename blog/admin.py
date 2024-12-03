@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
-
 from blog.models import Post, Commentary, User
+
 
 # Register your models here.
 admin.site.unregister(Group)
@@ -15,6 +15,7 @@ class CommentaryAdmin(admin.ModelAdmin):
     list_filter = ("user", "post",)
     search_fields = ("content", "user",)
     ordering = ("created_time",)
+
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):

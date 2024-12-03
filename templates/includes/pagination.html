@@ -6,7 +6,7 @@
       </li>
     {% endif %}
     <li class="page-item active">
-      <span class="page-link">{{ post_list.number }} of {{ paginator.num_pages }}</span>
+      <span class="page-link">{{ post_list.number }} of {{ post_list.paginator.num_pages }}</span>
     </li>
     {% if post_list.has_next %}
       <li class="page-item">
