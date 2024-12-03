@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+  <div style="display: flex; justify-content: space-between;">
+    <a href="{% url 'login'%}?next={{request.path}}">Login</a>
+    {% if user.is_authenticated %}
+      <form id="logout-form" method="post" action="{% url 'admin:logout' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+      </form>
+    {% endif %}
+  </div>
+    <ul>
+      {% for post in post_list %}
+        <li>
+          <div class="name"><a href="{% url 'blog:post-detail' post.id %}">{{ post }}</a></div>
+          {{ post.owner }} at {{ post.created_time }}<br>
+          {{ post.content }}<br>
+          {% if post.num_comments %}
+            <p class="num_comments">{{ post.num_comments }} comment{{ post.num_comments|pluralize }}</p>
+          {% else %}
+            <p class="num_comments">No comments yet</p>
+          {% endif %}
+        </li><br>
+      {% endfor %}
+    </ul>
+{% endblock %}
