@@ -1,0 +1,11 @@
+.blue-hr{height:3px; background-color:#007bff; width:100%}
+.post-content{max-height: 150px}
+.fs-875em {font-weight: 400; font-size: .875em}
+.fs-bold {font-weight: 700; font-style: normal}
+
+#id_content { height: 100px;}
+.comment-card {font-size:.875em;}
+.comments-head{font-size:1.25em; background-color:#007bff; color:#fff;}
+.post-content-detail{min-height: 100px}
+
+.list-group-item:hover .post-detail-link {text-decoration: underline}
