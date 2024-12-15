@@ -29,6 +29,7 @@
     {% if user.is_authenticated %}
         <form method="post" action="{% url "blog:comment-create" post.pk %}" class="mt-3">
           {% csrf_token %}
+          {{ form|crispy }}
           <div class="mb-3">
             <label>
               <textarea name="content"
