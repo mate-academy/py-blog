@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Main Page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    {% load crispy_forms_filters %}
+</head>
+<body>
+  <div class="container">
+    <h1>Список постів</h1>
+    <ul class="list-group">
+        {% for post in post_list %}
+            <li class="list-group-item">
+                <h2>
+                    <a href="{% url "blog:post-detail" post.id %}">{{ post.title }}</a>
+                </h2>
+                <p>{{ post.content }}</p>
+                <p><strong>Автор:</strong> {{ post.owner }}</p>
+                <p><strong>Дата створення:</strong> {{ post.created_time }}</p>
+                <p><strong>Кількість коментарів:</strong> {{ post.commentary.all|length }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if post_list.has_previous %}
+                <a href="?page=1" class="btn btn-secondary">Перша</a>
+                <a href="?page={{ post_list.previous_page_number }}" class="btn btn-secondary">Попередня</a>
+            {% endif %}
+            <span>Сторінка {{ post_list.number }} з {{ post_list.paginator.num_pages }}</span>
+            {% if post_list.has_next %}
+                <a href="?page={{ post_list.next_page_number }}" class="btn btn-secondary">Наступна</a>
+                <a href="?page={{ post_list.paginator.num_pages }}" class="btn btn-secondary">Остання</a>
+            {% endif %}
+        </span>
+    </div>
+  </div>>
+</body>
+</html>
