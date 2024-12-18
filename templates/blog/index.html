@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container-fluid">
+    <h1 style="text-align: center">Welcome to the Blog Website!</h1>
+    <br>
+    <div class="row">
+      <div class="col-sm-3">
+        {% if user.is_authenticated %}
+          <h5>Hello,
+            <strong>{{ user.username }}</strong>!
+          </h5>
+          <form action="{% url 'logout' %}?next={{ request.path }}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Logout" class="btn btn-info">
+          </form>
+        {% else %}
+          <h5>Hello,
+            <strong>unknown_user</strong>!
+          </h5>
+          <button class="btn btn-info login-button">
+            <a
+                href="{% url 'login' %}?next={% url 'blog:post-list' %}"
+                class="login-button"
+            >Login
+            </a>
+          </button>
+          <button class="btn btn-success login-button">
+            <a href="{% url 'blog:user-create' %}">Sign Up</a>
+          </button>
+          <br>
+        {% endif %}
+        <hr>
+        <div class="sidebar-nav">
+          <p><strong>Categories:</strong></p>
+          <ul>
+            <li>
+              <a href="{% url 'blog:post-list' %}">
+                All posts
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'blog:user-list' %}">
+                All users
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <h3>
+          There are some interesting content for you:
+        </h3>
+        <hr>
+          <ul>
+            <li>Number of the presented posts: {{ posts }}</li>
+            <li>Number of the registered users: {{ users }}</li>
+          </ul>
+      </div>
+    </div>
+  </div>
+{% endblock %}

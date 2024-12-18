@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <h2>Post: <strong>"{{ post.title }}"</strong></h2>
+  <br>
+  <form action="{% url 'blog:index' %}">
+    <input type="submit" value="Home" class="btn btn-primary">
+  </form>
+  <br>
+  <p>
+    ID: {{ post.id }}
+  </p>
+  <hr>
+  <p>
+    Author: <strong>{{ post.owner }}</strong>
+  </p>
+  <p>
+    Created at: {{ post.created_time }}
+  </p>
+  <hr>
+  <p>
+    Title: <strong>{{ post.title }}</strong>
+  </p>
+  <hr>
+  <p><strong>Post content:</strong><br>
+    {{ post.content }}
+  </p>
+  <hr>
+  <p>
+    <strong>
+      {{ post.comments.count }} comment{{ post.comments.count|pluralize }}
+    </strong>
+  </p>
+  <ul>
+    {% if post.comments.all %}
+      {% for comment in post.comments.all %}
+        <li>
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <td>Comment From:
+                  <strong>{{ comment.user.username }}</strong>,
+                  {{ comment.created_time }}</td>
+              </tr>
+              <tr>
+                <td>{{ comment.content }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </li>
+        <br>
+      {% endfor %}
+    {% else %}
+      <p>There are no comments from users at this post</p>
+    {% endif %}
+    {% if user.is_authenticated %}
+      <p><strong>Add new comment:</strong></p>
+      <form action="{% url 'blog:comment-create' post.id %}" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" value="ADD" class="btn btn-success">
+      </form>
+    {% else %}
+      <p>
+        <strong>
+          You need to
+          <a
+              href="{% url 'login' %}?next={% url 'blog:post-detail' post.id %}"
+          >log in
+          </a> or
+          <a href="{% url 'blog:user-create' %}?next={% url 'login' %}"
+          >Sign Up
+          </a> to add a comment.</strong></p>
+    {% endif %}
+  </ul>
+{% endblock %}
