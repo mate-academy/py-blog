@@ -25,5 +25,4 @@ urlpatterns = [
     path("blog/", include("blog.urls", namespace="blog")),
     path("__debug__", include(debug_toolbar.urls)),
     path("accounts/", include("django.contrib.auth.urls")),
-
 ]
