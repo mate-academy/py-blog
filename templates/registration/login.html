@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <div class="text-center">
+    <h2>Login</h2>
+  </div>
+  <div class="d-flex justify-content-center">
+    {% if form.errors %}
+      <p><strong>Invalid credentials:</strong></p>
+    {% endif %}
+    <form action="{% url 'login' %}" method="post" class="w-auto">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="submit" value="Login" class="btn btn-info">
+    </form>
+  </div>
+{% endblock %}

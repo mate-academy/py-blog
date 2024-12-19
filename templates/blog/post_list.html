@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 class="heading-text">Interesting Posts</h1>
+  <br>
+  {% if user.is_authenticated %}
+    <h5>Hello,
+      <strong>{{ user.username }}</strong>!
+    </h5>
+    <form action="{% url 'logout' %}?next={{ request.path }}" method="post">
+      {% csrf_token %}
+      <input type="submit" value="Logout" class="btn btn-info">
+    </form>
+  {% else %}
+    <h5>Hello,
+      <strong>unknown_user</strong>!
+    </h5>
+    <button class="btn btn-info login-button">
+      <a
+          href="{% url 'login' %}"
+          class="login-button"
+      >Login
+      </a>
+    </button>
+    <button class="btn btn-success login-button">
+      <a href="{% url 'blog:user-create' %}">Sign Up</a>
+    </button>
+    <br>
+  {% endif %}
+  <hr>
+  <br>
+  <p>Press on the blog's title to visit a page with exact information about<br>
+    post, where you will be able to write any comment to the post. But, first<br>
+    of all, you should be logged in or Signed Up to have a possibility to leave<br>
+    your important post ;)</p>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th><strong>ID</strong></th>
+        <th><strong>Title</strong></th>
+        <th><strong>Content</strong></th>
+        <th><strong>Author</strong></th>
+        <th><strong>Created at</strong></th>
+        <th><strong>Comments</strong></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for post in post_list %}
+        <tr>
+          <td>{{ post.id }}</td>
+          <td>
+            <a
+                href="{% url 'blog:post-detail' pk=post.id %}"
+            >{{ post.title }}</a>
+          </td>
+          <td>{{ post.content }}</td>
+          <td>{{ post.owner }}</td>
+          <td>{{ post.created_time }}</td>
+          <td>{{ post.comments.count }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
+
+{% block pagination %}
+  {% if is_paginated %}
+    {% include "includes/pagination.html" %}
+  {% endif %}
+{% endblock %}

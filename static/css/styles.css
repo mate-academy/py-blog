@@ -1,0 +1,34 @@
+body {
+    margin: 20px auto;
+    padding: 10px;
+    background-color: aliceblue;
+}
+
+.heading-text {
+    text-align: center;
+    color: #1b1b1b;
+    margin: 40px auto;
+}
+
+.table-bordered {
+    margin: 0 auto;
+    text-align: justify;
+}
+
+th {
+    text-align: center;
+}
+
+td  {
+    padding: 10px;
+}
+
+ul {
+    list-style: none;
+}
+
+.login-button>a{
+    !important;
+    color: #fff;
+    text-decoration: none;
+}
