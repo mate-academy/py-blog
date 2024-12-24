@@ -15,7 +15,7 @@
         </div>
         <br>
         <p><strong>{{ comments.count }} comment{{ comments.count|pluralize:",s" }}</strong></p>
-      {% for comment in comments.all %}
+      {% for comment in comments %}
         <div class="card my-2">
           <div class="card-body">
             <div class="d-flex justify-content-between">
