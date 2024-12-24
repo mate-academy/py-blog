@@ -22,7 +22,7 @@ class HomeView(ListView):
 class PostDetailView(DetailView):
     model = Post
     queryset = Post.objects.all().prefetch_related("owner")
-    template_name = "blog/post-detail.html"
+    template_name = "blog/post_detail.html"
 
     def get_context_data(self, **kwargs):
         content = super().get_context_data(**kwargs)
