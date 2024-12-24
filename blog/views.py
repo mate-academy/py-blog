@@ -1,4 +1,4 @@
-from django.http import HttpRequest,HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.views.generic import ListView, DetailView, FormView
 from blog.models import Post, Commentary
 from django import forms
@@ -14,8 +14,10 @@ class CommentaryForm(forms.ModelForm):
 class HomeView(ListView):
     model = Post
     paginate_by = 5
-    template_name = 'blog/index.html'
-    queryset = Post.objects.all().order_by("-created_time").prefetch_related("commentaries")
+    template_name = "blog/index.html"
+    queryset = Post.objects.all().order_by("-created_time")
+    queryset.prefetch_related("commentaries")
+
 
 class PostDetailView(DetailView):
     model = Post
@@ -39,6 +41,3 @@ class PostDetailView(DetailView):
             commentary.post = post
             commentary.save()
             return HttpResponseRedirect(self.request.path_info)
-
-
-
