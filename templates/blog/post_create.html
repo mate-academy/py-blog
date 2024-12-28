@@ -1,0 +1,23 @@
+% extends 'base.html' %}
+
+{% load crispy_forms_filters %}
+
+{% block content %}
+
+  <div class="container mt-5">
+    <h2 class="text-center">Create a New Post</h2>
+
+    <form method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        {{ form|crispy }}
+      </div>
+      <input type="hidden" name="owner" value="{{ user.id }}">
+      <div>
+        <button type="submit" class="btn btn-success">Create</button>
+      </div>
+    </form>
+
+  </div>
+
+{% end block %}
