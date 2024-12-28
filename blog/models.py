@@ -10,7 +10,6 @@ class User(AbstractUser):
 
 
 class Post(models.Model):
-    objects = None
     owner = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -28,7 +27,6 @@ class Post(models.Model):
 
 
 class Commentary(models.Model):
-    objects = None
     user = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,

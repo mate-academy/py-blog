@@ -69,5 +69,4 @@ class PostCreateView(LoginRequiredMixin, generic.CreateView):
         post = form.save(commit=False)
         post.owner = user
         post.save()
-        # print(f"Post saved with owner: {post.owner}")
         return super().form_valid(form)
