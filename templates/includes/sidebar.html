@@ -1,0 +1,12 @@
+<div class="list-group">
+  {% if user.is_authenticated %}
+    <li class="list-group-item">User: <a href="{{ user.get_absolute_url }}">{{ user.get_username }}</a></li>
+    <a class="btn btn-outline-danger" href="{% url 'logout'%}?next={{request.path}}">Logout</a>
+  {% else %}
+    <a class="btn btn-outline-primary" href="{% url 'login'%}?next={{request.path}}">Login</a>
+  {% endif %}
+
+  <br>
+
+  <a class="btn btn-outline-secondary" href="{% url 'blog:index' %}">Home</a>
+</div>
