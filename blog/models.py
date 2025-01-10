@@ -15,20 +15,22 @@ class Post(models.Model):
     objects = models.Manager()
 
     class Meta:
-        ordering = ['-created_time']
+        ordering = ["-created_time"]
 
     def __str__(self):
-        return f'{self.title}'
+        return f"{self.title}"
 
 
 class Commentary(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
     content = models.CharField(max_length=150)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='commentaries')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
+    post = models.ForeignKey(
+        Post, on_delete=models.CASCADE, related_name="commentaries"
+    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="comments")  # NOQA E501
 
     class Meta:
-        ordering = ['-created_time']
+        ordering = ["-created_time"]
 
     def __str__(self):
-        return f'{self.created_time} {self.user.username}'
+        return f"{self.created_time} {self.user.username}"
