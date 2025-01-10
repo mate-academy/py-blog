@@ -1,0 +1,13 @@
+<div class="add-comment-section">
+  <h2 class="add-comment-title">Add a new comment</h2>
+  <form action="{% url 'blog:commentary-create' pk=post.pk %}" method="post">
+    {% csrf_token %}
+    <textarea
+        class="add-comment-textarea"
+        name="content"
+        placeholder="Write your comment here..."
+        required
+    ></textarea>
+    <button class="add-comment-button" type="submit">Add comment</button>
+  </form>
+</div>

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <head>
+    <title>Blog Post</title>
+  </head>
+  <body>
+  <div class="post-container">
+    <h1 class="post-title">{{ post.title }}</h1>
+    <p class="post-author">{{ post.owner.username }} {{ post.created_time }}</p>
+    <p class="post-content">
+      {{ post.content }}
+    </p>
+    <hr>
+    <div class="comments-section">
+      <h2 class="comments-title">Number of comments: {{ post.commentaries.count }}</h2>
+      {% if post.commentaries.count %}
+        <div class="comment">
+          {% for comment in post.commentaries.all %}
+            <p class="comment-header">
+              <strong>{{ comment.user.username }}</strong> {{ comment.created_time }}
+            </p>
+            <p class="comment-content">{{ comment.content }}</p>
+          {% endfor %}
+        </div>
+      {% else %}
+        <h1>No comments </h1>
+      {% endif %}
+    </div>
+    <hr>
+    {% block form %}
+      {% include 'blog/commentary-form.html' %}
+    {% endblock %}
+  </div>
+  </body>
+  </html>
+{% endblock %}
