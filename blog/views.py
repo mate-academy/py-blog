@@ -35,6 +35,8 @@ def post_detail_view(request, pk):
         form = CommentaryForm()
 
     comments = post.comments.all()
-    return render(request,
-                  "blog/post_detail.html",
-                  {"post": post, "comments": comments, "form": form})
+    return render(
+        request,
+        "blog/post_detail.html",
+        {"post": post, "comments": comments, "form": form},
+    )
