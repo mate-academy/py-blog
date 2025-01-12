@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -19,15 +20,15 @@ class PostDetailView(generic.DetailView, generic.CreateView):
                 prefetch_related("comments__user"))
 
     def get_success_url(self):
-        return reverse_lazy("blog:post_detail", kwargs={"pk": self.object.pk})
+        return reverse_lazy("blog:post-detail", kwargs={"pk": self.get_object().pk})
 
     def post(self, request, *args, **kwargs):
         post = self.get_object()
-        comment = request.POST.get("content")
-        if comment.strip():
+        comment = request.POST.get("content").strip()
+        if comment:
             Commentary.objects.create(
-                content=comment.strip(),
+                content=comment,
                 post=post,
                 user=request.user,
             )
-        return super().get(request, *args, **kwargs)
+        return HttpResponseRedirect(self.get_success_url())
