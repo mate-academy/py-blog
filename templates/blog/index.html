@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>This is our Home Page.</h1>
+  <h4>Take a rest man.</h4>
+  <hr>
+  <br>
+  <h3>You may find those topics interesting:</h3>
+  
+    <table class="table">
+      <tr>
+        <th>Title</th>
+        <th>Date of creation</th>
+        <th style="width: 60%">Content</th>
+      </tr>
+      {% for n in all_posts %}
+        <tr>
+          <td><a href="{% url "blog:post-detail" pk=n.pk %}">{{ n.title }}</a></td>
+          <td>{{ n.created_time }}</td>
+          <td>{{ n.content }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+{% endblock %}
