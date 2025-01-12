@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-# from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group
 
 from blog.models import User, Commentary, Post
 
@@ -28,4 +28,4 @@ class PostAdmin(admin.ModelAdmin):
     )
 
 
-# admin.site.unregister(Group)
+admin.site.unregister(Group)

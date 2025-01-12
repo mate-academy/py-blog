@@ -11,11 +11,9 @@ from blog.models import Post, Commentary
 def index(request: HttpRequest) -> HttpResponse:
     all_posts = Post.objects.all()
     all_comments = Commentary.objects.count()
-    commentator = Commentary.objects.all()
     context = {
         "all_posts": all_posts,
         "all_comments": all_comments,
-        "commentator": commentator,
     }
     return render(request, "blog/index.html", context)
 
