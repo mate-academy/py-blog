@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load crispy_forms_filters %}
+    <div class="container my-5">
+
+      <div class="row justify-content-center">
+
+        <div class="col-md-8">
+
+          <h1 class="mb-3">
+          {{ post.title }}:
+          </h1>
+
+          <p class="text-muted mb-4">
+            By
+            <span class="font-weight-bold">
+               {{ post.owner }}
+            </span>
+            at
+            <span class="font-weight-bold">
+               {{ post.created_time }}
+            </span>
+          </p>
+
+          <div class="card mb-4 shadow-sm rounded-lg">
+            <div class="card-body ">
+              <p class="card-text">
+                {{ post.content }}
+              </p>
+            </div>
+          </div>
+
+          <p class="font-weight-bold">
+            {{ post.comments.count }} Comments
+          </p>
+
+          <div class="list-group mb-4">
+            {% for comment in post.comments.all %}
+
+            <div class="list-group-item mb-3 p-4 rounded shadow-sm">
+              <p class="mb-1">
+                {{ comment.content }}
+              </p>
+
+              <div class="d-flex justify-content-between ">
+                <span class="text-muted">{{ comment.user }}</span>
+                <span class="text-muted small">{{ comment.created_time }}</span>
+              </div>
+            </div>
+
+            {% endfor %}
+          </div>
+
+          <div>
+            {% if error %}
+              <p class="text-danger">{{ error }}</p>
+            {% endif %}
+            <form action="" method="post">
+              {% csrf_token %}
+              {{ form|crispy }}
+              <input type="submit" value="Add comment">
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+{% endblock %}
