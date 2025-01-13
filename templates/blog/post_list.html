@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <div class="container my-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        {% for post in post_list %}
+          <h1 class="mb-3">
+            <a href="{% url "blog:post-detail" pk=post.id %}">{{ post.title }}</a>:
+          </h1>
+
+          <p class="text-muted mb-4">
+            By
+            <span class="font-weight-bold">
+              {{ post.owner }}
+            </span>
+            at
+            <span class="font-weight-bold">
+              {{ post.created_time }}
+            </span>
+          </p>
+
+          <div class="card mb-3 shadow-sm rounded-lg">
+            <div class="card-body ">
+              <p class="card-text">
+                {{ post.content }}
+              </p>
+            </div>
+          </div>
+
+          <p class="font-weight-bold mb-5">
+            {{ post.comments.count }} Comment{{ post.comments.count|pluralize }}
+          </p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
