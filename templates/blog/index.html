@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}
+  <title>Main page</title>
+{% endblock %}
+{% block content %}
+
+  {% for post in post_list %}
+<div class="card m-5 w-75">
+  <div class="card-header">
+    <a href="{% url "blog:post-detail" post.id %}">{{ post.title }}</a>
+  </div>
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      <p>{{ post.content }}</p>
+      <footer class="blockquote-footer">{{ post.owner.username }} <i>{{ post.created_time }}</i>
+        (comments: {{ post.comments.count }})
+        <a href="{% url "blog:post-detail" post.id %}" class="btn btn-light ml-3">Read more</a>
+      </footer>
+    </blockquote>
+  </div>
+</div>
+  {% endfor %}
+{% endblock %}

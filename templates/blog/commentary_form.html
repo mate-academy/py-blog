@@ -1,0 +1,11 @@
+{% block content %}
+  <div class="col-lg-4 col-md-5 col-sm-4 offset-md-1 offset-sm-1 col-12 mt-4">
+
+    <form action="" method="post" class="form-group">
+      <h4>Leave a comment</h4>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Post comment">
+    </form>
+  </div>
+{% endblock %}
