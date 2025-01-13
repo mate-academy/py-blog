@@ -9,16 +9,21 @@ from blog.models import Post, Commentary
 
 
 def index(request: HttpRequest) -> HttpResponse:
-    all_posts = Post.objects.all()
+    post_list = Post.objects.all()
     all_comments = Commentary.objects.count()
+
+    paginator = Paginator(post_list, 5)
+    page_num = request.GET.get("page")
+    page_obj = paginator.get_page(page_num)
+
     context = {
-        "all_posts": all_posts,
+        "post_list": page_obj.object_list,
         "all_comments": all_comments,
+        "page_obj": page_obj,
     }
     return render(request, "blog/index.html", context)
 
 
-@login_required
 def post_detail_view(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":

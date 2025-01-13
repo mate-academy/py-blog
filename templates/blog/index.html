@@ -13,7 +13,7 @@
         <th>Date of creation</th>
         <th style="width: 60%">Content</th>
       </tr>
-      {% for n in all_posts %}
+      {% for n in post_list %}
         <tr>
           <td><a href="{% url "blog:post-detail" pk=n.pk %}">{{ n.title }}</a></td>
           <td>{{ n.created_time }}</td>
