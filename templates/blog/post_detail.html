@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Blog | {{ post.title }}</title>
+{% endblock %}
+
+{% block content %}
+  <h3>{{ post.title }}</h3>
+  <h6>{{ post.owner.first_name }} {{ post.owner.last_name }}</h6>
+  <p>{{ post.created_time.date }}</p>
+  <p>{{ post.content|linebreaks }}</p>
+  <br>
+  <h6>Comments:</h6>
+  <div class="comment-section">
+    {% if post.comments.all %}
+      {% for comment in post.comments.all|dictsortreversed:"created_time" %}
+        <div class="comment">
+          <u><i>{{ comment.user.username }}</i></u> <div class="comment-time">{{ comment.created_time }}</div>
+          <br>
+          {{ comment }}
+        </div>
+      {% endfor %}
+    {% else %}
+      <p><i style="color:darkgray">There are no comments yet</i></p>
+    {% endif %}
+  </div>
+  <br>
+  <h6>Add comment:</h6>
+  <div class="comment-section">
+    {% if user.is_authenticated %}
+      <form action="" method="post" novalidate>
+        {% csrf_token %}
+        <textarea class="comment add-comment" name="content" placeholder="Write your comment here"></textarea>
+        <input class="btn btn-primary" type="submit" value="Post">
+        <button class="btn btn-secondary" type="reset">Clear</button>
+      </form>
+    {% else %}
+      <p><i style="color:darkgray">Log in to leave a comment</i></p>
+    {% endif %}
+  </div>
+{% endblock %}
