@@ -20,7 +20,10 @@ class PostDetailView(generic.DetailView, generic.CreateView):
                 prefetch_related("comments__user"))
 
     def get_success_url(self):
-        return reverse_lazy("blog:post-detail", kwargs={"pk": self.get_object().pk})
+        return reverse_lazy(
+            "blog:post-detail",
+            kwargs={"pk": self.get_object().pk}
+        )
 
     def post(self, request, *args, **kwargs):
         post = self.get_object()
