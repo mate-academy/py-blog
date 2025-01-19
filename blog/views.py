@@ -97,12 +97,13 @@ class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
 
 class CommentaryUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Commentary
-    fields = ["content"]  # Оновлюється тільки вміст коментаря
-    success_url = reverse_lazy("blog:comment-list")  # Замінили на правильний шлях
-    template_name = "blog/commentary_form.html"  # Замінили шаблон на відповідний для оновлення
+    fields = ["content"]
+    success_url = reverse_lazy("blog:comment-list")
+    template_name = "blog/commentary_form.html"
 
 
 class CommentaryDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Commentary
-    success_url = reverse_lazy("blog:comment-list")  # Замінили на правильний шлях
-    template_name = "blog/commentary_confirm_delete.html"  # Замінили шаблон на відповідний для видалення коментаря
+    success_url = reverse_lazy("blog:comment-list")
+    template_name = "blog/commentary_confirm_delete.html"
+

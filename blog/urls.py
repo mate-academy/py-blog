@@ -23,8 +23,10 @@ urlpatterns = [
     path("posts/<int:pk>/", PostDetailView.as_view(), name="post-detail"),
     path("posts/", PostListView.as_view(), name="post-list"),
     path("posts/create/", PostCreateView.as_view(), name="post-create"),
-    path("post/<int:pk>/update/", PostUpdateView.as_view(), name="post-update"),
-    path("post/<int:pk>/delete/", PostDeleteView.as_view(), name="post-delete"),
+    path("post/<int:pk>/update/", PostUpdateView.as_view(),
+         name="post-update"),
+    path("post/<int:pk>/delete/", PostDeleteView.as_view(),
+         name="post-delete"),
     path("users/", UserListView.as_view(), name="user-list"),
     path(
         "users/<int:pk>/", UserDetailView.as_view(), name="user-detail"
