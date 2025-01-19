@@ -24,10 +24,14 @@ class Post(models.Model):
 
 
 class Commentary(models.Model):
-    post = models.ForeignKey(Post,
-                             on_delete=models.CASCADE, related_name="comments")  # Пост, до якого належить коментар
-    user = models.ForeignKey(User,
-                             on_delete=models.CASCADE, related_name="comments")  # Автор коментаря
+    post = models.ForeignKey(
+        Post,
+        on_delete=models.CASCADE,
+        elated_name="comments")  # Пост, до якого належить коментар
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="comments")  # Автор коментаря
     content = models.TextField()  # Текст коментаря
     created_time = models.DateTimeField(auto_now_add=True)  # Час створення
 

@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -8,13 +7,14 @@ from django.urls import reverse_lazy, reverse
 from django.views import generic
 from .models import Post, Commentary, User
 
+
 @login_required
 def index(request):
     """View function for the home page of the site."""
     num_users = User.objects.count()
     num_posts = Post.objects.count()
     num_comments = Commentary.objects.count()
-    time_posts = Post.objects.order_by('-created_time')
+    time_posts = Post.objects.order_by("-created_time")
 
     num_visits = request.session.get("num_visits", 0)
     request.session["num_visits"] = num_visits + 1
@@ -83,16 +83,16 @@ class UserDetailView(LoginRequiredMixin, generic.DetailView):
 
 class CommentaryListView(LoginRequiredMixin, generic.ListView):
     model = Commentary
-    context_object_name = "commentary_list"  # Замінили на відповідну змінну
-    template_name = "blog/commentary_list.html"  # Замінили шаблон на відповідний для коментарів
+    context_object_name = "commentary_list"
+    template_name = "blog/commentary_list.html"
     paginate_by = 5
 
 
 class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
     model = Commentary
-    fields = ["post", "user", "content"]  # Вказуємо конкретні поля, які потрібно заповнити
-    success_url = reverse_lazy("blog:comment-list")  # Замінили на правильний шлях
-    template_name = "blog/commentary_form.html"  # Замінили шаблон на відповідний для створення коментаря
+    fields = ["post", "user", "content"]
+    success_url = reverse_lazy("blog:comment-list")
+    template_name = "blog/commentary_form.html"
 
 
 class CommentaryUpdateView(LoginRequiredMixin, generic.UpdateView):
@@ -106,4 +106,3 @@ class CommentaryDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Commentary
     success_url = reverse_lazy("blog:comment-list")
     template_name = "blog/commentary_confirm_delete.html"
-
