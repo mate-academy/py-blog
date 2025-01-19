@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>BLOG</h1>
+  <p>Welcome to Best BLOG Ever!</p>
+      <ul>
+        {% for post in posts %}
+            <li class="post-title">{{ post.title }}</li>
+        {% endfor %}
+      </ul>
+  <h2>Dynamic content</h2>
+  <p>The BLOG service has the following record counts:</p>
+  <ul>
+    <li><strong>Users:</strong> {{ num_users }}</li>
+    <li><strong>Posts:</strong> {{ num_posts }}</li>
+    <li><strong>Comments:</strong> {{ num_comments }}</li>
+  </ul>
+
+  <p>You have visited this page
+      {{ num_visits }} time{{ num_visits|pluralize }}.
+  </p>
+
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ post.title }}</h1>
+    <p><strong>Author:</strong> {{ post.owner }}</p>
+    <p><strong>Created:</strong> {{ post.created_time }}</p>
+    <p>{{ post.content }}</p>
+
+    <h2>Comments ({{ post.comment_count }})</h2>
+    <ul>
+        {% for comment in comments %}
+            <li>
+                <strong>{{ comment.user }}:</strong> {{ comment.text }}
+                <br><small>{{ comment.created_time }}</small>
+            </li>
+        {% empty %}
+            <p>No comments yet.</p>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'post-update' post.id %}">Update</a>
+    <a href="{% url 'post-delete' post.id %}">Delete</a>
+{% endblock %}
