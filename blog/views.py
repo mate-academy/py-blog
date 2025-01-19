@@ -98,11 +98,11 @@ class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
 class CommentaryUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Commentary
     fields = ["content"]
-    success_url = reverse_lazy("blog:comment-list")
+    success_url = reverse_lazy("blog:commentary-list")
     template_name = "blog/commentary_form.html"
 
 
 class CommentaryDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Commentary
-    success_url = reverse_lazy("blog:comment-list")
+    success_url = reverse_lazy("blog:commentary-list")
     template_name = "blog/commentary_confirm_delete.html"

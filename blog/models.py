@@ -27,7 +27,7 @@ class Commentary(models.Model):
     post = models.ForeignKey(
         Post,
         on_delete=models.CASCADE,
-        elated_name="comments")  # Пост, до якого належить коментар
+        related_name="comments")  # Пост, до якого належить коментар
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
