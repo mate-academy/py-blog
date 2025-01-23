@@ -9,6 +9,7 @@ from blog.models import User, Post, Commentary
 
 from django.views import generic
 
+
 class IndexView(generic.ListView):
     models = Post
     paginate_by = 5
