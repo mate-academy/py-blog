@@ -1,60 +1,43 @@
 from django.core.paginator import Paginator
 from django.db.models import Count
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 
 from blog.forms import CommentaryForm
 from blog.models import User, Post, Commentary
 
+from django.views import generic
 
-def index(request: HttpRequest) -> HttpResponse:
-    user_count = User.objects.count()
-    post_count = Post.objects.count()
-    comment_count = Commentary.objects.count()
-    post_list = Post.objects.annotate(
-        comments_count=Count("comments")
-    ).order_by("-created_time")
+class IndexView(generic.ListView):
+    models = Post
+    paginate_by = 5
+    template_name = "blog/index.html"
 
-    paginator = Paginator(post_list, 5)
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
-
-    context = {
-        "user_count": user_count,
-        "post_count": post_count,
-        "comment_count": comment_count,
-        "post_list": page_obj.object_list,
-        "paginator": paginator,
-        "is_paginated": paginator.num_pages > 1,
-        "page_obj": page_obj,
-    }
-
-    return render(request, "blog/index.html", context=context)
+    def get_queryset(self):
+        return Post.objects.annotate(
+            comments_count=Count("comments")
+        ).order_by("-created_time")
 
 
-def post_detail(request: HttpRequest, pk: int) -> HttpResponse:
+class PostDetailView(generic.DetailView):
+    models = Post
+    template_name = "blog/post_detail.html"
     queryset = Post.objects.all().prefetch_related("comments__user")
-    post = get_object_or_404(queryset, pk=pk)
-    form = CommentaryForm()
 
-    if request.method == "POST":
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = CommentaryForm(request.POST)
+
         if request.user.is_authenticated:
-
-            form = CommentaryForm(request.POST)
-
             if form.is_valid():
                 comment = form.save(commit=False)
-                comment.post = post
+                comment.post = self.object
                 comment.user = request.user
                 comment.save()
-            return redirect("blog:post-detail", pk=post.pk)
-
+                return redirect("blog:post-detail", pk=self.object.pk)
+            else:
+                context = self.get_context_data(form=form)
+                return self.render_to_response(context)
         else:
             return redirect("login")
-
-    context = {
-        "post": post,
-        "form": form,
-    }
-
-    return render(request, "blog/post_detail.html", context=context)
