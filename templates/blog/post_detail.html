@@ -29,5 +29,20 @@
         </div>
       </div>
     {% endfor %}
+
+   <div class="card mb-3 mt-1">
+        <div class="card-header bg-dark text-white">
+          <h4 class="d-inline">Add your comment:</h4>
+        </div>
+        <div class="card-body">
+          <form action="{% url "blog:create-comment" post.id %}" method="post">
+            {% csrf_token %}
+            {{ com_form.as_p }}
+            <input type="submit" value="Comment" class="btn bg-dark text-white">
+          </form>
+        </div>
+      </div>
+
+
   </div>
 {% endblock %}
