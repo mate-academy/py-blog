@@ -16,7 +16,7 @@
 <main>
   {% block content %}
     <div class="container w-50">
-      {% for post in posts %}
+      {% for post in post_list %}
         <div class="card mb-3 mt-1">
           <div class="card-header bg-dark text-white">
             <a href="{% url "blog:post-detail" post.id %}" class="text-white"><h3>{{ post.title }}</h3></a>

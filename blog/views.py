@@ -16,7 +16,6 @@ class PostListView(generic.ListView):
         )
     )
     template_name = "base.html"
-    context_object_name = "posts"
     paginate_by = 5
 
 
