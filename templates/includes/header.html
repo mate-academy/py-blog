@@ -1,0 +1,20 @@
+<header class="p-3 bg-dark text-white">
+  <div class="container">
+    <div class="d-flex flex-wrap align-items-center justify-content-between">
+      <ul class="nav col-12 col-lg-auto mb-2 justify-content-start mb-md-0">
+        <li><a href="{% url 'blog:index' %}" class="nav-link px-2 text-white">Home</a></li>
+      </ul>
+      <div class="d-flex align-items-center">
+        {% if user.is_authenticated %}
+          <span class="me-3 d-flex align-items-center">
+            <i class="bi bi-person-circle me-2"></i>
+            {{ user.username }}
+          </span>
+          <a href="{% url 'logout' %}" class="btn btn-outline-light btn-sm">Log out</a>
+        {% else %}
+          <a href="{% url 'login' %}" class="btn btn-outline-light btn-sm me-2">Log in</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</header>

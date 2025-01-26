@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="d-flex justify-content-center vh-100">
+    <div class="w-100" style="max-width: 400px;">
+      <h2 class="text-center mb-4">Login</h2>
+      {% if form.errors %}
+        <div class="alert alert-danger">
+          Your username and password didn't match. Please try again.
+        </div>
+      {% endif %}
+      {% if next %}
+        <div class="alert alert-warning">
+          Please log in to see this page.
+        </div>
+      {% endif %}
+      <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="hidden" name="next" value="{{ next }}"/>
+        <button type="submit" class="btn btn-dark w-100">Login</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}
