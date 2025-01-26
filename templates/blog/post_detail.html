@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="container w-50">
+    <div class="card mb-3 mt-1">
+      <div class="card-header bg-dark text-white">
+        <h3>{{ post.title }}</h3>
+        <h6 class="fw-normal text-white">by {{ post.owner.username }} at {{ post.created_time }}</h6>
+      </div>
+      <div class="card-body">
+        <p class="card-text">{{ post.content }}</p>
+      </div>
+    </div>
+
+    <p>{{ post.comments.count }} comment{{ post.comments.count|pluralize }}</p>
+    {% for comment in post.comments.all %}
+      <div class="card mb-3 mt-1">
+        <div class="card-header bg-dark text-white">
+          <h4 class="d-inline">{{ comment.user.username }}</h4>
+          <h6 class="fw-normal text-white d-inline">{{ post.created_time }}</h6>
+        </div>
+        <div class="card-body">
+          <p class="card-text">{{ comment.content }}</p>
+        </div>
+      </div>
+    {% empty %}
+      <div class="card mb-3 mt-1">
+        <div class="card-body">
+          <p class="card-text">There are no comments yet!</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
