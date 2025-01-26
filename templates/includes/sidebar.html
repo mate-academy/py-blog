@@ -1,0 +1,15 @@
+<div class="bg-light border p-3" style="width: 250px; height: 100vh;">
+  <h4 class="text-center">Sidebar</h4>
+  <nav class="nav flex-column">
+    {% if user.is_authenticated %}
+      <span>Username: {{ user.username }}</span>
+      <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Log out">
+      </form>
+    {% else %}
+      <a href="{% url 'login' %}" class="btn btn-primary">Login</a><br>
+    {% endif %}
+    <a href="{% url 'blog:index' %}" class="page-link">Blog</a>
+  </nav>
+</div>
