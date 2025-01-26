@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "debug_toolbar",
     "blog",
+
 ]
 
 MIDDLEWARE = [
@@ -108,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Kiev'
 
 USE_I18N = True
 
@@ -132,3 +133,6 @@ AUTH_USER_MODEL = "blog.User"
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+LOGOUT_REDIRECT_URL = "/blog/"
+LOGIN_REDIRECT_URL = "/blog/"

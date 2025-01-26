@@ -1,7 +1,8 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.db.models.aggregates import Count
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views import generic
 
 from blog.models import Post, Commentary
@@ -27,6 +28,7 @@ class PostDetailView(generic.DetailView):
         return context
 
 
+@login_required
 def create_comment_view(request, pk: int):
     post_obj = Post.objects.get(pk=pk)
     if request.method == "POST":

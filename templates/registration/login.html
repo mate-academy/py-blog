@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-lg">
+        <div class="card-header bg-dark text-white text-center">
+          <h2 class="mb-0">Please, enter your info:</h2>
+        </div>
+        <div class="card-body">
+          <!-- Помилки форми -->
+          {% if form.errors %}
+          <div class="alert alert-danger" role="alert">
+            Your username and password didn't match. Please try again.
+          </div>
+          {% endif %}
+
+          <!-- Повідомлення, якщо потрібен логін -->
+          {% if next %}
+          <div class="alert alert-warning" role="alert">
+            Please log in to see this page.
+          </div>
+          {% endif %}
+
+          <!-- Форма логіну -->
+          <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="hidden" name="next" value="{{ next }}"/>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-dark">Login</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
