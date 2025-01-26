@@ -10,8 +10,8 @@ class CommentaryForm(forms.ModelForm):
         fields = ["content"]
 
     def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('user', None)
-        self.post = kwargs.pop('post', None)
+        self.user = kwargs.pop("user", None)
+        self.post = kwargs.pop("post", None)
         super().__init__(*args, **kwargs)
 
     def clean(self):
