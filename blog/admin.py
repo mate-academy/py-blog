@@ -19,4 +19,5 @@ class PostAdmin(admin.ModelAdmin):
 class CommentaryAdmin(admin.ModelAdmin):
     list_display = ["post", "user", "created_time"]
 
+
 admin.site.unregister(Group)

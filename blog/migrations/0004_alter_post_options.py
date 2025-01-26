@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('blog', '0003_alter_commentary_options_alter_post_options'),
+        ("blog", "0003_alter_commentary_options_alter_post_options"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='post',
-            options={'ordering': ['-created_time']},
+            name="post",
+            options={"ordering": ["-created_time"]},
         ),
     ]
