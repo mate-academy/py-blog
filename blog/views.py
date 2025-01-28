@@ -12,14 +12,16 @@ from .forms import CommentaryForm
 class IndexView(ListView):
     model = Post
     template_name = "blog/index.html"
-    queryset = Post.objects.select_related("owner").prefetch_related("comments")
+    queryset = (Post.objects.select_related("owner")
+                .prefetch_related("comments"))
     paginate_by = 5
 
 
 class PostDetailView(DetailView):
     model = Post
     context_object_name = "post"
-    queryset = Post.objects.select_related("owner").prefetch_related("comments")
+    queryset = (Post.objects.select_related("owner")
+                .prefetch_related("comments"))
 
     def get_context_data(self, **kwargs):
         """Add comment form to context"""
@@ -36,7 +38,10 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         """Ensure the post object is available in the template"""
         context = super().get_context_data(**kwargs)
-        context["post"] = get_object_or_404(Post, id=self.kwargs["pk"])  # Pass the post
+        context["post"] = get_object_or_404(
+            Post,
+            id=self.kwargs["pk"]
+        )  # Pass the post
         return context
 
     def form_valid(self, form):
