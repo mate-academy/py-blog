@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+  <h3>{{ post.title }}</h3>
+  <h4>Owner: {{ post.owner}}</h4>
+  <h4>Content</h4>
+  <p>{{ post.content }}</p>
+  <div>
+  <h4>Comments:</h4>
+  <ul>
+    {% for comment in post.comments.all %}
+      <li><strong>Comment by:{{ comment.user.username }}</strong> {{ comment.content }}</li>
+    {% empty %}
+      <li>No comments yet.</li>
+    {% endfor %}
+  </ul>
+</div>
+  <div>
+    <h4>Add Comment</h4>
+    <form method="post" action="{% url 'blog:comment-create' pk=post.id %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+      <button type="submit">Add Comment</button>
+    </form>
+  </div>
+{% endblock %}
