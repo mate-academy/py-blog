@@ -19,7 +19,7 @@ class Post(models.Model):
 
 
 class Commentary(models.Model):
-    owner = models.ForeignKey(
+    user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="commentaries"
