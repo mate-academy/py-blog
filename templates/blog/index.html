@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container bootdey">
+<div class="col-md-12 bootstrap snippets">
+  <div class="panel">
+    <div class="panel-body">
+      <h1 class="mb-4">Recent Posts</h1>
+    </div>
+  </div>
+  <div class="panel p-4">
+
+      <!-- Newsfeed Content -->
+      <!--===================================================-->
+      {% for post in post_list %}
+        <div class="media-block mb-4">
+        <h2><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h2>
+
+            <div class="media-body">
+              <div class="p-3">
+                <a href="#" class="btn-link text-semibold media-heading box-inline">{{ post.owner.username }}</a>
+                <p class="text-muted text-sm"><i class="fa fa-mobile fa-lg"></i>{{ post.created_time }}</p>
+              </div>
+              <div class="p-3">
+                {{ post.content|linebreaks }}
+              </div>
+              <div class="pad-ver">
+                <a class="btn btn-sm btn-default btn-hover-primary">{{ post.commentaries.count }} Comment{{ post.commentaries.count|pluralize }}</a>
+              </div>
+            </div>
+        </div>
+        <hr>
+      {% endfor %}
+      <!--===================================================-->
+      <!-- End Newsfeed Content -->
+
+  </div>
+</div>
+</div>
+{% endblock %}

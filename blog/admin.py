@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
-from django.db.models import F, Count
 
 from blog.models import User, Post, Commentary
 
@@ -11,8 +10,17 @@ admin.site.unregister(Group)
 
 @admin.register(User)
 class UserAdmin(UserAdmin):
-    search_fields = ("username", "first_name", "last_name", )
-    list_filter = (("is_staff", admin.BooleanFieldListFilter), "is_active", "date_joined", "last_login" )
+    search_fields = (
+        "username",
+        "first_name",
+        "last_name",
+    )
+    list_filter = (
+        "is_staff",
+        "is_active",
+        "date_joined",
+        "last_login"
+    )
 
 
 class AdminFormattedCreatedTimeMixin:

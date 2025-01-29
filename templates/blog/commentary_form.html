@@ -1,0 +1,13 @@
+{% load crispy_forms_filters %}
+<div class="container p-4 bg-white">
+  {% if user.is_authenticated %}
+  <h4>Add comment</h4>
+  <form class="border-dark" action="{% url 'blog:commentary-add' pk=post.id %}" method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="Submit" class="btn btn-primary">
+  </form>
+  {% else %}
+    <h4>You must be logged in to post a comment</h4>
+  {% endif %}
+</div>

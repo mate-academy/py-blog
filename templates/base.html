@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  {% block title %}<title>Blog</title>{% endblock %}
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.css">
+  {% load static %}
+  <link rel="stylesheet" href="{% static "css/styles.css" %}">
+</head>
+<body>
+  <header>
+    {% block header %}
+      {% include "nav/header.html" %}
+    {% endblock %}
+  </header>>
+  <main class="mt-5">
+    {% block content %}{% endblock %}
+  </main>
+  {% block pagination %}
+    {% include "includes/_pagination.html" %}
+  {% endblock %}
+
+<script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.0/mdb.min.js">
+</script>
+
+</body>
+</html>
