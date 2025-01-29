@@ -1,7 +1,9 @@
 from django import forms
 
+from blog.models import Commentary
 
-class CommentaryForm(forms.Form):
+
+class CommentaryForm(forms.ModelForm):
     content = forms.CharField(
         label="",
         widget=forms.Textarea(
@@ -12,3 +14,6 @@ class CommentaryForm(forms.Form):
             }
         ),
     )
+    class Meta:
+        fields = ("content", )
+        model = Commentary
