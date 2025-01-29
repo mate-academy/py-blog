@@ -17,6 +17,9 @@ class Post(models.Model):
     content = models.TextField()
     created_time = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self) -> str:
+        return self.title
+
 
 class Commentary(models.Model):
     user = models.ForeignKey(
@@ -34,3 +37,6 @@ class Commentary(models.Model):
 
     class Meta:
         verbose_name_plural = "commentaries"
+
+    def __str__(self) -> str:
+        return f"{self.user.username} on {self.post.title}: {self.content[:32]}..."
