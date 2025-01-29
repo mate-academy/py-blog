@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 class="text-center">{{ post.title }}</h1>
+<div class="container bootstrap snippets bootdey">
+<div class="col-md-8">
+  <div class="box box-widget">
+    <div class="box-header with-border mb-4">
+      <div class="user-block">
+        <span class="username">By <a href="#">{{ post.owner.username }}</a></span>
+        <br>
+        <span class="description p-2">{{ post.created_time }}</span>
+      </div>
+    </div>
+    <hr>
+    <div class="box-body">
+      {{ post.content|linebreaks }}
+      <hr>
+      <span class="pull-right text-muted border border-dark p-2">{{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}</span>
+    </div>
+    <div class="box-footer box-comments">
+    <!-- COMMENT -->
+      {% for comment in post.commentaries.all %}
+        <div class="box-comment p-4">
+          <h4 class="username">
+            {{ comment.user.username }}
+          </h4>
+          <div class="comment-text p-4">
+            {{ comment.content|linebreaks }}
+          </div>
+          <span class="text-muted pull-right">{{ comment.created_time }}</span>
+        </div>
+        <hr>
+      {% endfor %}
+      <!--END COMMENT -->
+    </div>
+    <div class="box-footer">
+      {% include "blog/commentary_form.html" %}
+    </div>
+  </div>
+</div>
+</div>
+
+{% endblock %}
