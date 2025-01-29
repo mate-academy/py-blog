@@ -14,6 +14,7 @@ class CommentaryForm(forms.ModelForm):
             }
         ),
     )
+
     class Meta:
         fields = ("content", )
         model = Commentary
