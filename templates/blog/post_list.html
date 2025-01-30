@@ -3,7 +3,7 @@
   <h2>Blog posts</h2>
   <ul>
     {% for post in post_list %}
-      <li><a href="{% url "blog:post-detail" pk=post.id %}">{{ post.title }}</a></li>
+      <li><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></li>
     {% endfor %}
   </ul>
 {% endblock %}

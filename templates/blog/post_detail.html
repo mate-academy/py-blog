@@ -8,7 +8,7 @@
   <h4>Comments:</h4>
   <ul>
     {% for comment in post.comments.all %}
-      <li><strong>Comment by:{{ comment.user.username }}</strong> {{ comment.content }}</li>
+      <li><strong>Comment by: {{ comment.user.username }}</strong> {{ comment.content }}</li>
     {% empty %}
       <li>No comments yet.</li>
     {% endfor %}
