@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p><strong>Author:</strong> {{ post.owner.username }}</p>
+  <p><strong>Created:</strong> {{ post.created_time }}</p>
+  <p>{{ post.content }}</p>
+
+  <hr>
+  <h2>Comments ({{ comments|length }})</h2>
+  {% for comment in comments %}
+    <div>
+      <p><strong>{{ comment.user.username }}</strong> ({{ comment.created_time }}):</p>
+      <p>{{ comment.content }}</p>
+    </div>
+    <hr>
+  {% empty %}
+    <p>No comments yet.</p>
+  {% end for %}
+
+  <hr>
+  <h3>Leave a Comment</h3>
+  {% if user.is_authenticated %}
+    <form method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button type="submit" class="btn btn-primary">Post Comment</button>
+    </form>
+  {% else %}
+    <p><a href="{% url 'login' %}">Log in</a> to post a comment.</p>
+  {% endif %}
+{% end block %}
