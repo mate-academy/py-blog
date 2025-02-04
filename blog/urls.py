@@ -10,4 +10,4 @@ urlpatterns = [
          name="send-commentary")
 ]
 
-app_name = "catalog"
+app_name = "blog"
