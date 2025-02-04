@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container mt-3">
+    <div class="w-75 mx-auto">
+      {% if page_obj %}
+        {% for post in page_obj %}
+          <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+              <h1 class="card-title">
+                <a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a>
+              </h1>
+              <p class="text-muted">By {{ post.owner }} on {{ post.created_time }}</p>
+              <p class="card-text text-justify">{{ post.content }}</p>
+              <p class="text-muted">Comments: {{ post.comments.count }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
