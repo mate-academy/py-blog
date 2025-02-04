@@ -1,0 +1,38 @@
+html {
+  line-height: 1.15; /* 1 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+}
+
+body {
+  margin: 0;
+  background-color: burlywood;
+}
+
+main {
+  display: block;
+  margin: 1em;
+  text-align: center;
+}
+
+h1 {
+  font-size: 3em;
+  margin: 0.67em 0.3em 0.5em 1em;
+}
+
+.nav {
+  /* position: fixed; */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  background-color: black;
+}
+
+.nav__link {
+  line-height: 80px;
+  color: #fff;
+  text-decoration: none;
+}

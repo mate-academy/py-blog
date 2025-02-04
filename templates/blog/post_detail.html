@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <div class="ml-3">
+    <p><i>Author: {{ post.owner }}, created: {{ post.created_time }}.</i></p>
+    <hr>
+    <p>{{ post.content }}</p>
+    <hr>
+    <h3>Comments:</h3>
+      {% for comment in post.commentaries.all %}
+        <p>{{ comment.content }}</p>
+        <p><i>by {{ comment.user }} on {{ comment.created_time }}</i></p>
+        <hr>
+        {% empty %}
+        <p>No comments yet.</p>
+      {% endfor %}
+
+  <h3>Add new comment:</h3>
+  {% if user.is_authenticated %}
+    <form method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  {% else %}
+    <p><i>Only users can add comments! <a href="{% url 'login' %}" >Click here to Login</a></i> </p>
+  {% endif %}
+  </div>
+{% endblock %}
