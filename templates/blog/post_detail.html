@@ -1,0 +1,43 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+  <div class="card mb-4">
+    <div class="card-body">
+      <h1 class="card-title">{{ post.title }}</h1>
+      <p class="text-muted">By {{ post.owner.username }} | {{ post.created_time|date:"M d, Y H:i" }}</p>
+      <p class="card-text">{{ post.content }}</p>
+    </div>
+  </div>
+
+  <h3>Comments ({{ comments.count }})</h3>
+
+  {% if comments %}
+    <ul class="list-group mb-4">
+      {% for comment in comments %}
+        <li class="list-group-item">
+          <strong>{{ comment.user.username }}</strong> <span
+            class="text-muted">({{ comment.created_time|date:"M d, Y H:i" }})</span>
+          <p>{{ comment.content }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="text-muted">No comments yet.</p>
+  {% endif %}
+
+  {% if user.is_authenticated %}
+    <h4>Add a Comment</h4>
+    <form method="post" class="mt-3">
+      {% csrf_token %}
+      <div class="mb-3">
+        {{ comment_form.content }}
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  {% else %}
+    <p class="text-muted">You must be <a href="{% url 'blog:login' %}">logged in</a> to comment.</p>
+  {% endif %}
+
+{% endblock %}
