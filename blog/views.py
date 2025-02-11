@@ -21,7 +21,7 @@ def index(request: HttpRequest) -> HttpResponse:
     return render(request, "blog/index.html", context=context)
 
 
-class PostDetailView(LoginRequiredMixin, generic.DetailView):
+class PostDetailView(generic.DetailView):
     model = Post
 
     def get_context_data(self, **kwargs):
