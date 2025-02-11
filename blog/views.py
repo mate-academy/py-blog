@@ -16,8 +16,7 @@ def index(request: HttpRequest) -> HttpResponse:
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
     context = {
-        "post_list": post_list,
-        "page_obj": page_obj,
+        "post_list": page_obj,
     }
     return render(request, "blog/index.html", context=context)
 
@@ -27,13 +26,13 @@ class PostDetailView(LoginRequiredMixin, generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = CommentaryForm()
+        context["form"] = CommentaryForm()
         return context
 
 
 class CommentaryCreateView(View):
     @staticmethod
-    def post(self, request: HttpRequest, pk: int) -> HttpResponse:
+    def post(request: HttpRequest, pk: int) -> HttpResponse:
         post = get_object_or_404(Post, id=pk)
         form = CommentaryForm(request.POST)
         if form.is_valid():
@@ -42,4 +41,5 @@ class CommentaryCreateView(View):
             commentary.user = request.user
             commentary.save()
             return redirect("blog/post-detail", pk=pk)
-        return redirect("blog/post-detail", pk=pk)
+        return render(request, "blog/post-detail",
+                      {"form": form})
