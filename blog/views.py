@@ -40,6 +40,6 @@ class CommentaryCreateView(View):
             commentary.post = post
             commentary.user = request.user
             commentary.save()
-            return redirect("blog/post-detail", pk=pk)
+            return redirect("blog:post-detail", pk=pk)
         return render(request, "blog/post-detail",
                       {"form": form})
