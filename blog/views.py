@@ -48,4 +48,6 @@ class PostDetailView(DetailView):
             comment.save()
             return redirect("blog:post-detail", pk=self.object.pk)
 
-        return self.render_to_response(self.get_context_data(comment_form=form))
+        return self.render_to_response(
+            self.get_context_data(comment_form=form)
+        )

@@ -20,7 +20,6 @@ class Post(models.Model):
                 f"({self.owner.first_name} {self.owner.last_name})")
 
 
-
 class Commentary(models.Model):
     user = models.ForeignKey(User, on_delete=CASCADE, related_name="comments")
     post = models.ForeignKey(Post, on_delete=CASCADE, related_name="comments")
@@ -32,4 +31,3 @@ class Commentary(models.Model):
 
     def __str__(self):
         return {self.content}
-
