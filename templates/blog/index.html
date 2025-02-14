@@ -4,7 +4,7 @@
     <h1>Posts</h1>
   <div class="post_list">
     <ul>
-        {% for post in posts %}
+        {% for post in post_list  %}
             <li>
               <h3>
                 <a href="{% url 'blog:post-detail' pk=post.id %}">
