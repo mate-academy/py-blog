@@ -39,7 +39,7 @@
 				{% csrf_token %}
 {#				{{ comment_form.as_p }}#}
 				{{ comment_form|crispy }}
-				<button type="submit">Submit Comment</button>
+				<button type="submit" class="btn btn-success">Submit Comment</button>
 		</form>
 		{% else %}
 			<p><strong>You need to be logged in to post a comment.</strong></p>
