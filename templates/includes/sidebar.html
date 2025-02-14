@@ -1,0 +1,26 @@
+<ul class="login-sidebar-nav">
+  {% if user.is_authenticated %}
+		<br>
+		<li>
+			<form method="post" action="{% url "logout" %}">
+				{% csrf_token %}
+				<button type="submit" class="btn btn-primary">Logout</button>
+			</form>
+  	</li>
+	{% else %}
+		<br>
+		<li>
+			<form method="get" action="{% url "login" %}">
+				<button type="submit" class="btn btn-primary">Login</button>
+			</form>
+		</li>
+	{% endif %}
+	<br>
+	<li>
+		<a class="btn btn-warning"
+			 href="{% url 'blog:index' %}"
+			 role="button">
+			Home
+		</a>
+	</li>
+</ul>
