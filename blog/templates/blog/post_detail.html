@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>{{ post.title }}</title>
+</head>
+<body>
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content }}</p>
+    <small>by {{ post.author }} on {{ post.created_time }}</small>
+
+    {% if post.comments.all %}
+        <h2>Comments</h2>
+        <ul>
+            {% for comment in post.comments.all %}
+            <li>{{ comment.content }} - {{ comment.author }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No comments yet.</p>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+    <form method="post">
+        {% csrf_token %}
+        <label>
+            <textarea name="content" required></textarea>
+        </label>
+        <button type="submit">Add Comment</button>
+    </form>
+    {% else %}
+    <p>You must be logged in to add a comment.</p>
+    {% endif %}
+</body>
+</html>
