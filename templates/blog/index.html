@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Blog Home Page</h1>
+  <h6>Welcome to the Best Blog!</h6>
+  <hr>
+  {% for post in post_list %}
+    <h3><a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a></h3>
+    <p class="text-secondary"><small>Created at: {{ post.created_time }}</small></p>
+    <p class="text-secondary"><small>Author: <strong>{{ post.owner }}</strong></small></p>
+    <hr>
+    <p>{{ post.content }}</p>
+    <hr>
+    <p class="text-secondary"><small>Comments: {{ post.comments.count }}</small></p>
+    <hr>
+    <br>
+  {% endfor %}
+{% endblock %}
