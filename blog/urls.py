@@ -2,8 +2,7 @@ from django.urls import path
 
 from blog.views import (
     PostListView,
-    PostDetailView,
-    # CommentaryCreateView
+    PostDetailView
 )
 
 urlpatterns = [
