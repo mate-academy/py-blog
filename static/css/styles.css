@@ -1,0 +1,17 @@
+body {
+    margin: 0;
+}
+
+.comment {
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.text-main {
+    font-size: 1.2rem;
+}
+
+.content {
+    margin: 50px 0;
+}
