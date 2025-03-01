@@ -30,6 +30,7 @@ class Commentary(models.Model):
     content = models.TextField()
 
     class Meta:
+        verbose_name_plural = "commentaries"
         ordering = ("-created_time",)
 
     def __str__(self):
