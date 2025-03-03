@@ -1,3 +1,4 @@
+from django.contrib.auth.admin import UserAdmin
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -21,3 +22,4 @@ class Commentary(models.Model):
 
     def __str__(self):
         return f"Comment by {self.user.username} on {self.post.title}"
+
