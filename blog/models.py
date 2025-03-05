@@ -8,7 +8,7 @@ class User(AbstractUser):
         ordering = ("username", )
 
     def __str__(self):
-        return f"First Name: {self.first_name}, Last Name: {self.last_name}"
+        return f"{self.first_name} {self.last_name}"
 
 
 class Post(models.Model):
