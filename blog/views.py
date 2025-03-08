@@ -1,6 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView
 
 from blog.models import Post, Commentary
@@ -14,12 +12,10 @@ class IndexView(ListView):
     ordering = ["-created_time"]
 
 
-class PostDetailtView(DetailView):
+class PostDetailView(DetailView):
     model = Post
     template_name = "blog/post_detail.html"
     context_object_name = "post"
-    success_url = reverse_lazy("blog:post_detail")
-    post_template_name = "blog/post_detail.html"
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
