@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="page-title">
+    <div class="title">{{ post.title }}</div>
+  </div>
+
+  <div class="page-subtitle">
+    <p>{{ post.owner.username }} at {{ post.created_time }}</p>
+  </div>
+
+  <div class="content">
+    {{ post.content }}
+  </div>
+
+  <div class="comments-count">
+    {{ post.comments.count }} comment{{ post.comments.count|pluralize }}
+  </div>
+
+  <ul class="ul-list">
+      {% for comment in post.comments.all %}
+        <li class="li-item">
+          <p><strong>{{ comment.user.username }}</strong>  {{ comment.created_time }}</p>
+          <p>{{ comment.content }}</p>
+        </li>
+      {% empty %}
+        <div class="no-comments">
+          There are no comments.
+        </div>
+      {% endfor %}
+  </ul>
+  <div class="add-new-comment">
+    Add new comment
+  </div>
+  <form action="" method="post" novalidate>
+    {% csrf_token %}
+
+    <label>
+      <textarea name="text" rows="5" cols="130"></textarea>
+    </label>
+
+    <button type="submit" value="Submit">Add comment</button>
+  </form>
+
+{% endblock %}
