@@ -1,5 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from .models import Post, Commentary
+from django.shortcuts import  get_object_or_404
 from .forms import CommentaryForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
