@@ -1,4 +1,4 @@
-# Blog
+ Blog
 
 In this task, you will create a simple `Blog` project from start to end.
 

@@ -1,0 +1,12 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+}
+
+.post-title {
+    color: #555;
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}

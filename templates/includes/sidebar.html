@@ -1,0 +1,8 @@
+<ul class="sidebar-nav list-group">
+  {% if user.is_authenticated %}
+    <h3>Sidebar</h3>
+    <ul>
+      <li><a href="{% url 'blog:index' %}">Home</a></li>
+    </ul>
+  {% endif %}
+</ul>
