@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="text-center my-4">Blog</h1>
+    <p class="text-center">Welcome to my blog! Here you will find the latest posts.</p>
+
+    <div class="row">
+      {% for post in post_list %}
+        <div class="col-md-8 offset-md-2">
+          <div class="card my-3 shadow-sm">
+            <div class="card-body">
+              <h4 class="card-title">
+                <a href="#" class="text-primary">{{ post.title }}</a>
+{#                <a href="{% url 'post_detail' post.id %}" class="text-primary">{{ post.title }}</a>#}
+              </h4>
+              <p class="card-text text-muted">By <strong>{{ post.owner }}</strong> on {{ post.created_time|date:"F j, Y" }} at {{ post.created_time|time:"H:i" }}</p>
+              <p class="card-text">{{ post.content|truncatewords:40 }}</p>
+              <p class="text-muted">💬 {{ post.comments.count }} comments</p>
+              <a href="#" class="btn btn-outline-primary btn-sm">Read more</a>
+{#              <a href="{% url 'post_detail' post.id %}" class="btn btn-outline-primary btn-sm">Read more</a>#}
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <div class="col-md-8 offset-md-2 text-center">
+          <p>No posts available yet. Check back later!</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
