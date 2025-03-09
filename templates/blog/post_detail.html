@@ -1,23 +1,30 @@
 {% extends "base.html" %}
 
-{% block content %}
-    <h1>{{ post.title }}</h1>
-    <p><strong>Author:</strong> {{ post.owner }}</p>
-    <p><strong>Created:</strong> {{ post.created_time }}</p>
-    <p>{{ post.content }}</p>
+ {% block content %}
+<h2>{{ post.title }}</h2>
+<p>{{ post.content }}</p>
+<p>Author: {{ post.owner.username }}</p>
+<p>Created: {{ post.created_time }}</p>
 
-    <h2>Comments ({{ post.comment_count }})</h2>
-    <ul>
-        {% for comment in comments %}
-            <li>
-                <strong>{{ comment.user }}:</strong> {{ comment.text }}
-                <br><small>{{ comment.created_time }}</small>
-            </li>
-        {% empty %}
-            <p>No comments yet.</p>
-        {% endfor %}
-    </ul>
+<h3>Comments</h3>
+{% for comment in comments %}
+    <div>
+        <p>{{ comment.content }} - {{ comment.user.username }}</p>
+        <p>Posted on: {{ comment.created_time }}</p>
+    </div>
+{% empty %}
+    <p>No comments yet.</p>
+{% endfor %}
 
-    <a href="{% url 'post-update' post.id %}">Update</a>
-    <a href="{% url 'post-delete' post.id %}">Delete</a>
+{% if user.is_authenticated %}
+    <h3>Leave a Comment</h3>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit Comment</button>
+    </form>
+{% else %}
+    <p>You must be logged in to comment.</p>
+{% endif %}
 {% endblock %}
+

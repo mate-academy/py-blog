@@ -1,23 +1,29 @@
 {% extends "base.html" %}
 
-{% block content %}
-  <h1>BLOG</h1>
-  <p>Welcome to Best BLOG Ever!</p>
-      <ul>
-        {% for post in posts %}
-            <li class="post-title">{{ post.title }}</li>
-        {% endfor %}
-      </ul>
-  <h2>Dynamic content</h2>
-  <p>The BLOG service has the following record counts:</p>
-  <ul>
-    <li><strong>Users:</strong> {{ num_users }}</li>
-    <li><strong>Posts:</strong> {{ num_posts }}</li>
-    <li><strong>Comments:</strong> {{ num_comments }}</li>
-  </ul>
+ {% block content %}
+{% for post in page_obj %}
+    <div>
+        <h2><a href="{% url 'blog:post-detail' post.pk %}">{{ post.title }}</a></h2>
+        <p>{{ post.content }}</p>
+        <p>Author: {{ post.owner.username }}</p>
+        <p>Created: {{ post.created_time }}</p>
+        <p>Comments: {{ post.comment_count }}</p>
+    </div>
+{% endfor %}
 
-  <p>You have visited this page
-      {{ num_visits }} time{{ num_visits|pluralize }}.
-  </p>
-
-{% endblock %}
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+ {% endblock %}
