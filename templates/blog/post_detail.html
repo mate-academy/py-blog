@@ -28,9 +28,19 @@
         </div>
       {% endfor %}
   </ul>
-  <div class="add-new-comment">
+
+  {% if msg %}
+    <div class="add-new-comment">
+      {{ msg }}
+    </div>
+  {% else %}
+   <div class="add-new-comment">
     Add new comment
   </div>
+  {% endif %}
+
+
+
   <form action="" method="post" novalidate>
     {% csrf_token %}
 

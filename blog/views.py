@@ -1,6 +1,9 @@
+from django.contrib.auth.models import AnonymousUser
+from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect
 from django.views.generic import DetailView, ListView
 
+from blog import models
 from blog.models import Post, Commentary
 
 
@@ -19,9 +22,14 @@ class PostDetailView(DetailView):
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
-        Commentary.objects.create(
-            user=self.object.owner,
-            post=self.object,
-            content=request.POST["text"],
-        )
-        return redirect("blog:post-detail", pk=self.object.pk)
+        if not isinstance(request.user, AnonymousUser):
+            Commentary.objects.create(
+                user=request.user,
+                post=self.object,
+                content=request.POST["text"],
+            )
+            return redirect("blog:post-detail", pk=self.object.pk)
+        return render(request, "blog/post_detail.html", {
+            "msg": "Authorization Required",
+            "post": self.object,
+        })
