@@ -11,7 +11,7 @@ def index(request):
     paginator = Paginator(posts, 5)  # 5 posts per page
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
-    return render(request, "blog/index.html", {"page_obj": page_obj})
+    return render(request, "blog/index.html", {"post_list": page_obj})
 
 
 def post_detail(request, pk):
