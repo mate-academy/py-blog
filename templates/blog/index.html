@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>All Posts</h1>
+
+  {% for post in posts %}
+    <div class="post">
+        <h2><a href="{% url 'blog:post_detail' post.id %}">{{ post.title }}</a></h2>
+        <p>
+          <strong>Author:</strong> {{ post.owner.username }}
+          | <strong>Created on:</strong> {{ post.created_time|date:"F j, Y" }}
+        </p>
+        <p>{{ post.content|slice:":100" }}...</p>
+        <p><strong>Comments:</strong> {{ post.commentary_set.count }}</p>
+    </div>
+  {% empty %}
+    <p>No posts available.</p>
+  {% endfor %}
+
+  {% include 'blog/pagination.html' %}
+{% endblock %}

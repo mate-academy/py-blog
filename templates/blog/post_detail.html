@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p><strong>Author:</strong> {{ post.owner.username }}</p>
+  <p><strong>Created:</strong> {{ post.created_time }}</p>
+  <p><strong>Content:</strong> {{ post.content }}</p>
+
+  <h2>Comments:</h2>
+  {% for comment in post.commentary_set.all %}
+    <p><strong>{{ comment.user.username }}:</strong> {{ comment.content }}</p>
+  {% empty %}
+    <p>No comments yet.</p>
+  {% endfor %}
+
+  <h3>Add a comment:</h3>
+  <form method="post">
+    {% csrf_token %}
+    <textarea name="content" rows="4" cols="50" required></textarea><br>
+    <button type="submit">Submit</button>
+  </form>
+
+  <a href="{% url 'blog:index' %}">Back to Posts</a>
+{% endblock %}
