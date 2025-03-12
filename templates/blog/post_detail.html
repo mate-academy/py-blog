@@ -2,21 +2,32 @@
 
 {% block content %}
   <h1>{{ post.title }}</h1>
-  <p><strong>Author:</strong> {{ post.owner.username }}</p>
+  <p><strong>Author:</strong> {% if post.owner %}{{ post.owner.username }}{% else %}Unknown{% endif %}</p>
   <p><strong>Created:</strong> {{ post.created_time }}</p>
   <p><strong>Content:</strong> {{ post.content }}</p>
 
   <h2>Comments:</h2>
-  {% for comment in post.commentary_set.all %}
+  {% for comment in comments %}
     <p><strong>{{ comment.user.username }}:</strong> {{ comment.content }}</p>
   {% empty %}
     <p>No comments yet.</p>
   {% endfor %}
 
+  {% if comments.has_previous %}
+    <a href="?page={{ comments.previous_page_number }}">Previous</a>
+  {% endif %}
+  {% if comments.has_next %}
+    <a href="?page={{ comments.next_page_number }}">Next</a>
+  {% endif %}
+
   {% if user.is_authenticated %}
     <h3>Add a comment:</h3>
-    <form method="post">
+    <form method="post" action="{% url 'blog:post_detail' post.pk %}">
       {% csrf_token %}
+      {% if form.errors %}
+        <p style="color: red;">Пожалуйста, исправьте ошибки ниже:</p>
+        {{ form.errors }}
+      {% endif %}
       {{ form.as_p }}
       <button type="submit">Submit</button>
     </form>

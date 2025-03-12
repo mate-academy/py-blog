@@ -1,5 +1,17 @@
 <aside class="sidebar">
   <ul>
+    {% if user.is_authenticated %}
+      <li>
+        <form method="post" action="{% url 'blog:logout' %}">
+          {% csrf_token %}
+          <button type="submit" style="background:none;border:none;padding:0;color:blue;text-decoration:underline;cursor:pointer;">
+            Logout
+          </button>
+        </form>
+      </li>
+    {% else %}
+      <li><a href="{% url 'blog:login' %}">Login</a></li>
+    {% endif %}
     <li><a href="{% url 'blog:index' %}">Home</a></li>
   </ul>
 </aside>

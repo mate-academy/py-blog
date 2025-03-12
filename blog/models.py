@@ -12,9 +12,13 @@ class Post(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
     )
-    title = models.CharField(max_length=100)
+    title = models.CharField(
+        max_length=100
+    )
     content = models.TextField()
-    created_time = models.DateTimeField(auto_now_add=True)
+    created_time = models.DateTimeField(
+        auto_now_add=True
+    )
 
     def __str__(self):
         return self.title
@@ -25,6 +29,14 @@ class Commentary(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
     )
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    created_time = models.DateTimeField(auto_now_add=True)
+    post = models.ForeignKey(
+        Post, on_delete=models.CASCADE
+    )
+    created_time = models.DateTimeField(
+        auto_now_add=True
+    )
     content = models.TextField()
+
+    class Meta:
+        verbose_name = "Commentary"
+        verbose_name_plural = "Commentaries"
