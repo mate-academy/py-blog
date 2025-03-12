@@ -22,7 +22,7 @@
 
   {% if user.is_authenticated %}
     <h3>Add a comment:</h3>
-    <form method="post" action="{% url 'blog:post_detail' post.pk %}">
+    <form method="post" action="{% url 'blog:post-detail' post.pk %}">
       {% csrf_token %}
       {{ form.as_p }}
       <button type="submit">Submit</button>
