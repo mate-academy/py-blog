@@ -7,14 +7,29 @@ from .models import User, Post, Commentary
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ("title", "owner", "created_time",)
-    search_fields = ("title", "content",)
-    list_filter = ("title", "created_time",)
+    list_display = (
+        "title",
+        "owner",
+        "created_time",
+    )
+    search_fields = (
+        "title",
+        "content",
+    )
+    list_filter = (
+        "title",
+        "created_time",
+    )
 
 
 @admin.register(Commentary)
 class CommentaryAdmin(admin.ModelAdmin):
-    list_display = ("id", "post", "user", "created_time",)
+    list_display = (
+        "id",
+        "post",
+        "user",
+        "created_time",
+    )
     search_fields = ("content",)
     list_filter = ("created_time",)
 
@@ -22,5 +37,6 @@ class CommentaryAdmin(admin.ModelAdmin):
 @admin.register(User)
 class AdminUser(UserAdmin):
     pass
+
 
 admin.site.unregister(Group)
