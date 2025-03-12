@@ -2,7 +2,7 @@
 
 {% block content %}
   <h1>{{ post.title }}</h1>
-  <p><strong>Author:</strong> {% if post.owner %}{{ post.owner.username }}{% else %}Unknown{% endif %}</p>
+  <p><strong>Author:</strong> {{ post.owner.username }}</p>
   <p><strong>Created:</strong> {{ post.created_time }}</p>
   <p><strong>Content:</strong> {{ post.content }}</p>
 
@@ -24,10 +24,6 @@
     <h3>Add a comment:</h3>
     <form method="post" action="{% url 'blog:post_detail' post.pk %}">
       {% csrf_token %}
-      {% if form.errors %}
-        <p style="color: red;">Пожалуйста, исправьте ошибки ниже:</p>
-        {{ form.errors }}
-      {% endif %}
       {{ form.as_p }}
       <button type="submit">Submit</button>
     </form>

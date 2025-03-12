@@ -15,7 +15,7 @@ urlpatterns = [
     path(
         "posts/<int:pk>/",
         PostDetailView.as_view(),
-        name="post_detail"
+        name="post-detail"
     ),
 
     path(

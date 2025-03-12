@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
@@ -29,7 +29,7 @@ class CommentaryForm(forms.ModelForm):
         fields = ["content"]
 
 
-class PostDetailView(LoginRequiredMixin, FormMixin, DetailView):
+class PostDetailView(FormMixin, DetailView):
     model = Post
     template_name = "blog/post_detail.html"
     context_object_name = "post"
@@ -47,10 +47,15 @@ class PostDetailView(LoginRequiredMixin, FormMixin, DetailView):
         context["form"] = self.get_form()
         return context
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
+        if not request.user.is_authenticated:
+            messages.warning(
+                request,
+                "You need to login to comment this page."
+            )
+            return redirect("blog:login")
         self.object = self.get_object()
         form = self.get_form()
-
         if form.is_valid():
             return self.form_valid(form)
         else:

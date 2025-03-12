@@ -5,7 +5,7 @@
 
   {% for post in post_list %}
     <div class="post">
-        <h2><a href="{% url 'blog:post_detail' post.id %}">{{ post.title }}</a></h2>
+        <h2><a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a></h2>
         <p>
           <strong>Author:</strong> {{ post.owner.username }}
           | <strong>Created on:</strong> {{ post.created_time|date:"F j, Y" }}
