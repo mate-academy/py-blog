@@ -15,7 +15,7 @@ from .models import Post, Commentary
 def index(request):
     posts_list = Post.objects.all().order_by("-created_time")
     paginator = Paginator(posts_list, 5)
-    page_number = request.GET.get('page')
+    page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
     context = {
@@ -28,7 +28,7 @@ def index(request):
 class CommentaryForm(forms.ModelForm):
     class Meta:
         model = Commentary
-        fields = ['content']
+        fields = ["content"]
 
 
 class PostDetailView(LoginRequiredMixin, FormMixin, DetailView):
@@ -43,7 +43,7 @@ class PostDetailView(LoginRequiredMixin, FormMixin, DetailView):
         post = self.get_object()
         comments = Commentary.objects.filter(post=post)
         paginator = Paginator(comments, 5)
-        page_number = self.request.GET.get('page')
+        page_number = self.request.GET.get("page")
         page_obj = paginator.get_page(page_number)
         context["comments"] = page_obj
         context["form"] = self.get_form()
@@ -73,8 +73,8 @@ class PostDetailView(LoginRequiredMixin, FormMixin, DetailView):
 
 class CustomLoginView(LoginView):
     def get_success_url(self):
-        return '/'
+        return "/"
 
 
 class CustomLogoutView(LogoutView):
-    next_page = 'blog:index'
+    next_page = "blog:index"
