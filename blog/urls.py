@@ -1,5 +1,5 @@
-from django.urls import path, include
-from django.views.generic import detail
+from django.urls import path
+
 
 from blog.views import PostListView, PostDetailView
 

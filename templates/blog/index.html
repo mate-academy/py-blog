@@ -5,7 +5,7 @@
     <h1 class="mb-4">Home Page</h1>
 
     <div class="list-group">
-      {% for post in posts %}
+      {% for post in post_list %}
         <div class="list-group-item">
           <h3 class="d-flex justify-content-between">
             <a href="{{ post.get_absolute_url }}" class="text-decoration-none">{{ post.title }}</a>

@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView
 
-from blog.models import Post, Commentary
+from blog.models import Post
 
 
 # Create your views here.
@@ -17,9 +17,5 @@ class PostListView(ListView):
 
 class PostDetailView(LoginRequiredMixin, DetailView):
     model = Post
-    paginate_by = 5
     context_object_name = "post"
     template_name = "blog/post_detail.html"
-
-
-
