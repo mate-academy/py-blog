@@ -1,37 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="d-flex justify-content-center">
-    <div class="w-50">
-      {% if post_list %}
-        <div class="list-group">
-          {% for post in post_list %}
-            <a href="{% url 'blog:post-detail' pk=post.id %}"
-               class="list-group-item list-group-item-action flex-column align-items-start position-relative"
-            >
-              {% if post.commentary_set.count %}
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary custom-badge">
-                  {{ post.commentary_set.count }}
-                  <span class="visually-hidden">unread messages</span>
-                </span>
-              {% endif %}
-              <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-1 title">{{ post.title }}</h5>
-                <small>{{ post.created_time }}</small>
-              </div>
-              <p class="mb-1">
-                {{ post.owner.username }}
-                {% if post.owner.first_name and post.owner.last_name %}
-                  ({{ post.owner.first_name }} {{ post.owner.last_name }})
-                {% endif %}
-              </p>
-            </a>
-          {% endfor %}
-        </div>
-      {% else %}
-        <h3>There are no posts yet... Make one right now to see it here!</h3>
-      {% endif %}
-      <a href="{% url 'blog:post-create' %}" class="btn btn-dark mt-3">Make a post</a>
-    </div>
-  </div>
+  <h1>Blogs</h1>
+  <ul>
+    {% for post in post_list %}
+      <li><a href="#">{{ post.title }}</a></li>
+    {% endfor %}
+  </ul>
 {% endblock %}
