@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="m-5">
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.owner }} {{ post.created_time }}</p>
+    <p class="lead">{{ post.content }}</p>
+    <div class="comments">
+      <p class="font-weight-bold">
+        {{ post.comments.count }} comment{{ post.comments.count|pluralize }}
+      </p>
+      <ul class="list-unstyled">
+        {% for comment in post.comments.all %}
+          <li class="mb-3 border p-2 rounded">
+            <p class="border-bottom pb-2">{{ comment.user }} <small
+                class="text-muted">{{ comment.created_time }}</small></p>
+            <p class="mb-1">{{ comment.content }}</p>
+          </li>
+        {% empty %}
+          <li class="text-muted">There are no comments yet.</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    {% if user.is_authenticated %}
+      <div class="mt-4">
+        <p class="font-weight-bold">Add a new comment</p>
+        <form method="post">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <button type="submit" class="btn btn-primary">Add Comment</button>
+        </form>
+      </div>
+    {% else %}
+      <p class="text-muted mt-4">
+        You must be <a href="{% url 'login' %}">logged in</a> to post a
+        comment.
+      </p>
+    {% endif %}
+  </div>
+{% endblock %}
