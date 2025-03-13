@@ -35,7 +35,9 @@ class Commentary(models.Model):
     def __str__(self):
         return (
             f"{self.user} on {self.post}: "
-            f"{self.content[:100] + "..." if (
-                len(self.content) > 100
-            ) else self.content}"
+            + (
+                f"{self.content[:100]}..."
+                if len(self.content) > 100
+                else self.content
+            )
         )
