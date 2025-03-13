@@ -16,9 +16,12 @@ class PostAdmin(admin.ModelAdmin):
 class CommentaryAdmin(admin.ModelAdmin):
     pass
 
+
 @admin.register(User)
 class UserAdmin(UserAdmin):
     pass
+
+
 # from django.contrib import admin
 # from .models import Article, Comment
 #
