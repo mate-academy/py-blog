@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h1 class="mb-3">{{ post.title }}</h1>
+    <p class="text-muted"><strong>Author:</strong> {{ post.owner.username }}</p>
+    <p class="text-muted"><strong>Created:</strong> {{ post.created_time }}</p>
+    <p><strong>Content:</strong> {{ post.content }}</p>
+
+    <h2 class="mt-4 mb-3">Comments:</h2>
+    <ul class="list-group mb-3">
+      {% for comment in comments %}
+        <li class="list-group-item">
+          <strong>{{ comment.user.username }}:</strong> {{ comment.content }}
+        </li>
+      {% empty %}
+        <li class="list-group-item text-muted">No comments yet.</li>
+      {% endfor %}
+    </ul>
+
+    <div class="mb-3">
+      {% if comments.has_previous %}
+        <a href="?page={{ comments.previous_page_number }}" class="btn btn-outline-primary btn-sm">Previous</a>
+      {% endif %}
+      {% if comments.has_next %}
+        <a href="?page={{ comments.next_page_number }}" class="btn btn-outline-primary btn-sm">Next</a>
+      {% endif %}
+    </div>
+
+    {% if user.is_authenticated %}
+      <div class="card p-3 mt-4">
+        <h3 class="mb-3">Add a comment:</h3>
+        <form method="post" action="{% url 'blog:post-detail' post.pk %}">
+          {% csrf_token %}
+          <div class="mb-3">
+            {{ form.as_p }}
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    {% else %}
+      <p class="text-muted">You must be logged in to leave a comment.</p>
+    {% endif %}
+
+    <a href="{% url 'blog:index' %}" class="btn btn-secondary mt-3">Back to Posts</a>
+  </div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog System</title>
+  <link href="https://cdn.jsdelivr.net/npm/[email protected]/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body class="bg-light">
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-3">
+      {% include 'blog/side_panel.html' %}
+    </div>
+    <div class="col-md-9">
+      {% block content %}
+      {% endblock %}
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/[email protected]/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVFupz4i5JtuKK1vF6Zo7C+UJ0IN+pQyoHq2Yd2/5QhXQ5wJ6w8z" crossorigin="anonymous"></script>
+</body>
+</html>
