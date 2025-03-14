@@ -1,35 +1,47 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>{{ post.title }}</h1>
-  <p><strong>Author:</strong> {{ post.owner.username }}</p>
-  <p><strong>Created:</strong> {{ post.created_time }}</p>
-  <p><strong>Content:</strong> {{ post.content }}</p>
+  <div class="container mt-4">
+    <h1 class="mb-3">{{ post.title }}</h1>
+    <p class="text-muted"><strong>Author:</strong> {{ post.owner.username }}</p>
+    <p class="text-muted"><strong>Created:</strong> {{ post.created_time }}</p>
+    <p><strong>Content:</strong> {{ post.content }}</p>
 
-  <h2>Comments:</h2>
-  {% for comment in comments %}
-    <p><strong>{{ comment.user.username }}:</strong> {{ comment.content }}</p>
-  {% empty %}
-    <p>No comments yet.</p>
-  {% endfor %}
+    <h2 class="mt-4 mb-3">Comments:</h2>
+    <ul class="list-group mb-3">
+      {% for comment in comments %}
+        <li class="list-group-item">
+          <strong>{{ comment.user.username }}:</strong> {{ comment.content }}
+        </li>
+      {% empty %}
+        <li class="list-group-item text-muted">No comments yet.</li>
+      {% endfor %}
+    </ul>
 
-  {% if comments.has_previous %}
-    <a href="?page={{ comments.previous_page_number }}">Previous</a>
-  {% endif %}
-  {% if comments.has_next %}
-    <a href="?page={{ comments.next_page_number }}">Next</a>
-  {% endif %}
+    <div class="mb-3">
+      {% if comments.has_previous %}
+        <a href="?page={{ comments.previous_page_number }}" class="btn btn-outline-primary btn-sm">Previous</a>
+      {% endif %}
+      {% if comments.has_next %}
+        <a href="?page={{ comments.next_page_number }}" class="btn btn-outline-primary btn-sm">Next</a>
+      {% endif %}
+    </div>
 
-  {% if user.is_authenticated %}
-    <h3>Add a comment:</h3>
-    <form method="post" action="{% url 'blog:post-detail' post.pk %}">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">Submit</button>
-    </form>
-  {% else %}
-    <p>You must be logged in to leave a comment.</p>
-  {% endif %}
+    {% if user.is_authenticated %}
+      <div class="card p-3 mt-4">
+        <h3 class="mb-3">Add a comment:</h3>
+        <form method="post" action="{% url 'blog:post-detail' post.pk %}">
+          {% csrf_token %}
+          <div class="mb-3">
+            {{ form.as_p }}
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    {% else %}
+      <p class="text-muted">You must be logged in to leave a comment.</p>
+    {% endif %}
 
-  <a href="{% url 'blog:index' %}">Back to Posts</a>
+    <a href="{% url 'blog:index' %}" class="btn btn-secondary mt-3">Back to Posts</a>
+  </div>
 {% endblock %}

@@ -1,17 +1,21 @@
-<aside class="sidebar">
-  <ul>
+<aside class="sidebar bg-white p-3 rounded shadow-sm">
+  <ul class="list-group">
     {% if user.is_authenticated %}
-      <li>
+      <li class="list-group-item border-0">
         <form method="post" action="{% url 'blog:logout' %}">
           {% csrf_token %}
-          <button type="submit" style="background:none;border:none;padding:0;color:blue;text-decoration:underline;cursor:pointer;">
+          <button type="submit" class="btn btn-link p-0 border-0 text-primary">
             Logout
           </button>
         </form>
       </li>
     {% else %}
-      <li><a href="{% url 'blog:login' %}">Login</a></li>
+      <li class="list-group-item border-0">
+        <a href="{% url 'blog:login' %}" class="text-decoration-none text-primary">Login</a>
+      </li>
     {% endif %}
-    <li><a href="{% url 'blog:index' %}">Home</a></li>
+    <li class="list-group-item border-0">
+      <a href="{% url 'blog:index' %}" class="text-decoration-none text-primary">Home</a>
+    </li>
   </ul>
 </aside>

@@ -3,9 +3,9 @@ from django.contrib import messages
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
+from django.urls import reverse_lazy
 from django.views.generic import DetailView
 from django.views.generic.edit import FormMixin
-
 
 from .models import Post, Commentary
 
@@ -34,7 +34,7 @@ class PostDetailView(FormMixin, DetailView):
     template_name = "blog/post_detail.html"
     context_object_name = "post"
     form_class = CommentaryForm
-    login_url = "/login/"
+    login_url = reverse_lazy("blog:login")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -67,7 +67,7 @@ class PostDetailView(FormMixin, DetailView):
         comment.post = post
         comment.user = self.request.user
         comment.save()
-        return redirect("blog:post_detail", pk=post.pk)
+        return redirect("blog:post-detail", pk=post.pk)
 
     def form_invalid(self, form):
         context = self.get_context_data(form=form)
@@ -76,8 +76,8 @@ class PostDetailView(FormMixin, DetailView):
 
 class CustomLoginView(LoginView):
     def get_success_url(self):
-        return "/"
+        return reverse_lazy("blog:index")
 
 
 class CustomLogoutView(LogoutView):
-    next_page = "blog:index"
+    next_page = reverse_lazy("blog:index")
