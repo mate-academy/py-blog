@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="d-flex justify-content-center">
+    <div class="w-50">
+      <h2>{{ post.title }}</h2>
+      <small>{{ post.created_time }}</small>
+      <p>{{ post.content }}</p>
+
+      <label>{{ post.commentary_set.count }} comment{{ post.commentary_set.count|pluralize }}</label>
+      <div class="list-group">
+      {% for comment in post.commentary_set.all %}
+        <a href="#" class="list-group-item list-group-item-action">
+          <div href="#" class="d-flex w-100 justify-content-between border-bottom">
+            <h5 class="mb-1 title">{{ comment.user.username }}</h5>
+            <small>{{ comment.created_time }}</small>
+          </div>
+          <p class="my-2">{{ comment.content }}</p>
+        </a>
+      {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
