@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <hr>
+  <b>Author: </b>
+  {{ post.owner.first_name }} {{ post.owner.last_name }}
+  <b>Created: </b>
+  {{ post.created_time }}
+  {{ post.commentaries_count }}
+  <hr>
+  <p class="text-justify">
+    {{ post.content }}
+  </p>
+  <hr>
+  <div>
+    {% for commentary in post.commentaries.all %}
+      <div class="card mt-2">
+        <div class="card-body">
+          <h5 class="card-title">{{ commentary.user.username }}</h5>
+          <p class="card-text">{{ commentary.content }}</p>
+        </div>
+      </div>
+    {% empty %}
+      <p>There are no comments yet.</p>
+    {% endfor %}
+  </div>
+  {% if user.is_authenticated %}
+    <form class="mt-2" action="{% url "blog:commentary-create" %}"
+          method="post">
+      {% csrf_token %}
+      <input type="hidden" name="post_id" value="{{ post.id }}">
+      {{ commentary_form|crispy }}
+      <input class="btn btn-primary" type="submit" value="Add comment">
+    </form>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,21 @@
+<nav>
+  <ul class="nav justify-content-center">
+    <li class="nav-item">
+      <a class="nav-link" href="{% url "blog:index" %}">Blog</a>
+    </li>
+    {% if user.is_authenticated %}
+      <li class="nav-item user-select-none">
+        <a class="nav-link user-select-none" href="#">
+          {{ user.username }}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url "logout" %}">Logout</a>
+      </li>
+    {% else %}
+      <li class="nav-item">
+        {% include "includes/login_link.html" %}
+      </li>
+    {% endif %}
+  </ul>
+</nav>
