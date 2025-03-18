@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+    <div class="d-flex justify-content-center p-5">
+      <div>
+        <h1 class="text-center m-lg-4">Login</h1>
+        <form action="" method="post">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <input type="submit" value="Login" class="btn btn-dark">
+        </form>
+      </div>
+  </div>
+{% endblock %}

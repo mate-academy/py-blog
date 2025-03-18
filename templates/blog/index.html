@@ -4,7 +4,15 @@
   <div class="d-flex justify-content-center">
     <div class="list-group w-50">
       {% for post in post_list %}
-        <a href="{% url 'blog:post-detail' pk=post.id %}" class="list-group-item list-group-item-action flex-column align-items-start">
+        <a href="{% url 'blog:post-detail' pk=post.id %}"
+           class="list-group-item list-group-item-action flex-column align-items-start position-relative"
+        >
+          {% if post.commentary_set.count %}
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary custom-badge">
+              {{ post.commentary_set.count }}
+              <span class="visually-hidden">unread messages</span>
+            </span>
+          {% endif %}
           <div class="d-flex w-100 justify-content-between">
             <h5 class="mb-1 title">{{ post.title }}</h5>
             <small>{{ post.created_time }}</small>
