@@ -3,3 +3,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.custom-badge {
+  z-index: 1;
+}
