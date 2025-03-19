@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% for post in post_list %}
+    <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+    <hr>
+    <p>
+      <b>Author: </b>
+      {{ post.owner.first_name }} {{ post.owner.last_name }}
+      <b>Created: </b>
+      {{ post.created_time }}
+      {{ post.commentaries_count }}
+      comment{{ post.commentaries_count|pluralize }}
+    </p>
+    <hr>
+    <p>
+      {{ post.content }}
+    </p>
+  {% endfor %}
+{% endblock %}
