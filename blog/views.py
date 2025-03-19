@@ -26,13 +26,12 @@ class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
     def post(self, request, *args, **kwargs):
         post = get_object_or_404(Post, pk=request.POST["post_id"])
 
-        if request.method == "POST":
-            form = CommentaryForm(request.POST or None)
+        form = CommentaryForm(request.POST or None)
 
-            if form.is_valid():
-                commentary = form.save(commit=False)
-                commentary.post = post
-                commentary.user = request.user
-                commentary.save()
+        if form.is_valid():
+            commentary = form.save(commit=False)
+            commentary.post = post
+            commentary.user = request.user
+            commentary.save()
 
-            return redirect("blog:post-detail", pk=post.id)
+        return redirect("blog:post-detail", pk=post.id)
