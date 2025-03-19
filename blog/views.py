@@ -9,7 +9,6 @@ from django.views.generic import DetailView
 from blog.models import User, Post, Commentary
 
 
-@login_required
 def index(request: HttpRequest) -> HttpResponse:
     list_posts = Post.objects.all().order_by("-created_time")
     paginator = Paginator(list_posts, 5)
@@ -33,7 +32,7 @@ class PostDetailView(LoginRequiredMixin, DetailView):
         return context
 
     def post(self, request, *args, **kwargs):
-        post = self.get_object()  # Отримуємо об’єкт посту
+        post = self.get_object()
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
