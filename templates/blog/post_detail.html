@@ -10,7 +10,7 @@
 
       <label>{{ post.commentary_set.count }} comment{{ post.commentary_set.count|pluralize }}</label>
       <div class="list-group">
-      {% for comment in post.commentary_set.all %}
+      {% for comment in page_obj %}
         <div class="list-group-item">
           <div class="d-flex w-100 justify-content-between border-bottom">
             <h5 class="mb-1 title">{{ comment.user.username }}</h5>
