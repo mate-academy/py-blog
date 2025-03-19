@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="d-flex justify-content-center">
+    <div class="w-50">
+      <h2>Create a post</h2>
+      <form action="" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" value="Create" class="btn btn-dark">
+      </form>
+    </div>
+  </div>
+{% endblock %}

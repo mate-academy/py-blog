@@ -4,7 +4,7 @@ from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 
-from blog.forms import CustomUserCreationForm, CommentaryForm
+from blog.forms import CustomUserCreationForm, CommentaryForm, PostForm
 from blog.models import Post, Commentary
 
 
@@ -51,6 +51,21 @@ class CommentaryCreateView(generic.CreateView):
             commentary.save()
 
         return redirect('blog:post-detail', pk=self.kwargs['pk'])
+
+
+class PostCreateView(generic.CreateView):
+    form_class = PostForm
+    model = Post
+
+    def form_valid(self, form):
+        form = self.form_class(self.request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.owner_id = self.request.user.id
+            post.save()
+
+        return redirect('blog:index')
+
 
 class SignUpView(generic.CreateView):
     form_class = CustomUserCreationForm

@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.forms import Textarea
 from django.forms.models import ModelForm
 
-from blog.models import Commentary
+from blog.models import Commentary, Post
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -18,3 +18,9 @@ class CommentaryForm(ModelForm):
         fields = ("content",)
         labels = {"content": "Post a comment",}
         widgets = {"content": Textarea(attrs={"cols": 20, "rows": 3}),}
+
+
+class PostForm(ModelForm):
+    class Meta:
+        model = Post
+        fields = ("title", "content",)
