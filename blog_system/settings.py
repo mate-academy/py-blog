@@ -131,8 +131,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 AUTH_USER_MODEL = "blog.User"
-LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/blog/"
 
 INTERNAL_IPS = [
     "127.0.0.1",
 ]
+
+CRISPY_TEMPLATE_PACK = "bootstrap4"
