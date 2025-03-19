@@ -25,7 +25,7 @@ class PostDetailView(generic.DetailView):
 class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
     model = Commentary
     form_class = CommentaryForm
-    
+
     def post(self, request, *args, **kwargs):
         post = get_object_or_404(Post, pk=request.POST.get("post_id"))
 
