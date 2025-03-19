@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model, login
+from django.core.paginator import Paginator
 from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
 from django.views import generic
@@ -11,6 +12,7 @@ class PostListView(generic.ListView):
     model = Post
     queryset = Post.objects.select_related("owner").prefetch_related("commentary_set")
     template_name = "blog/index.html"
+    paginate_by = 5
 
 
 class PostDetailView(generic.DetailView):
@@ -21,6 +23,16 @@ class PostDetailView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        post = self.get_object()
+        comment_list = post.commentary_set.all()
+        paginator = Paginator(comment_list, 3)
+        page_number = self.request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
+
+        context["page_obj"] = page_obj
+        context["paginator"] = paginator
+        context["is_paginated"] = True
         context["form"] = CommentaryForm()
         return context
 
