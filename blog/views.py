@@ -23,10 +23,13 @@ class PostDetailView(generic.DetailView):
 
 
 class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Commentary
+    form_class = CommentaryForm
+    
     def post(self, request, *args, **kwargs):
-        post = get_object_or_404(Post, pk=request.POST["post_id"])
+        post = get_object_or_404(Post, pk=request.POST.get("post_id"))
 
-        form = CommentaryForm(request.POST or None)
+        form = CommentaryCreateView.form_class(request.POST)
 
         if form.is_valid():
             commentary = form.save(commit=False)
