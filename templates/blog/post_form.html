@@ -4,11 +4,11 @@
 {% block content %}
   <div class="d-flex justify-content-center">
     <div class="w-50">
-      <h2>Create a post</h2>
+      <h2>{{ object|yesno:"Update, Create" }} a post</h2>
       <form action="" method="post">
         {% csrf_token %}
         {{ form|crispy }}
-        <input type="submit" value="Create" class="btn btn-dark">
+        <input type="submit" value="{{ object|yesno:"Update, Create" }}" class="btn btn-dark">
       </form>
     </div>
   </div>

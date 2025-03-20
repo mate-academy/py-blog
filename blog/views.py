@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model, login
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
@@ -50,10 +51,10 @@ class CommentaryCreateView(generic.CreateView):
             commentary.post_id = self.kwargs["pk"]
             commentary.save()
 
-        return redirect('blog:post-detail', pk=self.kwargs['pk'])
+        return redirect("blog:post-detail", pk=self.kwargs["pk"])
 
 
-class PostCreateView(generic.CreateView):
+class PostCreateView(LoginRequiredMixin, generic.CreateView):
     form_class = PostForm
     model = Post
 
@@ -64,7 +65,26 @@ class PostCreateView(generic.CreateView):
             post.owner_id = self.request.user.id
             post.save()
 
-        return redirect('blog:index')
+        return redirect("blog:index")
+
+
+class PostUpdateView(PermissionRequiredMixin, generic.UpdateView):
+    form_class = PostForm
+    model = Post
+    success_url = reverse_lazy("blog:index")
+
+    def has_permission(self):
+        post = self.get_object()
+        return post.owner == self.request.user
+
+
+class PostDeleteView(PermissionRequiredMixin, generic.DeleteView):
+    model = Post
+    success_url = reverse_lazy("blog:index")
+
+    def has_permission(self):
+        post = self.get_object()
+        return post.owner == self.request.user
 
 
 class SignUpView(generic.CreateView):
