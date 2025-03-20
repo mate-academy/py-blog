@@ -14,7 +14,7 @@ class Post(models.Model):
     created_time = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ["created_time"]
+        ordering = ["-created_time"]
 
     def __str__(self):
         return f'{self.owner.first_name} {self.owner.last_name} "{self.title}"'
@@ -28,7 +28,7 @@ class Commentary(models.Model):
 
     class Meta:
         verbose_name_plural = "commentaries"
-        ordering = ["created_time"]
+        ordering = ["-created_time"]
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name}: "{self.content}"'
