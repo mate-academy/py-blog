@@ -20,8 +20,7 @@ def index(request: HttpRequest) -> HttpResponse:
         "post_list": page_obj,
         "pagination": paginator,
     }
-    return render(request,
-                  "blog/index.html", context)
+    return render(request, "blog/index.html", context)
 
 
 class PostDetailView(DetailView):
@@ -43,8 +42,7 @@ class PostDetailView(DetailView):
             comment.user = request.user
             comment.save()
             return redirect("blog:post-detail", pk=post.pk)
-        return render(request, self.template_name,
-                      {"post": post, "form": form})
+        return render(request, self.template_name, {"post": post, "form": form})
 
 
 class CommentForm(forms.ModelForm):
