@@ -16,8 +16,8 @@ class CommentaryForm(ModelForm):
     class Meta:
         model = Commentary
         fields = ("content",)
-        labels = {"content": "Post a comment",}
-        widgets = {"content": Textarea(attrs={"cols": 20, "rows": 3}),}
+        labels = {"content": "Post a comment", }
+        widgets = {"content": Textarea(attrs={"cols": 20, "rows": 3}), }
 
 
 class PostForm(ModelForm):

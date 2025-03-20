@@ -31,4 +31,6 @@ class Commentary(models.Model):
         ordering = ["-created_time"]
 
     def __str__(self):
-        return f'{self.user.first_name} {self.user.last_name}: "{self.content}"'
+        return (
+            f'{self.user.first_name} {self.user.last_name}: "{self.content}"'
+        )

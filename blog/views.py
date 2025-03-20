@@ -1,5 +1,7 @@
 from django.contrib.auth import get_user_model, login
-from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+from django.contrib.auth.mixins import (
+    PermissionRequiredMixin, LoginRequiredMixin
+)
 from django.core.paginator import Paginator
 from django.http import HttpRequest
 from django.shortcuts import redirect, render
@@ -12,7 +14,9 @@ from blog.models import Post, Commentary
 
 class PostListView(generic.ListView):
     model = Post
-    queryset = Post.objects.select_related("owner").prefetch_related("commentary_set")
+    queryset = (
+        Post.objects.select_related("owner").prefetch_related("commentary_set")
+    )
     template_name = "blog/index.html"
     paginate_by = 5
 
@@ -23,14 +27,18 @@ class MyPostsListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 5
 
     def get_queryset(self):
-        return Post.objects.select_related("owner").prefetch_related("commentary_set").filter(owner=self.request.user)
+        return Post.objects.select_related(
+            "owner"
+        ).prefetch_related("commentary_set").filter(owner=self.request.user)
 
 
 class PostDetailView(generic.DetailView):
     model = Post
 
     def get_queryset(self):
-        return Post.objects.select_related("owner").prefetch_related("commentary_set__user")
+        return Post.objects.select_related(
+            "owner"
+        ).prefetch_related("commentary_set__user")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
