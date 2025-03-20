@@ -16,31 +16,33 @@ class PostListView(generic.ListView):
     )
 
 
-class PostDetailView(LoginRequiredMixin, generic.DetailView):
-    pass
+class PostDetailView(generic.DetailView):
+    model = Post
 
+    def get_context_data(self, **kwargs):
+        contex = super().get_context_data(**kwargs)
+        contex["form"] = CommentaryForm(self.request.POST or None)
+        contex["commentaries"] = self.get_object().commentaries.select_related(
+            "user"
+        )
 
-def post_detail_view(request: HttpRequest, pk: int) -> HttpResponse:
-    form = CommentaryForm(request.POST or None)
-    post = Post.objects.get(pk=pk)
-    commentaries = post.commentaries.select_related("user")
+        return contex
 
-    if form.is_valid():
-        comment = form.save(commit=False)
-        comment.user = request.user
-        comment.post = post
-        form.save()
-        return HttpResponseRedirect(reverse(
-            "blog:post-detail",
-            kwargs={"pk": pk}
-        ))
+    def post(self, request, *args, **kwargs) -> HttpResponse:
+        self.object = self.get_object()
+        context_data = self.get_context_data()
+        form = context_data["form"]
 
-    return render(
-        request,
-        "blog/post_detail.html",
-        context={
-            "post": post,
-            "form": form,
-            "commentaries": commentaries
-        }
-    )
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = request.user
+            comment.post = self.object
+            form.save()
+            return HttpResponseRedirect(reverse(
+                "blog:post-detail",
+                kwargs={"pk": self.object.pk}
+            ))
+        return render(
+            request, "blog/post_detail.html",
+            context=context_data
+        )
