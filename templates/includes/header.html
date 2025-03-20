@@ -5,10 +5,9 @@
   </a>
 
   <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-    <li><a href="{% url 'blog:index' %}" class="nav-link px-2 link-dark">Blogs</a></li>
-    <li><a href="#" class="nav-link px-2 link-dark">My Blogs</a></li>
-    <li><a href="#" class="nav-link px-2 link-dark">Users</a></li>
-    <li><a href="#" class="nav-link px-2 link-dark">About</a></li>
+    <li><a href="{% url 'blog:index' %}" class="nav-link px-2 link-dark">All Blogs</a></li>
+    <li><a href="{% url 'blog:my-posts' %}" class="nav-link px-2 link-dark">My Blogs</a></li>
+    <li><a href="{% url 'blog:about' %}" class="nav-link px-2 link-dark">About</a></li>
   </ul>
 
   <div class="col-md-3 text-end">
