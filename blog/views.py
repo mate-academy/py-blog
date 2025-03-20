@@ -1,7 +1,8 @@
 from django.contrib.auth import get_user_model, login
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.core.paginator import Paginator
-from django.shortcuts import redirect
+from django.http import HttpRequest
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy, reverse
 from django.views import generic
 
@@ -14,6 +15,15 @@ class PostListView(generic.ListView):
     queryset = Post.objects.select_related("owner").prefetch_related("commentary_set")
     template_name = "blog/index.html"
     paginate_by = 5
+
+
+class MyPostsListView(LoginRequiredMixin, generic.ListView):
+    model = Post
+    template_name = "blog/index.html"
+    paginate_by = 5
+
+    def get_queryset(self):
+        return Post.objects.select_related("owner").prefetch_related("commentary_set").filter(owner=self.request.user)
 
 
 class PostDetailView(generic.DetailView):
@@ -100,3 +110,7 @@ class SignUpView(generic.CreateView):
 
     def get_success_url(self):
         return reverse("blog:index")
+
+
+def about_view(request: HttpRequest):
+    return render(request, "blog/about_template.html")
