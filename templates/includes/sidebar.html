@@ -1,0 +1,12 @@
+<div class="card">
+  {% if user.is_authenticated %}
+    <div class="card-header"><strong>Hello, {{ user.username }}!</strong></div>
+    <div class="card-header"><a href="{% url 'logout' %}"><strong>Logout</strong></a></div>
+  {% else %}
+    <div class="card-header"><a href="{% url 'login' %}"><strong>Login</strong></a></div>
+  {% endif %}
+
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item"><a href="{% url 'blog:index' %}">All posts</a></li>
+  </ul>
+</div>
