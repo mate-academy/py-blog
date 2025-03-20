@@ -42,7 +42,9 @@ class PostDetailView(DetailView):
             comment.user = request.user
             comment.save()
             return redirect("blog:post-detail", pk=post.pk)
-        return render(request, self.template_name, {"post": post, "form": form})
+        return render(request,
+                      self.template_name,
+                      {"post": post, "form": form})
 
 
 class CommentForm(forms.ModelForm):
