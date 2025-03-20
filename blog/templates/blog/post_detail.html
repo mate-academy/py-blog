@@ -14,10 +14,13 @@
     <p>No comments yet.</p>
 {% endfor %}
 
-
+{% if user.is_authenticated %}
 <form action="" method="post" novalidate>
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Add comment">
 </form>
+{% else %}
+    <p><a href="{% url 'login' %}">Log in</a> to add a comment.</p>
+{% endif %}
 {% endblock %}

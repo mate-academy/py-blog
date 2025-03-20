@@ -4,25 +4,26 @@ from django.core.paginator import Paginator
 from django import forms
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render, redirect
+from django.utils.decorators import method_decorator
 from django.views.generic import DetailView
 
 from blog.models import User, Post, Commentary
 
 
 def index(request: HttpRequest) -> HttpResponse:
-    list_posts = Post.objects.all().order_by("-created_time")
-    paginator = Paginator(list_posts, 5)
+    post_list = Post.objects.all().order_by("-created_time")
+    paginator = Paginator(post_list, 5)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
     context = {
-        "list_posts": page_obj,
+        "post_list": page_obj,
         "pagination": paginator,
     }
     return render(request, "blog/index.html", context)
 
 
-class PostDetailView(LoginRequiredMixin, DetailView):
+class PostDetailView(DetailView):
     model = Post
     template_name = "blog/post_detail.html"
 
@@ -31,6 +32,7 @@ class PostDetailView(LoginRequiredMixin, DetailView):
         context["form"] = CommentForm()
         return context
 
+    @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
         post = self.get_object()
         form = CommentForm(request.POST)
