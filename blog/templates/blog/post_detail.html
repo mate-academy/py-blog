@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+
+<br>
+<h1>{{post.title}}</h1>
+<h4>{{post.owner.username}} {{post.created_at}}</h4>
+<p>{{post.content}}</p>
+<br>
+
+<h3>Comments</h3>
+{% for comment in post.comments.all %}
+    <p>{{ comment.user.username }} ({{ comment.created_time }}): {{ comment.content }}</p>
+{% empty %}
+    <p>No comments yet.</p>
+{% endfor %}
+
+{% if user.is_authenticated %}
+<form action="" method="post" novalidate>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Add comment">
+</form>
+{% else %}
+    <p><a href="{% url 'login' %}">Log in</a> to add a comment.</p>
+{% endif %}
+{% endblock %}
