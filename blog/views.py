@@ -63,4 +63,3 @@ class CommentaryCreateView(generic.CreateView):
 
     def get_success_url(self):
         return self.post_instance.get_absolute_url()
-
