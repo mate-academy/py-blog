@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Logout Page | Taxi Service{% endblock %}
+
+{% block content %}
+  <div class="container d-flex flex-column justify-content-center align-items-center" style="min-height: 70vh;">
+    <div class="text-center">
+      <h2 class="text-success mb-4">🚪 You have been logged out</h2>
+      <p class="lead text-muted">Thank you for visiting Blog!</p>
+      <a href="{% url 'login' %}" class="btn btn-primary mt-3">🔐 Log In Again</a>
+      <a href="{{ request.GET.back|default:"/" }}"> back to content</a>
+    </div>
+  </div>
+{% endblock %}

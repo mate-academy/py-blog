@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Posts | Blog Service{% endblock %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h1 class="mb-4 text-center">📝 Posts List</h1>
+
+    {% if post_list %}
+      {% for post in post_list %}
+        <div class="card mb-4 shadow-sm">
+          <div class="card-body">
+            <h2 class="card-title text-primary">{{ post.title }}</h2>
+
+            <div class="mb-2 text-muted">
+              <small>
+                🖊 <strong>{{ post.owner.username }}</strong> |
+                📅 {{ post.created_time|date:"F d, Y H:i" }}
+              </small>
+            </div>
+
+            <p class="card-text">{{ post.content }}</p>
+
+            <a href="{{ post.get_absolute_url }}?back={{ request.get_full_path|urlencode }}" class="btn btn-outline-primary btn-sm">Read more</a>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p class="text-center text-muted">No posts available.</p>
+    {% endif %}
+  </div>
+{% endblock %}
