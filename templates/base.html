@@ -15,8 +15,15 @@
 
 <body>
   <div class="container d-flex flex-column align-items-center justify-content-center min-vh-100">
+
     {% block content %}
     {% endblock %}
+
+    {% if is_paginated %}
+      {% block pagination %}
+        {% include "includes/pagination.html" %}
+      {% endblock %}
+    {% endif %}
   </div>
 </body>
 
