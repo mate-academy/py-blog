@@ -1,6 +1,5 @@
 from django.db.models import QuerySet
 from django.shortcuts import get_object_or_404, render
-from django.urls import reverse_lazy
 from django.views import generic
 
 from blog.forms import CommentaryForm
@@ -49,17 +48,19 @@ class CommentaryCreateView(generic.CreateView):
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form) -> any:
-        if not self.request.user.is_authenticated:
-            form.add_error(None, "Only logged-in users can leave comments.")
-            context = {
-                "form": form,
-                "post": self.post_instance,
-            }
-            return render(self.request, "blog/post_detail.html", context)
+        if self.request.user.is_authenticated:
+            form.instance.user = self.request.user
+            form.instance.post = self.post_instance
+            return super().form_valid(form)
+        return self.form_invalid(form)
 
-        form.instance.user = self.request.user
-        form.instance.post = self.post_instance
-        return super().form_valid(form)
+    def form_invalid(self, form):
+        form.add_error(None, "Only logged-in users can leave comments.")
+        context = {
+            "form": form,
+            "post": self.post_instance,
+        }
+        return render(self.request, "blog/post_detail.html", context)
 
     def get_success_url(self):
         return self.post_instance.get_absolute_url()
