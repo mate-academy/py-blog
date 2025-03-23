@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block title %}Login Page | Taxi Service{% endblock %}
+
+{% block content %}
+  <div class="login-container">
+    <h1 class="login-title">🔑 Login</h1>
+    <div class="login-form-wrapper">
+      <form action="{% url 'login' %}" method="post" class="login-form">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" value="Login" class="btn btn-primary"/>
+        <input type="hidden" name="next" value="{{ next }}"/>
+      </form>
+    </div>
+  </div>
+{% endblock %}

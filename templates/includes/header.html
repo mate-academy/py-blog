@@ -1,0 +1,30 @@
+<header class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+    <a class="btn btn-outline-light fw-bold text-uppercase px-4 py-2 rounded-pill shadow-sm"
+       href="{% url 'blog:post-list' %}">
+      📝 POSTS
+    </a>
+    <button class=" navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item"><a class="nav-link" href="{% url "blog:index" %}">Get started</a></li>
+      </ul>
+      <div class="d-flex">
+        {% if user.is_authenticated %}
+          <form action="{% url "logout" %}?next={{ request.get_full_path|urlencode }}" method="post">{% csrf_token %}
+            <button class="btn btn-secondary">Log Out</button>
+          </form>
+          <p class="mb-0 fw-bold text-dark-emphasis">
+            👤 {{ user.first_name }} {{ user.last_name }}
+          </p>
+        {% else %}
+          <a href="{% url 'login' %}?next={{ request.get_full_path|urlencode }}" class="btn btn-outline-light me-2">Log In</a>
+          <p class="mb-0 fw-bold text-dark-emphasis"> 👤 Not authorized</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</header>

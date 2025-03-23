@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block title %} Posts details | Blog {% endblock %}
+
+{% block content %}
+  <header>
+    <a class="btn btn-secondary" href="{% url 'blog:post-list' %}">← back</a>
+    <h2 class="card-title text-primary">{{ post.title }}</h2>
+    <div class="mb-3 text-muted">
+      <small>
+        🖊 <strong>{{ post.owner.username }}</strong> |
+        📅 {{ post.created_time|date:"F d, Y H:i" }}
+      </small>
+    </div>
+    <p class="card-text">{{ post.content }}</p>
+  </header>
+  <body>
+  <main class="mt-3">
+    {% if post.commentaries.all %}
+      <ul class="list-group">
+        <li>{{ post.commentaries.all|length }} comments</li>
+        {% for commentary in post.commentaries.all %}
+          <li class="list-group-item-action">{{ commentary.user.username }} {{ commentary.created_time }}</li>
+          <li class="list-group-item w-75">{{ commentary.content }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="text-muted">No comments yet.</p>
+    {% endif %}
+  </main>
+  <section class="w-75">
+    <br>
+    <h6>Add a new comment</h6>
+    <form action="{% url 'blog:commentary-create' post.pk %}" method="post">
+      {% csrf_token %}
+        {{ form|crispy }}
+      {% if user.is_authenticated %}
+        <button type="submit" class="btn btn-primary btn-sm">Add comment</button>
+      {% else %}
+        <p>Only authorized users can leave comments</p>
+        <button type="submit" class="btn btn-secondary btn-sm">Add comment</button>
+        <a href="{% url 'login' %}?next={{ post.get_absolute_url }}" class="btn btn-outline-primary">Log In</a>
+      {% endif %}
+    </form>
+  </section>
+  </body>
+
+{% endblock %}

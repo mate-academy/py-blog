@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container text-center mt-5">
+    <h2 class="display-5 fw-bold text-muted text-center mb-4 custom-heading">
+      Welcome to <strong>our blog!</strong>
+    </h2>
+    <h2 class="my-4">📰 Latest Blog Posts</h2>
+    {% if post_list %}
+      <div class="row justify-content-center">
+        {% for post in post_list %}
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card shadow-sm h-100">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">{{ post.title }}</h5>
+                <p class="card-text text-muted flex-grow-1">{{ post.summary|truncatewords:20 }}</p>
+                <a href="{{ post.get_absolute_url }}?back={{ request.get_full_path }}" class="btn btn-primary mt-auto">Read More</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="text-muted">No blog posts available.</p>
+    {% endif %}
+    <h2 class="my-4">
+      <a href="{% url 'blog:post-list' %}" class="text-decoration-none text-start">
+        📰 See all posts
+      </a>
+    </h2>
+
+    <div class="mt-4">
+      <div class="alert alert-info d-inline-block px-4 py-3 shadow-sm">
+        Total blog posts: <strong>{{ count_posts }}</strong>
+      </div>
+
+      <p class="text-muted mt-3">
+        You have visited this page <strong>{{ num_visits }}</strong> time{{ num_visits|pluralize }}.
+      </p>
+    </div>
+
+  </div>
+{% endblock %}

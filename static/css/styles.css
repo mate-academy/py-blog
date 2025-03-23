@@ -1,0 +1,97 @@
+/* ============================= */
+/* FOOTER */
+/* ============================= */
+footer {
+  background-color: #f8f9fa; /* світло-сірий фон */
+  padding: 20px 0;
+  text-align: center;
+  color: #6c757d; /* приглушений текст */
+  border-top: 1px solid #dee2e6;
+  margin-top: 50px;
+  font-size: 0.9rem;
+}
+
+
+/* ============================= */
+/* PAGINATION */
+/* ============================= */
+.pagination-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    list-style: none;
+}
+
+.pagination .page-item {
+    margin: 0 5px;
+}
+
+.pagination .page-link {
+    display: block;
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+.pagination .page-link:hover {
+    background-color: #0056b3;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #0056b3;
+    font-weight: bold;
+    cursor: default;
+}
+
+.pagination .page-item.disabled .page-link {
+    background-color: #ddd;
+    color: #666;
+    cursor: not-allowed;
+}
+
+
+/* ============================= */
+/* LOGIN PAGE */
+/* ============================= */
+.login-container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.login-title {
+    font-size: 28px;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+/* Login Form Wrapper */
+.login-form-wrapper {
+    width: 30%;
+    margin: 0 auto;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Error Message */
+.error-message {
+    color: red;
+    font-weight: bold;
+}
+
+/* Login Info */
+.login-info {
+    color: #555;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
