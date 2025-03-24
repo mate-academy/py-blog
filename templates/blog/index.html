@@ -11,14 +11,12 @@
           <div class="card my-3 shadow-sm">
             <div class="card-body">
               <h4 class="card-title">
-                <a href="#" class="text-primary">{{ post.title }}</a>
-{#                <a href="{% url 'post_detail' post.id %}" class="text-primary">{{ post.title }}</a>#}
+                <a href="{{ post.get_absolute_url }}" class="text-primary">{{ post.title }}</a>
               </h4>
               <p class="card-text text-muted">By <strong>{{ post.owner }}</strong> on {{ post.created_time|date:"F j, Y" }} at {{ post.created_time|time:"H:i" }}</p>
               <p class="card-text">{{ post.content|truncatewords:40 }}</p>
               <p class="text-muted">💬 {{ post.comments.count }} comments</p>
-              <a href="#" class="btn btn-outline-primary btn-sm">Read more</a>
-{#              <a href="{% url 'post_detail' post.id %}" class="btn btn-outline-primary btn-sm">Read more</a>#}
+              <a href="{{ post.get_absolute_url }}" class="btn btn-outline-primary btn-sm">Read more</a>
             </div>
           </div>
         </div>
