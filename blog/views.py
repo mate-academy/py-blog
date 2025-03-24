@@ -7,7 +7,13 @@ from blog.models import Post
 
 
 def index(request: HttpRequest) -> HttpResponse:
-    post_list = Post.objects.all().order_by("-created_time")
+    post_list = (
+        Post
+        .objects
+        .select_related("owner")
+        .prefetch_related("comments")
+        .order_by("-created_time")
+    )
 
     paginator = Paginator(post_list, 5)
     page = request.GET.get("page")
@@ -19,8 +25,7 @@ def index(request: HttpRequest) -> HttpResponse:
     }
     return render(request, "blog/index.html", context=context)
 
+
 class PostDetailView(DetailView):
     model = Post
     queryset = Post.objects.prefetch_related("comments")
-
-
