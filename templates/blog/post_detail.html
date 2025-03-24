@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <div class="card my-3 shadow-sm">
+          <div class="card-body">
+            <h1 class="card-title text-center my-4">
+              {{ post.title }}
+            </h1>
+            <p class="card-text text-muted">
+              By <strong>{{ post.owner }}</strong> on {{ post.created_time|date:"F j, Y" }} at {{ post.created_time|time:"H:i" }}
+            </p>
+            <p class="card-text">{{ post.content }}</p>
+          </div>
+        </div>
+
+        <h3 class="mt-4">Comments ({{ post.comments.count }})</h3>
+
+        {% for comment in post.comments.all %}
+            <div class="card my-2">
+              <div class="card-body">
+                <p class="mb-1"><strong>{{ comment.user }}</strong> said:</p>
+                <p class="text-muted small">{{ comment.created_time|date:"F j, Y H:i" }}</p>
+                <hr>
+                <p class="mb-0">{{ comment.content }}</p>
+              </div>
+            </div>
+        {% empty %}
+          <p class="text-muted">No comments yet.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

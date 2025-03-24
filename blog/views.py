@@ -1,6 +1,7 @@
 from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render
+from django.views.generic import DetailView
 
 from blog.models import Post
 
@@ -17,3 +18,9 @@ def index(request: HttpRequest) -> HttpResponse:
         "paginator": paginator,
     }
     return render(request, "blog/index.html", context=context)
+
+class PostDetailView(DetailView):
+    model = Post
+    queryset = Post.objects.prefetch_related("comments")
+
+
