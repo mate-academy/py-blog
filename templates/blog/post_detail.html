@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% if post %}
+    <h3>Title: {{ post.title }}</h3>
+    <i>Owner: {{ post.owner }}</i>
+    <i>Date: {{ post.created_time }}</i>
+    <hr>
+    <p>{{ post.content }}</p>
+
+    {% if post.comments.exists %}
+      <b>{{ post.comments.count }} comment{{ post.comments.count|pluralize }}</b>
+      <ul style="margin-left: 0; padding-left: 0">
+      {% for comment in post.comments.all %}
+        <div class="card mt-3" style="max-width: 80%">
+          <div class="card-header">
+            {{ comment.user.username }}
+          </div>
+          <div class="card-body">
+            <blockquote class="blockquote mb-0">
+              <p>{{ comment.content }}</p>
+              <footer class="blockquote-footer">
+                <cite title="Source Title" style="font-size: 15px">
+                  {{ comment.created_time }}
+                </cite>
+              </footer>
+            </blockquote>
+          </div>
+        </div>
+      {% endfor %}
+      </ul>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+      <h4>Add a comment:</h4>
+      <form method="post">
+        {% csrf_token %}
+          {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    {% else %}
+      <p>You must <a href="{% url 'login' %}">log in</a> to comment.</p>
+    {% endif %}
+  {% endif %}
+{% endblock %}
