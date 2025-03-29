@@ -1,8 +1,10 @@
 from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpRequest
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import DetailView
+from django.views.generic.edit import FormMixin
 
+from blog.forms import CommentaryForm
 from blog.models import Post
 
 
@@ -26,6 +28,25 @@ def index(request: HttpRequest) -> HttpResponse:
     return render(request, "blog/index.html", context=context)
 
 
-class PostDetailView(DetailView):
+class PostDetailView(FormMixin, DetailView):
     model = Post
-    queryset = Post.objects.prefetch_related("comments")
+    form_class = CommentaryForm
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["comments"] = self.object.comments.all()
+        context["form"] = self.get_form()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = self.object
+            comment.user = request.user
+            comment.save()
+            return redirect("blog:post-detail", pk=self.object.id)
+
+        return self.render_to_response(self.get_context_data(form=form))
