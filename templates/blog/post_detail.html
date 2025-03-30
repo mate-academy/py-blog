@@ -33,6 +33,13 @@
         <div class="card my-4">
           <div class="card-body">
             <h5>Add a comment:</h5>
+            {% if messages %}
+              {% for message in messages %}
+                  <div class="alert text-danger">
+                      {{ message }}
+                  </div>
+              {% endfor %}
+            {% endif %}
             <form method="post" novalidate>
               {% csrf_token %}
               {{ form.as_p }}

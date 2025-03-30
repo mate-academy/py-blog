@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render, redirect
@@ -43,10 +44,15 @@ class PostDetailView(FormMixin, DetailView):
         form = self.get_form()
 
         if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = self.object
-            comment.user = request.user
-            comment.save()
-            return redirect("blog:post-detail", pk=self.object.id)
+            if request.user.is_authenticated:
+                comment = form.save(commit=False)
+                comment.post = self.object
+                comment.user = request.user
+                comment.save()
+                return redirect("blog:post-detail", pk=self.object.id)
+            else:
+                messages.error(
+                    request, "You must be logged in to add comments."
+                )
 
         return self.render_to_response(self.get_context_data(form=form))
