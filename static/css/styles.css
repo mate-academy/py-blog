@@ -1,0 +1,28 @@
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    font-weight: bold;
+    text-align: center;
+}
+
+.container {
+    max-width: 1200px;
+    padding: 20px;
+}
+
+.card {
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.card-title a {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.card-title a:hover {
+    text-decoration: underline;
+}
