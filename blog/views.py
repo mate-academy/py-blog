@@ -36,7 +36,9 @@ class PostDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        comments = Commentary.objects.filter(post=self.object).order_by("-created_time")
+        comments = Commentary.objects.filter(
+            post=self.object
+        ).order_by("-created_time")
         paginator = Paginator(comments, self.paginate_by)
         page = self.request.GET.get("page")
         context["comments"] = paginator.get_page(page)
