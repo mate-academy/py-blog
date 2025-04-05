@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <table class="table">
+    <tr>
+      <th>Detail post {{ post.title }}</th>
+      <th>OWNER</th>
+    </tr>
+    <tr>
+        <td>{{ post.content }}</td>
+        <td>{{ post.owner }}</td>
+    </tr>
+  </table>
+  <br>
+  Created at: {{ post.created_time }}
+
+  <br><br>
+  <h3>Total comments: {{ post_comments|length }}</h3>
+  <table class="table">
+    <tr>
+      <th>OWNER</th>
+      <th>COMMENTS</th>
+    </tr>
+    {% for comment in post_comments %}
+    <tr>
+      <td>User {{ comment.user.username }} wrote:</td>
+      <td>{{ comment.content }}</td>
+    </tr>
+    {% empty %}
+      <p>No comments yet.</p>
+    {% endfor %}
+  </table>
+  {% if user.is_authenticated %}
+    <h2>Add new comment</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="submit" class="btn btn-info mx-2" value="Add comment">
+    </form>
+  {% else %}
+    <a href="{% url 'login' %}" class="btn btn-info mx-2">Log in to add comment</a>
+  {% endif %}
+{% endblock %}
