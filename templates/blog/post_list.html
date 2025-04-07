@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>All Posts</h1>
+  {% for message in post_list %}
+    <div style="margin-bottom: 30px;">
+      <h2>
+        <a href="{% url 'blog:post-detail' message.id %}">
+            {{ message.title }}
+        </a>
+      </h2>
+      <p>{{ message.content }}</p>
+      <p>Author: {{ message.owner.username }}</p>
+      <p>Created: {{ message.created_time }}</p>
+      <p>Comments: {{ message.commentaries.count }}</p>
+    </div>
+  {% empty %}
+    <p>No posts yet.</p>
+  {% endfor %}
+{% endblock %}

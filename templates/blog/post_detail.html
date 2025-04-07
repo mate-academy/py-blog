@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ post_detail.title }}</h1>
+	{% if user.is_authenticated %}
+		<h2><a style="float: right" href="{% url 'blog:post-create' post_pk=post_detail.id %}"><input type="submit" value="Add comment"></a></h2>
+	{% endif %}
+  <p><strong>Author:</strong> {{ post_detail.owner.username }}</p>
+  <p><strong>Created:</strong> {{ post_detail.created_time }}</p>
+
+  <hr>
+
+  <div>
+    <p>{{ post_detail.content }}</p>
+  </div>
+
+  <hr>
+
+  <h2>Comments ({{ post_detail.commentaries.count }})</h2>
+
+  {% if post_detail.commentaries.all %}
+    <ul>
+      {% for comment in post_detail.commentaries.all %}
+        <li>
+          <p><strong>{{ comment.user.username }}</strong> ({{ comment.created_time }}):</p>
+          <p>{{ comment.content }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No comments yet.</p>
+  {% endif %}
+
+<p><a href="{% url 'blog:index' %}">← Back to all posts</a></p>
+{% endblock %}

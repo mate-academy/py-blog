@@ -1,0 +1,15 @@
+venv/
+env/
+blog_system_db_data.json
+*.pyc
+*.pyo
+__pycache__/
+.env
+*.sqlite3
+db.sqlite3
+db.sqlite3-journal
+logs/
+*.log
+*.DS_Store
+.idea/
+.venv
