@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -20,6 +21,16 @@ class PostDetailView(generic.DetailView):
 
 class CommentCreateView(LoginRequiredMixin, generic.CreateView):
     model = Commentary
-    fields = "__all__"
-    success_url = reverse_lazy("blog:index")
+    fields = ["content"]
     template_name = "blog/post_create.html"
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.post = get_object_or_404(Post, pk=self.kwargs["pk"])
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy(
+            "blog:post-detail",
+            kwargs={"pk": self.kwargs["pk"]}
+        )
