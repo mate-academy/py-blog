@@ -6,6 +6,7 @@ from .forms import CommentaryForm
 
 User = get_user_model()
 
+
 class UserModelTest(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(
@@ -20,6 +21,7 @@ class UserModelTest(TestCase):
         self.assertEqual(self.user.username, "testuser")
         self.assertEqual(self.user.email, "test@example.com")
         self.assertTrue(self.user.check_password("testpass123"))
+
 
 class PostModelTest(TestCase):
     def setUp(self):
@@ -40,6 +42,7 @@ class PostModelTest(TestCase):
 
     def test_post_str(self):
         self.assertEqual(str(self.post), "Test Post")
+
 
 class CommentaryModelTest(TestCase):
     def setUp(self):
@@ -66,6 +69,7 @@ class CommentaryModelTest(TestCase):
     def test_commentary_str(self):
         expected_str = f"{self.user.username}'s comment on {self.post.title}"
         self.assertEqual(str(self.commentary), expected_str)
+
 
 class ViewsTest(TestCase):
     def setUp(self):
@@ -109,6 +113,7 @@ class ViewsTest(TestCase):
                 post=self.post
             ).exists()
         )
+
 
 class CommentaryFormTest(TestCase):
     def test_commentary_form_valid(self):
