@@ -26,11 +26,11 @@ class CommentCreateView(LoginRequiredMixin, generic.CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        form.instance.post = get_object_or_404(Post, pk=self.kwargs["pk"])
+        form.instance.post = get_object_or_404(Post, pk=self.kwargs["post_pk"])
         return super().form_valid(form)
 
     def get_success_url(self):
         return reverse_lazy(
             "blog:post-detail",
-            kwargs={"pk": self.kwargs["pk"]}
+            kwargs={"pk": self.kwargs["post_pk"]}
         )
