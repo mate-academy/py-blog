@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Simple Blog{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+<nav>
+  <ul>
+    <li><a href="{% url 'blog:index' %}">Home</a></li>
+
+    {% if user.is_authenticated %}
+      <li>Hello, {{ user.username }}!</li>
+      <li><a href="{% url 'logout' %}">Log out</a></li>
+    {% else %}
+      <li><a href="{% url 'login' %}?next={{ request.path }}">Log in</a></li>
+    {% endif %}
+  </ul>
+</nav>
+
+<div class="container">
+  {% block content %}
+    <!-- Контент сторінки -->
+  {% endblock %}
+
+  {% block pagination %}
+    {% include "includes/pagination.html" %}
+  {% endblock %}
+</div>
+
+<footer>
+  &copy; {{ year|default:2025 }} My Blog. All rights reserved.
+</footer>
+</body>
+</html>

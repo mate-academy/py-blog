@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Simple Blog</h1>
+
+  <div class="post">
+    <h2 class="post-title">{{ post.title }}</h2>
+    <p class="post-meta">
+      Author: {{ post.owner }} |
+      Date: {{ post.created_time|date:"d M Y H:i" }} |
+      Comments: {{ comment_count }}
+    </p>
+    <div class="post-content">
+      {{ post.content }}
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="comments-section">
+    <h3>Comments ({{ comment_count }})</h3>
+
+    {% if comments %}
+      <ul class="comment-list">
+        {% for comment in comments %}
+          <li class="comment">
+            <p class="comment-meta">
+              <strong>{{ comment.user }}</strong>
+              on {{ comment.created_time|date:"d M Y H:i" }}
+            </p>
+            <p class="comment-text">
+              {{ comment.content }}
+            </p>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No comments yet. Be the first to comment!</p>
+    {% endif %}
+  </div>
+  <hr>
+
+  <div class="comment-form-section">
+    <h3>Leave a Comment</h3>
+
+    {% if user.is_authenticated %}
+      <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        <div class="form-group">
+          {{ form.content.label_tag }}
+          {{ form.content }}
+          {{ form.content.errors }}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    {% else %}
+      <p>You must be <a href="{% url 'login' %}?next={{ request.path }}">logged in</a> to comment.</p>
+    {% endif %}
+  </div>
+
+
+{% endblock %}
