@@ -133,3 +133,5 @@ AUTH_USER_MODEL = "blog.User"
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "/blog/"
 LOGOUT_REDIRECT_URL = "/accounts/logout/"
+
+CRISPY_TEMPLATE_PACK = 'uni_form'
