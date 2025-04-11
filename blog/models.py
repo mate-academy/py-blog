@@ -47,4 +47,4 @@ class Commentary(models.Model):
         ordering = ("-created_time",)
 
     def __str__(self):
-        return self.content
+        return f"{self.user.username}'s comment on {self.post.title}"
