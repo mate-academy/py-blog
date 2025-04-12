@@ -16,11 +16,7 @@ class Post(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField()
     created_time = models.DateTimeField(default=timezone.now)
-    owner = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name="posts"
-    )
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="posts")
 
     class Meta:
         ordering = ["-created_time"]
@@ -33,14 +29,10 @@ class Commentary(models.Model):
     content = models.TextField()
     created_time = models.DateTimeField(default=timezone.now)
     user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name="commentaries"
+        User, on_delete=models.CASCADE, related_name="commentaries"
     )
     post = models.ForeignKey(
-        Post,
-        on_delete=models.CASCADE,
-        related_name="commentaries"
+        Post, on_delete=models.CASCADE, related_name="commentaries"
     )
 
     class Meta:
