@@ -1,0 +1,199 @@
+/* === БАЗОВЫЙ СТИЛЬ ДЛЯ БЛОГА === */
+body {
+  font-family: 'Georgia', serif;
+  background-color: #fdfdfd;
+  color: #222;
+  margin: 0;
+  padding: 0;
+  line-height: 1.7;
+}
+
+a {
+  color: #111;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: all 0.2s ease-in-out;
+}
+
+a:hover {
+  border-color: #999;
+  color: #000;
+}
+
+.container {
+  max-width: 780px;
+  margin: 60px auto;
+  padding: 0 24px;
+}
+
+/* === СТИЛЬ HEADER === */
+.site-header {
+  background: linear-gradient(to right, #ffffff, #f4f4f4);
+  border-bottom: 1px solid #e2e2e2;
+  padding: 18px 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+}
+
+.header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo a {
+  font-size: 22px;
+  font-weight: 700;
+  color: #222;
+  text-decoration: none;
+}
+
+.logo .highlight {
+  color: #7f5af0;
+}
+
+.main-nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 24px;
+}
+
+.main-nav ul li a {
+  font-size: 15px;
+  color: #444;
+  text-transform: uppercase;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.main-nav ul li a:hover {
+  color: #7f5af0;
+}
+
+
+/* === FOOTER === */
+footer {
+  text-align: center;
+  color: #777;
+  font-size: 14px;
+  margin: 80px 0 30px;
+}
+
+/* === ПОСТЫ === */
+.post-container {
+  padding: 40px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.post-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #111;
+}
+
+.post-info {
+  font-size: 13px;
+  color: #999;
+  margin-bottom: 20px;
+}
+
+.post-content p {
+  font-size: 18px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* === КОММЕНТАРИИ === */
+.comment-container {
+  border-left: 4px solid #e0e0e0;
+  padding-left: 15px;
+  margin: 20px 0;
+}
+
+.comment-info {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.comment-content p {
+  font-size: 16px;
+  margin: 0;
+}
+
+/* === КНОПКИ === */
+button,
+.btn {
+  background-color: #7f5af0;
+  color: white;
+  border: none;
+  padding: 12px 22px;
+  font-size: 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover,
+.btn:hover {
+  background-color: #6c48dc;
+}
+
+/* === PAGINATION === */
+.pagination {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 40px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pagination li a {
+  padding: 8px 14px;
+  background-color: #f2f2f2;
+  color: #222;
+  border-radius: 4px;
+}
+
+.pagination li a.active,
+.pagination li a:hover {
+  background-color: #7f5af0;
+  color: white;
+}
+
+/* === FORMS === */
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 14px;
+  margin: 10px 0 20px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: #fafafa;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: #7f5af0;
+}
+
+/* === АДАПТИВ === */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .post-title {
+    font-size: 24px;
+  }
+}
