@@ -1,0 +1,104 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    padding: 40px;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+h2 {
+    color: #222;
+    margin-top: 30px;
+}
+
+p {
+    margin-bottom: 20px;
+}
+
+.post {
+    background: white;
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+    list-style: none;
+    padding: 0;
+}
+
+.page-item {
+    background-color: #eee;
+    padding: 8px 14px;
+    border-radius: 6px;
+}
+
+.page-link {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+}
+
+.page-item.active,
+.page-item:hover {
+    background-color: #ddd;
+}
+
+.post {
+    background: white;
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease;
+}
+
+.post:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.post-comments {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.post h2 {
+    margin-top: 0;
+    color: #222;
+    font-size: 22px;
+}
+
+.post p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.post-author {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.comment {
+  padding: 10px;
+  margin-bottom: 15px;
+  background-color: #f4f4f4;
+  border-left: 3px solid #ccc;
+}
+.comment small {
+  color: #666;
+}
