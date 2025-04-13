@@ -1,13 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
   {% for post in post_list %}
-    <p>{{ comment }}</p>
     <div class="post">
       <p class="post-author">Author: {{ post.owner }}</p>
       <p class="post-comments">Comments: {{ post.comments.count }}</p>
       <h2><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h2>
       <p>{{ post.content }}</p>
-      <p>{{ comment.content }}</p>
     </div>
   {% endfor %}
   {% if is_paginated %}
