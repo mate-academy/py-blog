@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Home page</title>
+{% endblock %}
+
+{% block content %}
+  <h2>All Posts</h2>
+
+  {% for post in post_list %}
+    <article>
+      <h3><a href="{% url 'blog:post-detail' post.pk %}">{{ post.title }}</a></h3>
+      <p><strong>Author:</strong> {{ post.owner.username }}</p>
+      <p><strong>Created:</strong> {{ post.created_time|date:"Y-m-d H:i" }}</p>
+      <p>{{ post.content|truncatewords:30 }}</p>
+      <p><strong>Comments:</strong> {{ post.comments.count }}</p>
+    </article>
+    <hr>
+  {% empty %}
+    <p>No posts available.</p>
+  {% endfor %}
+{% endblock %}
