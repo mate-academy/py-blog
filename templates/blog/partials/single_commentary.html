@@ -1,0 +1,10 @@
+<div class="commentary-item {% if commentary.user == request.user %}commentary-mine{% endif %}" >
+  <div class="commentary-header">
+    <span class="commentary-user">{{ commentary.user.username }}</span>
+    <span class="commentary-user">{{ commentary.content }}</span>
+    <span class="commentary-time">{{ commentary.created_time|date:"M d, Y H:i" }}</span>
+  </div>
+  <div class="commentary-content">
+    {{ commentary.text }}
+  </div>
+</div>

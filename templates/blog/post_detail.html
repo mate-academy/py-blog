@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="card">
+    <div class="post-header">
+      <h2>{{ post.name }}</h2>
+      <span class="commentary-count">{{ post.commentaries.count }} commentaries</span>
+    </div>
+
+    <div class="commentary-container" id="commentary-container">
+      {% if post.commentaries.all %}
+        {% for commentary in post.commentaries.all|dictsort:"created_time" %}
+          {% include "blog/partials/single_commentary.html" with commentary=commentary %}
+        {% endfor %}
+      {% else %}
+        <div class="no-commentaries">
+          <p>No commentaries in this post yet.</p>
+        </div>
+      {% endif %}
+    </div>
+    {% if post.commentaries.exists %}
+      <div>
+        <form hx-post="{{ post.get_absolute_url }}"
+              hx-target="#commentary-container"
+              hx-swap="beforeend"
+              hx-on::after-request="this.reset()">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <input type="submit">
+        </form>
+      </div>
+    {% else %}
+      <div>
+        <form method="post">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <input type="submit">
+        </form>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
