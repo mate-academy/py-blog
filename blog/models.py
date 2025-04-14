@@ -4,10 +4,8 @@ from django.utils import timezone
 
 
 class User(AbstractUser):
-    first_name = models.CharField(
-        max_length=255)
-    last_name = models.CharField(
-        max_length=255)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
 
     def __str__(self):
@@ -17,11 +15,10 @@ class User(AbstractUser):
 class Post(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField()
-    created_time = models.DateTimeField(default=timezone.now)
+    created_time = models.DateTimeField(auto_now_add=True)
     owner = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name="posts")
+        User, on_delete=models.CASCADE, related_name="posts"
+    )
 
     class Meta:
         ordering = ["-created_time"]
@@ -32,7 +29,7 @@ class Post(models.Model):
 
 class Commentary(models.Model):
     content = models.TextField()
-    created_time = models.DateTimeField(default=timezone.now)
+    created_time = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="commentaries"
     )
