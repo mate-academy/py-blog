@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container">
+    <div class="card mt-4 shadow-sm">
+        <div class="card-body">
+            <h2 class="card-title">{{ post.title }}</h2>
+            <h6 class="card-subtitle mb-2 text-muted">
+                Опубликовано: {{ post.created_time|date:"d.m.Y H:i" }}
+            </h6>
+            <hr>
+            <p class="card-text">{{ post.content|linebreaksbr }}</p>
+        </div>
+    </div>
+    <hr>
+    <h4>Комментарии:</h4>
+    {% if comments %}
+        {% for comment in comments %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">{{ comment.user.username }} — {{ comment.created_time|date:"d.m.Y H:i" }}</h6>
+                    <p class="card-text">{{ comment.content }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Пока нет комментариев.</p>
+    {% endif %}
+    <hr>
+    <h5>Оставьте комментарий</h5>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary mt-2">Отправить</button>
+    </form>
+    <a href="{% url 'blog:index' %}" class="btn btn-secondary mt-3">← Назад к списку постов</a>
+</div>
+{% endblock %}
