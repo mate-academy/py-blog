@@ -3,8 +3,6 @@ from django.db import models
 from django.urls import reverse
 
 
-# Create your models here.
-
 class User(AbstractUser):
 
     first_name = models.CharField(
