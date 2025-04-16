@@ -3,8 +3,9 @@ from django.db import models
 
 
 class Post(models.Model):
-    owner = models.ForeignKey("blog.User", on_delete=models.CASCADE,
-                              null=True, blank=True)
+    owner = models.ForeignKey(
+        "blog.User", on_delete=models.CASCADE, null=True, blank=True
+    )
     title = models.CharField(max_length=100)
     content = models.TextField()
     created_time = models.DateTimeField(auto_now_add=True)
