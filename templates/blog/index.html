@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Blog System Home</h1>
+    <p>Welcome to the Blog System!</p>
+    <h2>Dynamic content (index.html template)</h2>
+
+<h1>
+    Post List
+ </h1>
+
+  {% if post_list %}
+    <table class="table">
+      <tr>
+        <th>Title</th>
+        <th>Create Time</th>
+      </tr>
+
+      {% for post in post_list %}
+        <tr>
+          <td>
+              {{ post.title }}
+          </td>
+          <td>
+              {{ poet.create_time }}
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+
+  {% else %}
+      <p>There are no posts yet.</p>
+  {% endif %}
+
+
+{% endblock %}

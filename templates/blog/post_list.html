@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>
+    Post List
+  </h1>
+  {% if post_list %}
+    <table class="table">
+      <tr>
+        <th>Title</th>
+        <th>Create Time</th>
+        <th>Owner</th>
+      </tr>
+
+      {% for post in post_list %}
+        <tr>
+          <td>
+              {{ post.title }}
+          </td>
+          <td>
+              {{ post.create_time }}
+          </td>
+          <td>
+              {{ post.owner }}
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+
+  {% else %}
+      <p>There are no manufacturers in the service.</p>
+  {% endif %}
+{% endblock %}
