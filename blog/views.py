@@ -21,6 +21,11 @@ class PostDetailView(generic.DetailView):
 
 class PostCreateView(LoginRequiredMixin, generic.CreateView):
     model = Commentary
-    fields = "__all__"
-    success_url = reverse_lazy("blog:index")
-    template_name = "blog/commentary_form.html"
+    fields = ['content', 'created_time']  # Exclude post and user
+    success_url = reverse_lazy('blog:index')
+    template_name = 'blog/commentary_form.html'
+
+    def form_valid(self, form):
+        form.instance.post = Post.objects.get(pk=self.kwargs['pk'])
+        form.instance.user = self.request.user
+        return super().form_valid(form)
