@@ -1,0 +1,16 @@
+{% if user.is_authenticated %}
+  User: {{ user.username }}
+  <div>
+    <form action="{% url 'logout' %}" method="post">
+      {% csrf_token %}
+      <input type="submit" value="Logout">
+    </form>
+  </div>
+  {% else %}
+  <li>
+    <a href="{% url 'login' %}">Login</a>
+  </li>
+{% endif %}
+<ul class="sidebar-nav">
+  <li><a href="{% url 'blog:index' %}">Home</a></li>
+</ul>

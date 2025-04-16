@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>List of comments</h1>
+  {% if post %}
+    <ul>
+      {% for comment in post.commentary.all %}
+        <li>{{ comment.content }}</li>
+      {% empty %}
+        <br>
+        <p style="color: red"><strong>There are no records for this post</strong></p>
+      {% endfor %}
+    </ul>
+    <br>
+    <p><a href="{% url 'blog:post-create' post.id %}">Click here to add comment</a></p>
+  {% endif %}
+{% endblock %}
