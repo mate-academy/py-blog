@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+{#  <h2>{{ post.title }}</h2>#}
+{#  <h4>{{ post.post.created_time }}</h4>#}
+{#  <p>{{ post.content }}</p>#}
+{#  <hr>#}
+{#  {% for comment in comments %}#}
+{#    <p><strong>{{ comment.user }}</strong>: {{ comment.content }}</p>#}
+{#  {% empty %}#}
+{#    <p>No comments yet.</p>#}
+{#  {% endfor %}#}
+{#  <hr>#}
+{#  <h4>Add a new comment</h4>#}
+{#  <form method="post">#}
+{#    {% csrf_token %}#}
+{#    {{ form.as_p }}#}
+{#    <button type="submit" class="btn btn-primary">Add Comment</button>#}
+{#  </form>#}
+{% endblock %}
