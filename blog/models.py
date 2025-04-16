@@ -6,9 +6,11 @@ from django.urls import reverse
 class User(AbstractUser):
 
     first_name = models.CharField(
-        max_length=255)
+        max_length=255
+    )
     last_name = models.CharField(
-        max_length=255)
+        max_length=255
+    )
     email = models.EmailField(unique=True)
 
     def __str__(self):
@@ -33,10 +35,12 @@ class Commentary(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
     post = models.ForeignKey(Post,
                              on_delete=models.CASCADE,
-                             related_name="commentaries")
+                             related_name="commentaries"
+                             )
     user = models.ForeignKey(User,
                              on_delete=models.CASCADE,
-                             related_name="comments")
+                             related_name="comments"
+                             )
 
     def __str__(self) -> str:
         return f"{self.user} ({self.created_time})"

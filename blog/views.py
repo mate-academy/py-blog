@@ -17,39 +17,6 @@ class PostListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 5
 
 
-# class PostDetailView(LoginRequiredMixin, DetailView):
-#     model = Post
-#     # queryset = Post.objects.all().select_related("comments")
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context["commentary_form"] = CommentaryForm()
-#         return context
-
-
-#
-# class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
-#     model = Commentary
-#     form_class = CommentaryForm
-#     success_url = reverse_lazy("blog:post-detail")
-#
-#     def post(self, request, *args, **kwargs):
-#         post = get_object_or_404(Post, pk=request.POST.get("post_id"))
-#         form = CommentaryCreateView.form_class(request.POST)
-#         commentary_form = CommentaryForm()
-#         if form.is_valid():
-#             commentary = form.save(commit=False)
-#             commentary.post = post
-#             commentary.user = request.user
-#             commentary.save()
-#             # return redirect("blog:post-detail", pk=post.id)
-#         context = {
-#             "post": post,
-#             "form": form,
-#             "commentary_form": commentary_form
-#         }
-#         return render(request, "blog/post_detail.html", context)
-
-
 class IndexView(ListView):
     model = Post
     template_name = "blog/index.html"

@@ -5,7 +5,6 @@ from django.contrib.auth.models import Group
 from blog.models import User, Post, Commentary
 
 
-# Register your models here.
 admin.site.unregister(Group)
 
 
@@ -25,6 +24,6 @@ class PostAdmin(admin.ModelAdmin):
 @admin.register(Commentary)
 class CommentaryAdmin(admin.ModelAdmin):
     list_display = ("user", "post", "created_time")
-    search_fields = ("user__username", )
+    search_fields = ["user__username"]
     list_filter = ("created_time", "user")
     ordering = ("-created_time",)
