@@ -19,5 +19,5 @@ class CommentaryAdmin(admin.ModelAdmin):
 
 
 @admin.register(User)
-class UserAdmin(UserAdmin):
+class CustomUserAdmin(UserAdmin):
     pass
