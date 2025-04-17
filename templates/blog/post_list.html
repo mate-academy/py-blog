@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if post_list %}
+<h2>Blog Posts</h2>
+{% for post in post_list %}
+<div class="card mb-3">
+  <div class="card-body">
+    <h5 class="card-title"><a href="{% url 'blog:post-detail' post.pk %}">{{ post.title }}</a></h5>
+    <h6 class="card-subtitle mb-2 text-muted">by {{ post.owner.username }} at {{ post.created_time }}</h6>
+    <hr>
+    <span>{{ post.content| truncatewords:15 }}</span>
+    <hr>
+    <h6 class="card-subtitle mb-2">commentaries: {{ post.commentaries.count }}</h6>
+  </div>
+</div>
+{% endfor %}
+{% else %}
+<h2>Currently, there are no posts!</h2>
+{% endif %}
+
+
+{% endblock %}
