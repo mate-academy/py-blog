@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+  <title>Title</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+  <h1>Posts:</h1>
+  {% for post in posts %}
+    <h2><a href="{% url "blog:post-detail" pk=post.id%}">{{ post.title }}</a></h2>
+    <h3>{{ post.commentary.count }}</h3>
+    <h4>{{ post.owner.username}}</h4>
+    <h5>{{ post.created_time }}</h5>
+    <h6>{{ post.content }}</h6>
+  {% endfor %}
+  {% block pagination %}
+    {% include "includes/pagination.html" %}
+  {% endblock %}
+</body>
+</html>
