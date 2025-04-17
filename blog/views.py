@@ -13,11 +13,9 @@ def index(request: HttpRequest) -> HttpResponse:
     paginator = Paginator(posts, 5)
     page = request.GET.get("page")
     page_obj = paginator.get_page(page)
-    commentary = Post.commentary
     context = {
         "page_obj": page_obj,
         "post_list": page_obj.object_list,
-        "commentary": commentary,
     }
     return render(request, "blog/index.html", context)
 

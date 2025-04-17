@@ -15,7 +15,7 @@
   <h1>Posts:</h1>
   {% for post in page_obj %}
     <h2><a href="{% url "blog:post-detail" pk=post.id%}">{{ post.title }}</a></h2>
-    <h3>{{ post.commentary.count }}</h3>
+    <h3>{{ post.commentary.all.count }}</h3>
     <h4>{{ post.owner.username}}</h4>
     <h5>{{ post.created_time }}</h5>
     <h6>{{ post.content }}</h6>
