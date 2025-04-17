@@ -11,12 +11,12 @@ from .models import Post, Commentary
 def index(request: HttpRequest) -> HttpResponse:
     posts = Post.objects.all().order_by("-created_time")
     paginator = Paginator(posts, 5)
-    page = request.GET.get('page')
+    page = request.GET.get("page")
     page_obj = paginator.get_page(page)
     commentary = Post.commentary
     context = {
         "page_obj": page_obj,
-        "posts": posts,
+        "post_list": page_obj.object_list,
         "commentary": commentary,
     }
     return render(request, "blog/index.html", context)

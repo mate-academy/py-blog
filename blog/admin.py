@@ -4,6 +4,7 @@ from django.contrib.auth.models import Group
 
 from blog.models import Post, Commentary, User
 
+
 @admin.register(User)
 class UserAdmin(UserAdmin):
     search_fields = ("username", "email")
