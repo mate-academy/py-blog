@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Blog Home Page</h1>
+  <br>
+  {% if post_list %}
+    <h2>Posts:</h2>
+    <ul class="list-group">
+      {% for post in post_list %}
+        <li class="list-group-item">
+          <h3><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h3>
+          by <i>{{ post.owner.first_name }} {{ post.owner.last_name }} ({{ post.owner.username }})</i> at {{ post.created_time }}
+          <hr>
+          {{ post.content }}
+          <hr>
+          <b>Comments:</b> {{ post.commentaries.count }}
+        </li>
+        <br>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <h2>Blog doesn't have Posts!</h2>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,11 @@
+.venv
+venv
+pycache
+__pycache__
+.idea
+db
+db.sqlite3
+.sqlite
+.sqlite3
+.db3
+.pyc

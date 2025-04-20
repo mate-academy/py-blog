@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p>
+    by <i>{{ post.owner.first_name }} {{ post.owner.last_name }} ({{ post.owner.username }})</i> at {{ post.created_time }}
+  </p>
+  <hr>
+  <p>{{ post.content }}</p>
+  <hr>
+  <p><b>{{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}</b></p>
+  {% if post.commentaries.all %}
+    <ul class="list-group">
+      {% for comment in post.commentaries.all %}
+        <li class="list-group-item">
+          <b>{{ comment.user.username }}</b> at {{ comment.created_time }}
+          <hr>
+          {{ comment.content }}
+        </li>
+        <br>
+      {% endfor %}
+    </ul>
+  {% else %}
+    There are no comments yet.
+  {% endif %}
+  <hr>
+  <a class="btn btn-outline-primary" href="{% url 'blog:commentary-create' post.id %}">Add comment</a>
+{% endblock %}
