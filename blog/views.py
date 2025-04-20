@@ -28,4 +28,7 @@ class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy("blog:post-detail", kwargs={"pk": self.kwargs["pk"]})
+        return reverse_lazy(
+            "blog:post-detail",
+            kwargs={"pk": self.kwargs["pk"]}
+        )
