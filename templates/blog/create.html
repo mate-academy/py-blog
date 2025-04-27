@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h1>Add Comment</h1>
+
+<div style="max-width: 600px; margin: 0 auto;">
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-success" style="margin-top: 10px;">Submit Comment</button>
+  </form>
+</div>
+
+{% include "includes/pagination.html" %}
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Posts</h1>
+<div style="display: flex">
+  {% if posts %}
+    <table style="border-collapse: collapse; width: 80%; max-width: 800px; text-align: left;">
+      <thead>
+        <tr>
+          <th style="padding: 8px; border-bottom: 1px solid #ddd;">Title</th>
+          <th style="padding: 8px; border-bottom: 1px solid #ddd;">Created</th>
+          <th style="padding: 8px; border-bottom: 1px solid #ddd;">Content</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for post in posts %}
+          <tr>
+            <td style="padding: 8px; border-bottom: 1px solid #ddd;">
+              <a href="{% url 'blog:post-detail' post.pk %}" style="color: #0000FF;">
+                {{ post.title }}
+              </a><br>
+              <small>by {{ post.owner }}</small>
+            </td>
+            <td style="padding: 8px; border-bottom: 1px solid #ddd;">{{ post.created_time }}</td>
+            <td style="padding: 8px; border-bottom: 1px solid #ddd;">{{ post.content|truncatechars:20 }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No posts available.</p>
+  {% endif %}
+</div>
+<div style="display: flex; justify-content: center; margin-top: 20px;">
+  <a  style="padding: 10px 20px; background-color: #007BFF; color: white; text-decoration: none; border-radius: 5px;" href="{% url "blog:post-create" %}">
+    Create New Post
+
+  </a>
+</div>
+
+{% include "includes/pagination.html" %}
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>{{ post.title }}</h1>
+<p><strong>By:</strong> {{ post.owner }}</p>
+<p><strong>Posted on:</strong> {{ post.created_time }}</p>
+<p>{{ post.content }}</p>
+
+<hr>
+<h2>Comments</h2>
+
+{% if comments %}
+  <ul>
+    {% for comment in comments %}
+      <li>
+        <p><strong>{{ comment.user }}</strong> ({{ comment.created_time }}):</p>
+        <p>{{ comment.content }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No comments yet.</p>
+{% endif %}
+
+<!-- КНОПКА добавления комментария -->
+<div style="margin-top: 20px;">
+  <a href="{% url 'blog:add-comment' post.id %}"
+     style="padding: 10px 20px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px;">
+    Add Comment
+  </a>
+</div>
+
+{% include "includes/pagination.html" %}
+{% endblock %}
