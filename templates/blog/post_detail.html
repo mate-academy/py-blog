@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.content }}</p>
+  <p>
+    <strong>Author:</strong> {{ post.owner.username }} <br>
+    <strong>Created:</strong> {{ post.created_time|date:"Y-m-d H:i" }}
+  </p>
+
+  <br>
+  <h3>Comments:</h3>
+
+  {% if post.commentaries.exists %}
+    {% for comment in post.commentaries.all %}
+      <p>{{ comment.content }}</p>
+    {% endfor %}
+  {% else %}
+    <p>No comments yet.</p>
+  {% endif %}
+  <a href="{% url 'blog:comment-create' post.pk %}" class="btn btn-primary">Leave a comment</a>
+{% endblock %}

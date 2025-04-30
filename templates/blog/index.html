@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>All Posts</h1>
+  {% for post in page_obj %}
+    <div class="post mb-4 p-3 border rounded">
+      <h2>
+        <a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a>
+      </h2>
+      <p>{{ post.content }}</p>
+      <p>
+        <strong>Author:</strong> {{ post.owner.username }} <br>
+        <strong>Created:</strong> {{ post.created_time|date:"Y-m-d H:i" }} <br>
+        <strong>Comments:</strong> {{ post.commentaries.count }}
+      </p>
+    </div>
+  {% empty %}
+    <p>No posts yet.</p>
+  {% endfor %}
+  {% if page_obj.has_other_pages %}
+    <ul class="pagination">
+      {% if page_obj.has_previous %}
+        <li class="page-item">
+          <a href="?page={{ page_obj.previous_page_number }}" class="page-link">prev</a>
+        </li>
+      {% endif %}
+      <li class="page-item active">
+        <span class="page-link">{{ page_obj.number }} of {{ paginator.num_pages }}</span>
+      </li>
+      {% if page_obj.has_next %}
+        <li class="page-item">
+          <a href="?page={{ page_obj.next_page_number }}" class="page-link">next</a>
+        </li>
+      {% endif %}
+    </ul>
+  {% endif %}
+{% endblock %}
