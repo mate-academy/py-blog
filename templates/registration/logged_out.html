@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <h1>Logged out</h1>
+  <form method="post" action="{% url "login" %}">
+    {% csrf_token %}
+    {{ form | crispy }}
+    <p>Logged out successfully.</p>
+    <input class="btn-primary" value="Login again" type="submit">
+  </form>
+{% endblock %}

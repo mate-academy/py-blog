@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1 class="">Posts List</h1>
+  {% for post in post_list %}
+    <div class="mt-4 mb-4 p-3 border rounded">
+      <h2><a href="{% url "blog:post-detail" pk=post.id %}">{{ post.title }}</a></h2>
+      <p>{{ post.content }}</p>
+      <hr>
+      <p>Author: {{ post.owner.username }}</p>
+      <p>Created at: {{ post.created_time }}</p>
+      <p>Commentary no. {{ post.comment_count }}</p>
+    </div>
+  {% empty %}
+    <p>No posts...</p>
+  {% endfor %}
+  {% include "includes/pagination.html" %}
+{% endblock %}

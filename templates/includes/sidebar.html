@@ -1,0 +1,12 @@
+<div class="mt-5 mb-5 p-1 border rounded">
+  <p class="p-3 m-1">{{ user }}</p>
+
+  <ul>
+    <li><a href="{% url "blog:index" %}">Posts</a></li>
+  </ul>
+  {% if user.is_authenticated %}
+    <a class="p-3 m-1" href="{% url "logout" %}">Logout</a>
+  {% else %}
+    <a class="p-3 m-1" href="{% url "login" %}">Login</a>
+  {% endif %}
+</div>
