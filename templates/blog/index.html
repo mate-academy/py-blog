@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load custom_tags %}
+{% block content %}
+<h1>Chat:</h1>
+{% for post in page_obj %}
+  <table class="table table-bordered mb-4">
+  <tr>
+    <th>Author & Date:</th>
+    <td style="color: red">{{ post.owner}} | {{ post.created_time }}</td>
+  </tr>
+  <tr>
+    <th>Title:</th>
+    <td><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></td>
+  </tr>
+  <tr>
+    <th>Message:</th>
+    <td>{{ post.content }}</td>
+  </tr>
+  <tr>
+    <th>Number of comments:</th>
+    <td style="text-decoration-line: none">{{ comments_count|get_item:post.id }}</td>
+  </tr>
+  </table>
+  {% endfor %}
+
+{% endblock %}
+
