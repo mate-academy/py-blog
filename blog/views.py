@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 
 from .models import Post, Commentary, User
@@ -24,17 +24,18 @@ def index(request: HttpRequest) -> HttpResponse:
 
 @login_required
 def create_comment(request: HttpRequest, pk: int) -> HttpResponse:
-    post = Post.objects.get(id=pk)
-    user = request.user
-    content = request.POST.get("content")
-    Commentary.objects.create(
-        post=post,
-        user=user,
-        content=content
-    )
+    if request.method == "POST":
+        post = Post.objects.get(id=pk)
+        content = request.POST.get("content")
+
+        if content:
+            Commentary.objects.create(
+                post=post,
+                user=request.user,
+                content=content
+            )
 
     return redirect("blog:post-detail", pk=pk)
-
 
 
 class PostDetailView(generic.DetailView):

@@ -23,4 +23,4 @@ from django.conf import settings
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("blog.urls", namespace="blog"))
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + debug_toolbar_urls()
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
