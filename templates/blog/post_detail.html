@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container shadow-sm">
+    <h2 class="mt-5">{{ post.title }}</h2>
+    <hr>
+    <i><strong>{{ post.owner }}</strong> {{ post.created_time }}</i>
+    <hr>
+    <p>{{ post.content }}</p>
+  </div>
+    {% if post.comments %}
+      <p>Comments: {{ post.comments.count }}</p>
+      {% for comment in post.comments.all %}
+      <div class="card mt-4 shadow-sm">
+        <div class="card-body">
+          <p class="card-title">
+            {{  comment.user }} {{ comment.created_time}}
+          </p>
+          <p class="card-text">
+            {{ comment.content }}
+          </p>
+        </div>
+      </div>
+      {% endfor %}
+    {% else %}
+      <p>VLAD</p>
+    {% endif%}
+  <form action="{% url 'blog:create-comment' pk=post.id %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="content">
+    <input type="submit" value="Submit">
+  </form>
+{% endblock %}

@@ -1,16 +1,21 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin, UserAdmin
-from .models import Post, Comment, User
+from .models import Post, Commentary, User
+
+@admin.register(Commentary)
+class CommentaryAdmin(admin.ModelAdmin):
+    list_display = ("id", "user", "post",)
+
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ("title", "owner", "created_time")
-    list_filter = ("owner", "created_time")
-    search_fields = ("title", "owner__username")
+    list_display = ("owner", "title", "created_time",)
+    search_fields = ("title", "owner",)
+    list_filter = ("created_time" ,"owner",)
 
 
-admin.site.register(User, UserAdmin)
-admin.site.register(Comment)
-admin.site.unregister(Group)
+class UserAdmin(admin.ModelAdmin):
+    list_display = ['username', 'first_name', 'last_name', 'email']
+
 admin.site.register(Post, PostAdmin)
-
+admin.site.register(User, UserAdmin)
+admin.site.unregister(Group)
