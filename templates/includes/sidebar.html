@@ -1,0 +1,11 @@
+<div class="mt-5 mb-5 p-1 border rounded">
+  User: {{ user.username }}
+  <li style="list-style: none"><a href="{% url 'blog:index' %}">Posts</a></li>
+  {% if user.is_authenticated %}
+    <li style="list-style: none">
+      <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+      </form>
+    </li>  {% endif %}
+</div>
