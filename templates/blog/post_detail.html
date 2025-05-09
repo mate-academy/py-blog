@@ -16,10 +16,14 @@
 {% if user.is_authenticated %}
   <form method="POST">
     {% csrf_token %}
-    <label for="comment">Your Commentary:</label><br>
-    <textarea id="comment" name="comment" rows="5" placeholder="Write your comment here" class="form-control"></textarea><br>
+    {{ form.non_field_errors }}
+    <div class="form-group">
+        {{ form.content.label_tag }}
+        {{ form.content }}
+        {{ form.content.errors }}
+    </div>
     <button type="submit" class="btn btn-primary">Send</button>
-</form>
+  </form>
 {% else %}
   <div><a href="#">Login to leave a comment</a></div>
 {% endif %}
