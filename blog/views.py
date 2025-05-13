@@ -37,7 +37,7 @@ class PostDetailView(DetailView):
             if form.is_valid():
                 new_comment = form.save(commit=False)
                 new_comment.post = self.object
-                new_comment.author = request.user
+                new_comment.user = request.user
                 new_comment.save()
                 return redirect("blog:post-detail", pk=self.object.pk)
         else:

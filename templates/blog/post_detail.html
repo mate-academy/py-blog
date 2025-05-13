@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>{{ post.title }}</h1>
-<p><strong>Author:</strong> {{ post.owner }}</p>
+<p><strong>Author:</strong> {{ post.owner.username }}</p>
 <p><strong>Created:</strong> {{ post.created_time }}</p>
 <div>
   {{ post.content|linebreaks }}
@@ -16,7 +16,7 @@
 <hr>
 
 <h2>Comments</h2>
-{% if post.comments.all %}
+{% if post.comments.exists %}
   <ul>
     {% for comment in post.comments.all %}
       <li>
