@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Virtual Environment
+.env/
+.venv/
+env/
+venv/
+ENV/
+*.env
+
+# Django stuff
+*.log
+*.pot
+*.pyc
+local_settings.py
+db.sqlite3
+media/
+staticfiles/
+static/
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Pytest
+.cache/
+
+# Migrations
+**/migrations/*.py
+**/migrations/__pycache__/
+
+# mypy
+.mypy_cache/
+
+# Coverage
+htmlcov/
+.coverage
+coverage.xml
+
+# Node (if using npm/yarn)
+node_modules/
+
+# JetBrains IDEs
+.idea/

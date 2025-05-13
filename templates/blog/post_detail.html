@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ post.title }}</title>
+</head>
+<body>
+<h1>{{ post.title }}</h1>
+<p><strong>Author:</strong> {{ post.owner }}</p>
+<p><strong>Created:</strong> {{ post.created_time }}</p>
+<div>
+  {{ post.content|linebreaks }}
+</div>
+<a href="{% url 'blog:index' %}">Back to all posts</a>
+
+<hr>
+
+<h2>Comments</h2>
+{% if post.comments.all %}
+  <ul>
+    {% for comment in post.comments.all %}
+      <li>
+        <strong>{{ comment.user }}</strong> ({{ comment.created_time }}):<br>
+        {{ comment.content }}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No comments yet.</p>
+{% endif %}
+
+<h3>Leave a Comment</h3>
+
+<form method="post">
+    {% csrf_token %}
+    {{ commentary_form.as_p }}
+    <button type="submit">Post Comment</button>
+</form>
+</body>
+</html>
