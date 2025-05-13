@@ -20,12 +20,12 @@ class PostDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         # Always show the comment form
-        context['commentary_form'] = kwargs.get(
-            'commentary_form',
+        context["commentary_form"] = kwargs.get(
+            "commentary_form",
             CommentaryForm()
         )
-        if hasattr(self, 'object'):  # Ensure object exists
-            context['comments'] = self.object.comments.all()
+        if hasattr(self, "object"):  # Ensure object exists
+            context["comments"] = self.object.comments.all()
         return context
 
     def post(self, request, *args, **kwargs):
@@ -39,7 +39,7 @@ class PostDetailView(DetailView):
                 new_comment.post = self.object
                 new_comment.author = request.user
                 new_comment.save()
-                return redirect('blog:post-detail', pk=self.object.pk)
+                return redirect("blog:post-detail", pk=self.object.pk)
         else:
             # If user is not authenticated, form will not be saved
             form.add_error(None,
