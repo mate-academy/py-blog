@@ -34,7 +34,7 @@ def post_detail(request, pk):
             if form.is_valid():
                 new_comment = form.save(commit=False)
                 new_comment.post = post
-                new_comment.author = request.user
+                new_comment.user = request.user
                 new_comment.save()
         else:
             form.add_error(None, "You must be logged in to comment.")

@@ -7,9 +7,9 @@
     {% for post in post_list %}
         <article>
             <h3><a href="{% url 'blog:post-detail' post.pk %}">{{ post.title }}</a></h3>
-            <p><strong>Author:</strong> {{ post.author }} | <strong>Created:</strong> {{ post.created_time }}</p>
+            <p><strong>Author:</strong> {{ post.owner }} | <strong>Created:</strong> {{ post.created_time }}</p>
             <p>{{ post.content|truncatechars:200 }}</p>
-            <p>Comments: {{ post.commentary_set.count }}</p>
+            <p>Comments: {{ post.comments.count }}</p>
         </article>
         <hr>
     {% empty %}
@@ -18,14 +18,14 @@
 
     <!-- Pagination / пагинация -->
     <div>
-        {% if posts.has_previous %}
-            <a href="?page={{ posts.previous_page_number }}">Previous</a>
+        {% if post_list.has_previous %}
+            <a href="?page={{ post_list.previous_page_number }}">Previous</a>
         {% endif %}
 
-        <span>Page {{ posts.number }} of {{ posts.paginator.num_pages }}</span>
+        <span>Page {{ post_list.number }} of {{ post_list.paginator.num_pages }}</span>
 
-        {% if posts.has_next %}
-            <a href="?page={{ posts.next_page_number }}">Next</a>
+        {% if post_list.has_next %}
+            <a href="?page={{ post_list.next_page_number }}">Next</a>
         {% endif %}
     </div>
 {% endblock %}

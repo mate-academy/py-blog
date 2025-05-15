@@ -24,7 +24,7 @@ class Post(models.Model):
         return self.title
 
     def comment_count(self):
-        return self.commentary_set.count()
+        return self.comments.count()
 
 
 class Commentary(models.Model):
