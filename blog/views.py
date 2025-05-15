@@ -25,7 +25,7 @@ class PostListView(ListView):
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    comments = post.comments.order_by("-created_time")  # related_name="comments"
+    comments = post.comments.order_by("-created_time")
     form = CommentaryForm()
 
     if request.method == "POST":
