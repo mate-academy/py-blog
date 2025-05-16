@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Blog</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+<div class="container">
+  <h1 class="page-title">Posts</h1>
+  <ul class="post-list">
+    {% for post in posts %}
+    <li class="post-item">
+      <h2 class="post-title">
+        <a href="{% url 'blog:post-detail' post.pk %}" class="post-link">{{ post.title }}</a>
+      </h2>
+      <p class="post-content">{{ post.content }}</p>
+      <div class="post-meta">
+        <span class="post-author">Author: {{ owner }}</span> |
+        <span class="post-date">Created: {{ post.created_time }}</span> |
+        <span class="post-comments-count">Comments: {{ post.comments.count }}</span>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+  {% if is_paginated %}
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+    <li class="page-item">
+      <a href="?page= {{ page_obj.previous_page_number }}" class="page-link">prev</a>
+    </li>
+    {% endif %}
+
+
+    <li class="page-item active">
+      <span class="page-link">{{ page_obj.number }} of {{ paginator.num_pages }}</span>
+    </li>
+
+
+    {% if page_obj.has_next %}
+    <li class="page-item">
+      <a href="?page= {{ page_obj.next_page_number }}" class="page-link">next</a>
+    </li>
+
+
+    {% endif %}
+  </ul>
+  {% endif %}
+</div>
+</body>
+</html>

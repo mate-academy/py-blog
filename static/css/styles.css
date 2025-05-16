@@ -1,0 +1,176 @@
+/* Загальні стилі */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  color: #2c3e50;
+  margin: 0;
+  padding: 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* Заголовок сторінки */
+.page-title {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  border-bottom: 3px solid #2980b9;
+  padding-bottom: 10px;
+}
+
+/* Список постів */
+.post-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Окремий пост */
+.post-item {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  transition: box-shadow 0.3s ease;
+}
+
+.post-item:hover {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Заголовок поста */
+.post-title {
+  margin: 0 0 10px 0;
+  font-size: 1.6rem;
+}
+
+.post-link {
+  color: #2980b9;
+  text-decoration: none;
+}
+
+.post-link:hover {
+  text-decoration: underline;
+}
+
+/* Контент поста */
+.post-content {
+  font-size: 1rem;
+  margin-bottom: 15px;
+  color: #444;
+}
+
+/* Метаінформація (автор, дата, кількість коментарів) */
+.post-meta {
+  font-size: 0.875rem;
+  color: #777;
+}
+
+.post-meta span {
+  margin-right: 10px;
+}
+
+/* Пагінація */
+.pagination {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 30px 0;
+}
+
+.page-item {
+  margin: 0 5px;
+}
+
+.page-link {
+  display: inline-block;
+  padding: 6px 12px;
+  background-color: #e3ecf7;
+  color: #2c3e50;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: background-color 0.2s ease;
+}
+
+.page-link:hover {
+  background-color: #c9dcf2;
+}
+
+.page-item.active .page-link {
+  font-weight: bold;
+  background-color: #2980b9;
+  color: #fff;
+}
+
+/* Логін форма */
+
+.login-container {
+  max-width: 400px;
+  margin: 60px auto;
+  background: #ffffff;
+  padding: 30px 40px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.login-form .form-group {
+  margin-bottom: 20px;
+}
+
+.login-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #2c3e50;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.3s ease;
+}
+
+.login-form input[type="text"]:focus,
+.login-form input[type="password"]:focus {
+  border-color: #2980b9;
+  outline: none;
+}
+
+.btn-submit {
+  display: inline-block;
+  background-color: #2980b9;
+  color: white;
+  padding: 12px 25px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  font-weight: 700;
+}
+
+.btn-submit:hover {
+  background-color: #1c5980;
+}
+
+/* Помилки форми */
+
+.login-form .errorlist {
+  color: #e74c3c;
+  margin-top: 5px;
+  font-size: 0.875rem;
+  list-style: none;
+  padding-left: 0;
+}
