@@ -19,7 +19,7 @@ def index(request):
     page_obj = paginator.get_page(page_number)
 
     return render(request, "index.html", {
-        "post_list": page_obj,        # Змінив з "posts" на "post_list"
+        "post_list": page_obj,
         "page_obj": page_obj,
         "is_paginated": page_obj.has_other_pages(),
         "paginator": paginator,
@@ -29,13 +29,14 @@ def index(request):
 class CommentaryForm(forms.ModelForm):
     class Meta:
         model = Commentary
-        fields = ['content']
+        fields = ["content"]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
-        self.helper.form_method = 'post'
-        self.helper.add_input(Submit('submit', 'Submit'))
+        self.helper.form_method = "post"
+        self.helper.add_input(Submit("submit", "Submit"))
+
 
 class PostDetailView(DetailView):
     model = Post
@@ -45,21 +46,22 @@ class PostDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.request.user.is_authenticated:
-            context['form'] = CommentaryForm()
+            context["form"] = CommentaryForm()
         else:
-            context['form'] = None
+            context["form"] = None
         return context
+
 
 class CommentaryCreateView(LoginRequiredMixin, CreateView):
     model = Commentary
     form_class = CommentaryForm
-    template_name = 'commentary_form.html'  # шаблон не обов’язково використовувати, якщо форму рендериш у post_detail
+    template_name = "commentary_form.html"
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        post_pk = self.kwargs.get('pk')
+        post_pk = self.kwargs.get("pk")
         form.instance.post = Post.objects.get(pk=post_pk)
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('blog:post-detail', kwargs={'pk': self.object.post.pk})
+        return reverse("blog:post-detail", kwargs={"pk": self.object.post.pk})

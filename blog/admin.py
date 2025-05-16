@@ -6,11 +6,13 @@ from .models import User, Post, Commentary
 
 admin.site.unregister(Group)
 
+
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
     list_display = ("username", "email", "is_staff")
     search_fields = ("username", "email")
     list_filter = ("is_staff",)
+
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
