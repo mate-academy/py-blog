@@ -1,0 +1,123 @@
+/* General body styling (optional, adjust as needed) */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.posts-container {
+    max-width: 960px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.posts-container h1 {
+    text-align: center;
+    color: #0056b3;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+}
+
+.posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+    gap: 30px;
+}
+
+.post-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    display: flex; /* Flexbox for internal alignment */
+    flex-direction: column;
+    justify-content: space-between; /* Pushes read more to bottom */
+}
+
+.post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.post-card h2 {
+    font-size: 1.8em;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.post-card h2 a {
+    text-decoration: none;
+    color: #007bff;
+    transition: color 0.2s ease;
+}
+
+.post-card h2 a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.post-meta {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.post-meta .author-name {
+    font-weight: bold;
+    color: #333;
+}
+
+.post-meta .creation-date {
+    font-style: italic;
+}
+
+.read-more-btn {
+    display: inline-block;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    align-self: flex-start; /* Aligns button to the left */
+    margin-top: 15px; /* Space above button */
+    transition: background-color 0.2s ease;
+}
+
+.read-more-btn:hover {
+    background-color: #0056b3;
+}
+
+.no-posts-message {
+    text-align: center;
+    font-size: 1.2em;
+    color: #555;
+    padding: 40px;
+    border: 1px dashed #ccc;
+    border-radius: 8px;
+    margin-top: 30px;
+}
+
+/* Basic responsiveness */
+@media (max-width: 768px) {
+    .posts-grid {
+        grid-template-columns: 1fr; /* Stack posts on smaller screens */
+    }
+
+    .posts-container {
+        padding: 15px;
+        margin: 10px auto;
+    }
+
+    .post-card {
+        padding: 20px;
+    }
+}

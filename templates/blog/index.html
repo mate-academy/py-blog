@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block styles %}
+ <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="posts-container">
+  <h1>{{ page_title }}</h1>
+
+  {% if post_list %}
+    <div class="posts-grid">
+      {% for post in post_list %}
+        <div class="post-card">
+          <h2><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h2>
+            <p class="post-meta">
+              By: <span class="author-name">{{ post.owner.username }}</span>
+              <br>
+              Published on: <span class="creation-date">{{ post.created_time|date:"F j, Y" }}</span>
+            </p>
+            <p>{{ post.content|truncatewords:30 }}</p>
+            <a href="{% url 'blog:post-detail' pk=post.id %}" class="read-more-btn">Read More</a>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="no-posts-message">There are no posts yet.</p>
+    {# You might want to add a link to create a new post here #}
+    {# <p><a href="{% url 'blog:post_create' %}">Create your first post!</a></p> #}
+  {% endif %}
+</div>
+{% endblock %}
