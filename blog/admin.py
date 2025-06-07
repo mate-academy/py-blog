@@ -7,10 +7,8 @@ from blog.models import User, Post, Commentary
 
 @admin.register(User)
 class UserAdmin(BaseUserAdmin):
-    add_fieldsets = BaseUserAdmin.add_fieldsets + ((("Additional info"),
-                                                {"fields": (
-                                                    "first_name",
-                                                    "last_name")}),)
+    add_fieldsets = BaseUserAdmin.add_fieldsets + (
+        (("Additional info"), {"fields": ("first_name", "last_name")}),)
 
 
 admin.site.register(Post)
