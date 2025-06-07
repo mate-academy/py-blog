@@ -3,6 +3,8 @@ from django.urls import path
 from blog.views import index, PostDetailView, CommentaryCreateView
 
 
+app_name = "blog"
+
 urlpatterns = [
     path("", index, name="index"),
     path("posts/<int:pk>", PostDetailView.as_view(), name="post-detail"),
@@ -12,5 +14,3 @@ urlpatterns = [
         name="commentary-create"
     ),
 ]
-
-app_name = "blog"
