@@ -13,7 +13,14 @@
   </title>
 </head>
 <body>
-  {% block content %}
-  {% endblock %}
+  <header class="header">
+    {% block header %}
+    {% endblock %}
+  </header>
+
+  <main class="main">
+    {% block content %}
+    {% endblock %}
+  </main>
 </body>
 </html>

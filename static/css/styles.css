@@ -8,3 +8,54 @@ body {
     margin: 0;
     padding: 0;
 }
+
+.header {
+    padding: 10px 20px;
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+
+.main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.posts {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.post-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+
+    max-width: 60%;
+}
+
+.post-info {
+    display: flex;
+    align-items: center;
+    color: #787878;
+}
+
+.post-footer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    >p {
+        color: #787878;
+        margin: 0;
+    }
+}
