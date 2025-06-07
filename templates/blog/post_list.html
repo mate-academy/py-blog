@@ -10,7 +10,11 @@
       {% for post in posts %}
         <li>
           <div class="card border-dark mb-3">
-            <div class="card-header">{{ post.title }}</div>
+            <div class="card-header">
+              <a href="{% url 'blog:post-detail' post.id %}">
+                {{ post.title }}
+              </a>
+            </div>
               <div class="card-body text-dark">
                 <div class="post-info mb-1">
                   Created by

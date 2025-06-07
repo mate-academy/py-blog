@@ -59,3 +59,25 @@ body {
         margin: 0;
     }
 }
+
+.post-detail {
+    max-width: 35rem !important;
+}
+
+.post-comment-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+.post-detail-content {
+    border-bottom: 1px solid black;
+}
+
+.post-comments {
+    display: flex;
+
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+}
