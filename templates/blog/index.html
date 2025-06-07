@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<header class="d-flex justify-content-between align-items-center p-3 bg-light border-bottom">
+  <div>
+    {% if user.is_authenticated %}
+      <span class="me-3">User: <strong>{{ user.username }}</strong></span>
+      <form action="{% url 'logout' %}" method="post" class="d-inline">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-sm btn-outline-danger">Logout</button>
+      </form>
+    {% else %}
+      <a href="{% url 'login' %}" class="btn btn-sm btn-primary">Login</a>
+    {% endif %}
+  </div>
+</header>
+<h1>Programmers' blog</h1>
+
+{% if post_list.object_list %}
+  <ul>
+    {% for post in post_list %}
+      <li>
+        <a href="{% url 'blog:post-detail' post.id %}"><h3>{{ post.title }}</h3></a>
+        <p class="grey">Author: {{ post.owner }}, created: {{ post.created_time }}</p>
+        <p>{{ post.content }}</p>
+        <p>{{ post.comment_count }} comment{{ post.comment_count|pluralize }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>There are no posts here yet. You can be the first. Log in and let's run :) </p>
+{% endif %}
+{% include "includes/pagination.html" %}
+
+{% endblock %}
