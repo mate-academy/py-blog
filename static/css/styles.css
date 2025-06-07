@@ -1,7 +1,11 @@
 body {
     font-family: "Roboto", "Lucida Grande", "DejaVu Sans", "Bitstream Vera Sans", Verdana, Arial, sans-serif;
-    min-height: 100vh;
-    margin: 0;
+    height: 100%;
+    padding-bottom: 20px;
+}
+
+html {
+    height: 100%;
 }
 
 .heading {
@@ -23,7 +27,7 @@ body {
 
 .posts {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
 }
 
@@ -36,8 +40,13 @@ body {
 .post-list {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 1rem;
+
+    flex-grow: 1;
+
+    overflow: scroll;
+    height: 90vh;
 
     max-width: 60%;
 }
@@ -76,8 +85,10 @@ body {
 
 .post-comments {
     display: flex;
-
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 1rem;
+
+    overflow: scroll;
+    height: 35vh;
 }

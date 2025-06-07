@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_filters %}
 
 {% block header %}
   <h1>{{ post.title }}</h1>
@@ -7,27 +8,33 @@
 
 {% block content %}
   <div class="post-detail mt-4">
-  <div class="post-detail-content">
-    <div class="post-info mb-4">
-      Created by
-      {{ post.owner.username }}
-    </div>
-    {{ post.content }}
+    <div class="post-detail-content">
+      <div class="post-info mb-4">
+        Created by
+        {{ post.owner.username }}
+      </div>
+      {{ post.content }}
 
-    <div class="post-info mt-4 mb-4">{{ post.created_time }}</div>
-  </div>
+      <div class="post-info mt-4 mb-4">{{ post.created_time }}</div>
+    </div>
 
     <div class="mt-4">
-    {% if post.commentaries.all %}
-      <h5>Post commentaries</h5>
-      <ul class="custom-list post-comments mt-2">
-        {% for commentary in post.commentaries.all %}
-          {% include 'includes/commentary.html' %}
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p>No comments yet.</p>
-    {% endif %}
+      {% if post.commentaries.all %}
+        <h5>Post commentaries</h5>
+        <ul class="custom-list post-comments mt-2">
+          {% for commentary in post.commentaries.all %}
+            {% include 'includes/commentary.html' %}
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No comments yet.</p>
+      {% endif %}
     </div>
+    <form method="post" class="mt-4">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <a class="btn btn-danger" href="{% url 'blog:index' %}"><</a>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
   </div>
 {% endblock %}
