@@ -24,3 +24,26 @@ class Post(models.Model):
         ordering = ["-created_time"]
         verbose_name_plural = "Posts"
         verbose_name = "Post"
+
+
+class Commentary(models.Model):
+    user = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name="commentaries"
+    )
+    post = models.ForeignKey(
+        Post,
+        on_delete=models.CASCADE,
+        related_name="commentaries"
+    )
+    created_time = models.DateTimeField(auto_now_add=True)
+    content = models.TextField()
+
+    def __str__(self) -> str:
+        return self.content
+
+    class Meta:
+        ordering = ["-created_time"]
+        verbose_name_plural = "Commentaries"
+        verbose_name = "Commentary"

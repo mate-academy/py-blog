@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import User, Post
+from .models import User, Post, Commentary
 
 
 # Register your models here.
@@ -17,3 +17,10 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ("title", "created_time", "owner")
     list_filter = ("owner", "title", "created_time")
     search_fields = ("title",)
+
+
+@admin.register(Commentary)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ("user", "post", "content", "created_time")
+    list_filter = ("content", "post", "created_time")
+    search_fields = ('content',)
