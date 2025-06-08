@@ -16,6 +16,18 @@
   <header class="header">
     {% block header %}
     {% endblock %}
+      <div class="home">
+          <a href="{% url 'blog:index' %}">Home</a>
+      </div>
+
+      <div class="user">
+        {% if user.is_authenticated %}
+          {{ user.username }}
+          <a class="btn btn-danger ml-2" href="{% url 'logout' %}">Logout</a>
+        {% else %}
+          <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
+        {% endif %}
+      </div>
   </header>
 
   <main class="main">

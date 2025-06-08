@@ -30,11 +30,14 @@
         <p>No comments yet.</p>
       {% endif %}
     </div>
+
+  {% if user.is_authenticated %}
     <form method="post" class="mt-4">
       {% csrf_token %}
       {{ form|crispy }}
       <a class="btn btn-danger" href="{% url 'blog:index' %}"><</a>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+  {% endif %}
   </div>
 {% endblock %}
