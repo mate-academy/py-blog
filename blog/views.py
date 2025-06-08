@@ -8,9 +8,13 @@ from django.views.generic.edit import FormMixin
 
 class PostListView(ListView):
     model = Post
-    context_object_name = 'post_list'
-    template_name = 'blog/post_list.html'
-    queryset = Post.objects.select_related('owner').prefetch_related('commentaries')
+    context_object_name = "post_list"
+    template_name = "blog/post_list.html"
+    queryset = (
+        Post.objects
+            .select_related("owner")
+            .prefetch_related("commentaries")
+    )
     paginate_by = 5
 
 
@@ -19,12 +23,18 @@ class PostDetailView(FormMixin, DetailView):
     context_object_name = "post"
     template_name = "blog/post_detail.html"
     form_class = CommentaryForm
-    queryset = Post.objects.select_related("owner").prefetch_related("commentaries__user")
+    queryset = (
+        Post.objects
+            .select_related("owner")
+            .prefetch_related("commentaries__user")
+    )
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         form = self.get_form()
-        self.success_url = reverse_lazy("blog:post-detail", kwargs={ "pk": self.get_object().id })
+        self.success_url = reverse_lazy(
+            "blog:post-detail", kwargs={"pk": self.get_object().id}
+        )
 
         if form.is_valid():
             return self.form_valid(form)

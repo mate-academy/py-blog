@@ -8,11 +8,15 @@ class User(AbstractUser):
         return self.username
 
     class Meta:
-        ordering = ['-date_joined']
+        ordering = ["-date_joined"]
 
 
 class Post(models.Model):
-    owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="posts")
+    owner = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,
+        related_name="posts"
+    )
     title = models.CharField(max_length=255)
     content = models.TextField()
     created_time = models.DateTimeField(auto_now_add=True)

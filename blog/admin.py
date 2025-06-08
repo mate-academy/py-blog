@@ -5,12 +5,17 @@ from .models import User, Post, Commentary
 
 admin.site.unregister(Group)
 
+
 # Register your models here.
 @admin.register(User)
 class UserAdministrator(UserAdmin):
-    list_filter = UserAdmin.list_filter + ("username", 'first_name', 'last_name')
+    list_filter = UserAdmin.list_filter + (
+        "username", "first_name", "last_name"
+    )
     add_fieldsets = UserAdmin.add_fieldsets + (
-        ('Additional Information', {'fields': ('first_name', 'last_name', 'email')})
+        ("Additional Information", {
+            "fields": ("first_name", "last_name", "email")
+        })
     ),
 
 
@@ -25,4 +30,4 @@ class PostAdmin(admin.ModelAdmin):
 class CommentAdmin(admin.ModelAdmin):
     list_display = ("user", "post", "content", "created_time")
     list_filter = ("content", "post", "created_time")
-    search_fields = ('content',)
+    search_fields = ("content",)
