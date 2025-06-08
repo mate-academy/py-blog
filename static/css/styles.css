@@ -27,7 +27,8 @@ html {
 
 .posts {
     display: flex;
-    align-items: flex-end;
+    align-items: center;
+    flex-direction: column;
     justify-content: center;
 }
 
@@ -46,7 +47,7 @@ html {
     flex-grow: 1;
 
     overflow: scroll;
-    height: 90vh;
+    height: 80vh;
 
     max-width: 60%;
 }

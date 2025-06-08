@@ -8,9 +8,10 @@ from django.views.generic.edit import FormMixin
 
 class PostListView(ListView):
     model = Post
-    context_object_name = 'posts'
+    context_object_name = 'post_list'
     template_name = 'blog/post_list.html'
     queryset = Post.objects.select_related('owner').prefetch_related('commentaries')
+    paginate_by = 5
 
 
 class PostDetailView(FormMixin, DetailView):
