@@ -16,7 +16,7 @@ class UserAdministrator(UserAdmin):
         ("Additional Information", {
             "fields": ("first_name", "last_name", "email")
         })
-    ),
+    )
 
 
 @admin.register(Post)
