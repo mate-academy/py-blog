@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1 class="heading">Post list</h1>
+{% endblock %}
+
+{% block content %}
+  <div class="mt-4 posts">
+    <ul class="custom-list post-list">
+      {% for post in post_list %}
+        <li>
+          <div class="card border-dark mb-3">
+            <div class="card-header">
+              <a href="{% url 'blog:post-detail' post.id %}">
+                {{ post.title }}
+              </a>
+            </div>
+              <div class="card-body text-dark">
+                <div class="post-info mb-1">
+                  Created by
+                  {{ post.owner.username }}
+                </div>
+                <p class="card-text">{{ post.content|truncatechars:155 }}</p>
+
+                <div class="post-footer">
+                  <p>
+                    Comments ({{ post.commentaries.count }})
+                  </p>
+
+                  <p>
+                    {{ post.created_time|date:'' }}
+                  </p>
+                </div>
+              </div>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+
+    {% include 'includes/pagination.html' %}
+  </div>
+{% endblock %}
