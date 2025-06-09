@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post List</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>All Posts</h1>
+
+        {% if post_list %}
+            {% for post in post_list %}
+                <div class="post">
+                    <h2><a href="{% url 'blog:post-detail' pk=post.pk %}">{{ post.title }}</a></h2>
+                    <p>{{ post.content|truncatechars:200 }}</p>
+                    <div class="post-meta">
+                        Author: {{ post.owner.username }} |
+                        Created: {{ post.created_time|date:"d M Y H:i" }} |
+                        Commentary: {{ post.comments.count }}
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div class="pagination">
+                {% if post_list.has_previous %}
+                    <a href="?page=1">&laquo; first</a>
+                    <a href="?page={{ post_list.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ post_list.number }} з {{ post_list.paginator.num_pages }}.
+                </span>
+
+                {% if post_list.has_next %}
+                    <a href="?page={{ post_list.next_page_number }}">next</a>
+                    <a href="?page={{ post_list.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </div>
+        {% else %}
+            <p>No posts.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
