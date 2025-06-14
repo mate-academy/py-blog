@@ -10,7 +10,7 @@ from .models import Post, User, Commentary
 
 class PostListView(generic.ListView):
     model = Post
-    template_name = "templates/blog/index.html"
+    template_name = "blog/index.html"
     context_object_name = "post_list"
     ordering = ["-created_time"]
     paginate_by = 5
@@ -37,4 +37,6 @@ class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
         return context
 
     def get_success_url(self):
-        return reverse_lazy("blog:post-detail", kwargs={"pk": self.kwargs["post_pk"]})
+        return reverse_lazy("blog:post-detail",
+                            kwargs={"pk": self.kwargs["post_pk"]}
+                            )
