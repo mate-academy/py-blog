@@ -1,0 +1,15 @@
+{% extends "templates/base.html" %}
+{% load crispy_forms_filters %}
+
+
+{% block content %}
+  <div class="container mt-4">
+    <h2>Add a comment to "{{ post.title }}"</h2>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button type="submit" class="btn btn-primary">Submit Comment</button>
+    </form>
+    <p><a href="{% url 'blog:post-detail' pk=post.pk %}">Back to post</a></p>
+  </div>
+{% endblock %}
