@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Strona główna bloga</title>
+</head>
+<body>
+    <h1>{{ post.title }}</h1>
+    <div>Autor: {{ post.owner }}</div>
+    <br>
+    <div>{{ post.content }}</div>
+    <br>
+    <div class="date">{{ post.created_time }}</div>
+    <ul>
+      {% for comment in post.commentary_set.all %}
+        <li>
+          <strong>{{ comment.user.username }}</strong> ({{ comment.created_time|date:"d.m.Y H:i" }}):<br>
+          {{ comment.content }}
+        </li>
+        <br>
+      {% empty %}
+        <li>Brak komentarzy.</li>
+      {% endfor %}
+    </ul>
+    <h2>Dodaj komentarz</h2>
+
+    {% load crispy_forms_tags %}
+    <form method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+
+      {% if not request.user.is_authenticated %}
+        <p style="color: red;">Musisz być <a href="{% url 'login' %}">zalogowany</a>, aby dodać komentarz.</p>
+      {% endif %}
+
+      <button type="submit" {% if not request.user.is_authenticated %}disabled{% endif %}>
+        Dodaj komentarz
+      </button>
+
+      {% if form.errors %}
+        <ul class="errors">
+          {% for field in form %}
+            {% for error in field.errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          {% endfor %}
+          {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </form>
+</body>
+</html>
