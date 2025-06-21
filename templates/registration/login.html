@@ -1,0 +1,11 @@
+<h2>Zaloguj się</h2>
+
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Zaloguj</button>
+</form>
+
+{% if form.errors %}
+  <p style="color: red;">Nieprawidłowe dane logowania.</p>
+{% endif %}
