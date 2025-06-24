@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load crispy_forms_filters %}
 
 {% block content %}
   <h2>{{ post.title }}</h2>
@@ -20,12 +19,5 @@
     <p>There are no comments yet.</p>
   {% endif %}
 
-  <form action="" method="post">
-    {% csrf_token %}
-    {{ form|crispy }}
-    <p><strong>Add your comment here:</strong></p>
-    <textarea class="col-sm-8" id="Comment" name="Comment" rows="4"></textarea>
-    <br>
-    <input type="submit" value="Submit">
-  </form>
+  <p><strong><a href="{% url 'blog:commentary-create' %}">Add your comment</a> </strong></p>
 {% endblock %}
