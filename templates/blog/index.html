@@ -5,7 +5,7 @@
   <p>Welcome to THE Blog!</p>
   {% for post in post_list %}
     <h2><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a> </h2>
-    <p style="float: right"><small>{{ post.commentary_set.all.count }} comment{{ post.commentary_set.all.count|pluralize }}</small></p>
+    <p style="float: right"><small>{{ post.comments.all.count }} comment{{ post.comments.all.count|pluralize }}</small></p>
     <p><small><i>created on {{ post.created_time }} by {{ post.owner }}</i></small></p>
     <p>{{ post.content }}</p>
   {% endfor %}

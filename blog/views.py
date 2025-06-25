@@ -1,4 +1,3 @@
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views import generic
@@ -18,5 +17,5 @@ class PostDetailView(generic.DetailView):
 
 class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
     model = Commentary
-    fields = "__all__"
-    success_url = reverse_lazy("blog:post_detail")
+    fields = "content"
+    success_url = reverse_lazy("blog:post-detail")
