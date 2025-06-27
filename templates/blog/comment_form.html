@@ -1,0 +1,13 @@
+{% block form %}
+{% load crispy_forms_tags %}
+<h5>Add a comment</h5>
+  {% if user.is_authenticated %}
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary mt-2">Add</button>
+  </form>
+  {% else %}
+    <p>You must be <a href="{% url 'login' %}">logged in</a> to add a comment.</p>
+  {% endif %}
+{% endblock %}

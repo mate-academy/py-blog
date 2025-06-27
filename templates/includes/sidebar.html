@@ -1,0 +1,10 @@
+{% block sidebar %}
+<ul>
+  {% if user.is_authenticated %}
+  	<li>User:<a href="{{ user.get_absolute_url }}" class="text-decoration-none">{{ user.get_username }}</a></li>
+	{% endif %}
+	<br>
+  <li><a href="{% url 'blog:index' %}">All blog topics</a></li>
+  <li><a href="{% url 'blog:user-list' %}">All users</a></li>
+</ul>
+{% endblock %}
