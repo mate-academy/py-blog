@@ -1,13 +1,13 @@
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin
 from django.contrib import admin
-from blog.models import User, Post, Commentary
+from blog.models import CustomUser, Post, Commentary
 
 
 admin.site.unregister(Group)
 
 
-@admin.register(User)
+@admin.register(CustomUser)
 class CustomUserAdmin(UserAdmin):
     pass
 

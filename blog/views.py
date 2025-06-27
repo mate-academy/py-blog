@@ -1,16 +1,10 @@
-from django.core.paginator import Paginator
-from django.http import (
-    HttpRequest,
-    HttpResponse,
-    HttpResponseRedirect
-)
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.urls import reverse_lazy, reverse
 
 from .models import (Post,
                      Commentary,
-                     User)
+                     CustomUser)
 from .forms import CommentaryForm
 
 
@@ -55,16 +49,18 @@ class PostDetailView(generic.DetailView):
 
 
 class CustomUserListView(generic.ListView):
-    model = User
+    model = CustomUser
     paginate_by = 5
 
 
 class CustomUserDetailView(generic.DetailView):
-    model = User
+    model = CustomUser
     template_name = "blog/user_detail.html"
 
 
 class CommentaryCreateView(generic.CreateView):
     model = Commentary
-    success_url = reverse_lazy("blog:comment-create")
     template_name = "blog/post_detail.html"
+
+    def get_success_url(self):
+        return reverse_lazy('blog:post-detail', kwargs={'pk': self.object.post.pk})

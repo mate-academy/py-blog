@@ -3,7 +3,7 @@ from django.db import models
 from blog_system import settings
 
 
-class User(AbstractUser):
+class CustomUser(AbstractUser):
     pass
 
 
