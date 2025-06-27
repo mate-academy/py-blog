@@ -26,8 +26,6 @@
   {% endfor %}
 </div>
   {% block form %}
-  {% if user.is_authenticated %}
     {% include "blog/comment_form.html" %}
-  {% endif %}
   {% endblock %}
 {% endblock %}

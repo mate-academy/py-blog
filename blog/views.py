@@ -4,36 +4,67 @@ from django.http import (
     HttpResponse,
     HttpResponseRedirect
 )
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import generic
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 
-from .models import Post, Commentary
+from .models import (Post,
+                     Commentary,
+                     User)
+from .forms import CommentaryForm
 
 
-def index(request: HttpRequest) -> HttpResponse:
-    all_posts = Post.objects.all().order_by("-created_time")
-    paginator = Paginator(all_posts, 5)
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
-
-    context = {
-        "all_posts": all_posts,
-        "page_obj": page_obj
-    }
-    return render(
-        request,
-        "blog/index.html",
-        context=context,
-    )
+class PostListView(generic.ListView):
+    model = Post
+    template_name = "blog/index.html"
+    context_object_name = "post_list"
+    paginate_by = 5
+    ordering = ["-created_time"]
 
 
 class PostDetailView(generic.DetailView):
     model = Post
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = CommentaryForm()
+        context["comments"] = Commentary.objects.filter(
+            post=self.object
+        ).order_by("-created_time")
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = CommentaryForm(request.POST)
+        if form.is_valid():
+            commentary = form.save(commit=False)
+            commentary.user = request.user
+            commentary.post = self.object
+            commentary.save()
+            return redirect(
+                reverse(
+                    "blog:post-detail",
+                    kwargs={
+                        "pk": self.object.pk
+                    }
+                )
+            )
+        return self.render_to_response(
+            self.get_context_data(form=form)
+        )
+
+
+class CustomUserListView(generic.ListView):
+    model = User
+    paginate_by = 5
+
+
+class CustomUserDetailView(generic.DetailView):
+    model = User
+    template_name = "blog/user_detail.html"
+
 
 class CommentaryCreateView(generic.CreateView):
     model = Commentary
-    fields = ("content",)
-    success_url = reverse_lazy("blog:post-detail")
-    template_name = "blog/comment_form.html"
+    success_url = reverse_lazy("blog:comment-create")
+    template_name = "blog/post_detail.html"
