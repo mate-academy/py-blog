@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}
+  <title>Blog - Main page</title>
+{% endblock %}
+
+{% block content %}
+  <div class="mb-4">
+    <h1 class="display-4">Blog</h1>
+    <p class="lead">Last Publications</p>
+    <a class="btn btn-primary" href="{% url 'blog:post-create' %}">Add New Post</a>
+  </div>
+
+  {% if post_list %}
+    {% for post in post_list %}
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2 class="card-title">
+            <a href="{{ post.get_absolute_url }}" class="text-decoration-none">{{ post.title }}</a>
+            <a style="float: inherit" class="btn btn-secondary" href="{% url 'blog:post-update' pk=post.id %}">UPDATE</a>
+            <a style="float: right" class="btn btn-danger" href="{% url 'blog:post-delete' pk=post.id %}">DELETE</a>
+          </h2>
+          <p class="card-text">{{ post.content|truncatewords:50 }}</p>
+          <div class="text-muted small">
+            <i class="fas fa-user"></i>Author: <strong>{{ post.owner.first_name }} {{ post.owner.last_name }}</strong>
+            <br>
+            <i class="fas fa-calendar"></i>Creation Date: <strong>{{ post.created_time|date:"m.d.Y, H:i" }}</strong>
+            <br>
+            <i class="fas fa-comments"></i>Comments: <span
+              class="badge badge-secondary">{{ post.comments.count }}</span></p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="alert alert-info" role="alert">
+      <h4 class="alert-heading">No publications yet!</h4>
+      <p>Be the firs one to post!</p>
+    </div>
+  {% endif %}
+
+{% endblock %}

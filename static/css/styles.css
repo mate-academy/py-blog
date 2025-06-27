@@ -1,0 +1,533 @@
+/* Загальні стилі для body */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Стилі для контенту */
+.content-area {
+    padding: 2rem 1rem;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+/* Заголовок блогу */
+.blog-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 3px solid #007bff;
+}
+
+.blog-header h1 {
+    color: #2c3e50;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.blog-header .lead {
+    color: #6c757d;
+    font-size: 1.1rem;
+}
+
+/* Стилі для карток постів */
+.post-card {
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    margin-bottom: 1.5rem;
+    overflow: hidden;
+}
+
+.post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.post-card .card-body {
+    padding: 1.8rem;
+}
+
+/* Заголовки постів */
+.post-title {
+    color: #2c3e50;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.4rem;
+    line-height: 1.3;
+    transition: color 0.3s ease;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.post-title:hover {
+    color: #007bff;
+    text-decoration: none;
+}
+
+/* Контент постів */
+.post-content {
+    color: #495057;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
+}
+
+/* Мета-інформація */
+.post-meta {
+    font-size: 0.9rem;
+    color: #6c757d;
+    border-top: 1px solid #e9ecef;
+    padding-top: 1rem;
+}
+
+.meta-item {
+    display: inline-block;
+    margin-right: 1.2rem;
+    margin-bottom: 0.3rem;
+}
+
+.meta-item i {
+    color: #007bff;
+    margin-right: 0.4rem;
+}
+
+.meta-item strong {
+    color: #495057;
+}
+
+.comments-count {
+    background: linear-gradient(45deg, #007bff, #0056b3);
+    color: white;
+    padding: 0.25rem 0.6rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* Стилі для сайдбару */
+.sidebar {
+    padding: 1rem;
+}
+
+.sidebar-card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    margin-bottom: 1.5rem;
+}
+
+.sidebar-card .card-header {
+    background: linear-gradient(45deg, #007bff, #0056b3);
+    color: white;
+    border: none;
+    border-radius: 10px 10px 0 0;
+    padding: 1rem;
+}
+
+.sidebar-card .card-header h5 {
+    margin: 0;
+    font-weight: 600;
+}
+
+.sidebar-card .card-body {
+    padding: 1.2rem;
+}
+
+.sidebar-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-nav li {
+    margin-bottom: 0.5rem;
+}
+
+.sidebar-nav a {
+    display: block;
+    padding: 0.6rem 1rem;
+    color: #495057;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.sidebar-nav a:hover {
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    transform: translateX(5px);
+}
+
+.stats-badge {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+/* Стилі для пагінації */
+.pagination {
+    margin: 0;
+    justify-content: center;
+}
+
+.pagination .page-link {
+    border: none;
+    padding: 0.6rem 1rem;
+    margin: 0 0.2rem;
+    border-radius: 8px;
+    color: #495057;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.pagination .page-link:hover {
+    background: linear-gradient(45deg, #007bff, #0056b3);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.pagination .page-item.active .page-link {
+    background: linear-gradient(45deg, #007bff, #0056b3);
+    border: none;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+}
+
+.pagination .page-item.disabled .page-link {
+    background-color: #e9ecef;
+    color: #6c757d;
+    cursor: not-allowed;
+}
+
+.pagination .page-item.info-item .page-link {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
+    font-weight: 600;
+}
+
+/* Alert для відсутності постів */
+.no-posts-alert {
+    border: none;
+    background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+    color: #1565c0;
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    margin: 2rem 0;
+}
+
+.no-posts-alert h4 {
+    color: #0d47a1;
+    margin-bottom: 1rem;
+}
+
+/* Адаптивність */
+@media (max-width: 768px) {
+    .content-area {
+        padding: 1rem;
+        margin: 0.5rem;
+    }
+
+    .post-card .card-body {
+        padding: 1.2rem;
+    }
+
+    .meta-item {
+        display: block;
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+    }
+
+    .pagination .page-link {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.9rem;
+    }
+
+    .sidebar {
+        margin-top: 2rem;
+    }
+}
+
+/* Анімації */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.post-card {
+    animation: slideInUp 0.6s ease forwards;
+}
+
+.post-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.post-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.post-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.post-card:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.post-card:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+/* Стилі для детальної сторінки поста */
+.post-detail {
+    margin-bottom: 2rem;
+}
+
+.post-header {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.post-title-detail {
+    color: #2c3e50;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    font-size: 2.2rem;
+    line-height: 1.2;
+}
+
+.post-meta-detail {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.post-meta-detail .meta-item {
+    color: #6c757d;
+    font-size: 0.95rem;
+}
+
+.post-meta-detail .meta-item i {
+    color: #007bff;
+    margin-right: 0.5rem;
+}
+
+.post-content-detail {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #495057;
+}
+
+.section-divider {
+    margin: 3rem 0;
+    border: none;
+    height: 2px;
+    background: linear-gradient(90deg, #007bff, transparent);
+}
+
+/* Стилі для секції коментарів */
+.comments-section {
+    margin-top: 2rem;
+}
+
+.comments-title {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #007bff;
+}
+
+.comments-title i {
+    color: #007bff;
+    margin-right: 0.5rem;
+}
+
+/* Список коментарів */
+.comments-list {
+    margin-bottom: 2rem;
+}
+
+.comment-item {
+    background: #f8f9fa;
+    border-left: 4px solid #007bff;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 0 8px 8px 0;
+    transition: all 0.3s ease;
+}
+
+.comment-item:hover {
+    background: #e9ecef;
+    transform: translateX(5px);
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.comment-author {
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.comment-author i {
+    color: #007bff;
+    margin-right: 0.5rem;
+}
+
+.comment-date {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.comment-date i {
+    margin-right: 0.3rem;
+}
+
+.comment-content {
+    color: #495057;
+    line-height: 1.6;
+}
+
+/* Відсутність коментарів */
+.no-comments {
+    text-align: center;
+    padding: 2rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.no-comments i {
+    font-size: 3rem;
+    color: #6c757d;
+    margin-bottom: 1rem;
+}
+
+.no-comments p {
+    color: #6c757d;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+/* Форма коментарів */
+.comment-form-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.form-title {
+    color: #2c3e50;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.form-title i {
+    color: #28a745;
+    margin-right: 0.5rem;
+}
+
+.comment-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.comment-form label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 0.5rem;
+}
+
+.comment-form textarea {
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+}
+
+.comment-form textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.comment-btn {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.comment-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+}
+
+/* Повідомлення для входу */
+.login-prompt {
+    text-align: center;
+    padding: 1.5rem;
+    background: #e3f2fd;
+    border-radius: 8px;
+    border-left: 4px solid #2196f3;
+}
+
+.login-prompt i {
+    color: #2196f3;
+    margin-right: 0.5rem;
+}
+
+.login-link {
+    color: #007bff;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+}
+
+/* Адаптивність */
+@media (max-width: 768px) {
+    .post-title-detail {
+        font-size: 1.8rem;
+    }
+
+    .post-meta-detail {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .comment-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+
+    .comment-form-section {
+        padding: 1.5rem;
+    }
+}
