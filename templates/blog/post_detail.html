@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="container container-sm mt-4">
+    <div class="w-75 mx-auto">
+
+      <h1 class="text-lg-center">{{ post.title }}</h1>
+      <hr>
+      <p class="text-justify">{{ post.content }}</p>
+      <div class="d-flex justify-content-between align-items-center mb-5">
+        <span class="badge badge-primary">
+          {{ post.comments.count }} comment{{ post.comments.count|pluralize }}
+        </span>
+        <small class="text-muted">
+          By {{ post.owner }} on {{ post.created_time }}
+        </small>
+      </div>
+
+      {% if object.comments %}
+        {% for comment in object.comments.all %}
+          <div class="card mb-4 w-75 mx-auto">
+            <div class="card-header text-muted">{{ comment.user }} at {{ comment.created_time }}</div>
+            <div class="card-body">
+              <p class="card-text">{{ comment.content }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      {% if user.is_authenticated %}
+        <div class="container mt-5 mb-5">
+          <div class="row justify-content-center">
+            <div class="col-md-6">
+              <form class="align-items-center" action="{% url 'blog:comment_create' pk=post.id %}" method="post"
+                    novalidate>
+                {% csrf_token %}
+                {{ form|crispy }}
+                <input class="btn btn-primary" type="submit" value="Add comment">
+              </form>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+
+
+    </div>
+  </div>
+{% endblock %}
