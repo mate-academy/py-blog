@@ -1,16 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
 {{ post.content }}
-  {% for comment in post.commentary_set.all %}
-    <ul>
-    <li>
-      {{ comment.content }}
-      <p>
-        {{ comment.user }}, {{ comment.created_time }}
-      </p>
-    </li>
-    </ul>
-  {% endfor %}
+  <ul>
+    {% for comment in post.commentary_set.all %}
+      <li>
+        {{ comment.content }}
+        <p>
+          {{ comment.user }}, {{ comment.created_time }}
+        </p>
+      </li>
+
+    {% endfor %}
+  </ul>
   <form action="" method="post">
   {% csrf_token %}
     {{ form.as_p }}
