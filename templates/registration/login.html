@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="d-flex flex-column align-items-center mt-5">
+
+    {% if next %}
+      <p class="text-center">Please login to see this page.</p>
+    {% endif %}
+
+    <div class="card border-primary mt-3" style="min-width: 300px;">
+      <div class="card-header text-center">
+        Login
+      </div>
+      <div class="card-body">
+        <form method="post" action="{% url 'login' %}">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <br>
+          <input type="submit" value="Login" class="btn btn-primary"/>
+          <input type="hidden" name="next" value="{{ next }}"/>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
