@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.owner.username }} at {{ post.created_time }}</p>
+  <p>{{ post.content }}</p>
+  <br>
+  <p>{{ post.commentaries.count }} comments</p>
+  <hr>
+  <p>
+    {% for comment in post.commentaries.all %}
+      <p>{{ comment.user.username }} {{ comment.created_time }}</p>
+      <p>{{ comment.content }}</p>
+      <hr>
+    {% endfor %}
+  <h2>Add a comment:</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input class="btn btn-primary" type="submit" value="Submit">
+  </form>
+{% endblock%}

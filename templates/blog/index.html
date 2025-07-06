@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>All posts:</h1>
+  {% if post_list %}
+    {% for post in post_list %}
+      <h2><a href="{% url "blog:post-detail" pk=post.id %}">{{ post.title }}</a></h2>
+      <p>{{ post.owner.username }} at {{ post.created_time }}. {{ post.commentaries.count }} coments</p>
+      <p>{{ post.content|truncatewords:50 }}</p>
+    {% endfor %}
+  {% else %}
+    <p>There are no posts avaliable :(</p>
+  {% endif %}
+{% endblock content %}
