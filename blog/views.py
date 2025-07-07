@@ -21,7 +21,7 @@ class IndexView(generic.ListView):
 #     template_name = "blog/posts.html"
 
 
-def PostDetailView(request, pk):
+def postdetailview(request, pk):
     post = Post.objects.get(pk=pk)
     if request.method == "POST":
         if request.user.is_authenticated:
