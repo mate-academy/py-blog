@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Блог</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+
+    <h1>📚 Блогові пости</h1>
+
+    {% for post in page_obj %}
+      <div class="post">
+          <h2><a href="{% url 'blog:post-detail' post.pk %}">{{ post.title }}</a></h2>
+          <p>{{ post.content }}</p>
+          <p><strong>Автор:</strong> {{ post.author }} | {{ post.created_time|date:"d M Y, H:i" }}</p>
+          <p><strong>Коментарів:</strong> {{ post.comments.count }}</p>
+      </div>
+    {% empty %}
+      <p>Постів поки немає 🤷‍♀️</p>
+    {% endfor %}
+
+    {% if page_obj.has_other_pages %}
+      <div class="pagination">
+          {% if page_obj.has_previous %}
+              <a href="?page={{ page_obj.previous_page_number }}">← Попередня</a>
+          {% endif %}
+          <span>Сторінка {{ page_obj.number }} з {{ page_obj.paginator.num_pages }}</span>
+          {% if page_obj.has_next %}
+              <a href="?page={{ page_obj.next_page_number }}">Наступна →</a>
+          {% endif %}
+      </div>
+    {% endif %}
+
+</body>
+</html>
