@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %} {# Завантажуємо теги crispy forms #}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+    <div class="post-card">
+        <h1 class="post-title">{{ post.title }}</h1>
+        <p class="post-meta">
+            Author: {{ post.owner.username }} |
+            Published: {{ post.created_time|date:"d M Y H:i" }} |
+            Comments: {{ post.get_comment_count }}
+        </p>
+        <div class="post-content">
+            <p>{{ post.content|linebreaksbr }}</p> {# linebreaksbr зберігає розриви рядків #}
+        </div>
+        <a href="{% url 'blog:index' %}" class="btn btn-secondary">Повернутися до постів</a>
+    </div>
+
+    <div class="comment-section">
+        <h3>Comments ({{ comments.count }})</h3>
+        {% if comments %}
+            {% for comment in comments %}
+                <div class="comment-item">
+                    <p class="comment-author">{{ comment.user.username }}</p>
+                    <p class="comment-meta">{{ comment.created_time|date:"d M Y H:i" }}</p>
+                    <p class="comment-content">{{ comment.content }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Will be first who left the comment!</p>
+        {% endif %}
+
+        <div class="comment-form mt-4">
+            <h4>Left a comment</h4>
+            {% if user.is_authenticated %}
+                <form method="post">
+                    {% csrf_token %} {# Захист від CSRF атак #}
+                    {{ form|crispy }} {# Рендеринг форми за допомогою crispy forms #}
+                    <button type="submit" class="btn btn-primary">Add a comment</button>
+                </form>
+            {% else %}
+                <p class="alert alert-warning">Будь ласка, <a href="{% url 'admin:login' %}?next={{ request.path }}">увійдіть</a>, щоб залишити коментар.</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
