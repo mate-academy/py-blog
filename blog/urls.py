@@ -8,5 +8,3 @@ urlpatterns = [
     path("posts/<int:pk>/", views.PostDetailView.as_view(),
          name="post-detail"),
 ]
-
-о
