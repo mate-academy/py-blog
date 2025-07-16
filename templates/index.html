@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>All Posts</h1>
+{% for post in page_obj %}
+  <h2><a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a></h2>
+  <p>{{ post.content|truncatewords:25 }}</p>
+  <p>By {{ post.author }} | {{ post.created_time }} | {{ post.comment_count }} comments</p>
+  <hr>
+{% endfor %}
+{% include "includes/pagination.html" %}
+{% endblock %}
