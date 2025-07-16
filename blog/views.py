@@ -6,7 +6,6 @@ from .forms import CommentForm
 from django.shortcuts import redirect
 
 
-
 def index(request):
     post_list = Post.objects.order_by("-created_time")
     paginator = Paginator(post_list, 5)
