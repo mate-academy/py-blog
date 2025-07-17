@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  <title>Home page</title>
+{% endblock %}
+{% block content %}
+  {% if post_list %}
+    <table class="table">
+      <tr>
+        <th>Title</th>
+        <th>Content</th>
+        <th>Created Time</th>
+        <th>Owner</th>
+      </tr>
+      {% for post in post_list %}
+        <tr>
+          <td>
+            {{ post.title }}
+          </td>
+          <td>
+            {{ post.content }}
+          </td>
+          <td>
+            {{ post.created_time }}
+          </td>
+          <td>
+            {{ post.owner }}
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% endif %}
+{% endblock %}
