@@ -4,12 +4,12 @@ from blog.views import IndexView, PostDetailView
 
 
 urlpatterns = [
-    path('', IndexView.as_view(), name='index'),
+    path('', IndexView.as_view(), name="index"),
     path(
         'posts/<int:pk>/',
         PostDetailView.as_view(),
-        name='post-detail'
+        name="post-detail"
     )
 ]
 
-app_name = 'blog'
+app_name = "blog"
