@@ -4,9 +4,9 @@ from blog.views import IndexView, PostDetailView
 
 
 urlpatterns = [
-    path('', IndexView.as_view(), name="index"),
+    path("", IndexView.as_view(), name="index"),
     path(
-        'posts/<int:pk>/',
+        "posts/<int:pk>/",
         PostDetailView.as_view(),
         name="post-detail"
     )

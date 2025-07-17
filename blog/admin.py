@@ -19,4 +19,5 @@ class CommentaryAdmin(admin.ModelAdmin):
     search_fields = ["content", "user__username"]
     list_filter = ["created_time"]
 
+
 admin.site.register(User)
