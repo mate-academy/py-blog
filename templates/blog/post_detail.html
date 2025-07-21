@@ -4,5 +4,5 @@
 {% for detail in post.commentary_set.all %}
   <p>{{ detail.content }}</p>
 {% endfor %}
-<a href="{% url 'blog:post-create' %}">Add comments</a>
+<a href="{% url 'blog:post-create' %}">Add comment</a>
 {% endblock %}
