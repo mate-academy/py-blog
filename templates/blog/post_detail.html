@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Commentars:</h3>
+{% for detail in post.commentary_set.all %}
+  <p>{{ detail.content }}</p>
+{% endfor %}
+<a href="{% url 'blog:post-create' %}">Add comment</a>
+{% endblock %}
