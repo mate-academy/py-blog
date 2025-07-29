@@ -1,5 +1,5 @@
-from django.shortcuts import render, get_object_or_404
-from django.urls import reverse_lazy, reverse
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse
 from django.views.generic import DetailView, CreateView
 from django.views.generic.list import ListView
 
@@ -11,7 +11,6 @@ class BlogListView(ListView):
     model = Post
     template_name = "blog/post_list.html"
     ordering = ["created_time"]
-    # context_object_name = "posts"
     paginate_by = 5
 
     def get_queryset(self):
@@ -29,7 +28,7 @@ class PostDetailView(DetailView):
         return context
 
 
-class CommentCreateView(CreateView):
+class CommentCreateView(CreateView, LoginRequiredMixin):
     model = Commentary
     fields = "__all__"
     template_name = "blog/comment-form.html"
