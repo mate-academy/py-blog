@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h3>{{ object.title }}</h3>
+  <p class="content">{{ object.content }} </p>
+  {# Optionally display object.pk for debugging: {{ object.pk }} #}
+  <br>
+
+  <h4>Comments</h4> {# Added a heading for comments #}
+  <ul>
+  {%  for  comment in comments %}
+    <li>
+      <p>{{ comment.content }}</p>
+      <p>by {{ comment.user.username }}</p>
+    </li>
+  {% empty %}
+    <p>There are no comments yet.</p>
+  {% endfor %}
+  </ul>
+  <a href="{% url 'blog:add-comment' pk=object.pk %}">Add new comment</a>
+
+{% endblock %}

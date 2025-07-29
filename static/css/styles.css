@@ -1,0 +1,124 @@
+/* blog/static/css/styles.css */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background: #333;
+    color: #fff;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+main {
+    padding: 20px;
+}
+
+/* --- Pagination Styles (for blog/static/css/styles.css) --- */
+
+.pagination {
+    display: flex; /* Makes the list items display in a row */
+    padding-left: 0;
+    list-style: none; /* Removes bullet points */
+    border-radius: 0.25rem; /* Slight border-radius for the whole group */
+    justify-content: center; /* Centers the pagination links horizontally */
+    margin-top: 25px; /* Adds some space above the pagination */
+    margin-bottom: 25px; /* Adds some space below the pagination */
+}
+
+.page-item {
+    /* No specific styling needed on the li itself unless for margins/padding */
+}
+
+.page-link {
+    position: relative;
+    display: block; /* Makes the link fill the li */
+    padding: 0.5rem 0.75rem; /* Padding inside each link */
+    margin-left: -1px; /* Overlap borders for a continuous look */
+    line-height: 1.25;
+    color: #007bff; /* Link color (blue) */
+    background-color: #fff; /* White background */
+    border: 1px solid #dee2e6; /* Light grey border */
+    text-decoration: none; /* Remove underline */
+    transition: all 0.2s ease-in-out; /* Smooth transition for hover effects */
+}
+
+.page-link:hover {
+    z-index: 2; /* Bring hovered link to front to show border */
+    color: #0056b3; /* Darker blue on hover */
+    text-decoration: none;
+    background-color: #e9ecef; /* Light grey background on hover */
+    border-color: #dee2e6; /* Keep border color consistent */
+}
+
+/* Specific styles for active (current) page */
+.page-item.active .page-link {
+    z-index: 3; /* Bring active link even more to front */
+    color: #fff; /* White text for active page */
+    background-color: #007bff; /* Primary blue background for active page */
+    border-color: #007bff; /* Blue border for active page */
+}
+
+/* Specific styles for disabled (e.g., "Previous" on first page) links */
+.page-item.disabled .page-link {
+    color: #6c757d; /* Grey text for disabled link */
+    pointer-events: none; /* Prevents clicks on disabled link */
+    background-color: #fff; /* White background */
+    border-color: #dee2e6; /* Light grey border */
+    cursor: default; /* Indicate it's not clickable */
+}
+
+/* Rounded corners for the very first and very last page items */
+.page-item:first-child .page-link {
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+}
+
+.page-item:last-child .page-link {
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+
+/* Optional: Add some basic styling for your main content/container if not already done */
+main {
+    max-width: 800px;
+    margin: 20px auto; /* Center main content and add vertical spacing */
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Basic styling for your post list if not already done */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    border-bottom: 1px solid #eee;
+    padding: 15px 0;
+}
+
+li:last-child {
+    border-bottom: none;
+}
+
+li h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+li p {
+    margin-bottom: 5px;
+    line-height: 1.5;
+}
+
+.content {
+    font-weight: bolder;
+}
