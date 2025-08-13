@@ -1,3 +1,4 @@
+from django.core.checks import messages
 from django.views import generic
 from django.views.generic import DetailView
 from django.shortcuts import redirect
@@ -32,14 +33,20 @@ class PostDetailView(DetailView):
     template_name = "blog/post_detail.html"
 
     def get_context_data(self, **kwargs):
-        return super().get_context_data(form=CommentaryForm(), **kwargs)
+        kwargs.setdefault("form", CommentaryForm())
+        return super().get_context_data(**kwargs)
 
     def post(self, request, *args, **kwargs):
-        post = self.get_object()
         form = CommentaryForm(request.POST)
-        if form.is_valid():
+
+        if not request.user.is_authenticated:
+            form.add_error(None, "You must be logged in to post a comment.")
+
+        elif form.is_valid():
             comment = form.save(commit=False)
             comment.user = request.user
-            comment.post = post
+            comment.post = self.get_object()
             comment.save()
-        return redirect("blog:post-detail", pk=post.pk)
+            return redirect("blog:post-detail", pk=self.get_object().pk)
+
+        return self.render_to_response(self.get_context_data(form=form))

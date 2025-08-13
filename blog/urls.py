@@ -1,5 +1,3 @@
-from tokenize import Comment
-
 from django.urls import path
 
 from .views import (
