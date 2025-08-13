@@ -35,9 +35,6 @@ class PostDetailView(DetailView):
         return super().get_context_data(form=CommentaryForm(), **kwargs)
 
     def post(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect("login")
-
         post = self.get_object()
         form = CommentaryForm(request.POST)
         if form.is_valid():

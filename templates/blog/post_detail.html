@@ -29,16 +29,23 @@
     {% endif %}
 
     <!-- Форма -->
-    <div class="mt-4">
+    {% if user.is_authenticated %}
       <h6>Add a new comment</h6>
       <form method="post">
         {% csrf_token %}
         {{ form|crispy }}
         <button type="submit" class="btn btn-primary">Add Comment</button>
       </form>
-    </div>
-    <!-- Кнопка назад -->
-    <a href="{% url 'blog:index' %}" class="btn btn-outline-secondary mt-3">← Back to Posts</a>
+      </div>
+    {% else %}
+      <div class="alert alert-info">
+        You need to be logged in to add a comment.
+      </div>
+    {% endif %}
 
+  <!-- Кнопка назад -->
+  <div class="mt-4">
+    <a href="{% url 'blog:index' %}" class="btn btn-outline-secondary mt-3">← Back to Posts</a>
   </div>
+
 {% endblock %}
