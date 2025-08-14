@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="row justify-content-center mb-4">
+    <div class="col-md-8 col-lg-6">
+      <div class="card">
+        <div class="card-body">
+          <h1 class="card-title text-primary">{{ post.title }}</h1>
+          <p class="card-text">
+            <small class="text-muted">
+              By {{ post.owner.username }} on {{ post.created_time|date:"M d, Y H:i" }}
+            </small>
+          </p>
+          <p class="card-text">{{ post.content }}</p>
+          <span class="badge bg-primary text-white">
+            {{ post.post_comments.all|length }} comment{{ post.post_comments.all|length|pluralize }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center mb-4">
+    <div class="col-md-8 col-lg-6">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">Comments</h5>
+        </div>
+        <div class="card-body">
+          {% for comment in post.post_comments.all %}
+            <div class="border-bottom pb-3 mb-3">
+              <small class="text-muted">
+                <strong>{{ comment.user.username }}</strong> on {{ comment.created_time|date:"M d, Y H:i" }}
+              </small>
+              <p class="mt-2 mb-0">{{ comment.content }}</p>
+            </div>
+          {% empty %}
+            <p class="text-muted text-center">No comments yet. Be the first to comment!</p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="mb-0">Add a Comment</h5>
+        </div>
+        <div class="card-body">
+          <form action="" method="post" novalidate>
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-primary">Add Comment</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
