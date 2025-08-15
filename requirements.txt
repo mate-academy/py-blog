@@ -1,5 +1,5 @@
 django==4.1
-crispy-forms
+django-crispy-forms
 crispy-bootstrap4
 flake8==5.0.4
 flake8-quotes==3.3.1
