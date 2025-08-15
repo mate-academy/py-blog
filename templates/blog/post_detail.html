@@ -1,0 +1,14 @@
+{% for comment in comments %}
+  <div>{{ comment.user.username }}: {{ comment.content }}</div>
+{% endfor %}
+
+{% if user.is_authenticated %}
+  <h4>Add a comment:</h4>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+  </form>
+{% else %}
+  <p>Please log in to leave a comment.</p>
+{% endif %}
