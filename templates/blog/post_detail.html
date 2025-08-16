@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>{{ post.title }}</h2>
+  <ul>
+    {% for comm in post.commentaries.all %}
+      <li>{{ comm.user }}: ({{ comm.content }})</li>
+    {% empty %}
+      <p>There are no comments</p>
+    {% endfor %}
+  </ul>
+  <p><a href="{% url 'blog:post-create' pk=post.id %}">Add</a> new comment</p>
+{% endblock %}
