@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>All Posts</h1>
+
+  {% for post in post_list %}
+    <div style="border: 1px solid #ccc; padding: 15px; margin-bottom: 20px;">
+      <h2>
+        <a href="{% url 'blog:post-detail' post.pk %}">
+          {{ post.title }}
+        </a>
+      </h2>
+      <p>{{ post.content|truncatewords:30 }}</p>
+
+      <p>
+        <strong>Author:</strong> {{ post.owner.username }} |
+        <strong>Created:</strong> {{ post.created_time|date:"Y-m-d H:i" }} |
+        <strong>Comments:</strong> {{ post.comments.count }}
+      </p>
+    </div>
+  {% empty %}
+    <p>No posts yet.</p>
+  {% endfor %}
+{% endblock %}
