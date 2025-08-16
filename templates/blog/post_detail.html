@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+  <h4>{{ post_detail.title }}</h4>
+  <p>{{ post_detail.content }}</p>
+  <p><b>Author:</b> {{ post_detail.owner.username }}</p>
+  <p><b>Created:</b> {{ post_detail.created_time }}</p>
+  <hr>
+  <h3>Comments:</h3>
+  {% for comment in post_detail.comments.all %}
+    <p><b>{{ comment.user.username }}</b>: {{ comment.content }}</p>
+    <small>{{ comment.created_time }}</small>
+    <hr>
+  {% empty %}
+    <p>No comments yet.</p>
+  {% endfor %}
+  <h3>Create comment:</h3>
+  <a href="{% url 'blog:comment-create' post_detail.id %}" class="btn btn-primary">Create</a>
+{% endblock %}
