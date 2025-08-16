@@ -17,9 +17,18 @@ class UserAdmin(UserAdmin):
 
 @admin.register(Post)
 class PostAdmin(ModelAdmin):
-    pass
+    list_display = ("id", "title", "owner", "created_time")
+    list_filter = ("owner", "created_time")
+    search_fields = (
+        "title",
+        "content",
+    )
 
 
 @admin.register(Commentary)
 class CommentaryAdmin(ModelAdmin):
-    pass
+    list_display = ("id", "post", "user", "created_time")
+    list_filter = ("post", "user", "created_time")
+    search_fields = (
+        "content",
+    )
