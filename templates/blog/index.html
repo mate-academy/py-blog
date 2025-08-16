@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>List of Posts</h1>
+  <section>
+    {% for post in post_list %}
+      <article>
+        <a href="{% url 'blog:post-detail' pk=post.id %}"><h3>{{ post.title }}</h3></a>
+        <p>Content: ({{ post.content }})</p>
+        <p>Created: {{ post.created_time }}</p>
+        <p>Author of post: {{ post.owner }}</p>
+        <p>Number of comments: {{ post.comment_count }}</p>
+      </article>
+    {% empty %}
+      <p>There are no Posts yet!</p>
+    {% endfor %}
+  </section>
+  {% include "includes/pagination.html" %}
+
+{% endblock %}
