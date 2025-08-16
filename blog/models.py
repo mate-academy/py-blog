@@ -13,9 +13,13 @@ class Post(models.Model):
         User,
         on_delete=models.CASCADE,
     )
-    title = models.CharField(max_length=255)
+    title = models.CharField(
+        max_length=255
+    )
     content = models.TextField()
-    created_time = models.DateTimeField(auto_now_add=True)
+    created_time = models.DateTimeField(
+        auto_now_add=True
+    )
 
     def __str__(self):
         return self.title
@@ -23,10 +27,17 @@ class Post(models.Model):
 
 class Commentary(models.Model):
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="comments"
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="comments"
     )
-    post = models.ForeignKey(to=Post, on_delete=models.CASCADE, related_name="comments")
-    created_time = models.DateTimeField(auto_now_add=True)
+    post = models.ForeignKey(to=Post,
+                             on_delete=models.CASCADE,
+                             related_name="comments"
+                             )
+    created_time = models.DateTimeField(
+        auto_now_add=True
+    )
     content = models.TextField()
 
     def __str__(self):
