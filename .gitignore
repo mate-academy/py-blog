@@ -18,4 +18,4 @@ media/
 
 # Static
 /static/*
-!static/styles.css
+!static/сss/styles.css
