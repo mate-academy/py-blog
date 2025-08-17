@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth.models import Group
 
 from blog.models import Post, Commentary
 
@@ -15,3 +16,6 @@ class CommentaryAdmin(admin.ModelAdmin):
     list_display = ("user", "post", "created_time", "content")
     list_filter = ("user", "post", "created_time")
     search_fields = ("content", "user__username", "user__email")
+
+
+admin.site.unregister(Group)

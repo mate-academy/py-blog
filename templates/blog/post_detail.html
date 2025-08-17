@@ -28,12 +28,15 @@
     </div>
 
     <div class="comment-form">
-        <h4>Add a Comment</h4>
+    {% if user.is_authenticated %}
         <form method="post">
             {% csrf_token %}
             {{ form|crispy }}
-            <button class="btn btn-primary mt-2" type="submit">Add Comment</button>
+            <button type="submit">Add comment</button>
         </form>
-    </div>
+    {% else %}
+        <p>You must be logged in to comment.</p>
+    {% endif %}
+</div>
 </div>
 {% endblock %}

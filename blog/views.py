@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views import generic
 from django.views.generic import DetailView, ListView
@@ -30,6 +31,11 @@ class PostDetailView(generic.DetailView):
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         form = CommentaryForm(request.POST)
+
+        if not request.user.is_authenticated:
+            messages.error(request, "You must be logged in to comment.")
+            return redirect("blog:post-detail", pk=self.object.pk)
+
         if form.is_valid():
             comment = form.save(commit=False)
             comment.user = request.user
