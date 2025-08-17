@@ -14,5 +14,7 @@ __pycache__/
 # Django
 *.db
 db.sqlite3
-/static/
 media/
+
+/static/*
+!static/styles.css
