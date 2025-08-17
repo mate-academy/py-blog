@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card mb-3">
+        <div class="card-body">
+            <h1 class="card-title">{{ post.title }}</h1>
+            <p class="card-text">{{ post.content }}</p>
+            <p class="card-text"><small class="text-muted">By {{ post.owner.username }} | Created {{ post.created_time|date:"d M Y H:i" }} | Comments: {{ post.comments.count }}</small></p>
+        </div>
+    </div>
+
+    <div class="comments-section mb-4">
+        <h3>Comments</h3>
+        {% if comments %}
+            <ul class="list-group mb-3">
+            {% for comment in comments %}
+                <li class="list-group-item">
+                    <p><strong>{{ comment.user.username }}</strong> said on {{ comment.created_time|date:"d M Y H:i" }}:</p>
+                    <p>{{ comment.content }}</p>
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No comments yet. Be the first to comment!</p>
+        {% endif %}
+    </div>
+
+    <div class="comment-form">
+    {% if user.is_authenticated %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit">Add comment</button>
+        </form>
+    {% else %}
+        <p>You must be logged in to comment.</p>
+    {% endif %}
+</div>
+</div>
+{% endblock %}
