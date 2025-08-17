@@ -19,7 +19,7 @@ class UserAdmin(admin.ModelAdmin):
 
 
 @admin.register(Commentary)
-class UserAdmin(admin.ModelAdmin):
+class CommentaryAdmin(admin.ModelAdmin):
     search_fields = ("created_time", )
     ordering = ("post__title", )
     list_filter = ("user__username", )

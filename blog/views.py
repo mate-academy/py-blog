@@ -6,6 +6,7 @@ from django.views import generic
 
 from blog.models import Post, Commentary, User
 
+
 class IndexView(generic.ListView):
     model = Post
     template_name = "blog/index.html"
@@ -40,8 +41,11 @@ class CreateCommentView(LoginRequiredMixin, generic.CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        form.instance.post = Post.objects.get(id=self.kwargs['pk'])
+        form.instance.post = Post.objects.get(id=self.kwargs["pk"])
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy("blog:post-detail", kwargs={"pk": self.kwargs["pk"]})
+        return reverse_lazy(
+            "blog:post-detail",
+            kwargs={"pk": self.kwargs["pk"]}
+        )
