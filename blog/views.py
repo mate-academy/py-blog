@@ -7,7 +7,7 @@ from .forms import CommentaryForm
 from .models import Post
 
 
-class IndexView(LoginRequiredMixin, generic.ListView):
+class IndexView(generic.ListView):
     model = Post
     template_name = "blog/index.html"
     context_object_name = "post_list"
@@ -15,7 +15,7 @@ class IndexView(LoginRequiredMixin, generic.ListView):
     ordering = ["-created_time"]
 
 
-class PostDetailView(LoginRequiredMixin, generic.DetailView):
+class PostDetailView(generic.DetailView):
     model = Post
     template_name = "blog/post_detail.html"
     context_object_name = "post"
