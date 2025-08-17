@@ -1,0 +1,26 @@
+{% extends "blog/base.html" %}
+
+{% block title %}All posts{% endblock %}
+
+{% block content %}
+  <h2 class="text-center mb-4 p-2 border-bottom border-primary font-weight-bold">
+  All Posts
+  </h2>
+
+  {% for post in post_list %}
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">
+          <a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h5>
+        <h6 class="card-subtitle mb-2 text-muted">
+          Owner: {{ post.owner }} | Date: {{ post.created_time }}
+        </h6>
+          <p class="card-text">{{ post.content }}</p>
+          <p class="card-text text-muted">Commentaries: {{ post.commentary_set.count }}</p>
+      </div>
+    </div>
+   {% empty %}
+      <p>No posts yet. </p>
+  {% endfor %}
+  {% include "blog/includes/pagination.html" %}
+{% endblock %}
