@@ -1,11 +1,13 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
+from django.views import generic
 from django.views.generic import DetailView, ListView
 
 from .forms import CommentaryForm
 from .models import Post
 
 
-class IndexView(ListView):
+class IndexView(LoginRequiredMixin, generic.ListView):
     model = Post
     template_name = "blog/index.html"
     context_object_name = "post_list"
@@ -13,7 +15,7 @@ class IndexView(ListView):
     ordering = ["-created_time"]
 
 
-class PostDetailView(DetailView):
+class PostDetailView(LoginRequiredMixin, generic.DetailView):
     model = Post
     template_name = "blog/post_detail.html"
     context_object_name = "post"
