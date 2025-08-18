@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="content">
+  <h1>LOGIN</h1>
+    <br>
+  <form action="" method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="Login" class="btn btn-dark">
+  </form>
+  </div>
+{% endblock %}
