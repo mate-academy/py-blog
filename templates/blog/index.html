@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% for post in post_list %}
+    <div>
+      <h2 class="title">{{ post.title }}</h2>
+      <p class="text">{{ post.content }}</p>
+      <p class="credentials">Author: {{ post.owner }}</p>
+      <p>Posted at: {{ post.created_time }}</p>
+      <p>Total commentaries: {{ post.commentary_set.count }}</p>
+    </div>
+  {% endfor %}
+{% endblock %}
