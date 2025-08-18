@@ -1,0 +1,39 @@
+# Operating System and Editor Specific Files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.suo
+*.user
+*.bak
+.venv
+venv
+
+# Build artifacts and temporary files
+/build/
+/dist/
+/target/
+*.log
+*.tmp
+*.class
+*.pyc
+__pycache__
+
+# Dependency directories
+node_modules/
+vendor/
+
+# Sensitive information (e.g., API keys, configuration files)
+.env
+config.local.js
+secrets.txt
+
+# Coverage reports
+/coverage/
+
+# Local database files
+*.sqlite3
+*.db
+
+# Specific files to ignore
+my_temp_file.txt

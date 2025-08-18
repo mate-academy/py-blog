@@ -1,0 +1,20 @@
+{% load crispy_forms_filters %}
+<h2>{{ post.title }}</h2>
+<p>{{ post.content }}</p>
+<p>Author: {{ post.owner.username }}</p>
+<p>Created at: {{ post.created_time }}</p>
+
+{% for comment in comments %}
+  <div>{{ comment.user.username }}: {{ comment.content }}</div>
+{% endfor %}
+
+{% if user.is_authenticated %}
+  <h4>Add a comment:</h4>
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit">Submit</button>
+  </form>
+{% else %}
+  <p>Please log in to leave a comment.</p>
+{% endif %}
