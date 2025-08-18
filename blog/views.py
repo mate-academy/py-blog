@@ -33,9 +33,11 @@ class PostDetailWithCommentView(DetailView, FormView):
         context["form"] = context.get("form", self.get_form())
         return context
 
-    def form_valid(self, form):
-        comment = form.save(commit=False)
-        comment.post = self.get_object()
-        comment.author = self.request.user
-        comment.save()
-        return super().form_valid(form)
+def form_valid(self, form):
+    if not self.request.user.is_authenticated:
+        return self.form_invalid(form)
+    comment = form.save(commit=False)
+    comment.post = self.get_object()
+    comment.user = self.request.user
+    comment.save()
+    return super().form_valid(form)
