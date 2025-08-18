@@ -13,7 +13,7 @@ class PostAdmin(admin.ModelAdmin):
 
 
 @admin.register(Commentary)
-class PostAdmin(admin.ModelAdmin):
+class CommentaryAdmin(admin.ModelAdmin):
     list_display = ["user", "post", "created_time"]
     search_fields = ("user", "post")
     list_filter = ["created_time"]

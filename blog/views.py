@@ -1,9 +1,8 @@
-from django.http import request
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.views import generic
 
-from accounts.forms import CommentForm
-from blog.models import Post, Commentary
+from blog.forms import CommentForm
+from blog.models import Post
 
 
 class PostListView(generic.ListView):
