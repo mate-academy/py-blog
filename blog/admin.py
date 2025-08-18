@@ -24,4 +24,5 @@ class CommentaryAdmin(admin.ModelAdmin):
     search_fields = ["user"]
     list_filter = ["user", "created_time"]
 
+
 admin.site.unregister(Group)
