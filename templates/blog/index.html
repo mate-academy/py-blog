@@ -3,7 +3,11 @@
 {% block content %}
   {% for post in post_list %}
     <div>
-      <h2 class="title">{{ post.title }}</h2>
+      <h2 class="title">
+        <a href="{% url 'blog:post-detail' post.pk %}">
+          {{ post.title }}
+        </a>
+      </h2>
       <p class="text">{{ post.content }}</p>
       <p class="credentials">Author: {{ post.owner }}</p>
       <p>Posted at: {{ post.created_time }}</p>

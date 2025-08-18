@@ -6,7 +6,22 @@ from blog.models import Post, Commentary
 
 User = get_user_model()
 
-admin.site.register(User)
-admin.site.register(Post)
-admin.site.register(Commentary)
+
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    search_fields = ["username"]
+    list_filter = ["username", "is_active"]
+
+
+@admin.register(Post)
+class PostAdmin(admin.ModelAdmin):
+    search_fields = ["owner"]
+    list_filter = ["owner", "created_time"]
+
+
+@admin.register(Commentary)
+class CommentaryAdmin(admin.ModelAdmin):
+    search_fields = ["user"]
+    list_filter = ["user", "created_time"]
+
 admin.site.unregister(Group)
