@@ -24,9 +24,12 @@ class PostDetailView(generic.DetailView):
     def get(self, request, *args, **kwargs):
         post = self.get_object()
         form = CommentaryForm()
+        comments = post.commentary_set.all().select_related("user")
+
         context = {
             "post": post,
             "form": form,
+            "comments": comments,
         }
         return render(request, self.template_name, context=context)
 
@@ -39,5 +42,4 @@ class PostDetailView(generic.DetailView):
             commentary.user = request.user
             commentary.post = post
             commentary.save()
-            form = CommentaryForm()
             return redirect(request.path)
