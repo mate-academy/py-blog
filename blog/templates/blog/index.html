@@ -26,7 +26,7 @@
             <div class="post">
                 <a class="post-title" href="{% url 'blog:post-detail' post.pk %}">{{ post.title }}</a>
                 <div class="post-meta">
-                    by {{ post.owner }} | {{ post.created_time|date:'Y-m-d H:i' }} | {{ post.commentary_set.count }} comments
+                    by {{ post.author }} | {{ post.created_time|date:'Y-m-d H:i' }} | {{ post.comments.count }} comments
                 </div>
                 <div class="post-content">
                     {{ post.content|truncatewords:40 }}

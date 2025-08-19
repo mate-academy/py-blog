@@ -6,8 +6,8 @@ from django.urls import reverse, reverse_lazy
 from django.contrib.auth.views import LoginView, LogoutView
 from django import forms
 from django.contrib.auth import get_user_model
-from .models import Post, Commentary
-from .forms import CommentaryForm
+from .models import Post, Comment
+from .forms import CommentForm
 
 
 class CustomUserCreationForm(forms.ModelForm):
@@ -50,33 +50,33 @@ class IndexView(ListView):
 class PostDetailView(View):
     def get(self, request, pk):
         post = get_object_or_404(Post, pk=pk)
-        comments = Commentary.objects.filter(post=post).order_by("-created_time")
+        comments = Comment.objects.filter(post=post).order_by("-created_time")
         context = {
             "post": post,
             "comments": comments,
         }
         if request.user.is_authenticated:
-            context["form"] = CommentaryForm()
+            context["form"] = CommentForm()
         return render(request, "blog/post_detail.html", context)
 
     def post(self, request, pk):
         post = get_object_or_404(Post, pk=pk)
-        comments = Commentary.objects.filter(post=post).order_by("-created_time")
+        comments = Comment.objects.filter(post=post).order_by("-created_time")
         context = {
             "post": post,
             "comments": comments,
         }
         if request.user.is_authenticated:
-            form = CommentaryForm(request.POST)
+            form = CommentForm(request.POST)
             if form.is_valid():
-                commentary = form.save(commit=False)
-                commentary.post = post
-                commentary.user = request.user
-                commentary.save()
+                comment = form.save(commit=False)
+                comment.post = post
+                comment.author = request.user
+                comment.save()
                 print("Redirecting to post detail after comment save")
                 return HttpResponseRedirect(reverse("blog:index"))
             context["form"] = form
         else:
-            form = CommentaryForm(request.POST)
+            form = CommentForm(request.POST)
             form.add_error(None, "You must be logged in to post a comment.")
         return render(request, "blog/post_detail.html", context)
