@@ -37,4 +37,3 @@ class CommentCreateView(LoginRequiredMixin, generic.CreateView):
 
     def get_success_url(self):
         return reverse_lazy("blog:post-detail", kwargs={"pk": self.object.post.pk})
-
