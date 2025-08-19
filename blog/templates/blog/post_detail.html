@@ -1,0 +1,64 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ post.title }}</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+  <div class="container mt-4">
+    <nav class="nav-bar">
+      {% if user.is_authenticated %}
+        <span class="welcome-user">Welcome, {{ user.username }}!</span>
+        <form action="{% url 'blog:logout' %}" method="post" class="logout-form">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-link logout-btn">Logout</button>
+        </form>
+      {% else %}
+        <a href="{% url 'blog:login' %}" class="nav-link">Login</a>
+        <a href="{% url 'blog:register' %}" class="nav-link">Register</a>
+      {% endif %}
+    </nav>
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.content }}</p>
+    <p><strong>Author:</strong> {{ post.owner.username }}</p>
+    <p><strong>Created:</strong> {{ post.created_time|date:"Y-m-d H:i" }}</p>
+    <p><strong>Comments:</strong> {{ post.commentary_set.count }}</p>
+
+    <hr>
+    <h4>Comments</h4>
+    {% if comments %}
+      <ul class="list-group mb-3">
+        {% for comment in comments %}
+          <li class="list-group-item">
+            <strong>{{ comment.user.username }}</strong> ({{ comment.created_time|date:"Y-m-d H:i" }}):<br>
+            {{ comment.content }}
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No comments yet.</p>
+    {% endif %}
+
+    <hr>
+    <h4>Add a Comment</h4>
+    {% if user.is_authenticated %}
+      {% if form.errors %}
+        <div class="text-danger">
+          {{ form.errors }}
+        </div>
+      {% endif %}
+      <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary">Send</button>
+      </form>
+    {% else %}
+      <p class="text-danger">You must be logged in to post a comment.</p>
+    {% endif %}
+  </div>
+</body>
+</html>
