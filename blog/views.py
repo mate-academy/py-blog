@@ -42,7 +42,7 @@ class UserRegisterView(CreateView):
 class IndexView(ListView):
     model = Post
     template_name = "blog/index.html"
-    context_object_name = "post_list"
+    context_object_name = "posts"
     ordering = ["-created_time"]
     paginate_by = 5
 
@@ -74,7 +74,7 @@ class PostDetailView(View):
                 comment.author = request.user
                 comment.save()
                 print("Redirecting to post detail after comment save")
-                return HttpResponseRedirect(reverse("blog:index"))
+                return HttpResponseRedirect(reverse("blog:post-detail", args=[post.pk]))
             context["form"] = form
         else:
             form = CommentForm(request.POST)
