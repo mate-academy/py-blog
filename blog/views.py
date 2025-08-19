@@ -28,5 +28,13 @@ class PostDetailView(generic.DetailView):
 class CommentCreateView(LoginRequiredMixin, generic.CreateView):
     model = Commentary
     fields = ["content"]
-    success_url = reverse_lazy("post/comment-create")
     template_name = "blog/comment_create_form.html"
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.post_id = self.kwargs.get("pk")
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy("blog:post-detail", kwargs={"pk": self.object.post.pk})
+
