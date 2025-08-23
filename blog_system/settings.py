@@ -126,7 +126,7 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AUTH_USER_MODEL = 'blog.User'
+AUTH_USER_MODEL = "blog.User"
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 
