@@ -2,26 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-  {% block title %}
-    <title>Blog</title>
-  {% endblock %}
+  <title>Blog</title>
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+        crossorigin="anonymous">
+
+  <!-- Twoje własne style -->
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-sm-2">
-      {% block sidebar %}
-      {% endblock %}
-    </div>
-    <div class="col-sm-8">
-      {% block content %}
-      {% endblock %}
-      {% block paginate %}
-        {% include 'includes/pagination.html' %}
-      {% endblock %}
-    </div>
-  </div>
-</div>
+  {% block content %}{% endblock %}
 </body>
 </html>
