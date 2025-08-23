@@ -29,4 +29,6 @@ jobs:
 
       - name: Run tests
         timeout-minutes: 5
-        run: python manage.py test
+        run: | 
+          cd py-blog
+          python manage.py test
