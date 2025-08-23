@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+	<h1>Post:</h1>
+  <div class="post-content">
+    {{ post.content }}
+  </div>
+  <ul class="comments">
+    {% for comment in post.commentaries.all %}
+      <li> {{ comment.user }}: {{ comment.content }}</li>
+      <hr>
+      {% empty %}
+      <p>No comments!</p>
+    {% endfor %}
+  </ul>
+{% endblock %}
