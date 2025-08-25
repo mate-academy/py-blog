@@ -3,7 +3,7 @@ from blog.models import User, Post, Commentary
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import Group
 
-# Register your models here.
+
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     list_display = ["owner", "title", "content", "created_time"]

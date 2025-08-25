@@ -8,7 +8,7 @@ from django.core.paginator import Paginator
 
 
 # Create your views here.
-class index(generic.ListView):
+class Index(generic.ListView):
     model = Post
     queryset = Post.objects.all().order_by("-created_time")
     template_name = "blog/index.html"
@@ -24,9 +24,10 @@ class PostDetailView(generic.DetailView):
 class SendCommentView(LoginRequiredMixin, generic.View):
     model = Commentary
     fields = ["content"]
-    
+
     def post(self, request, pk):
         post = Post.objects.get(id=pk)
-        comment = Commentary.objects.create(post=post, content=request.POST.get("content"))
+        comment = (Commentary.objects.
+                   create(post=post, content=request.POST.get("content")))
         comment.save()
         return redirect("blog:post-detail")
