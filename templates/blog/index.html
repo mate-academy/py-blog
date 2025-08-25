@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block header %}<h1>Posts</h1>{% endblock %}
+{% block content %}
+    {% regroup post_list by created_time.date as date_list %}
+    {% for date_group in date_list %}
+        <h4 style="text-align: center">{{ date_group.grouper }}</h4>
+        {% for post in post_list %}
+        <div class="taskblock">
+            <div class="headline">
+                <h3>{{post.title}}</h3>
+                <p style="font-size: 12px">{{post.created_time.time}}</p>
+            </div>
+            <br>
+            <p style="font-size: 16px">by {{post.owner.username}}</p>
+            <br>
+            <p style="font-size: 18px">{{post.content}}</p>
+            <a class="btn" href="{% url 'blog:post-detail' pk=post.id %}">
+                {% if post.comments.count > 0 %}
+                    Comments: {{post.comments.count}}
+                {% else %}
+                    Comment post
+                {% endif %}
+            </a>
+        </div>
+        {% endfor %}
+    {% endfor %}
+{% endblock %}
+
+{% block pagination %}
+    <div style="margin: 0 auto; width: fit-content;">
+        {% include "includes/pagination.html" %}
+    </div>
+{% endblock %}
