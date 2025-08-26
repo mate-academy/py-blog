@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Count
 from django.urls import reverse
 from django.views.generic import ListView, DetailView
 from django.shortcuts import redirect
@@ -11,6 +12,14 @@ class IndexView(ListView):
     template_name = "blog/index.html"
     context_object_name = "post_list"
     paginate_by = 5
+
+    def get_queryset(self):
+        return (
+            Post.objects
+            .select_related("owner")
+            .prefetch_related("comments")
+            .order_by("-created_time")
+        )
 
 
 class PostDetailView(DetailView):
