@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block header %}<h1>Comments</h1>{% endblock %}
+{% block content %}
+    {% for comment in post.comments.all %}
+        <div style="margin: 20px 10px">
+            <p style="font-size: 14px; margin: 0">{{comment.user.username}}</p>
+            <p style="font-size: 16px; margin: 0">{{comment.content}}</p>
+        </div>
+    {% endfor %}
+    {% if user.is_authenticated %}
+        <form action="{% url "blog:send-comment" post.id %}" method="post">
+            {% csrf_token %}
+            {{form|crispy}}
+            <input type="submit" value="⌯⌲">
+        </form>
+    {% endif %}
+{% endblock %}
