@@ -8,7 +8,7 @@ from blog.models import Post, Commentary
 class PostListView(generic.ListView):
     model = Post
     paginate_by = 5
-    queryset =  Post.objects.select_related("owner").order_by("-created_time")
+    queryset = Post.objects.select_related("owner").order_by("-created_time")
 
     def get_template_names(self):
         return ["blog/index.html"]
