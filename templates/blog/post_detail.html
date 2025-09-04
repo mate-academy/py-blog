@@ -1,0 +1,22 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+{{ post.content }}
+{% for coment in post.commentary.all %}
+  <br>
+  <br>
+  {{ coment.content }}
+{% endfor %}
+<form action="" method="post">
+  {% csrf_token %}
+  {{ form|crispy }}
+  <br>
+  <input type="submit" value="submit">
+</form>
+</body>
+</html>
