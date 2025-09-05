@@ -8,8 +8,8 @@
         <a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a><br>
         <p>{{ post.content }}</p>
         <small>
-          By {{ post.owner.username }} on {{ post.created_time|date:"Y-m-d H:i" }} |
-          Comments: {{ post.post_comments.count }}
+          By {{ post.author.username }} on {{ post.created_time|date:"Y-m-d H:i" }} |
+          Comments: {{ post.comments.count }}
         </small>
       </li>
     {% empty %}

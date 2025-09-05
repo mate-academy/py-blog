@@ -13,7 +13,7 @@ class User(AbstractUser):
 
 
 class Post(models.Model):
-    owner = models.ForeignKey(
+    author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="posts"
@@ -26,7 +26,7 @@ class Post(models.Model):
         ordering = ["-created_time"]
 
     def __str__(self):
-        return f"{self.title} by {self.owner.username}"
+        return f"{self.title} by {self.author.username}"
 
     def get_absolute_url(self):
         return reverse(
@@ -35,16 +35,16 @@ class Post(models.Model):
         )
 
 
-class Commentary(models.Model):
+class Comment(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name="user_comments"
+        related_name="comments"
     )
     post = models.ForeignKey(
         Post,
         on_delete=models.CASCADE,
-        related_name="post_comments")
+        related_name="comments")
     created_time = models.DateTimeField(auto_now_add=True)
     content = models.CharField(max_length=255)
 
