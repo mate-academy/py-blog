@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Home Page</title>
+{% endblock %}
+
+{% block content %}
+  <h1>Posts</h1>
+
+  <ul>
+    {% for post in post_list %}
+    <li class="post-item" style="margin-bottom: 20px">
+      <h2>
+        <a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a>
+      </h2>
+      <p>
+        Author:{{ post.owner.username }}
+        Date:{{ post.created_time|date:"d m y H:i" }}
+      </p>
+    <div>
+      {{ post.content|truncatewords:50 }}
+    </div>
+    <p>
+      Comments:{{ post.comments.count }}
+    </p>
+    </li>
+    {% empty %}
+      <li>Nothing!</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

@@ -1,0 +1,10 @@
+{% load crispy_forms_tags %}
+
+<div class="comment-form mt-4">
+  <h3>Leave a Comment:</h3>
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary">Post Comment</button>
+  </form>
+</div>
