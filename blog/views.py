@@ -11,7 +11,6 @@ class PostListView(generic.ListView):
     template_name = "blog/index.html"
     ordering = ["-created_time"]
     paginate_by = 5
-    form_class = CommentaryForm
 
 
 class PostDetailView(generic.DetailView):
@@ -28,7 +27,7 @@ class PostDetailView(generic.DetailView):
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         form = CommentaryForm(request.POST)
-        if not request.user.is_authenticated():
+        if not request.user.is_authenticated:
             form.add_error(None, "You need to login first")
             return self.render_to_response(self.get_context_data(form=form))
 

@@ -8,7 +8,7 @@
   <h1>Posts</h1>
 
   <ul>
-    {% for post in posts %}
+    {% for post in post_list %}
     <li class="post-item" style="margin-bottom: 20px">
       <h2>
         <a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a>
