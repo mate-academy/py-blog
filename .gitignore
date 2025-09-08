@@ -1,4 +1,9 @@
-.venv
+.venv/
+env/
 __pycache__/
-.idea
+.idea/
 db.sqlite3
+*.pyc
+*.pyo
+*.pyd
+*.db

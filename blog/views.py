@@ -21,7 +21,8 @@ class PostDetailView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["form"] = CommentaryForm()
+        context["form"] = kwargs.get("form", CommentaryForm())
+        return context
         return context
 
     def post(self, request, *args, **kwargs):
