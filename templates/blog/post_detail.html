@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Title: {{ post.title }}</h1>
+  <p><strong>Content: {{ post.content }}</strong></p>
+  <p><strong>Created Time: {{ post.created_time }}</strong></p>
+  <div class="ml-3">
+    <h3>Owner:</h3>
+      <hr>
+        <p class="text-muted">{{ post.owner.id }}</p>
+        <p>{{ post.owner.first_name }} {{ post.owner.last_name }}</p>
+        <p>{{ post.owner.username }}</p>
+  </div>
+  <div class="comments">
+    <h3>Comments:</h3>
+    {% for comment in post.comments.all %}
+      <hr>
+      <p><strong>{{ comment.user.username }}:</strong>{{ comment.content }}</p>
+      <p class="text-muted">{{ comment.created_time }}</p>
+    {% empty %}
+      <p>No comments yet.</p>
+    {% endfor %}
+  </div>
+  {% include 'blog/comment_form.html' %}
+{% endblock %}
