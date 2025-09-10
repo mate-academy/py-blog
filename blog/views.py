@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
+from blog.forms import CreateCommentForm
 from blog.models import Post, Commentary, User
 
 
@@ -32,6 +33,11 @@ class PostDetailedView(generic.DetailView):
                 "comments",
                 queryset=Commentary.objects.select_related("user"))
         )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["create_form"] = CreateCommentForm()
+        return context
 
 
 class CreateCommentView(LoginRequiredMixin, generic.CreateView):
