@@ -1,0 +1,98 @@
+.custom-navbar {
+  background-color: #1DB954;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  color: #fff !important;
+  font-size: 1.25rem;
+}
+
+.navbar-brand:hover {
+  color: lightyellow !important;
+  transform: scale(1.1);
+}
+
+.nav-link {
+  color: #fff !important;
+  font-weight: 700;
+  text-transform: none;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  color: lightyellow !important;
+  transform: scale(1.1);
+}
+
+body {
+    background-color: #111;
+    color: white;
+    font-weight: 700;
+}
+
+.post-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #222;
+  color: white;
+  padding: 1rem 1.5rem;
+  margin: 0.5rem 0;
+  border-radius: 0.5rem;
+  font-weight: 700;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.post-item:hover {
+  background-color: #444;
+  transform: translateY(-2px);
+  cursor: pointer;
+}
+
+.post-item span {
+  flex: 1;
+  padding: 0 0.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.post-title { flex: 1; }
+.post-content { flex: 1; }
+.post-author, .post-date, .post-comments { flex: 1; text-align: center; }
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+.pagination-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.post-detail {
+  background-color: #222;
+  color: white;
+  padding: 1rem 1.5rem;
+  margin: 0.5rem 0;
+  border-radius: 0.5rem;
+  font-weight: 700;
+}
+
+.post-detail-comment {
+  background-color: #222;
+  color: white;
+  padding: 1rem 1.5rem;
+  margin: 1rem 0 1rem 3rem;
+  border-radius: 0.5rem;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3); /* легка тінь */
+  transition: transform 0.2s, box-shadow 0.2s;
+}

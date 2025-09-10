@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <hr>
+    {% if post_list %}
+      <ul>
+        {% for post in post_list %}
+        <li class="post-item">
+          <span class="post-title"><a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a></span>
+          <span class="post-content">{{ post.content|slice:":50" }}{% if post.content|length > 50 %}…{% endif %}</span>
+          <span class="post-author">{{ post.owner.username }}</span>
+          <span class="post-date">{{ post.created_time|date:"Y-m-d" }}</span>
+          <span class="post-comments">{{ post.comments.count }}</span>
+        </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No posts available.</p>
+    {% endif %}
+{% endblock %}

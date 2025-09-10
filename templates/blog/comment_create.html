@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="d-flex justify-content-center align-items-center vh-100 bg-dark">
+    <div class="card p-4" style="min-width: 300px; max-width: 400px; background-color: #222;">
+      <h1 class="text-center text-white mb-4">Create Comment</h1>
+      <form action="" method="post">
+        {% csrf_token %}
+        <div style="color: white">
+          {{ form|crispy }}
+        </div>
+        <button type="submit" class="btn btn-success w-100 mt-3">OK</button>
+      </form>
+    </div>
+</div>
+{% endblock %}

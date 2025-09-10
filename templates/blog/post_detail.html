@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+  <hr>
+  <h3 style="text-align: center; padding: 5px;">{{ post.title }}</h3>
+  <hr>
+  <div class="post-detail">
+    <p>
+      <i class="bi bi-person-circle"></i>
+      {{ post.owner.username }} (OP) on {{ post.created_time|date:"Y-m-d" }} said: </p>
+    <p>{{ post.content }}</p>
+  </div>
+  {% if post.comments.all %}
+    {% for comment in post.comments.all %}
+      <div class="post-detail-comment">
+        <p><i class="bi bi-person-circle"></i>
+          {{ comment.user.username }} on {{ comment.created_time|date:"Y-m-d" }} said: </p>
+        <p>{{ comment.content }}</p>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p style="margin-left: 3rem">No comments for now...</p>
+  {% endif %}
+  {% if user.is_authenticated %}
+    <form method="post" action="{% url 'blog:comment-create' pk=post.id %}">
+      {% csrf_token %}
+      {{ create_form.as_p }}  <!-- Тут рендериться форма -->
+      <button type="submit">Post comment</button>
+    </form>
+  {% endif %}
+{% endblock %}
