@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
     <h1>All Posts</h1>
-    {% for post in page_obj %}
+    {% for post in page_obj.object_list %}
         <div class="post">
             <h2><a href="{% url 'blog:post-detail' pk=post.pk %}">{{ post.title }}</a></h2>
-            <p><strong>Author:</strong> {{ post.author }} | <strong>Published:</strong> {{ post.created_time|date:"F j, Y" }} | <strong>Comments:</strong> {{ post.get_comments_count }}</p>
+            <p><strong>Author:</strong> {{ post.owner.username }} | <strong>Published:</strong> {{ post.created_time|date:"F j, Y" }} | <strong>Comments:</strong> {{ post.get_comments_count }}</p>
             <p>{{ post.content|truncatewords:50 }}</p>
         </div>
     {% endfor %}
