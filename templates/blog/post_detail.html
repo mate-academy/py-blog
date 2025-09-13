@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container" style="padding-bottom: 20px">
+    <h2>{{ post.title }}</h2>
+    <h6>{{ post.owner }} at {{ post.created_time }}</h6>
+    <h4>{{ post.content }}</h4>
+    <br>
+    <p style="padding-bottom: 5px"><strong>{{ post.comments.count }} comment{{ post.comments.count|pluralize }}</strong></p>
+    <ul class="list-unstyled">
+      {% for comment in post.comments.all %}
+          <li style="margin-bottom: 20px" class="border">{{ comment.user }} at {{ comment.created_time }}
+          <hr>
+          {{ comment.content }}
+          </li>
+      {% endfor %}
+    </ul>
+  {% block form %}
+    {% include "includes/post_form.html" %}
+  {% endblock %}
+  </div>
+{% endblock %}

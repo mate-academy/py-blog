@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>My blog</h1>
+  <p>Welcome to my blog</p>
+  {% for post in post_list %}
+    <ul class="list-unstyled border-bottom">
+      <li><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></li>
+      <li>{{ post.content }}</li>
+      <li><b>{{ post.owner }}</b> - Post was created at <u>{{ post.created_time }}</u> and have <i>{{ post.comments.count }} comment{{ post.comments.count|pluralize }}</i></li>
+    </ul>
+  {% empty %}
+    <p>No any posts yet</p>
+  {% endfor %}
+{% endblock %}
