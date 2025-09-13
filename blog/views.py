@@ -27,18 +27,19 @@ class PostDetailView(FormMixin, generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if "form" in context:
-            context["form"] = self.get_form()
+        context["form"] = self.get_form()
         return context
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         form = self.get_form()
-        if form.is_valid():
-            commentary = form.save(commit=False)
-            commentary.post = self.object
-            commentary.user = request.user
-            commentary.save()
-            return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
+        if request.user.is_authenticated:
+            if form.is_valid():
+                commentary = form.save(commit=False)
+                commentary.post = self.object
+                commentary.user = request.user
+                commentary.save()
+                return self.form_valid(form)
+            else:
+                return self.form_invalid(form)
+        return self.form_invalid(form)
