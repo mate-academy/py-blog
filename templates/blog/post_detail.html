@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% load static %}
+
+{% block content %}
+  <a href="{% url 'blog:index' %}">
+    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+    <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8"/>
+    </svg>
+  </a>
+  <div class="post-detail">
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.owner }}</p>
+    <p>{{ post.content }}</p>
+    <p>{{ post.created_time }}</p>
+    <div class="comments">
+      <h4 class="comment-title">{{ post.comments.count }} comments</h4>
+      {% for comment in comments %}
+        <div class="comment">
+          <h6>{{ comment.user.username }}</h6>
+          <p class="comment-date">{{ comment.created_time }}</p>
+          <p>{{ comment.content }}</p>
+          <hr>
+        </div>
+      {% empty %}
+        <p>No comments yet.</p>
+      {% endfor %}
+      {% if user.is_authenticated %}
+        <div class="add-comment">
+        <form action="" method="post">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <input type="submit" value="Post" class="btn btn-dark">
+        </form>
+        </div>
+      {% else %}
+        <p><a href="{% url 'accounts:login' %}">Log in</a> to leave a comment.</p>
+      {% endif %}
+      </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,90 @@
+header {
+    height: 50px;
+    background-color: #1b1b1b;
+    align-content: center;
+    text-align: right;
+    padding: 0 40px;
+}
+
+.login-btn {
+    color: white;
+}
+
+.logout-btn {
+    color: red;
+}
+.post {
+    width: 70%;
+    margin: 10px auto;
+    padding: 20px;
+    border-bottom: 1px black solid;
+}
+
+.container {
+    padding-top: 30px;
+    width: 80%;
+}
+
+.post-owner{
+    color: silver;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.post-additional-info, .comment-date{
+    font-size: 12px;
+    font-style: italic;
+
+}
+
+.post-title {
+    color: black;
+}
+
+.post-detail {
+    margin: 20px;
+}
+
+.comment-title {
+    text-align: right;
+}
+
+.comment {
+    width: 90%;
+    margin: 0 auto;
+    padding: 15px;
+}
+
+.content {
+    width: 30%;
+    margin: 0 auto;
+}
+
+.content h1 {
+    text-align: center;
+}
+
+.username {
+    color: white;
+    margin-right: 20px;
+    margin-bottom: 0;
+    align-content: center;
+}
+
+.user_info {
+    display: flex;
+    justify-content: right;
+}
+.pagination {
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.page-link {
+    background: white;
+    color: black;
+}
+
+
+
+
