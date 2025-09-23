@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 
 {% block content %}
   <h1>{{ post.title }}</h1>
@@ -20,5 +21,14 @@
   {% else %}
     <p><strong>There are no comments below this post yet</strong></p>
   {% endif %}
-  <a href="{% url "blog:commentary-create" pk=object.pk %}">Create a Comment</a>
+  {% if user.is_authenticated %}
+    <h3>Add a comment</h3>
+    <form method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input class="btn btn-primary" type="submit" value="Post">
+    </form>
+  {% else %}
+    <p><a href="{% url 'login' %}?next={{ request.path }}">Log in</a> to add a comment.</p>
+  {% endif %}
 {% endblock %}
