@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Blog Home</h1>
+  <a href="{% url "logout" %}">Log out</a>
+  {% if post_list %}
+    <table class="table">
+      <tr>
+        <th>Title</th>
+        <th>Content</th>
+        <th>Author</th>
+        <th>Creation Time</th>
+        <th>Comments</th>
+      </tr>
+      {% for post in post_list %}
+        <tr>
+          <td><a href="{% url "blog:post-detail" pk=post.id %}">{{ post.title }}</a></td>
+          <td>{{ post.content }}</td>
+          <td>{{ post.owner.username }}</td>
+          <td>{{ post.created_time|date:"Y-m-d H:i" }}</td>
+          <td>{{ post.commentary.count }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>There are no posts on the blog yet</p>
+  {% endif %}
+{% endblock %}
