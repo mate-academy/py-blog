@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.content }}</p>
+  <p>{{ post.owner.username }} - {{ post.created_time|date:"Y-m-d H:i" }}</p>
+  {% if post.commentary.exists %}
+    <table class="table table-bordered">
+      <tr>
+        <th class="w-auto">User</th>
+        <th class="w-100">Comment</th>
+      </tr>
+    {% for commentary in post.commentary.all %}
+      <tr>
+        <td class="w-auto">{{ commentary.user }}</td>
+        <td class="w-100">{{ commentary.content }}</td>
+      </tr>
+    {% endfor %}
+    </table>
+  {% else %}
+    <p><strong>There are no comments below this post yet</strong></p>
+  {% endif %}
+  <a href="{% url "blog:commentary-create" pk=object.pk %}">Create a Comment</a>
+{% endblock %}

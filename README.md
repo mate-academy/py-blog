@@ -12,7 +12,7 @@ Let's go through all the steps:
    ![models-diagram](https://mate-academy-images.s3.eu-central-1.amazonaws.com/py_drf_forms_blog_task_2_updated_50863ada5f.png)
 
 5. Edit `admin.py`:
-    - Register all your models in the admin.
+    - Register all your models in the admin.[base.html](../py-taxi-service-forms/templates/base.html)
     - Unregister `Group` (you can make it with `admin.site.unregister(Group)` by importing `Group` from `django.contrib.auth.models`).
     - Do the filtering and searching in any way you think is logical.
 6. Make migrations and migrate.
@@ -26,7 +26,9 @@ Let's go through all the steps:
 11. Inside `blog.views` create a view for the `index` url. This view returns a list of all posts, in descending order by `created_time`.
 12. Before creating a template, you have to create styles. Create a directory `static` next to the directory `blog`. Inside this directory create a file with the following path `css/styles.css`. Don't forget to do all the necessary steps so that Django can serve these static files.
 13. Create a directory `templates` next to the directory `blog`. There you will store templates for pages. Edit settings so that engine knows where to look for template source files.
-14. Create a template for the main page. On this page, make it so that a list of all posts is displayed. The title and content were displayed, the author was visible when this post was created and the number of comments on the post. Make the post's title a link to the detailed page, which you would implement further.
+14. Create a template for the main page. On this page, make it so that a list of all posts is displayed.
+The title and content were displayed, the author was visible when this post was created and the number of
+comments on the post. Make the post's title a link to the detailed page, which you would implement further.
 15.  Add pagination for the main page. Set **5** posts on one page by default.
 16. Create a `PostDetailView` view that returns detailed information about the post by the `id` field.
 17. Add a template for this page and url with a path `posts/pk/` and name `post-detail`.
