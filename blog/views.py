@@ -36,17 +36,3 @@ class PostDetailView(generic.DetailView):
         ctx = self.get_context_data()
         ctx["form"] = form
         return self.render_to_response(ctx)
-
-
-class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
-    model = Commentary
-    fields = ["content"]
-
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        form.instance.post = get_object_or_404(Post, pk=self.kwargs.get("pk"))
-        self.object = form.save()
-        return HttpResponseRedirect(reverse_lazy(
-            "blog:post-detail",
-            kwargs={"pk": self.object.post.pk})
-        )
