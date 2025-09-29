@@ -1,13 +1,6 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render
-from django.urls import reverse_lazy, reverse
-from django.views import generic
-from django.views.generic import CreateView
-
-from blog.models import Post, Commentary
-
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.views.generic import DetailView
@@ -32,12 +25,12 @@ def index(request: HttpRequest) -> HttpResponse:
 
 class PostDetailView(FormMixin, DetailView):
     model = Post
-    template_name = "blog/post_detail.html"
+    template_name = "blog/posts_detail.html"
     context_object_name = "post"
     form_class = CommentaryForm
 
     def get_success_url(self):
-        return reverse("blog:post_detail", kwargs={"pk": self.object.pk})
+        return reverse("blog:posts-detail", kwargs={"pk": self.object.pk})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -48,9 +41,7 @@ class PostDetailView(FormMixin, DetailView):
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()  # отримуємо пост
         if not request.user.is_authenticated:
-            form = self.get_form()
-            form.add_error(None, "Only logged in users can post comments.")
-            return self.form_invalid(form)
+            return redirect("accounts/login")  # редірект на сторінку логіну
 
         form = self.get_form()
         if form.is_valid():
