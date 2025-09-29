@@ -6,6 +6,7 @@ from blog.models import User, Post, Commentary
 
 admin.site.unregister(Group)
 
+
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
     pass
