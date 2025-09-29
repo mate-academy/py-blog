@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>{{ post.title }}</h2>
+  <p>{{ post.content }}</p>
+  <p>By {{ post.owner }} on {{ post.created_time }}</p>
+
+  <h3>Comments ({{ post.comments_count }})</h3>
+  {% for comment in post.commentaries.all %}
+    <p><b>{{ comment.author }}</b>: {{ comment.text }}</p>
+  {% empty %}
+    <p>No comments yet.</p>
+  {% endfor %}
+
+  <h3>Add a Comment</h3>
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit">Submit</button>
+  </form>
+{% endblock %}
