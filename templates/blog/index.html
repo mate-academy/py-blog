@@ -5,13 +5,13 @@
 	<ul>
 		{% for post in page_obj %}
 			<li>
-				<h2><a href="{% url 'blog:posts-detail' post.id %}">{{ post.title }}</a></h2>
+				<h2><a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a></h2>
 				<p>{{ post.content }}</p>
 				<p>Number of comments: {{ post.comments.count }}</p>
 				<small>By {{ post.owner }} at {{ post.created_time }}</small>
 			</li>
 		{% empty %}
-			<li>No posts available.</li>
+			<li>No post available.</li>
 		{% endfor %}
 	</ul>
 {% endblock %}
