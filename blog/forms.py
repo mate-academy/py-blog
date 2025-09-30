@@ -8,13 +8,15 @@ class CommentaryForm(forms.ModelForm):
         model = Commentary
         fields = ("content",)
         labels = {
-            'content': 'Write your comment here',
+            "content": "Write your comment here",
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['content'].widget.attrs.update({
-            'placeholder': 'Type your comment...',
-            'class': 'form-control',
-            'rows': 4,
-        })
+        self.fields["content"].widget.attrs.update(
+            {
+                "placeholder": "Type your comment...",
+                "class": "form-control",
+                "rows": 4,
+            }
+        )

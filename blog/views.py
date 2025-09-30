@@ -9,24 +9,12 @@ from blog.forms import CommentaryForm
 from blog.models import Post, Commentary
 
 
-def index(request: HttpRequest) -> HttpResponse:
-    posts_list = Post.objects.order_by('-created_time')
-    
-    context = {
-        'posts_list': posts_list,
-    }
-    return render(request, 'blog/index.html')
-
-
 class PostListView(ListView):
     model = Post
     paginate_by = 5
 
     def get_queryset(self):
-        return (
-            Post.objects
-            .annotate(num_comments=Count("comments"))
-        )
+        return Post.objects.annotate(num_comments=Count("comments"))
 
 
 class PostDetailView(DetailView):
@@ -52,4 +40,5 @@ class CommentaryCreateView(CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy("blog:post-detail", kwargs={"pk": self.kwargs["pk"]})
+        return reverse_lazy("blog:post-detail",
+                            kwargs={"pk": self.kwargs["pk"]})
