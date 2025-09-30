@@ -10,7 +10,7 @@ from blog.models import Post, Commentary
 
 
 class PostListView(ListView):
-    model = Post.objects.order_by('-created_time')
+    model = Post.objects.order_by("-created_time")
     paginate_by = 5
 
     def get_queryset(self):
@@ -56,7 +56,8 @@ class CommentaryCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse("blog:post-detail", kwargs={"pk": self.kwargs.get("pk")})
+        return reverse("blog:post-detail",
+                       kwargs={"pk": self.kwargs.get("pk")})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
