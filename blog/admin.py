@@ -9,7 +9,9 @@ admin.site.unregister(Group)
 
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
-    pass
+    list_display = ("username", "email", "first_name", "last_name", "is_staff")
+    search_fields = ("username", "email", "first_name", "last_name")
+    list_filter = ("is_staff", "is_superuser", "is_active")
 
 
 @admin.register(Post)

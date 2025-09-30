@@ -1,12 +1,9 @@
-# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *.pyo
 
-# Virtual environment
 venv/
 
-# Django stuff
 *.log
 *.pot
 *.pyc
@@ -14,6 +11,5 @@ db.sqlite3
 
 /media
 
-# VSCode / PyCharm
 .vscode/
 .idea/
