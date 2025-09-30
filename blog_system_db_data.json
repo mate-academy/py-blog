@@ -339,7 +339,7 @@
   },
   {
     "model": "blog.Commentary",
-    "pk": 8,
+    "pk": 9,
     "fields": {
       "user": 5,
       "post": 6,
