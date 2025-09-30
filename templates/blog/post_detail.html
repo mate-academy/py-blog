@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 {% block content %}
   <div class="container mt-4">
     <div class="card mb-4 shadow-sm">
@@ -28,8 +29,8 @@
       <div class="card p-3 shadow-sm">
         <form action="{% url "blog:comment-create" pk=post.id %}" method="post" novalidate>
           {% csrf_token %}
+          {{ form|crispy }}
           <div class="mb-3">
-            {{ form.as_p }}
             <input type="text" value="{{ User }}" hidden="hidden">
           </div>
           <input type="submit" value="Add" class="btn btn-primary"/>
