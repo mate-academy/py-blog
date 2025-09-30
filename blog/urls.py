@@ -6,8 +6,8 @@ from .views import (
 )
 
 urlpatterns = [
-    path("blog/", index, name="index"),
-    path("blog/posts/<int:pk>/", PostDetailView.as_view(), name="post-detail"),
+    path("", index, name="index"),
+    path("posts/<int:pk>/", PostDetailView.as_view(), name="post-detail"),
 ]
 
 app_name = "blog"

@@ -1,7 +1,6 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
 from django.views.generic import DetailView
-from django.contrib.auth.decorators import login_required
 from .models import Post, Commentary
 from .forms import CommentaryForm
 
@@ -24,9 +23,14 @@ class PostDetailView(DetailView):
         context["form"] = CommentaryForm()
         return context
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request):
         self.object = self.get_object()
         form = CommentaryForm(request.POST)
+
+        if not request.user.is_authenticated:
+            form.add_error(None, "You must be authenticated to comment.")
+            return self.render_to_response(self.get_context_data(form=form))
+
         if request.user.is_authenticated and form.is_valid():
             comment = form.save(commit=False)
             comment.post = self.object
