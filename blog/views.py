@@ -30,7 +30,7 @@ class PostDetailView(DetailView):
         if request.user.is_authenticated and form.is_valid():
             comment = form.save(commit=False)
             comment.post = self.object
-            comment.author = request.user
+            comment.user = request.user
             comment.save()
             return redirect("blog:post-detail", pk=self.object.pk)
         context = self.get_context_data(object=self.object)

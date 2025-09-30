@@ -5,9 +5,9 @@
   <p>{{ post.content }}</p>
   <p>By {{ post.owner }} on {{ post.created_time }}</p>
 
-  <h3>Comments ({{ post.comments_count }})</h3>
+  <h3>Comments ({{ post.commentaries.count }})</h3>
   {% for comment in post.commentaries.all %}
-    <p><b>{{ comment.author }}</b>: {{ comment.text }}</p>
+    <p><b>{{ comment.user }}</b>: {{ comment.content }}</p>
   {% empty %}
     <p>No comments yet.</p>
   {% endfor %}

@@ -13,7 +13,6 @@ venv/
 db.sqlite3
 
 /media
-/static
 
 # VSCode / PyCharm
 .vscode/
