@@ -1,21 +1,21 @@
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
 from .models import Post, Commentary
 from .forms import CommentaryForm
 
 
-def index(request):
-    posts = Post.objects.all().order_by("-created_time")
-    paginator = Paginator(posts, 5)
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
-    return render(request, "index.html", {"page_obj": page_obj})
+class PostListView(ListView):
+    model = Post
+    template_name = "blog/index.html"
+    context_object_name = "post_list"
+    paginate_by = 5
+    ordering = ["-created_time"]
 
 
 class PostDetailView(DetailView):
     model = Post
-    template_name = "post_detail.html"
+    template_name = "blog/post_detail.html"
     context_object_name = "post"
 
     def get_context_data(self, **kwargs):
@@ -23,7 +23,7 @@ class PostDetailView(DetailView):
         context["form"] = CommentaryForm()
         return context
 
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         form = CommentaryForm(request.POST)
 
