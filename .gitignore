@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+*.pyo
+
+venv/
+
+*.log
+*.pot
+*.pyc
+db.sqlite3
+
+/media
+
+.vscode/
+.idea/
