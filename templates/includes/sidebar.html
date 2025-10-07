@@ -12,7 +12,5 @@
   {% else %}
     <li class="list-group-item"><a href="{% url 'login' %}?next={{ request.path }}">Login</a></li>
   {% endif %}
-  <br>
-
   <li class="list-group-item"><a href="{% url 'blog:index' %}">Головна</a></li>
 </ul>

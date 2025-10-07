@@ -16,6 +16,7 @@ class PostListView(ListView):
 class PostDetailView(DetailView):
     model = Post
     context_object_name = "post"
+    template_name = "blog/post_detail.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
