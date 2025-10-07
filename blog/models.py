@@ -23,6 +23,9 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse("post_detail", args=[str(self.id)])
 
+    def get_comments_count(self):
+        return self.commentary_set.count()
+
 
 class Commentary(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

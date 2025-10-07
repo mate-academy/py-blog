@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h1 class="mb-4">Всі пости</h1>
+    {% if post_list %}
+      <div class="row">
+        {% for post in post_list %}
+          <div class="col-md-12 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <h2 class="card-title">
+                   <a href="{% url 'blog:post-detail' post.id %}" class="text-decoration-none">
+                    {{ post.title }}
+                  </a>
+                </h2>
+                <p class="card-text">{{ post.content|truncatewords:50 }}</p>
+                <div class="card-footer bg-transparent border-0 px-0">
+                  <small class="text-muted">
+                    <strong>Автор:</strong> {{ post.owner.username }} |
+                    <strong>Створено:</strong> {{ post.created_time|date:"d.m.Y H:i" }} |
+                    <strong>Коментарів:</strong> {{ post.commentary_set.count }}
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading">Поки що немає постів</h4>
+        <p>Ще ніхто не створив жодного поста. Станьте першим!</p>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
