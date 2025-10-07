@@ -21,7 +21,7 @@ class PostDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         post = self.get_object()
-        context["comments"] = post.commentary_set.all().order_by(
+        context["comments"] = post.comments.all().order_by(
             "created_time")
         context["form"] = CommentForm()
         return context
