@@ -47,9 +47,7 @@
             {% if user.is_authenticated %}
               <form method="post">
                 {% csrf_token %}
-                <label for="add-comment">Додати коментар</label>
-                <textarea id="add-comment" name="content" rows="4" class="form-control"
-                          placeholder="Напишіть ваш коментар..."></textarea>
+                {% crispy form %}
                 <button type="submit" class="btn btn-primary mt-2">Додати коментар</button>
               </form>
             {% else %}

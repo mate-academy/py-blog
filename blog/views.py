@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 
 from blog.models import Post, Commentary
+from blog.forms import CommentForm
 
 
 class PostListView(ListView):
@@ -21,23 +22,28 @@ class PostDetailView(DetailView):
         post = self.get_object()
         context["comments"] = post.commentary_set.all().order_by(
             "created_time")
+        context["form"] = CommentForm()
         return context
 
     def post(self, request, *args, **kwargs):
         post = self.get_object()
+        form = CommentForm(request.POST)
 
         if not request.user.is_authenticated:
             messages.error(request, "Увійдіть, щоб додати коментар.")
-            return render(request, self.template_name,
-                          self.get_context_data())
+            context = self.get_context_data()
+            context["form"] = form
+            return render(request, self.template_name, context)
 
-        content = request.POST.get("content", "").strip()
-        if content:
-            Commentary.objects.create(post=post, user=request.user,
-                                      content=content)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = request.user
+            comment.post = post
+            comment.save()
             messages.success(request, "Коментар успішно додано!")
             return redirect("blog:post-detail", pk=post.pk)
         else:
-            messages.error(request, "Коментар не може бути порожнім.")
-            return render(request, self.template_name,
-                          self.get_context_data())
+            messages.error(request, "Будь ласка, виправте помилки у формі.")
+            context = self.get_context_data()
+            context["form"] = form
+            return render(request, self.template_name, context)

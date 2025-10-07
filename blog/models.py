@@ -7,9 +7,6 @@ class User(AbstractUser):
     def __str__(self):
         return f"{self.username} ({self.first_name} {self.last_name})"
 
-    def get_absolute_url(self):
-        return reverse("user_detail", args=[str(self.id)])
-
 
 class Post(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -21,7 +18,7 @@ class Post(models.Model):
         return f"{self.title} ({self.owner.username})"
 
     def get_absolute_url(self):
-        return reverse("post_detail", args=[str(self.id)])
+        return reverse("post-detail", args=[str(self.id)])
 
     def get_comments_count(self):
         return self.commentary_set.count()
@@ -35,6 +32,3 @@ class Commentary(models.Model):
 
     def __str__(self):
         return f"Comment ({self.user.username})"
-
-    def get_absolute_url(self):
-        return reverse("commentary_detail", args=[str(self.id)])
