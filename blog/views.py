@@ -31,6 +31,7 @@ class PostDetailView(DetailView):
         form = CommentForm(request.POST)
 
         if not request.user.is_authenticated:
+            form.add_error(None, 'You must be logged in to add a comment.')
             messages.error(request, "Увійдіть, щоб додати коментар.")
             context = self.get_context_data()
             context["form"] = form

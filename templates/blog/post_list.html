@@ -19,7 +19,7 @@
                   <small class="text-muted">
                     <strong>Автор:</strong> {{ post.owner.username }} |
                     <strong>Створено:</strong> {{ post.created_time|date:"d.m.Y H:i" }} |
-                    <strong>Коментарів:</strong> {{ post.commentary_set.count }}
+                    <strong>Коментарів:</strong> {{ post.comments.count }}
                   </small>
                 </div>
               </div>

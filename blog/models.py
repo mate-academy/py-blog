@@ -19,7 +19,7 @@ class Post(models.Model):
         return f"{self.title} ({self.owner.username})"
 
     def get_absolute_url(self):
-        return reverse("post-detail", args=[str(self.id)])
+        return reverse("blog:post-detail", args=[self.id])
 
     def get_comments_count(self):
         return self.comments.count()
