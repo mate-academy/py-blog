@@ -1,6 +1,7 @@
 from django.urls import path
 from blog.views import index, PostDetailView, add_comment
 
+
 app_name = "blog"
 
 urlpatterns = [
