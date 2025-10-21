@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Список постів</h1>
+
+  {% for post in page_obj %}
+    <div class="post">
+      <h2>
+        <a href="{% url 'blog:post-detail' post.pk %}">{{ post.title }}</a>
+      </h2>
+      <p>{{ post.content|truncatechars:200 }}</p>
+      <small>
+        Автор: {{ post.owner.username }} | Коментарів: {{ post.commentary.count }} |
+        {{ post.created_time }}
+      </small>
+      <hr>
+    </div>
+  {% empty %}
+    <p>Пости відсутні</p>
+  {% endfor %}
+
+  {% include "includes/pagination.html" %}
+{% endblock %}

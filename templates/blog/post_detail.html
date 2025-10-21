@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    <title>{{ object.title }}</title>
+{% endblock %}
+
+{% block content %}
+  <h1>{{ object.title }}</h1>
+  <p>{{ object.content }}</p>
+  <p>
+      Автор: {{ object.owner.username }} |
+      Створено: {{ object.created_time }}
+  </p>
+  <hr>
+
+  <h3>Коментарі ({{ comments.count }})</h3>
+
+  {% for comment in comments %}
+    <p><strong>{{ comment.user.username }}:</strong> {{ comment.content }}</p>
+    <small>{{ comment.created_time }}</small>
+    <hr>
+  {% empty %}
+    <p>Ще немає коментарів.</p>
+  {% endfor %}
+
+  {% if user.is_authenticated %}
+    <h3>Додати коментар</h3>
+    <form method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button type="submit" class="btn btn-primary">Надіслати</button>
+    </form>
+  {% else %}
+    <p><a href="{% url 'login' %}">Увійдіть</a>, щоб залишити коментар.</p>
+  {% endif %}
+{% endblock %}
