@@ -1,6 +1,6 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views import generic
 from django.views.generic.edit import FormMixin
 
@@ -24,7 +24,9 @@ class PostDetailView(FormMixin, generic.DetailView):
     template_name = "blog/post_detail.html"
     context_object_name = "post"
     form_class = CommentaryForm
-    success_url = reverse_lazy("post_detail")
+
+    def get_success_url(self):
+        return reverse("blog:post-detail", kwargs={"pk": self.object.pk})
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

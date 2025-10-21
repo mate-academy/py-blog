@@ -1,23 +1,23 @@
 {% extends "base.html" %}
 
-{% block title %}
-  <title>
-    Blog
-  </title>
-{% endblock %}
 {% block content %}
-  <h1>Posts list:</h1>
-  {% for post in post_list %}
-    <div>
-      <h2>{{ post.title }}</h2>
-      <p>{{ post.content }}</p>
-      <smal>Author: {{ post.owner.username }} | Date: {{ post.created_time }}</smal>
+  <h1>Список постів</h1>
+
+  {% for post in page_obj %}
+    <div class="post">
+      <h2>
+        <a href="{% url 'blog:post-detail' post.pk %}">{{ post.title }}</a>
+      </h2>
+      <p>{{ post.content|truncatechars:200 }}</p>
+      <small>
+        Автор: {{ post.owner.username }} | Коментарів: {{ post.commentary_set.count }} |
+        {{ post.created_time }}
+      </small>
+      <hr>
     </div>
-    <hr>
   {% empty %}
-    <p>Don`t have a post yet</p>
+    <p>Пости відсутні</p>
   {% endfor %}
-  {% block paginated %}
-    {% include "includes/pagination.html" %}
-  {% endblock %}
+
+  {% include "includes/pagination.html" %}
 {% endblock %}
