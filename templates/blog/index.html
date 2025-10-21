@@ -10,7 +10,7 @@
       </h2>
       <p>{{ post.content|truncatechars:200 }}</p>
       <small>
-        Автор: {{ post.owner.username }} | Коментарів: {{ post.commentary_set.count }} |
+        Автор: {{ post.owner.username }} | Коментарів: {{ post.commentary.count }} |
         {{ post.created_time }}
       </small>
       <hr>
