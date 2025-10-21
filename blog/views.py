@@ -10,12 +10,14 @@ from blog.models import User, Commentary, Post
 
 # Create your views here.
 
+
 class PostListView(generic.ListView):
     model = Post
     template_name = "blog/index.html"
-    context_object_name = "posts"
+    context_object_name = "post_list"
     paginate_by = 5
     ordering = ["-created_time"]
+
 
 class PostDetailView(FormMixin, generic.DetailView):
     model = Post
@@ -26,7 +28,10 @@ class PostDetailView(FormMixin, generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["comments"] = Commentary.objects.filter(post=self.object).order_by("-created_time")
+        context["comments"] = Commentary.objects.filter(
+            post=self.object).order_by(
+            "-created_time"
+        )
         if "form" not in context:
             context["form"] = CommentaryForm()
         return context
@@ -49,4 +54,3 @@ class PostDetailView(FormMixin, generic.DetailView):
         comments.post = self.object
         comments.save()
         return super().form_valid(form)
-
