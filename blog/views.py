@@ -52,14 +52,14 @@ class PostDetailView(DetailView):
     def post(self, request, *args, **kwargs):
         """Обробляє створення нового коментаря."""
         self.object = self.get_object()
-        if not request.user.is_authenticated:
+        if not request.owner.is_authenticated:
             return redirect("login")
 
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.post = self.object
-            comment.author = request.user
+            comment.author = request.owner
             comment.save()
             return redirect("blog:post-detail", pk=self.object.pk)
 

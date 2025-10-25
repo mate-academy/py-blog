@@ -7,7 +7,7 @@ class User(AbstractUser):
 
 
 class Post(models.Model):
-    author = models.ForeignKey(
+    owner = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="posts"
     )
     title = models.CharField(max_length=100)
@@ -15,8 +15,8 @@ class Post(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
 
 
-class Comment(models.Model):
-    author = models.ForeignKey(
+class Commentary(models.Model):
+    user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="comments"
     )
     post = models.ForeignKey(
