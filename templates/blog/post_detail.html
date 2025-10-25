@@ -5,7 +5,7 @@
   <h1>{{ post.title }}</h1>
   <p>{{ post.content }}</p>
   <p>
-    <strong>Author:</strong> {{ post.owner }}
+    <strong>Author:</strong> {{ post.author }}
     | <strong>Created:</strong> {{ post.created_time|date:"Y-m-d H:i" }}
   </p>
 
@@ -15,7 +15,7 @@
   <ul>
     {% for comment in comments %}
       <li>
-        <strong>{{ comment.user }}</strong> — {{ comment.content }}
+        <strong>{{ comment.author }}</strong> — {{ comment.content }}
         <br>
         <small>{{ comment.created_time|date:"Y-m-d H:i" }}</small>
       </li>

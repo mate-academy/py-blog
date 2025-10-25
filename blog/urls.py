@@ -6,7 +6,7 @@ from blog.views import PostDetailView
 urlpatterns = [
     path("", views.index, name="index"),
     path(
-        "posts/detail/<int:pk>/",
+        "posts/<int:pk>/",
         PostDetailView.as_view(),
         name="post-detail"
     ),
