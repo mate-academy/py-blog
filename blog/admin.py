@@ -1,21 +1,21 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
 
-from blog.models import User, Post, Commentary
+from blog.models import User, Post, Comment
 
 
-@admin.register(Commentary)
+@admin.register(Comment)
 class CommentaryAdmin(admin.ModelAdmin):
-    list_display = ("user", "post", "created_time", "content")
-    list_filter = ("user", "post", "created_time")
+    list_display = ("author", "post", "created_time", "content")
+    list_filter = ("author", "post", "created_time")
     search_fields = ("content",)
     ordering = ("-created_time",)
 
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ("title", "owner", "created_time", "content")
-    list_filter = ("owner", "created_time")
+    list_display = ("title", "author", "created_time", "content")
+    list_filter = ("author", "created_time")
     search_fields = ("title",)
     ordering = ("-created_time",)
 

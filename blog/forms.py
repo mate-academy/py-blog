@@ -1,10 +1,10 @@
 from django import forms
-from .models import Commentary
+from .models import Comment
 
 
 class CommentForm(forms.ModelForm):
     class Meta:
-        model = Commentary
+        model = Comment
         fields = ["content"]
         widgets = {
             "content": forms.Textarea(
