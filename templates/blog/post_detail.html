@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{post.title}}</h1>
+  <span>{{ post.owner.username }} at {{ post.created_time|date:"d M Y H:i" }}</span>
+  <div class="content">
+    <p>{{ post.content }}</p>
+  </div>
+  <p>{{ post.commentaries.count }} commentar{{ post.commentaries.count|pluralize:"y,ies" }}</p>
+  <div class="content">
+    <ul class="list-group">
+    {% for commentary in post.commentaries.all %}
+      <li class="list-group-item list-group-item-primary">{{ commentary.user.username }} at {{ commentary.created_time|date:"d M Y H:i" }}</li>
+      <li class="list-group-item list-group-item-dark">{{ commentary.content }}</li>
+    {% empty %}
+      <li class="list-group-item list-group-item-dark">No commentaries yet. Be the first!</li>
+    {% endfor %}
+    </ul>
+  </div>
+
+
+  {% load crispy_forms_tags %}
+  <p>Write what do you think about that</p>
+  <form action="{% url 'blog:post-detail' post.id %}" method="post" class="content" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="Comment" class="btn btn-primary">
+  </form>
+{% endblock %}

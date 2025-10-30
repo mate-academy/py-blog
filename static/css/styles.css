@@ -1,0 +1,35 @@
+body {
+    margin-top: 10px;
+    background-color: black;
+    color: white;
+}
+
+main {
+    box-sizing: border-box;
+    margin: 5vh auto;
+    width: 100%;
+    padding: 15px;
+}
+
+@media (min-width: 600px) {
+    main {
+    width: 80%;
+    }
+}
+
+.content {
+    margin: 30px 3%;
+}
+
+.content-bordered {
+    box-sizing: border-box;
+    margin-top: 10px;
+    padding: 15px;
+    border: 2px solid white;
+    border-radius: 5px;
+}
+
+.title-link {
+    text-decoration: none;
+    color: white;
+}
