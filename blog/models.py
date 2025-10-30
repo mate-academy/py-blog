@@ -19,15 +19,13 @@ class Post(models.Model):
         ordering = ["-created_time"]
 
     def __str__(self):
-        return self.content
+        return self.title
 
 
 class Comment(models.Model):
-    author = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="comments"
-    )
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(
         Post, on_delete=models.CASCADE, related_name="comments"
     )
     created_time = models.DateTimeField(auto_now_add=True)
-    content = models.TextField(max_length=500)
+    text = models.TextField(max_length=500)

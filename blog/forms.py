@@ -6,7 +6,7 @@ from blog.models import Comment
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ["content"]
+        fields = ["text"]
         labels = {
-            "content": ""
+            "text": ""
         }
