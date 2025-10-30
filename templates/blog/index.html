@@ -7,14 +7,14 @@
     {% for post in post_list %}
       <li class="content">
         <a href="{% url 'blog:post-detail' post.id %}" class="title-link"><h2><em>{{ post.title }}</em></h2></a>
-        <p>{{ post.owner.username }} at {{ post.created_time|date:"d M Y H:i" }}</p>
+        <p>{{ post.author.username }} at {{ post.created_time|date:"d M Y H:i" }}</p>
         <div class="content-bordered">
           <p>{{ post.content }}</p>
         </div>
-        {% if post.commentaries__count %}
-          <a href="{% url 'blog:post-detail' post.id %}">{{ post.commentaries__count }} commentar{{ post.commentaries__count|pluralize:"y,ies" }}</a>
+        {% if post.comments__count %}
+          <a href="{% url 'blog:post-detail' post.id %}">{{ post.comments__count }} comment{{ post.comments__count|pluralize }}</a>
         {% else %}
-          <span><em>No commentaries yet.</em></span>
+          <span><em>No comments yet.</em></span>
         {% endif %}
       </li>
     {% endfor %}

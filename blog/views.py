@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.views.generic.edit import FormMixin
 
-from blog.forms import CommentaryForm
+from blog.forms import CommentForm
 from blog.models import Post
 
 
@@ -13,9 +13,9 @@ class PostListView(generic.ListView):
     model = Post
     paginate_by = 5
     queryset = (
-        Post.objects.annotate(Count("commentaries"))
-        .select_related("owner")
-        .only("id", "title", "content", "created_time", "owner__username")
+        Post.objects.annotate(Count("comments"))
+        .select_related("author")
+        .only("id", "title", "content", "created_time", "author__username")
         .order_by("-created_time")
     )
     template_name = "blog/index.html"
@@ -23,11 +23,10 @@ class PostListView(generic.ListView):
 
 class PostDetailView(generic.DetailView, FormMixin):
     model = Post
-    paginate_by = 5
     queryset = Post.objects.all().prefetch_related(
-        "commentaries__user", "commentaries"
+        "comments__author", "comments"
     )
-    form_class = CommentaryForm
+    form_class = CommentForm
 
     def post(self, request, *args, **kwargs):
         if not self.request.user.is_authenticated:
@@ -35,7 +34,7 @@ class PostDetailView(generic.DetailView, FormMixin):
             return HttpResponseRedirect(reverse_lazy("blog:index"))
         form = self.get_form()
         self.object = self.get_object()
-        form.instance.user = self.request.user
+        form.instance.author = self.request.user
         form.instance.post = self.object
         if form.is_valid():
             form.save()

@@ -2,18 +2,18 @@
 
 {% block content %}
   <h1>{{post.title}}</h1>
-  <span>{{ post.owner.username }} at {{ post.created_time|date:"d M Y H:i" }}</span>
+  <span>{{ post.author.username }} at {{ post.created_time|date:"d M Y H:i" }}</span>
   <div class="content">
     <p>{{ post.content }}</p>
   </div>
-  <p>{{ post.commentaries.count }} commentar{{ post.commentaries.count|pluralize:"y,ies" }}</p>
+  <p>{{ post.comments.count }} comment{{ post.comments.count|pluralize }}</p>
   <div class="content">
     <ul class="list-group">
-    {% for commentary in post.commentaries.all %}
-      <li class="list-group-item list-group-item-primary">{{ commentary.user.username }} at {{ commentary.created_time|date:"d M Y H:i" }}</li>
-      <li class="list-group-item list-group-item-dark">{{ commentary.content }}</li>
+    {% for comment in post.comments.all %}
+      <li class="list-group-item list-group-item-primary">{{ comment.author.username }} at {{ comment.created_time|date:"d M Y H:i" }}</li>
+      <li class="list-group-item list-group-item-dark">{{ comment.content }}</li>
     {% empty %}
-      <li class="list-group-item list-group-item-dark">No commentaries yet. Be the first!</li>
+      <li class="list-group-item list-group-item-dark">No comments yet. Be the first!</li>
     {% endfor %}
     </ul>
   </div>

@@ -8,10 +8,10 @@ class User(AbstractUser):
 
 
 class Post(models.Model):
-    owner = models.ForeignKey(
+    author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="posts"
     )
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=255)
     content = models.TextField()
     created_time = models.DateTimeField(auto_now_add=True)
 
@@ -22,16 +22,12 @@ class Post(models.Model):
         return self.content
 
 
-class Commentary(models.Model):
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="commentaries"
+class Comment(models.Model):
+    author = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="comments"
     )
     post = models.ForeignKey(
-        Post, on_delete=models.CASCADE, related_name="commentaries"
+        Post, on_delete=models.CASCADE, related_name="comments"
     )
     created_time = models.DateTimeField(auto_now_add=True)
-    content = models.TextField()
-
-    class Meta:
-        verbose_name = "commentary"
-        verbose_name_plural = "commentaries"
+    content = models.TextField(max_length=500)
