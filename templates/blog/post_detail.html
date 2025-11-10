@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}<title>{{ post.title }}</title>{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content }}</p>
+    <p>
+        Author: {{ post.owner.username }} |
+        Created: {{ post.created_time|date:"F j, Y, g:i a" }} |
+        Comments: {{ commentaries|length }}
+    </p>
+
+    <hr>
+
+    <h3>Comments</h3>
+    {% if commentaries %}
+        <ul class="list-group mb-4">
+            {% for comment in commentaries %}
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between">
+                        <strong>{{ comment.user.username }}</strong>
+                        <small>{{ comment.created_time|date:"M d, Y H:i" }}</small>
+                    </div>
+                    <p class="mb-1">{{ comment.content }}</p>
+                    {% if user == comment.user %}
+                        <form method="post" action="{% url 'blog:comment-delete' comment.pk %}" class="d-inline">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                        </form>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No comments yet.</p>
+    {% endif %}
+
+    <hr>
+
+    {% if user.is_authenticated %}
+        <h3>Add a comment</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ comment_form|crispy }}
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    {% else %}
+        <p><a href="{% url 'login' %}">Log in</a> to leave a comment.</p>
+    {% endif %}
+</div>
+{% endblock %}
