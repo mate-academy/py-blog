@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}<title>Blog</title>{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h1>Blog</h1>
+    <ul>
+      {% for post in post_list %}
+        <li>
+          <h2><a href="{% url 'blog:post-detail' post.pk %}">{{ post.title }}</a></h2>
+          <p>{{ post.content }}</p>
+          <p>Author: {{ post.owner.username }} | Created: {{ post.created_time|date:"F j, Y, g:i a" }} |
+            Comments: {{ post.commentaries.count }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}
+
+{% block pagination %}
+  {% include "includes/pagination.html" %}
+{% endblock %}
