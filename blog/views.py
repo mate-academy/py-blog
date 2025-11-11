@@ -31,10 +31,7 @@ class PostDetailView(generic.DetailView, FormMixin):
     model = Post
     template_name = "blog/post_detail.html"
     queryset = Post.objects.prefetch_related(
-        Prefetch(
-            "comments",
-            queryset=Commentary.objects.select_related("user")
-        )
+        Prefetch("comments", queryset=Commentary.objects.select_related("user"))
     ).annotate(comment_count=Count("comments"))
 
     form_class = CommentaryForm
