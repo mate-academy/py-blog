@@ -7,7 +7,7 @@
 <div class="comments">
   {{ post.comment_count }} comment{{ post.comment_count|pluralize }}
   <br>
-  {% for comment in post.comments.all %}
+  {% for comment in post.commentaries.all %}
     <table class="comment-table">
       <tr>
         <td class="comment-table-td">
