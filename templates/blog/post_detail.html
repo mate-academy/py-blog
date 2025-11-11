@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <div class="title">{{ post.title }}</div>
+  <span class="info">{{ post.owner.username }} at {{ post.created_time }}</span>
+  <div class="post-content">{{ post.content }}</div>
+<div class="comments">
+  {{ post.comment_count }} comment{{ post.comment_count|pluralize }}
+  <br>
+  {% for comment in post.comments.all %}
+    <table class="comment-table">
+      <tr>
+        <td class="comment-table-td">
+          <span class="info">{{ comment.user }} {{ comment.created_time }}</span>
+          <hr>
+          {{ comment.content }}
+        </td>
+      </tr>
+    </table>
+  {% empty %}
+    There are no comments yet
+  {% endfor %}
+</div>
+Add a new comment:
+  {% if error %}
+    <p style="color: red;">{{ error }}</p>
+  {% endif %}
+    <form action="" method="POST" class="form-comment">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="submit" value="Submit">
+    </form>
+{% endblock %}

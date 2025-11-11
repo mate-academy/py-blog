@@ -19,7 +19,7 @@ class AdminSiteBlogTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_commentaries_registered_in_admin(self):
-        url = reverse("admin:blog_commentary_changelist")
+        url = reverse("admin:blog_comment_changelist")
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, 200)
@@ -27,7 +27,7 @@ class AdminSiteBlogTests(TestCase):
 
 class GitignoreTests(TestCase):
     def test_gitignore_exist(self):
-        file_exists = os.path.exists('.gitignore')
+        file_exists = os.path.exists(".gitignore")
         assert file_exists
 
     def test_gitignore_has_correct_content(self):
@@ -41,6 +41,6 @@ class GitignoreTests(TestCase):
 
 class IsStylesCSSExistTests(TestCase):
     def test_styles_exist(self):
-        file_exists = os.path.exists('static/css/styles.css')
+        file_exists = os.path.exists("static/css/styles.css")
 
         self.assertTrue(file_exists)
