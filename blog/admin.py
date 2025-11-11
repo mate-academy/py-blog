@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
-from blog.models import User, Post, Commentary
+from blog.models import User, Post, Comment
 
 
 admin.site.site_header = "My Awesome Admin"
@@ -25,8 +25,8 @@ class PostAdmin(admin.ModelAdmin):
     search_fields = ("title", "owner__first_name", "owner__last_name")
 
 
-@admin.register(Commentary)
-class CommentaryAdmin(admin.ModelAdmin):
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
     list_display = ("user", "post_title", "short_content", "created_time")
 
     def get_queryset(self, request):

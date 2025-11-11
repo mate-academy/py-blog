@@ -1,10 +1,10 @@
 from django import forms
-from blog.models import Commentary
+from blog.models import Comment
 
 
-class CommentaryForm(forms.ModelForm):
+class CommentForm(forms.ModelForm):
     content = forms.CharField(widget=forms.Textarea, label="")
 
     class Meta:
-        model = Commentary
+        model = Comment
         exclude = ("user", "post")

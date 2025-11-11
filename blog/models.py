@@ -17,17 +17,17 @@ class Post(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
 
 
-class Commentary(models.Model):
+class Comment(models.Model):
     user = models.ForeignKey(
-        AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="commentaries"
+        AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="comments"
     )
     post = models.ForeignKey(
         Post, on_delete=models.CASCADE,
-        related_name="commentaries"
+        related_name="comments"
     )
     created_time = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
 
     class Meta:
-        verbose_name = "commentary"
-        verbose_name_plural = "commentaries"
+        verbose_name = "comment"
+        verbose_name_plural = "comments"

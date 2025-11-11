@@ -1,4 +1,3 @@
-from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Count, Prefetch
 from django.http import HttpRequest
@@ -7,15 +6,15 @@ from django.urls import reverse
 from django.views import generic
 from django.views.generic.edit import FormMixin
 
-from blog.models import Post, Commentary
-from blog.forms import CommentaryForm
+from blog.models import Post, Comment
+from blog.forms import CommentForm
 
 
 def index(request: HttpRequest):
     post_list = (
         Post.objects.order_by("-created_time")
         .select_related("owner")
-        .annotate(comments_count=Count("commentaries"))
+        .annotate(comments_count=Count("comments"))
     )
     paginator = Paginator(post_list, 5)
     page_number = request.GET.get("page")
@@ -32,12 +31,12 @@ class PostDetailView(generic.DetailView, FormMixin):
     template_name = "blog/post_detail.html"
     queryset = Post.objects.prefetch_related(
         Prefetch(
-            "commentaries",
-            queryset=Commentary.objects.select_related("user")
+            "comments",
+            queryset=Comment.objects.select_related("user")
         )
-    ).annotate(comment_count=Count("commentaries"))
+    ).annotate(comment_count=Count("comments"))
 
-    form_class = CommentaryForm
+    form_class = CommentForm
 
     def get_success_url(self):
         return reverse("blog:post-detail", kwargs={"pk": self.object.pk})
@@ -56,7 +55,7 @@ class PostDetailView(generic.DetailView, FormMixin):
             return self.render_to_response(context=context)
 
         self.object = self.get_object()
-        form = CommentaryForm(request.POST or None)
+        form = CommentForm(request.POST or None)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.user = request.user
