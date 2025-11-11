@@ -16,7 +16,8 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ("owner", "title", "short_content", "created_time")
 
     def short_content(self, obj):
-        return obj.content[:50] + "..." if len(obj.content) > 50 else obj.content
+        return obj.content[:50] + "..."\
+            if len(obj.content) > 50 else obj.content
 
     short_content.short_description = "short content"
 
@@ -36,7 +37,8 @@ class CommentaryAdmin(admin.ModelAdmin):
         return obj.post.title
 
     def short_content(self, obj):
-        return obj.content[:50] + "..." if len(obj.content) > 50 else obj.content
+        return obj.content[:50] + "..."\
+            if len(obj.content) > 50 else obj.content
 
     short_content.short_description = "short content"
 
