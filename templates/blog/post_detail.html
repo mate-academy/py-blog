@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="card mb-4">
+    <div class="card-body">
+      <h1 class="card-title">{{ post.title }}</h1>
+      <h6 class="card-subtitle mb-2 text-muted">Author: {{ post.owner.username }}</h6>
+      <p class="card-text mt-3">{{ post.content }}</p>
+    </div>
+    <div class="card-footer text-muted">
+      Created time: {{ post.created_time }}
+    </div>
+  </div>
+
+  <h3 class="mb-3">Comments</h3>
+  {% if post.comments.all %}
+    <ul class="list-group mb-4">
+      {% for comment in post.comments.all %}
+        <li class="list-group-item">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{ comment.user.username }}</h5>
+            <small class="text-muted">{{ comment.created_time|timesince }} ago</small>
+          </div>
+          <p class="mb-1">{{ comment.content }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="text-muted">No comments yet.</p>
+  {% endif %}
+
+  <h4 class="mt-4 mb-3">Add a comment</h4>
+  <form action="" method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="comment-content" class="form-label">Your Comment</label>
+      <textarea class="form-control" id="comment-content" name="content" rows="3" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+{% endblock %}
