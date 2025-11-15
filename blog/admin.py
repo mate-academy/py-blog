@@ -14,7 +14,7 @@ class UserAdmin(UserAdmin):
 
 
 @admin.register(Post)
-class UserAdmin(admin.ModelAdmin):
+class PostAdmin(admin.ModelAdmin):
     list_display = ("title", "owner", "created_time")
     search_fields = ("title",)
     list_filter = ("owner",)
