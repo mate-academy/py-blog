@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1 class="mb-4">Blog posts</h1>
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead class="table-light">
+        <tr>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Created time</th>
+          <th>Sum comment</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for post in post_list %}
+          <tr>
+            <td>
+              <strong>
+                <a class="text-decoration-none" href="{% url 'blog:post-detail' post.pk %}">{{ post.title }}</a>
+              </strong>
+            </td>
+            <td>{{ post.owner.username }}</td>
+            <td>{{ post.created_time }}</td>
+            <td>{{ post.comments.count }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}
