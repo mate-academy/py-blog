@@ -34,7 +34,7 @@ def create_commentary_view(
     post = Post.objects.get(pk=pk)
     form = CommentaryForm(request.POST)
     if form.is_valid():
-        comment = Commentary(content=form.cleaned_data["content"])
+        comment = form.save(commit=False)
         comment.post = post
         comment.user = request.user
         comment.save()

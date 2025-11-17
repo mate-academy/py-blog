@@ -30,6 +30,7 @@ class PostAdmin(admin.ModelAdmin):
 class CommentaryAdmin(admin.ModelAdmin):
     list_display = ("created_time", "user", "post",)
     list_filter = ("user", "post",)
+    search_fields = ("content",)
 
 
 admin.site.unregister(Group)
