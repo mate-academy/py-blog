@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Posts</h1>
+  <hr>
+  <ul style="list-style: none;" class="page_list">
+    {% for post in post_list %}
+      <h4>
+        <a href="{% url "blog:post-detail" pk=post.id %}">{{ post.title }}</a>
+      </h4>
+      <hr>
+      <p><strong>Creation date:</strong> {{ post.created_time }}.</p>
+      <p><strong>Author:</strong> {{ post.owner }}.</p>
+      <p><strong>Content:</strong> {{ post.content }}</p>
+      <p><strong>Number of comments:</strong> {{ post.comments.count }}</p>
+      <br>
+    {% empty %}
+      <p>No posts.</p>
+    {% endfor %}
+  </ul>
+{% endblock %}
