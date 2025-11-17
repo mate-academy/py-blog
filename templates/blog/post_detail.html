@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% load crispy_forms_filters %}
+  <h2>Post's comments</h2>
+  <hr>
+  <ul style="list-style: none;" class="page_list">
+    {% for comment in post.comments.all %}
+      <h5>
+        Comment:
+      </h5>
+      <hr>
+      <p>{{ comment.content }}</p>
+      <p><strong>Date:</strong> {{ comment.created_time }}.</p>
+      <br>
+    {% empty %}
+      <p>No comments for this post.</p>
+    {% endfor %}
+  </ul>
+  <h5>Add a comment</h5>
+  <form action="{% url "blog:post-create-commentary" pk=post.id %}" method="post" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="Add" class="btn btn-primary">
+  </form>
+{% endblock %}
