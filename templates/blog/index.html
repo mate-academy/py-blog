@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+  {% for post in post_list %}
+
+    <div class="post-item mb-4 p-4 border rounded bg-white-frost" style="max-width: 60rem">
+      <h2>
+        <a href="{{ post.get_absolute_url }}">
+          {{ post.title }}
+        </a>
+      </h2>
+      <p>{{ post.content|truncatewords:10 }}</p>
+      <p class="text-muted">
+        Author: {{ post.owner.username }}
+        Created: {{ post.created_time|date:"d M Y H:i" }}
+        Commentaries: {{ post.commentaries.count }}
+      </p>
+    </div>
+
+  {% endfor %}
+
+
+{% endblock %}
