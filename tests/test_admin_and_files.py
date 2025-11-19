@@ -1,4 +1,5 @@
 import os
+
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
@@ -19,7 +20,7 @@ class AdminSiteBlogTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_commentaries_registered_in_admin(self):
-        url = reverse("admin:blog_commentary_changelist")
+        url = reverse("admin:blog_comment_changelist")
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, 200)
