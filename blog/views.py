@@ -8,12 +8,13 @@ from blog.models import Post, Commentary
 
 
 def index(request):
-    posts = Post.objects.all().order_by("-created_time").prefetch_related("comment")
+    posts = (Post.objects.all()
+             .order_by("-created_time")
+             .prefetch_related("comment"))
     is_paginated = 5
     pagination = Paginator(posts, is_paginated)
     page_number = request.GET.get("page")
     page_obj = pagination.get_page(page_number)
-
 
     context = {
         "post_list": page_obj,
