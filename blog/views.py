@@ -8,11 +8,12 @@ from blog.models import Post, Commentary
 
 
 def index(request):
-    posts = Post.objects.all().order_by("-created_time")
+    posts = Post.objects.all().order_by("-created_time").prefetch_related("comment")
     is_paginated = 5
     pagination = Paginator(posts, is_paginated)
     page_number = request.GET.get("page")
     page_obj = pagination.get_page(page_number)
+
 
     context = {
         "post_list": page_obj,
@@ -26,7 +27,7 @@ class PostDetailView(generic.DetailView):
     model = Post
     queryset = Post.objects.prefetch_related(
         Prefetch(
-            "commentary",
+            "comment",
             queryset=Commentary.objects.select_related("user")
         )
     ).select_related("owner")
@@ -47,4 +48,8 @@ class PostDetailView(generic.DetailView):
                 commentary.post = self.get_object()
                 commentary.save()
                 return redirect("blog:post-detail", pk=self.get_object().pk)
+            else:
+                context = self.get_context_data()
+                context["form"] = form
+                return self.render_to_response(context)
         return self.get(request, *args, **kwargs)

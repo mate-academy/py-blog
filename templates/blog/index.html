@@ -11,7 +11,8 @@
           <section class="post">
             <a href="{% url "blog:post-detail" post.id %}"><h3 class="post-title">{{ post.title }}</h3></a>
             <p>{{ post.content }}</p>
-            <small class="author-decor">Author: {{ post.owner.username }} | {{ post.created_time }}</small>
+            <small class="author-decor">Author: {{ post.owner.username }} | {{ post.created_time }} | Commentary : {{ post.comment.count }}</small>
+
           </section>
         </div>
         {% endfor %}

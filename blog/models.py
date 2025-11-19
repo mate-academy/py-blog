@@ -24,12 +24,12 @@ class Commentary(models.Model):
     user = models.ForeignKey(
         get_user_model(),
         on_delete=models.CASCADE,
-        related_name="commentary_user"
+        related_name="author"
     )
     post = models.ForeignKey(
         Post,
         on_delete=models.CASCADE,
-        related_name="commentary"
+        related_name="comment"
     )
     created_time = models.DateTimeField(auto_now_add=True)
     content = models.TextField()

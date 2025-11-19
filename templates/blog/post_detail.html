@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 
 {% block title %}{{ post.title }}{% endblock %}
 
@@ -9,7 +10,7 @@
       <p class="content">{{ post.content }}</p>
       <small>Author: {{ post.owner.username }} | {{ post.created_time }}</small>
     </div>
-  {% for comment in post.commentary.all %}
+  {% for comment in post.comment.all %}
     <ul class="commentary">
     <li><h5>{{ comment.user.username }}:</h5>
       <div class="commentary-content">{{ comment.content }}</div></li>
@@ -21,7 +22,7 @@
   {% if user.is_authenticated %}
   <form method="post" action="{% url 'blog:post-detail' post.id %}">
       {% csrf_token %}
-      {{ form.as_p }}
+      {{ form|crispy }}
       <button type="submit">Add Comment</button>
     </form>
   {% else %}
