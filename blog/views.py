@@ -25,8 +25,11 @@ def index(request):
 class PostDetailView(generic.DetailView):
     model = Post
     queryset = Post.objects.prefetch_related(
-        Prefetch('commentary', queryset=Commentary.objects.select_related('user'))
-    ).select_related('owner')
+        Prefetch(
+            "commentary",
+            queryset=Commentary.objects.select_related("user")
+        )
+    ).select_related("owner")
     form = CommentaryForm
 
     def get_context_data(self, **kwargs):
@@ -43,11 +46,5 @@ class PostDetailView(generic.DetailView):
                 commentary.user = request.user
                 commentary.post = self.get_object()
                 commentary.save()
-                return redirect('blog:post-detail', pk=self.get_object().pk)
+                return redirect("blog:post-detail", pk=self.get_object().pk)
         return self.get(request, *args, **kwargs)
-
-
-
-
-
-

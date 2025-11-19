@@ -26,4 +26,7 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_URL[:-1])
+    urlpatterns += static(
+        settings.STATIC_URL,
+        document_root=settings.STATIC_URL[:-1]
+    )
