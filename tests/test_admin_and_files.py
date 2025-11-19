@@ -20,7 +20,7 @@ class AdminSiteBlogTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_commentaries_registered_in_admin(self):
-        url = reverse("admin:blog_commentary_changelist")
+        url = reverse("admin:blog_comment_changelist")
         response = self.client.get(url)
 
         self.assertEqual(response.status_code, 200)

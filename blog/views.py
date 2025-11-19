@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.views import generic
 
 from blog.forms import CommentaryForm
-from blog.models import Post, Commentary
+from blog.models import Post, Comment
 
 
 def index(request):
@@ -29,9 +29,9 @@ class PostDetailView(generic.DetailView):
     queryset = Post.objects.prefetch_related(
         Prefetch(
             "comment",
-            queryset=Commentary.objects.select_related("user")
+            queryset=Comment.objects.select_related("author")
         )
-    ).select_related("owner")
+    ).select_related("author")
     form = CommentaryForm
 
     def get_context_data(self, **kwargs):

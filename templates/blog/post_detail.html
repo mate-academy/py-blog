@@ -8,11 +8,11 @@
     <div class="post-detail">
       <h3>{{ post.title }}</h3>
       <p class="content">{{ post.content }}</p>
-      <small>Author: {{ post.owner.username }} | {{ post.created_time }}</small>
+      <small>Author: {{ post.author.username }} | {{ post.created_time }}</small>
     </div>
   {% for comment in post.comment.all %}
     <ul class="commentary">
-    <li><h5>{{ comment.user.username }}:</h5>
+    <li><h5>{{ comment.author.username }}:</h5>
       <div class="commentary-content">{{ comment.content }}</div></li>
     </ul>
 
