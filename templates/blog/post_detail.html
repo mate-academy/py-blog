@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="post-detail">
+      <h3>{{ post.title }}</h3>
+      <p class="content">{{ post.content }}</p>
+      <small>Author: {{ post.owner.username }} | {{ post.created_time }}</small>
+    </div>
+  {% for comment in post.commentary.all %}
+    <ul class="commentary">
+    <li><h5>{{ comment.user.username }}:</h5>
+      <div class="commentary-content">{{ comment.content }}</div></li>
+    </ul>
+
+
+  {% endfor %}
+
+  {% if user.is_authenticated %}
+  <form method="post" action="{% url 'blog:post-detail' post.id %}">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Add Comment</button>
+    </form>
+  {% else %}
+  <p>You must be authorized to make a comment</p>
+  {% endif %}
+      </div>
+{% endblock %}
