@@ -1,12 +1,15 @@
 from django.core.paginator import Paginator
-from django.shortcuts import render, get_object_or_404
-from .models import Post
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
+
+from .models import Post, Commentary
+from .forms import CommentaryForm
 
 
 def index(request):
-    posts = Post.objects.all()
-    paginator = Paginator(posts, 5)  # 5 posts por página
+    posts = Post.objects.all().order_by("-created_time")
 
+    paginator = Paginator(posts, 5)
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
@@ -20,5 +23,27 @@ def index(request):
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    context = {"post": post}
+
+    comments = Commentary.objects.filter(post=post).order_by("-created_time")
+
+    if request.method == "POST":
+        if not request.user.is_authenticated:
+            messages.error(request, "You must be logged in to comment.")
+            return redirect("blog:post-detail", pk=post.pk)
+
+        form = CommentaryForm(request.POST)
+        if form.is_valid():
+            commentary = form.save(commit=False)
+            commentary.post = post
+            commentary.user = request.user
+            commentary.save()
+            return redirect("blog:post-detail", pk=post.pk)
+    else:
+        form = CommentaryForm()
+
+    context = {
+        "post": post,
+        "comments": comments,
+        "form": form,
+    }
     return render(request, "blog/post_detail.html", context)
