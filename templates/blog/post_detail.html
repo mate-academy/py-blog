@@ -4,9 +4,28 @@
   {{ post.title }}
 </h1>
 <p>
-  {{ post.content }},
-  {{ post.owner.first_name }} {{ post.owner.last_name }},
-  {{ post.created_at }}
+  {{ post.content }}<br>
+  <strong>Author:</strong> {{ post.author.first_name }} {{ post.author.last_name }}<br>
+  <strong>Created:</strong> {{ post.created_at }}
 </p>
-<a href="{% url "comment-create" %}">Create comment</a>
+<h2>Comments</h2>
+
+{% if post.comments.all %}
+  <ul>
+    {% for comment in post.comments.all %}
+      <li>
+        {{ comment.author }}:
+        {{ comment.text }} <br>
+        {{ comment.created_at }}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No comments yet.</p>
+{% endif %}
+<form method="post" action="{% url 'comment-create' pk=post.id %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" value="Comment">Submit</button>
+</form>
 {% endblock %}
