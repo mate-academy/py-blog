@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>
+  {{ post.title }}
+</h1>
+<p>
+  {{ post.content }},
+  {{ post.owner.first_name }} {{ post.owner.last_name }},
+  {{ post.created_at }}
+</p>
+<a href="{% url "comment-create" %}">Create comment</a>
+{% endblock %}
