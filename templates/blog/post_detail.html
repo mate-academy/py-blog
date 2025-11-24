@@ -16,16 +16,19 @@
       <li>
         {{ comment.author }}:
         {{ comment.text }} <br>
-        {{ comment.created_at }}
+        {{ comment.created_date }}
+        {{ post.created_time }}
       </li>
     {% endfor %}
   </ul>
 {% else %}
   <p>No comments yet.</p>
 {% endif %}
+{% if user.is_authenticated %}
 <form method="post" action="{% url 'comment-create' pk=post.id %}">
   {% csrf_token %}
   {{ form.as_p }}
   <button type="submit" value="Comment">Submit</button>
 </form>
+{% endif %}
 {% endblock %}
