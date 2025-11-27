@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h4><a href="{% url 'login' %}">Login</a>  <a href="{% url 'logout' %}">Logout</a>  user: {{ user.username }}</h4>
+
+<h1>Post List</h1>
+
+
+{% for post in post_list %}
+  <div>
+    <h3><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h3>
+    <p>{{ post.content }}</p>
+    <p>Author: {{ post.owner }} - Posted in: {{ post.created_time }}</p>
+    <p>{{ post.num_comments }} Comment{{ post.num_comments|pluralize }} in this post</p>
+  </div>
+{% endfor %}
+
+{% endblock %}

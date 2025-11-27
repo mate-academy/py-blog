@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h1>Post Detail Page</h1>
+<h2>{{ post.title }}</h2>
+{% for comment in post.commentaries.all %}
+<p>{{ comment.content }} - {{ comment.user }}</p>
+{% endfor %}
+<h3>Add a new comment</h3>
+<form method="post">
+  {% csrf_token %}
+  {{ form|crispy }}
+  <p><button type="submit">Comment</button></p>
+</form>
+{% endblock %}
