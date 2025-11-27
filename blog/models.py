@@ -15,7 +15,7 @@ class Post(models.Model):
     )
     title = models.CharField(max_length=255)
     content = models.TextField()
-    created_time = models.DateTimeField()
+    created_time = models.DateTimeField(auto_now_add=True)
 
 
 class Commentary(models.Model):
@@ -29,7 +29,7 @@ class Commentary(models.Model):
         on_delete=models.CASCADE,
         related_name="commentaries",
     )
-    created_time = models.DateTimeField()
+    created_time = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
 
     class Meta:
