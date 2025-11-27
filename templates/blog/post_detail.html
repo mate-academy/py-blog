@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Post Detail Page</h1>
+<h2>{{ post.title }}</h2>
+{% for comment in post.commentaries.all %}
+<p>{{ comment.content }} - {{ comment.user }}</p>
+{% endfor %}
+<h3>Add a new comment</h3>
+<form method="post">
+  {% csrf_token %}
+  <textarea name="content" cols="50" rows="4"></textarea>
+  <p><button type="submit">Comment</button></p>
+</form>
+{% endblock %}
