@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Blog System{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div id="branding">
+        <h1><span class="highlight">Blog</span> System</h1>
+      </div>
+      <nav>
+        <ul>
+          <li class="current"><a href="{% url 'blog:index' %}">Home</a></li>
+          {% if user.is_authenticated %}
+            <li><a href="{% url 'admin:index' %}">Admin</a></li>
+            <li><a href="{% url 'admin:logout' %}">Logout</a></li>
+          {% else %}
+            <li><a href="{% url 'admin:login' %}">Login</a></li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    {% block content %}{% endblock %}
+  </div>
+
+  <footer>
+    <p>Blog System &copy; 2025</p>
+  </footer>
+</body>
+</html> 
