@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}All Posts{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  {% if page_obj.object_list %}
+    {% for post in page_obj %}
+      <div class="card mb-4">
+        <div class="card-body">
+          <h4 class="card-title">
+            <a href="{% url 'blog:post-detail' post.id %}"
+              class="text-dark text-decoration-none"
+              onmouseover="this.style.color='#007bff'"
+              onmouseout="this.style.color='black'">
+              {{ post.title }}
+            </a>
+          </h4>
+          <h6 class="card-subtitle mb-2 text-muted">
+            {{ post.owner.username }} at {{ post.created_time|date:"M. d, Y, g:i a" }} |
+            Comments: {{ post.comments.count }}
+          </h6>
+          <p class="card-text">{{ post.content|truncatewords:30 }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="alert alert-info" role="alert">
+      No posts available.
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
+{% block pagination %}
+    {% include "includes/pagination.html" %}
+  {% endblock %}

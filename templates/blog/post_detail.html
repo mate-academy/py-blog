@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+
+
+    <div class="mb-4">
+        <h2>{{ post.title }}</h2>
+        <small class="text-muted">
+            {{ post.owner.username }} {{ post.created_time|date:"M. d, Y, g:i a" }}
+        </small>
+        <p class="mt-2">{{ post.content }}</p>
+    </div>
+
+    <div class="comments mb-4">
+        <p>
+            {{ post.comments.count }} comment{% if post.comments.count != 1 %}s{% endif %}
+        </p>
+
+        {% for comment in post.comments.all %}
+        <div class="card mb-2">
+            <div class="card-body">
+                <small class="text-muted">
+                    {{ comment.user.username }} {{ comment.created_time|date:"M. d, Y, g:i a" }}
+                </small>
+                <p class="mb-0">{{ comment.content }}</p>
+            </div>
+        </div>
+        {% empty %}
+        <p>There are no comments yet.</p>
+        {% endfor %}
+    </div>
+
+    <div class="mb-4">
+      <h5>Add a new comment</h5>
+      {% if user.is_authenticated %}
+        <form method="post" action="{% url 'blog:post-comment' post.pk %}">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-primary mt-2">Add Comment</button>
+        </form>
+      {% else %}
+        <p>You must be logged in to post a comment.</p>
+      {% endif %}
+    </div>
+
+</div>
+{% endblock %}
