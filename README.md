@@ -23,13 +23,13 @@ Let's go through all the steps:
    _Feel free to add more data using the admin panel if needed._
 9. Inside `blog_system.urls` add a path to the `blog.urls`. Don't forget to specify the namespace.
 10. Inside `blog.urls` create a path for the home page. Give this path the name `index`.
-11. Inside `blog.views` create a view for the `index` url. This view returns a list of all posts, in descending order by `created_time`.
+11. Inside `blog.views` create a view for the `index` url. This view returns a list of all post, in descending order by `created_time`.
 12. Before creating a template, you have to create styles. Create a directory `static` next to the directory `blog`. Inside this directory create a file with the following path `css/styles.css`. Don't forget to do all the necessary steps so that Django can serve these static files.
 13. Create a directory `templates` next to the directory `blog`. There you will store templates for pages. Edit settings so that engine knows where to look for template source files.
-14. Create a template for the main page. On this page, make it so that a list of all posts is displayed. The title and content were displayed, the author was visible when this post was created and the number of comments on the post. Make the post's title a link to the detailed page, which you would implement further.
-15.  Add pagination for the main page. Set **5** posts on one page by default.
+14. Create a template for the main page. On this page, make it so that a list of all post is displayed. The title and content were displayed, the author was visible when this post was created and the number of comments on the post. Make the post's title a link to the detailed page, which you would implement further.
+15.  Add pagination for the main page. Set **5** post on one page by default.
 16. Create a `PostDetailView` view that returns detailed information about the post by the `id` field.
-17. Add a template for this page and url with a path `posts/pk/` and name `post-detail`.
+17. Add a template for this page and url with a path `post/pk/` and name `post-detail`.
 18. On the post detail page, display a list of post comments below this post.
 19. Under the list of comments, add a form that allows you to create a new comment to the post. 
 

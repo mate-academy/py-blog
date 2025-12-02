@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h1>All Posts</h1>
+	<ul>
+		{% for post in page_obj %}
+			<li>
+				<h2><a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a></h2>
+				<p>{{ post.content }}</p>
+				<p>Number of comments: {{ post.comments.count }}</p>
+				<small>By {{ post.owner }} at {{ post.created_time }}</small>
+			</li>
+		{% empty %}
+			<li>No post available.</li>
+		{% endfor %}
+	</ul>
+{% endblock %}
