@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h1> {{ post.title }}</h1>
+<hr>
+<ul>
+
+  <li>{{ post.content }}</li>
+  <p> {{ post.owner.username }} at {{ post.created_time }}</p>
+</ul>
+<p><strong>{{ post.comments.count }} comment{{ post.comments.count|pluralize }}</strong></p>
+
+{% for comment in post.comments.all %}
+<table class="table table-bordered mb-3">
+  <tr>
+    <th><strong>{{ comment.user.username }} </strong>-> {{ comment.created_time }}</th>
+  </tr>
+  <tr>
+    <td><strong>{{ comment.content }}</strong></td>
+  </tr>
+
+</table>
+{% endfor %}
+<p><strong>Add a new comment</strong></p>
+<form action="" method="post" novalidate>
+  {% csrf_token %}
+  {{ form|crispy }}
+
+  <div class="d-flex gap-2">
+    <button type="submit" class="btn btn-success">Enviar</button>
+    <a href="{% url 'blog:index' %}" class="btn btn-outline-secondary">Retornar</a>
+  </div>
+</form>
+
+{% endblock %}
+
