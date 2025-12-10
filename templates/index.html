@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+</head>
+<body>
+{% if post_list %}
+  <table border="">
+  <thead>
+    <tr>
+    <th>Title</th>
+    <th>Contetn</th>
+    <th>Created time</th>
+    <th>Number of comments</th>
+  </tr>
+  </thead>
+    {% for post in post_list %}
+        <tbody>
+        <tr>
+        <td> <a href="{% url 'blog:post-detail' pk=post.id %}"> {{ post.title }} </a></td>
+        <td>{{ post.content }}</td>
+        <td>{{ post.created_time }}</td>
+        <td>{{ post.commentary.count }}</td>
+        </tr>
+        </tbody>
+    {% endfor %}
+
+  </table>
+{% endif %}
+{% if is_paginated%}
+  {% include 'includes/pagination.html' %}
+{% endif %}
+</body>
+</html>
