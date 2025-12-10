@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  <title>Posts</title>
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h1 class="mb-4">Posts</h1>
+
+    <div class="row row-cols-1 g-4">
+      {% for post in post_list %}
+        <div class="col">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h5 class="card-title">
+                <a href="{% url 'blog:post-detail' pk=post.id %}" class="text-decoration-none text-dark">
+                  {{ post.title }}
+                </a>
+              </h5>
+              <p class="card-text">{{ post.content|truncatewords:30 }}</p>
+              <p class="text-muted small mb-0">
+                {{ post.owner }} · {{ post.created_time|date:"d M Y H:i" }} ·
+                Comments: {{ post.commentary_set.count }}
+              </p>
+            </div>
+          </div>
+        </div>
+      {% empty %}
+        <p>No posts available.</p>
+      {% endfor %}
+    </div>
+
+
+  </div>
+{% endblock %}
