@@ -7,8 +7,8 @@ class User(AbstractUser):
 
 
 class Post(models.Model):
-    owner = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="posts"
+    author = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="post"
     )
     title = models.CharField(max_length=255)
     content = models.TextField()
@@ -18,8 +18,8 @@ class Post(models.Model):
         return self.title
 
 
-class Commentary(models.Model):
-    user = models.ForeignKey(
+class Comment(models.Model):
+    author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="comments"
     )
     post = models.ForeignKey(
