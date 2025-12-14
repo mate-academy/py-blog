@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ post.title }}{% endblock title %}
+
+{% block content %}
+    <div class="post-detail">
+        <h1>{{ post.title }}</h1>
+        <p class="text-muted">Author: {{ post.owner.username }} | {{ post.created_time|date:"Y-m-d" }}</p>
+
+        <div class="post-content mb-5">
+            {{ post.content|linebreaks }}
+        </div>
+    </div>
+
+    <hr>
+
+    <h3>Comments ({{ post.comments.count }})</h3>
+
+    {% for comment in comments %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">
+                    {{ comment.user.username }} | {{ comment.created_time|date:"Y-m-d H:i" }}
+                </h6>
+                <p class="card-text">{{ comment.content }}</p>
+            </div>
+        </div>
+    {% empty %}
+        <p>No comments yet.</p>
+    {% endfor %}
+
+    {% if user.is_authenticated %}
+        <h4 class="mt-4">Add a Comment</h4>
+        <form method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    {% else %}
+        <p class="mt-4">Please <a href="{% url 'login' %}">log in</a> to leave a comment.</p>
+    {% endif %}
+
+{% endblock content %}
