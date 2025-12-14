@@ -1,0 +1,10 @@
+{% load crispy_forms_filters %}
+{% if user.is_authenticated %}
+<form method="post" action="">
+  {% csrf_token %}
+  {{ form|crispy }}
+  <button class="badge badge-primary" type="submit">Submit</button>
+</form>
+{% else %}
+  <p>Please authenticate to leave a comment.</p>
+{% endif %}

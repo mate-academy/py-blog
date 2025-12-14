@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+  <a href="{% url "blog:index" %}"><- back</a>
+  <h1>POST detail <a style="float: right" href="{% url "blog:post-update" pk=post.id %}">edit</a></h1>
+  <p>Author: <strong>{{ post.owner.username }}</strong>
+    {{ post.owner.first_name }} {{ post.owner.last_name }}</p>
+  <p>Posted at: {{ post.created_time }}</p>
+  <br>
+  <h3>{{ post.title }}</h3>
+  <p>{{ post.content }}</p>
+  <ul>
+    {% for comment in post.comments.all %}
+      <li><strong>{{ comment }}</strong>
+      <p>{{ comment.created_date }} - "{{ comment.text }}"</p></li>
+      {% empty %}
+      <p>No Comments yet...</p>
+    {% endfor %}
+  </ul>
+  {% block comment_block %}
+    {% include "blog/comment_form.html" %}
+  {% endblock %}
+{% endblock %}
