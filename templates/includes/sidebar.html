@@ -1,0 +1,29 @@
+<ul class="sidebar-nav list-group">
+  {% if request.user.is_authenticated %}
+    <li class="list-group-item">
+      <a class="h4" href="#">
+        {{ request.user.username }}
+      </a>
+      <hr>
+      <div class="sidebar-user-panel d-flex justify-content-sm-between">
+        <a href="#" class="btn btn-primary">
+          New Post +
+        </a>
+        <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <input class="btn btn-danger" type="submit" value="Logout">
+        </form>
+      </div>
+    </li>
+  {% else %}
+    <li class="list-group-item">
+      <a href="{% url 'login' %}">Login</a>
+    </li>
+  {% endif %}
+  <li class="list-group-item">
+    <a href="{% url 'blog:index' %}">Posts</a>
+  </li>
+  <li class="list-group-item">
+    <a href="#">Users</a>
+  </li>
+</ul>
