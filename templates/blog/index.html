@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <h1>
+    <span class="head-text">Software Developer's Blog</span>
+    <img class="head-img" src="{% static 'img/programing-clipart.svg' %}" alt="">
+  </h1>
+  <ul>
+    {% for post in post_list %}
+      <li>
+        <a class="blog-link" href="{% url 'blog:post-detail' pk=post.id %}">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">
+                <img class="title-img" src="{% static 'img/blog-icon.svg' %}" alt="" width="32" height="32">{{ post.title }}
+              </h4>
+              <p class="card-subtitle mb-2 text-muted">
+                Posted by {{ post.owner }} at {{ post.created_time|date:" H:i d.m.Y" }}
+              </p>
+              <p class="card-text text-justify">{{ post.content }}</p>
+              <p class="card-subtitle mb-2 text-muted float-right">
+                {% with post.commentaries.count as total_comments %}
+                  Comment{{ total_comments|pluralize }}: {{ post.commentaries.count }}
+                {% endwith %}
+              </p>
+            </div>
+          </div>
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

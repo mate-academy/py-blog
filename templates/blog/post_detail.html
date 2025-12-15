@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p class="card-subtitle mb-2 text-muted">
+    Posted by {{ post.owner }} at {{ post.created_time|date:" H:i d.m.Y" }}
+  </p>
+  <p class="card-text text-justify">{{ post.content }}</p>
+  <br>
+  {% if request.user == post.owner %}
+    <div class="float-right">
+      <a class="btn btn-primary" href="{% url 'blog:post-update' pk=post.id %}">Edit Post</a>
+      <a class="btn btn-primary" href="{% url 'blog:post-delete' pk=post.id %}">Delete Post</a>
+    </div>
+  {% endif %}
+  <hr class="line">
+  <div class="commentaries">
+    {% with post.commentaries.count as total_comments %}
+      <h5>{{ total_comments }} Comment{{ total_comments|pluralize }}:</h5>
+    {% endwith %}
+    {% with post.commentaries.all.select_related as comments %}
+      {% if comments %}
+          {% for comment in comments %}
+            <p><strong>{{ comment.user }}</strong> at {{ comment.created_time|date:"H:i d.m.Y" }}</p>
+            <div class="comment-text">
+              <img class="speaker" src="{% static 'img/speaker.svg' %}" alt="">
+              <p class="comment">{{ comment.content }}</p>
+            </div>
+          {% endfor %}
+      {% else %}
+        <p>There are no comments yet.</p>
+      {% endif %}
+   {% endwith %}
+  </div>
+  {% if user.is_authenticated %}
+    {% if request.GET.invalid_form %}
+      <p>You have to enter comment's text to post comment</p>
+    {% endif %} 
+    <form action="{% url 'blog:comment-create' %}?pk={{ post.id }}" method="post" novalidate>
+      {% csrf_token %}
+      <label for="content"><strong>Add a new comment</strong></label>
+      <textarea class="form-control ml-1 shadow-none textarea" type="text" name="content"></textarea>
+      <input class="btn btn-primary float-right" type="submit" value="Add comment">
+    </form>
+  {% else %}
+    You need login first to add your comment.
+  {% endif %}
+{% endblock %}
