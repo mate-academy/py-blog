@@ -1,0 +1,11 @@
+tests/
+venv/
+db.sqlite3
+.idea/
+.vscode/
+.env
+.DS_Store
+.sqlite3
+.pytest_cache/
+*.iml
+**__pycache__/
