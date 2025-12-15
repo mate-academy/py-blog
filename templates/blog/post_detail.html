@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+  <title>post_{{ post.id }}</title>
+{% endblock %}
+
+
+{% block content %}
+  <h3>Title: {{ post.title }}</h3>
+  <h6>by: {{ post.owner.first_name }} {{ post.owner.last_name }}</h6>
+    <p>{{ post.content }}</p>
+
+  <div class="ml-3">
+    <h6>commentaries:</h6>
+    {% for comment in post.commentaries.all %}
+      <hr>
+      <p>{{ comment.content }}</p>
+      <p><i>comment by: {{ comment.user.username }}, {{ comment.created_time }}</i></p>
+      <hr>
+    {% empty %}
+      <p>No comments yet for this post</p>
+    {% endfor %}
+  </div>
+
+
+{% if user.is_authenticated %}
+  <div class="ml-3">
+    <h4>Leave a comment:</h4>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+{% else %}
+  <p><a href="{% url 'login' %}">Log in</a> to leave a comment.</p>
+{% endif %}
+
+{% endblock %}
