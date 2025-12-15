@@ -1,0 +1,26 @@
+body {
+  margin: 20px;
+  font-family: Arial, serif;
+  font-size: 16px;
+}
+
+h1 {
+  text-align: center;
+}
+
+h3 {
+  margin-bottom: 0;
+}
+
+p {
+  text-align: justify;
+}
+
+.container {
+  width: 700px;
+  margin: auto;
+}
+
+.link {
+  color: cyan;
+}
