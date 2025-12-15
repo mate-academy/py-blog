@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>blog posts</title>
+{% endblock %}
+
+{% block content %}
+  <h1 class="mb-4 text-center">blog posts</h1>
+  {% if post_list %}
+    {% for post in post_list %}
+      <div class="card shadow-sm mb-3">
+        <div class="card-body">
+          <h3 class="card-title">
+            <a href="{% url "blog:post-detail" pk=post.id %}">
+              {{ post.title }}
+            </a>
+          </h3>
+          <h6 class="card-subtitle mb-2 text-muted">
+            by {{ post.owner }} on {{ post.created_time|date:"F j, Y, g:i a" }}
+          </h6>
+          <p class="card-text">{{ post.content|truncatewords:40 }}</p>
+        </div>
+        <div class="card-footer text-muted">
+          <p class="mb-0">comments: {{ post.num_comments }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No posts available at the moment.</p>
+  {% endif %}
+{% endblock %}
