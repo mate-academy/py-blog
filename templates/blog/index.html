@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Blog:</h1>
+    <p>Welcome to our blog.
+Here you can chat about IT topics.</p>
+    <h3>Blog content:</h3>
+    <ul>
+        <li>Num posts: {{ post }}</li>
+        <li>Num authors: {{ user }}</li>
+    </ul>
+
+    <p>You have visited this page {{ visits }} time{{ visits|pluralize }}.</p>
+
+
+{% endblock %}

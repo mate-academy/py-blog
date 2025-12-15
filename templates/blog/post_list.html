@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="d-flex justify-content-between">
+        <h2>Blog topics:</h2>
+        <a href="{% url 'blog:post-create' %}" class="btn btn-primary mr-4 mb-2">Add</a>
+
+    </div>
+    {% for post in post_list %}
+        <div class="container p-1 m-2">
+            <li class="list-group-item d-flex justify-content-between">
+                <a href="{% url 'blog:post-detail' pk=post.id %}"><h4>{{ post.title }}</h4></a>
+
+                <p>
+                    {{ post.owner }} {{ post.created_time }} <br>
+                    <a href="{% url 'blog:post-update' pk=post.id %}">Update</a>
+                    <a href="{% url 'blog:post-delete' pk=post.id %}">Delete</a>
+                </p>
+            </li>
+        </div>
+    {% endfor %}
+
+
+{% endblock %}
