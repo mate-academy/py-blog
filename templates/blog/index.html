@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Posts</h1>
+        {% if post_list %}
+            <table class="table">
+             <tr>
+                 <th>ID</th>
+                 <th>Content</th>
+                 <th>Title</th>
+                 <th>Owner</th>
+                 <th>Commentaries</th>
+                 <th>Creation date</th>
+             </tr>
+            {% for post in post_list %}
+                <tr>
+                    <td>
+                        {{ post.id }}
+                    </td>
+                    <td>
+                        {{ post.content }}
+                    </td>
+                    <td>
+                        <a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a>
+                    </td>
+                    <td>
+                        {{ post.owner.username }}
+                    </td>
+                    <td>
+                        {{ post.commentaries.count }}
+                    </td>
+                    <td>
+                        {{ post.created_time }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>There are no posts</p>
+        {% endif %}
+{% endblock %}
