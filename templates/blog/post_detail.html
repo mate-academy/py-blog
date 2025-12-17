@@ -1,0 +1,68 @@
+{#{% extends "base.html" %}#}
+{##}
+{#{% block content %}#}
+{#  <h2>{{ post.title }}</h2>#}
+{#  <p>{{ post.content }}</p>#}
+{##}
+{#  <hr>#}
+{#  <h4>Comments:</h4>#}
+{#  <ul>#}
+{#    {% for comment in post.post_comments.all %}#}
+{#      <li>#}
+{#        {{ comment.content }} — {{ comment.user }}#}
+{#        {% if user == comment.user %}#}
+{#          | <a href="{% url 'blog:comment-update' comment.pk %}">Edit</a>#}
+{#          | <a href="{% url 'blog:comment-delete' comment.pk %}">Delete</a>#}
+{#        {% endif %}#}
+{#      </li>#}
+{#    {% empty %}#}
+{#      <li>No comments yet.</li>#}
+{#    {% endfor %}#}
+{#  </ul>#}
+{##}
+{#  {% if user.is_authenticated %}#}
+{#    <a href="{% url 'blog:comment-create' post.pk %}" class="btn btn-primary">Add comment</a>#}
+{#    <a href="{% url 'blog:index' %}" class="btn btn-secondary ml-2">Back to posts</a>#}
+{##}
+{#  {% else %}#}
+{#    <p><a href="{% url 'login' %}?next={{ request.path }}">Log in</a> to add a comment.</p>#}
+{#    <a href="{% url 'blog:index' %}" class="btn btn-secondary mb-3">Back to posts</a>#}
+{#  {% endif %}#}
+{#{% endblock %}#}
+
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h2>{{ post.title }}</h2>
+<p>{{ post.content }}</p>
+
+<hr>
+<h4>Comments:</h4>
+<ul>
+  {% for comment in post.comments.all %}
+    <li>
+      {{ comment.content }} — {{ comment.user.username }}
+      {% if user == comment.user %}
+        | <a href="{% url 'blog:comment-update' comment.pk %}">Edit</a>
+        | <a href="{% url 'blog:comment-delete' comment.pk %}">Delete</a>
+      {% endif %}
+    </li>
+  {% empty %}
+    <li>No comments yet.</li>
+  {% endfor %}
+</ul>
+
+{% if user.is_authenticated %}
+  <h5>Add a comment:</h5>
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" class="btn btn-primary mt-2" value="Submit">
+  </form>
+  <a href="{% url 'blog:index' %}" class="btn btn-secondary mt-2">Back to posts</a>
+{% else %}
+  <p><a href="{% url 'login' %}?next={{ request.path }}">Log in</a> to add a comment.</p>
+  <a href="{% url 'blog:index' %}" class="btn btn-secondary mt-2">Back to posts</a>
+{% endif %}
+{% endblock %}
