@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="mb-4">Posts</h1>
+
+{% for post in post_list %}
+  <div class="card mb-4">
+    <div class="card-body">
+
+      <!-- Título com link -->
+      <h3 class="card-title">
+        <a href="{% url 'blog:post-detail' post.id %}">
+          {{ post.title }}
+        </a>
+      </h3>
+
+      <!-- Meta info -->
+      <p class="text-muted mb-2">
+        by {{ post.owner.username }} · {{ post.created_time }}
+      </p>
+
+      <!-- Conteúdo -->
+      <p class="card-text">
+        {{ post.content }}
+      </p>
+
+      <!-- Número de comentários -->
+      <p class="text-muted">
+        Comments: {{ post.comments.count }}
+      </p>
+
+    </div>
+  </div>
+{% empty %}
+  <p>No posts yet.</p>
+{% endfor %}
+
+{% endblock %}
