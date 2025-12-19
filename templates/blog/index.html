@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+  {% if post_list %}
+    <ul>
+      {% for post in post_list %}
+        <li>
+          <h2>{{ post.title }}</h2>
+          <p>{{ post.content }}</p>
+          <p>{{ post.owner.username }} at {{ post.created_time }}</p>
+          <p>{{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}</p>
+          <a href="{% url 'blog:post-detail' pk=post.id %}">More info</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+  {% if is_paginated %}
+    <ul>
+      {% if page_obj.has_previous %}
+        <li><a href="?page= {{ page_obj.previous_page_number }}">prev</a></li>
+      {% endif %}
+
+      <li><span>{{ page_obj.number }} of {{ paginator.num_pages }}</span></li>
+
+      {% if page_obj.has_next %}
+        <li><a href="?page= {{ page_obj.next_page_number }}">next</a></li>
+      {% endif %}
+    </ul>
+  {% endif %}
+{% endblock %}
