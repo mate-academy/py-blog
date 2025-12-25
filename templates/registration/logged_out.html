@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <br>
+  <div class="text-center">
+    <p class="h5">You have been successfully logged out.</p>
+    <a href="{% url 'blog:index' %}">Return to the main page</a>
+  </div>
+{% endblock %}

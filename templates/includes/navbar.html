@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+  <a class="navbar-brand text-primary" href="{% url 'blog:index' %}">PyBlog</a>
+
+  <div class="collapse navbar-collapse" id="navbarText">
+    <span class="navbar-text mr-auto">
+      The best coding blog
+    </span>
+    {% if user.is_authenticated %}
+      <ul class="navbar-nav">
+        <li class="nav-item mr-3">
+          <span class="navbar-text">You are logged in as <strong>{{ user.username }}</strong></span>
+        </li>
+        <li class="nav-item mr-3">
+          <a class="nav-link text-primary" href="{% url 'logout' %}">Logout</a>
+        </li>
+      </ul>
+    {% else %}
+      <ul class="navbar-nav">
+        <li class="nav-item mr-3">
+          <span class="navbar-text">You are not logged in.</span>
+        </li>
+        <li class="nav-item mr-3">
+          <a class="nav-link text-primary" href="{% url 'login' %}">Login</a>
+        </li>
+      </ul>
+    {% endif %}
+  </div>
+</nav>

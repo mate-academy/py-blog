@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 class="text-center content">Blog home page</h1>
+  <hr>
+
+  <ul>
+  {% for post in post_list %}
+
+    <h3><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h3>
+
+    <p><small>{{ post.owner }}<span  class="text-secondary"> at {{ post.created_time }}</span></small></p>
+
+    <p class="text-main">{{ post.content }}</p>
+
+    <p class="text-secondary"><small>{{ post.comments.count }} comment{{ post.comments.count|pluralize }}</small></p>
+
+    <hr>
+
+  {% endfor %}
+  </ul>
+{% endblock %}
