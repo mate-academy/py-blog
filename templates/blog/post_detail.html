@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container mt-5">
+    <h1>Comments to post "{{ post.title }}"</h1>
+    <p><strong>Author:</strong> {{ post.owner }}</p>
+    <p><strong>Created at:</strong> {{ post.created_time }}</p>
+    <p>{{ post.content }}</p>
+
+    <h3 class="mt-4">Comments</h3>
+    <ul class="list-group mt-3">
+      {% for comm in post.comments.all %}
+        <li class="list-group-item" style="font-size: 18px;">
+          <p>{{ comm.content }}</p>
+        </li>
+      {% empty %}
+        <li class="list-group-item">No comments yet. Be the first to comment!</li>
+      {% endfor %}
+    </ul>
+
+    <hr class="my-4">
+
+    <h4>Write a comment</h4>
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary mt-3">Send</button>
+    </form>
+  </div>
+{% endblock %}
