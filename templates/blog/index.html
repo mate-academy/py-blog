@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Blog</h1>
+  <ul class="mt-5 list-group">
+    {% for post in post_list %}
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    <p><a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a>
+    <br>
+    by {{ post.owner.first_name }} {{ post.owner.last_name }}
+      <span class="text-muted"> {{ post.created_time }}</span>
+    </p>
+
+    <span class="badge bg-primary rounded-pill" style="color: aliceblue"> comments: {{ post.comments.count }}</span>
+  </li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,15 @@
+<ul class="list-unstyled mt-5">
+  {% if user.is_authenticated %}
+    <li>
+      User: {{ user.username }}
+    </li>
+    <li>
+      <a href="{% url 'logout' %}">Log out</a>
+    </li>
+  {% else %}
+    <li>
+      <a href="{% url 'login' %}">Log in</a>
+    </li>
+  {% endif %}
+  <li><a href="{% url "blog:index" %}">Blog</a></li>
+</ul>
