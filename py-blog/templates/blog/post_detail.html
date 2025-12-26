@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.author.username }} at {{ post.created_time }}</p>
+  <p>{{ post.content }}</p>
+  <ul>
+    {% for comment in post.commentary_set.all %}
+      <li>
+        <h6>{{ comment.author.username }}</h6>
+        <p>{{ comment.text }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+  <form action="{% url 'blog:commentary-create' pk=post.id %}" method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit">Add new commentary</button>
+  </form>
+{% endblock %}
