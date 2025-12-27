@@ -1,0 +1,91 @@
+body {
+    background-color: #9fbabf;
+}
+
+.card-title a:hover {
+    text-decoration: underline;
+}
+
+.card {
+    border-radius: 12px;
+}
+
+/* Back link */
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: #555;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* Post */
+.post-title {
+    margin-bottom: 10px;
+}
+
+.post-content {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Comments */
+.comments-title {
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+.comment {
+    padding: 12px 16px;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    margin-bottom: 12px;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.comment-date {
+    color: #888;
+    font-size: 12px;
+}
+
+.comment-text {
+    margin: 0;
+}
+
+/* Add comment */
+.add-comment-title {
+    margin-top: 30px;
+}
+
+.comment-form {
+    margin-top: 10px;
+}
+
+.btn-submit {
+    margin-top: 10px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    background-color: #0d6efd;
+    color: white;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background-color: #0b5ed7;
+}
+
+/* Login hint */
+.login-hint {
+    margin-top: 20px;
+    color: #555;
+}

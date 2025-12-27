@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% load static %}
+
+{% block content %}
+  <a href="{% url 'blog:index' %}" class="back-link">← Back to Post list</a>
+
+  <h2 class="post-title">{{ post.title }}</h2>
+  <p class="post-content">{{ post.content }}</p>
+
+  <hr>
+
+  <h4 class="comments-title">
+    Comments ({{ post.comments.count }})
+  </h4>
+
+  {% for comment in post.comments.all %}
+    <div class="comment">
+      <div class="comment-header">
+        <strong>{{ comment.author.username }}</strong>
+        <small class="comment-date">
+          {{ comment.created_time|date:"M d, Y H:i" }}
+        </small>
+      </div>
+      <p class="comment-text">{{ comment.content }}</p>
+    </div>
+  {% empty %}
+    <p class="text-muted">No comments yet.</p>
+  {% endfor %}
+
+  {% if user.is_authenticated %}
+    <h5 class="add-comment-title">Add a new comment</h5>
+    <form method="post" class="comment-form">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button type="submit" class="btn-submit">Add comment</button>
+    </form>
+  {% else %}
+    <p class="login-hint">
+      You must <a href="#">log in</a> to comment.
+    </p>
+  {% endif %}
+{% endblock %}
