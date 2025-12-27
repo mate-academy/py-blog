@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.content }}</p>
+  <p><strong>Author:</strong> {{ post.author }}</p>
+  <p><strong>Created:</strong> {{ post.created_time }}</p>
+
+  <h2>Comments ({{ post.commentaries.count }})</h2>
+  <ul>
+    {% for commentary in commentaries %}
+      <li>
+        <strong>{{ commentary.author }}</strong>
+        ({{ commentary.created_time }}):
+        {{ commentary.content }}
+      </li>
+    {% empty %}
+      <li>No comments yet.</li>
+    {% endfor %}
+  </ul>
+
+  <h3>Add a comment</h3>
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit">Submit</button>
+  </form>
+{% endblock %}

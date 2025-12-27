@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  {% load crispy_forms_tags %}
+  <meta charset="utf-8">
+  <title>{% block title %}Blog{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+  <div class="container">
+    {% block content %}{% endblock %}
+    {% block pagination %}{% endblock %}
+  </div>
+</body>
+</html>
