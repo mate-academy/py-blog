@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content }}</p>
+    <p>
+        <strong>Author:</strong> {{ post.owner.username }}
+        <br>
+        <strong>Created:</strong> {{ post.created_time|date:"Y-m-d H:i" }}
+    </p>
+
+    <hr>
+
+    <h2>Comments ({{ post.comments.count }})</h2>
+    {% for comment in post.comments.all %}
+        <div class="comment">
+            <p><strong>{{ comment.user.username }}</strong> ({{ comment.created_time|date:"Y-m-d H:i" }})</p>
+            <p>{{ comment.content }}</p>
+        </div>
+        <hr>
+    {% empty %}
+        <p>No comments yet. Be the first to comment!</p>
+    {% endfor %}
+
+    <h3>Leave a Comment</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Post Comment</button>
+    </form>
+{% endblock %}
