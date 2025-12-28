@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
-from blog.models import Post, Commentary
+from blog.models import Post, Comment
 
 MAIN_PAGE_URL = reverse("blog:index")
 PAGINATION = 5
@@ -43,5 +43,5 @@ class PostDetailTest(TestCase):
         response = self.client.get(reverse("blog:post-detail", args=[1]))
 
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "blog/post_detail.html")
+        self.assertTemplateUsed(response, "blog/blog.html")
 

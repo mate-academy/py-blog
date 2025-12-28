@@ -1,0 +1,30 @@
+# Python
+*.pyc
+__pycache__/
+*/*/__pycache__/
+*/*/*/__pycache__/
+*.pyd
+*.pyo
+*.log
+*.pot
+
+# Django specific
+local_settings.py
+db.sqlite3
+/static/ # Compiled static files (if you don't want them in git)
+
+# Virtual Environment
+.env
+venv/
+env/
+
+# Common IDE/OS Files
+.DS_Store
+Thumbs.db
+.idea/ # For PyCharm/IntelliJ
+.vscode/ # For VS Code (optional, if you have team-specific settings)
+.venv/
+
+# Testing and coverage
+.coverage
+.tox/

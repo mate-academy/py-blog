@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+	<h2>{{ post.title }}</h2>
+	<h6>{{ post.content }}</h6>
+	<h6>{{ post.author }}</h6>
+	<h6>{{ post.created_time }}</h6>
+	<h4>Commentaries:</h4>
+	<ul>
+		{% for comment in post.commentaries.all %}
+			<li><h5>{{ comment.author.username }}</h5>
+				<h6>{{ comment.created_date }}</h6>
+				<p>{{ comment.content }}</p></li>
+		{% endfor %}
+	</ul>
+
+	{% if user.is_authenticated %}
+		<form action="" method="post" novalidate>
+			{% csrf_token %}
+			{{ form|crispy }}
+
+			<input type="submit" value="Submit">
+		</form>
+	{% endif %}
+
+{% endblock %}
