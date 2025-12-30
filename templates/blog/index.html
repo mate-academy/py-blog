@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Posts list</h1>
+  <ul>
+    {% for post in post_list %}
+      <li style="list-style-type: none">
+        <h3>
+          <a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a>
+        </h3>
+        Author: {{ post.owner }}
+        <br>
+        Created: {{ post.created_time }}
+        <br>
+        Number of comments: {{ post.comments.count }}
+        <br>
+        {{ post.content }}
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
