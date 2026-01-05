@@ -1,0 +1,16 @@
+body {
+    font-size: 14px;
+}
+
+.list-small {
+    font-size: 10px;
+}
+
+.list-center {
+    text-align: center;
+}
+
+.comments-title {
+    font-size: 18px;
+    font-style: italic;
+}
