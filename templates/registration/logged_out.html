@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <div class="login_form text-center">
+
+    <h4>Logged out!</h4>
+
+    <a href="{% url 'login'%}">Click here to login again.</a>
+    <div>or</div>
+    <a href="{% url 'blog:index'%}">back to home page</a>
+
+  </div>
+
+{% endblock %}

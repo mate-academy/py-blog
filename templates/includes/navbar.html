@@ -1,0 +1,29 @@
+<div class="nav_bar row flex-nowrap justify-content-between align-items-center m-0">
+
+  <div class="col-3 text-right">
+    <a class="blog-header-logo text-light" href="{% url 'blog:index' %}">Home</a>
+  </div>
+
+  <div class="col-6 text-center">
+    <h3><strong>Python Blog</strong></h3>
+  </div>
+
+  <div class="col-3 text-left">
+
+  {% if user.is_authenticated %}
+
+    <form method="post" action="{% url 'logout' %}" class="form-inline">
+      {% csrf_token %}
+      <label class="text-light">{{ user.get_username }} |</label>&nbsp;
+        <button type="submit" class="btn btn-primary btn-sm rounded-pill px-2 py-0 ">
+          Logout
+        </button>
+        <input type="hidden" name="next" value="{{ next }}">
+    </form>
+
+  {% else %}
+    <a class="blog-header-logo text-light" href="{% url 'login' %}?next={{ request.path }}">Login</a>
+  {% endif %}
+
+  </div>
+</div>

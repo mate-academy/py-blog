@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <h1 class="text-center">All Posts</h1>
+  <hr>
+
+
+  {% for post in posts %}
+
+    <div>
+
+      <div>
+        <h4>
+          <a href="{{ post.get_absolute_url }}">
+            {{ post.title }}
+          </a>
+        </h4>
+      </div>
+      <div>
+        {{ post.content }}
+      </div>
+      <div class="author_info">
+        Author: {{ post.owner }} | Created @ {{ post.created_time }} | Comennts: {{ post.comments_count }}
+      </div>
+    
+    </div>
+
+    <hr>
+
+  {% endfor %}
+
+{% endblock content %}

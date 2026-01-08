@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+
+  <div class="login_form">
+
+    {% if user.is_authenticated %}
+      <div class="text-center">
+
+        <p>You are allredy logged in</p>
+        <p><a href="{% url 'blog:index' %}">Go to home page</a></p>
+
+      </div>
+
+    {% else %}
+      <h3>Login</h3>
+
+      <form method="post" action="{% url 'login' %}" novalidate>
+        {% csrf_token %}
+        {{ form|crispy }}
+
+        <input type="submit" value="Login" class="btn btn-primary btn-sm rounded-pill px-3 py-1" />
+        <input type="hidden" name="next" value="{{ next }}" />
+      </form>
+    {% endif %}  
+
+  </div>
+
+{% endblock %}

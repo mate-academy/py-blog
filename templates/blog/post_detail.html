@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+
+  <div>
+
+    <h1>{{ post.title }}</h1>
+      Author: {{ post.owner }} | Created @ {{ post.created_time }}
+    <hr>
+
+    <div>
+      {{ post.content }}
+    </div>
+
+    <hr>
+
+    <div class="comments">
+      <p>{{ comments_count }} Comment{{ comments_count|pluralize }}:</p>
+
+
+      {% for comment in post.comments.all %}
+      <div>
+        <div>
+          {{ comment.user }} @ {{ comment.created_time }}
+        </div>
+
+        <div>
+          {{ comment.content }}
+        </div>
+      </div>
+      <hr>
+      {% endfor %}
+
+      <form action="" method="post" novalidate>
+        {% csrf_token %}
+
+        {{ form|crispy }}
+
+        <input type="submit" value="submit" class="btn btn-primary rounded-pill px-2 py-0" />
+
+      </form>
+    </div>
+
+  </div>
+
+
+
+
+{% endblock content %}
