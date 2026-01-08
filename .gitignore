@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+ENV/
+
+# Django
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+
+# SASS / CSS
+# Jeśli kompilujesz SASS, ignorujemy mapy, ale zostawiamy skompilowane CSS
+# (chyba że wolisz kompilować je dopiero na serwerze)
+*.css.map
+*.sass.map
+*.scss.map
+.sass-cache/
+
+# PyCharm / IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Środowisko / Sekrety
+.env
+.python-version
+
+# Systemowe
+.DS_Store
+Thumbs.db

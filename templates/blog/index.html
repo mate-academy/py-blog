@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Strona Główna - Wszystkie Wpisy{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-9">
+        <h1 class="mb-5 display-5 fw-bold text-center">Najnowsze wpisy na blogu</h1>
+
+        <div class="c-post-list">
+            {% for post in post_list %}
+                <article class="card shadow-sm mb-4 c-post-item">
+                    <div class="card-body p-4">
+                        <h2 class="c-post-item__title mb-2">
+                            <a href="{% url 'blog:post-detail' pk=post.pk %}" class="text-decoration-none text-dark hover-primary">
+                                {{ post.title }}
+                            </a>
+                        </h2>
+
+                        <div class="c-post-item__meta text-muted small mb-3">
+                            <span><i class="bi bi-person"></i> Autor: <strong>{{ post.author.username }}</strong></span>
+                            <span class="ms-3"><i class="bi bi-calendar"></i> {{ post.created_time|date:"d.m.Y H:i" }}</span>
+                            <span class="ms-3 text-primary">
+                                <i class="bi bi-chat-left-dots"></i> Komentarze: {{ post.comments.count }}
+                            </span>
+                        </div>
+
+                        <p class="card-text c-post-item__content">
+                            {{ post.text|truncatewords:40 }}
+                        </p>
+
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <a href="{% url 'blog:post-detail' pk=post.pk %}" class="btn btn-sm btn-outline-primary c-post-item__link">
+                                Czytaj całość &rarr;
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            {% empty %}
+                <div class="alert alert-info text-center">
+                    Obecnie nie ma żadnych postów do wyświetlenia.
+                </div>
+            {% endfor %}
+        </div>
+
+        {% include "includes/pagination.html" %}
+    </div>
+</div>
+{% endblock %}

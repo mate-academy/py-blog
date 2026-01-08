@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-9">
+        <article class="c-post-detail mb-5">
+            <h1 class="display-5 fw-bold">{{ post.title }}</h1>
+            <p class="text-muted">Autor: {{ post.owner.username }} | {{ post.created_time|date:"d.m.Y H:i" }}</p>
+            <div class="c-post-detail__content py-3">
+                {{ post.content|linebreaks }}
+            </div>
+        </article>
+
+        <hr class="my-5">
+
+        <section class="c-comments-section">
+            <h3 class="mb-4">Komentarze ({{ post.comments.count }})</h3>
+
+            {% for comment in comments %}
+                <div class="card mb-3 border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between">
+                            <strong class="text-primary">{{ comment.user.username }}</strong>
+                            <small class="text-muted">{{ comment.created_time|date:"d.m.Y H:i" }}</small>
+                        </div>
+                        <p class="card-text mt-2">{{ comment.content }}</p>
+                    </div>
+                </div>
+            {% empty %}
+                <p class="text-muted">Brak komentarzy. Bądź pierwszy!</p>
+            {% endfor %}
+        </section>
+
+        {% if user.is_authenticated %}
+            <section class="c-comment-form mt-5 p-4 bg-white rounded shadow-sm">
+                <h4 class="mb-3">Zostaw komentarz</h4>
+                <form method="post" action="{% url 'blog:comment-create' post.pk %}">
+                    {% csrf_token %}
+                    {{ comment_form|crispy }}
+                    <button type="submit" class="btn btn-primary mt-2">Opublikuj komentarz</button>
+                </form>
+            </section>
+        {% else %}
+            <div class="alert alert-secondary mt-5">
+                <a href="{% url 'login' %}">Zaloguj się</a>, aby dodać komentarz.
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
