@@ -1,0 +1,25 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>Blog</h1>
+
+    <ul>
+        {% for post in posts %}
+            <li>
+                <a href="{% url 'blog:post-detail' post.pk %}">
+                    {{ post.title }}
+                </a>
+            </li>
+        {% empty %}
+            <li>No posts yet.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
