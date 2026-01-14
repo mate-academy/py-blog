@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+
+        <div class="card shadow-sm mb-4">
+          <div class="card-body">
+            <h2 class="card-title mb-3">{{ post.title }}</h2>
+            <p class="card-text">{{ post.content }}</p>
+          </div>
+        </div>
+        <div class="card shadow-sm mb-4">
+          <div class="card-body">
+            <h5 class="card-title mb-3">💬 Comments</h5>
+            {% if post.comments.all %}
+              {% for comment in post.comments.all %}
+                <div class="mb-3">
+                  <span class="fw-bold"><a
+                      href="{% url "blog:profile" pk=comment.user.pk %}">{{ comment.user.username }}</a></span>
+                  <p class="mb-1">{{ comment.content }}</p>
+                  {% if comment.user.username == user.username %}
+                    <form action="{% url "blog:commentary-delete" pk=comment.pk %}" method="post">
+                    {% csrf_token %}
+                      <button type="submit" class="btn btn-outline-danger">
+                        Delete
+                      </button>
+                    </form>
+                  {% endif %}
+                  <hr>
+                </div>
+              {% endfor %}
+            {% else %}
+              <p class="text-muted">No comments yet. Be the first to comment!</p>
+            {% endif %}
+            <div class="text-end">
+              <a href="{% url "blog:commentary-create" pk=post.pk %}" class="btn btn-primary">
+                Add Comment
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

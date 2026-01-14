@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+
+        <div class="card shadow-sm p-4">
+          <!-- Заголовок -->
+          <h2 class="card-title text-center mb-4">👤 {{ profile_user.username }}'s Profile</h2>
+
+          <!-- Таблица данных -->
+          <table class="table table-borderless">
+            <tbody>
+            <tr>
+              <th scope="row">Username</th>
+              <td>{{ profile_user.username }}</td>
+            </tr>
+            <tr>
+              <th scope="row">First Name</th>
+              <td>{{ profile_user.first_name|default:"-" }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Last Name</th>
+              <td>{{ profile_user.last_name|default:"-" }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Email</th>
+              <td>{{ profile_user.email|default:"-" }}</td>
+            </tr>
+            </tbody>
+          </table>
+          {% if profile_user.username == user.username %}
+            <div class="text-center mt-4">
+              <a href="{% url "blog:update" pk=user.id %}" class="btn btn-primary">
+                Edit Profile
+              </a>
+            </div>
+          {% endif %}
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+{% endblock %}

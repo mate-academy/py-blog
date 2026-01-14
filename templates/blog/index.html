@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Index</title>
+{% endblock %}
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+
+      <div class="card shadow-sm">
+        <div class="card-body text-center">
+          <h1 class="card-title mb-3">
+            👋 Welcome to our blog!
+          </h1>
+
+          <p class="card-text text-muted mb-4">
+            Here you can find statistics about our community
+          </p>
+
+          <ul class="list-group list-group-flush text-start">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Registered users
+              <span class="badge bg-primary rounded-pill">
+                {{ num_users }}
+              </span>
+            </li>
+
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Written posts
+              <span class="badge bg-success rounded-pill">
+                {{ num_posts }}
+              </span>
+            </li>
+
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Comments
+              <span class="badge bg-warning text-dark rounded-pill">
+                {{ num_comments }}
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
