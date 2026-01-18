@@ -1,0 +1,42 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <title>Blog</title>
+</head>
+<body>
+  <h1>Latest Posts</h1>
+
+  {% for post in post_list %}
+    <div class="post">
+      <h2><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h2>
+      <p>{{ post.content }}</p>
+      <p>Author: {{ post.owner.username }}</p>
+      <p>Created on: {{ post.created_time }}</p>
+      <p>Comments: {{ post.commentary.count }}</p>
+    </div>
+  {% endfor %}
+
+  <div class="pagination">
+      <span class="step-links">
+          {% if page_obj.has_previous %}
+              <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+          {% endif %}
+
+          <span class="current">
+              Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+          </span>
+
+          {% if page_obj.has_next %}
+              <a href="?page={{ page_obj.next_page_number }}">next</a>
+          {% endif %}
+      </span>
+  </div>
+</body>
+</html>

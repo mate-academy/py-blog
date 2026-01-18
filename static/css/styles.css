@@ -1,0 +1,48 @@
+.comment {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    background-color: #fff;
+}
+
+.comment p {
+    margin: 0;
+}
+/* Pagination Styles */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.step-links {
+  display: flex;
+  align-items: center;
+}
+
+.step-links a {
+  display: inline-block;
+  padding: 8px 16px;
+  margin: 0 4px;
+  text-decoration: none;
+  color: #007bff;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+}
+
+.step-links a:hover {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.current {
+  display: inline-block;
+  padding: 8px 16px;
+  margin: 0 4px;
+  color: #fff;
+  background-color: #007bff;
+  border: 1px solid #007bff;
+  border-radius: 4px;
+}
