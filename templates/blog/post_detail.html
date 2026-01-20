@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container">
+  <h1 class="text-center">{{ post.title }}</h1>
+    <div class="post_detail_additional_info text-center">
+      {{ post.owner }} at {{ post.created_time }}. id - {{ post.id }}
+    </div>
+      <br>
+  <div class="form-group">
+    <div class="content">
+      <h4 class="text-center">
+        {{ post.content }}
+      </h4>
+    </div>
+  </div>
+
+  <div class="commentary-zone">
+        <br>
+    {% if post.commentary_set.count %}
+      <strong>Commentary number:</strong> {{ post.commentary_set.count }}
+
+    <br><br>
+
+    <strong>Comments:</strong>
+      <ol type="1">
+        {% for commentary in post.commentary_set.all %}
+          <li>
+            <h5>{{ commentary }}</h5>
+            ({{ commentary.created_time }})
+          </li>
+
+        {% endfor %}
+      </ol>
+      {% else %}
+      <strong>No comments yet</strong>
+    {% endif %}
+    <br><br>
+
+    {% include "includes/commentary_form.html" %}
+  </div>
+  {% endblock %}
+</div>

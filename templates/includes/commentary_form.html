@@ -1,0 +1,14 @@
+{% block content %}
+
+  <form method="post" action="{% url 'blog:commentary-create' post.pk %}" novalidate>
+      {% csrf_token %}
+      {{ form.as_p }}
+    <label> Leave comment:
+      <textarea class="form-control form-control-lg" name="content" cols="60" rows="5">
+      </textarea>
+    </label>
+    <input type="submit" value="Create comment">
+  </form>
+  <div class="space-end">
+  </div>
+{% endblock %}
