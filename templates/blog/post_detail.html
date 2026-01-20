@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <section class="section section-detail">
+    <h1 class="post-title">{{ post.title }}</h1>
+    <p class="post-info">{{ post.content }}</p>
+    <p class="post-info"><b>Author:</b> {{ post.owner }}</p>
+    <p class="post-info"><b>Created:</b> {{ post.created_time }}</p>
+    {% if post.comments.all %}
+      <ul class="comment-list">
+        {% for comment in post.comments.all %}
+        <li class="comment-item">
+          <p><b>Comment:</b> {{ comment.content }}</p>
+          <p><b>User:</b> {{ comment.user.first_name }} {{ comment.user.last_name }}</p>
+          <p><b>Date:</b> {{ comment.created_time }}</p>
+        </li>
+      {% endfor %}
+      </ul>
+    {% else %}
+      <p class="no-comments"><b>This post have no comments!</b></p>
+    {% endif %}
+    <p style="margin-top: 20px;">You can add you comment here <b style="color: red;">(Only authorized users can leave comments)</b></p>
+    <form action="{% url "blog:add-comment" post.id %}" method="post" style="margin-top: 10px;">
+      {% csrf_token %}
+      <textarea name="content" id="" cols="100" rows="20" placeholder="Leave your comment here..."></textarea>
+      <button type="submit" class="form-btn">Add comment</button>
+    </form>
+  </section>
+{% endblock %}

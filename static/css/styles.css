@@ -1,0 +1,152 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+h7,
+p {
+    margin: 0;
+    padding: 0;
+}
+
+ul, li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+textarea {
+    resize: none;
+}
+
+body {
+    font-family: "Old Standard TT", serif;
+    letter-spacing: 0.1em;
+}
+
+.container {
+    width: 1200px;
+    margin: 0 auto;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.header {
+    background-color: #3E81AB;
+    padding: 20px;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-link {
+    color: #ffffff;
+}
+
+.header-title {
+    text-align: center;
+    font-weight: 700;
+    font-style: normal;
+    color: #fff;
+}
+
+.section {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.section-title {
+    text-align: center;
+}
+
+.post-list {
+    margin-top: 20px;
+}
+
+.post-item {
+    padding: 50px;
+    background-color: darkgray;
+    color: #ffffff;
+    border-radius: 20px;
+    border-bottom-color: transparent;
+}
+
+.post-item:nth-child(2n) {
+    color: #212121;
+    background-color: #FAFAFA;
+}
+
+.post-info:not(:first-child) {
+    margin-top: 10px;
+}
+
+.post-title {
+    text-align: center;
+}
+
+.section-detail {
+    background-color: #FAFAFA;
+    padding: 60px 20px;
+}
+
+.comment-list {
+    margin-top: 60px;
+}
+
+.comment-item:not(:first-child) {
+    margin-top: 20px;
+}
+
+.no-comments {
+    margin-top: 20px;
+}
+
+.form-btn {
+    display: block;
+    width: 150px;
+    padding: 10px;
+    background-color: darkgoldenrod;
+    border-radius: 15px;
+    border-color: transparent;
+    color:#ffffff;
+    cursor: pointer;
+}
+
+.pages {
+    display: flex;
+    margin-top: 15px;
+    margin-left: 15px;
+    justify-content: center;
+}
+
+.page {
+    padding: 10px;
+    background-color: cornflowerblue;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 15px;
+}
+
+.page.current {
+    background-color: darkgray;
+}
+
+.page:not(:first-child) {
+    margin-left: 10px;
+}

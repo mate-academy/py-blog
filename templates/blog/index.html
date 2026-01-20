@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <section class="section">
+    <h2 class="section-title">POSTS</h2>
+    {% if post_list %}
+      <ul class="post-list">
+        {% for post in post_list %}
+          <li class="post-item">
+            <a href="{% url "blog:post-detail" pk=post.id %}">
+              <h3 class="post-title post-info">{{ post.title }}</h3>
+              <p class="post-info">{{ post.content }}</p>
+              <p class="post-info"><b>Author:</b> {{ post.owner }}</p>
+              <p class="post-info"><b>Created:</b> {{ post.created_time }}</p>
+              <p class="post-info"><b>Count of comments:</b> {{ post.comments.count }}</p>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </section>
+{% endblock %}
