@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h1>Post page</h1>
+    <h3>Title: {{ post.title }}</h3>
+    <p><strong>Posted by:</strong> {{ post.owner.first_name }} {{ post.owner.last_name }}</p>
+    <p><strong>Posted on:</strong> {{ post.created_time }}</p>
+    <p><strong>Content:</strong></p>
+    <p>{{ post.content }}</p>
+    <hr>
+    <h5>Post comments:</h5>
+    {% for comment in post.comments.all %}
+      <p><strong>{{ comment.user }}:</strong> {{ comment.content|linebreaksbr }}</p>
+    {% endfor %}
+    <br>
+    {% if user.is_authenticated %}
+      <h5>Add a Comment</h5>
+      <form method="post" action="{% url 'blog:comment-create' post.id %}" novalidate>
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    {% else %}
+          <p><a href="{% url 'login' %}">Log in</a> to add a comment.</p>
+    {% endif %}
+  </div>
+{% endblock %}

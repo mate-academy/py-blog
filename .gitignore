@@ -1,0 +1,37 @@
+# PyCharm
+.idea/
+
+# Virtualenv
+venv/
+env/
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.pyo
+*.pyd
+*.pdb
+*.so
+*.log
+*.pot
+*.mo
+
+# Django
+db.sqlite3
+media/
+staticfiles/
+
+# Pliki konfiguracyjne
+.env
+config.json
+settings_local.py
+
+# Systemowe
+.DS_Store
+Thumbs.db
+
+# VSCode
+.vscode/
+/.venv/

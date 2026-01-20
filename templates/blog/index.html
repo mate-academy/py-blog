@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container mt-5">
+    {% if user.is_authenticated %}
+      <h6>Welcome, {{ user.username }}</h6>
+      <a href="{% url 'logout' %}">Logout</a>
+    {% else %}
+      <h6>Welcome, anonymous</h6>
+      <a href="{% url 'login' %}">Login</a>
+    {% endif %}
+    <br>
+    <h1>Welcome to Blog!</h1>
+
+    {% if post_list %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Author</th>
+            <th>Created at</th>
+            <th>Comments</th>
+          </tr>
+        </thead>
+      <tbody>
+      {% for post in post_list %}
+        <tr>
+          <td><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></td>
+          <td>{{ post.content }}</td>
+          <td>{{ post.owner.first_name }} {{ post.owner.last_name }}</td>
+          <td>{{ post.created_time }}</td>
+          <td>{{ post.comments.count }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+      </table>
+
+      {% if is_paginated %}
+        {% include "includes/paginate.html" %}
+      {% endif %}
+    {% else %}
+      <p>There are no posts yet.</p>
+    {% endif %}
+  </div>
+{% endblock %}
