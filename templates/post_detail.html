@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>{{ post.title }}</title>
+</head>
+<body>
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content }}</p>
+    <small>By {{ post.author }}, {{ post.created_time }}</small>
+
+    <hr>
+    <h3>Comments ({{ post.comments.count }})</h3>
+    {% for comment in comments %}
+        <p><strong>{{ comment.author }}</strong>: {{ comment.content }}</p>
+    {% empty %}
+        <p>No comments yet.</p>
+    {% endfor %}
+
+    <hr>
+    <h3>Leave a comment</h3>
+    {% if user.is_authenticated %}
+        <form method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+        </form>
+    {% else %}
+        <p>You must be <a href="{% url 'login' %}">logged in</a> to comment.</p>
+    {% endif %}
+</body>
+</html>
