@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <ul class="list-group">
+    {% for post in post_list %}
+      <li class="list-group-item card">
+        <div class="card-title">
+          <h3><a class="text-primary" href="{% url "blog:post-detail" post.id %}">
+            {{ post.title }}
+          </a></h3>
+          <div class="small">
+            {{ post.owner.username }} at {{ post.created_time }}
+          </div>
+        </div>
+        <p class="card-body">
+          {{ post.content }}
+        </p>
+        <a href="{% url 'blog:post-detail' post.id %}">
+          <div class="ml-3 badge badge-info">
+            {{ post.comments.count }} comment{{ post.comments.count|pluralize }}
+          </div>
+        </a>
+      </li>
+    {% empty %}
+      <h2>No posts!</h2>
+    {% endfor %}
+  </ul> <br>
+{% endblock %}
