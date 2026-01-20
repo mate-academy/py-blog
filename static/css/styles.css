@@ -1,0 +1,39 @@
+body {
+    margin-top: 50px;
+}
+
+.title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.list-group-item {
+  border: 1px solid #dee2e6;
+  margin-bottom: 10px;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.post-title {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.post-created-time {
+  color: #6c757d;
+  font-size: 14px;
+}
+
+.post-content {
+  margin-top: 10px;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.post-author,
+.post-comment-quantity {
+  color: #6c757d;
+  font-size: 14px;
+  margin-top: 10px;
+}

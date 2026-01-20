@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+  <h1>{{ post.title }}</h1>
+  <div class="ml-3">
+    <p class="post-meta"><strong>Author:</strong> {{ post.owner.username }}</p>
+    <p class="post-meta"><strong>Posted:</strong> {{ post.created_time }}</p>
+
+    <p>{{ post.content }}</p>
+
+    <h2 class="comments-heading"><strong>Comments:</strong></h2>
+    {% for comment in post.comments.all %}
+    <hr class="comment-separator">
+    <p class="comment-username"><strong>{{ comment.user.username }}</strong></p>
+    <p class="comment-meta">
+      <strong>Posted:</strong>
+      {{ comment.created_time }}
+    </p>
+    <p class="comment-content">
+      {{ comment.content }}
+    </p>
+    {% empty %}
+    <p class="no-comments">No comments yet!</p>
+    {% endfor %}
+    {% if user.is_authenticated %}
+    <form action="{% url 'blog:post-detail' post.pk %}" method="post" novalidate>
+      {% csrf_token %}
+      <label for="content" class="form-label"><strong>Add a new comment:</strong></label>
+      <br>
+      <textarea class="form-control mb-2" style="height: 100px" name="content"></textarea>
+      <p>
+        <input class="btn btn-primary" type="submit" value="Add comment">
+      </p>
+    </form>
+    {% else %}
+    <p class="comment-login-prompt">
+      <a href="{% url 'login' %}">Login to add comments!</a>
+    </p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
