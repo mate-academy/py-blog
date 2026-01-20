@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% if post_list %}
+    {% for post in post_list %}
+      <div class="card mb-4 shadow-sm">
+        <div class="card-header">
+          <a class="post_title" href="{{ post.get_absolute_url }}">
+            <strong>{{ post.title }}</strong>
+          </a>
+          <span class="time text-muted">{{ post.created_time }}</span>
+          <br>
+          <span class="post_author text-muted">{{ post.owner }}</span>
+        </div>
+
+        <div class="card-body">
+          <p class="card-text">
+            {{ post.content|truncatewords:40 }}
+          </p>
+          <hr>
+          <a href="{{ post.get_absolute_url }}#comment-form" class="post_link text-muted">
+            {{ post.comments.count }} comments
+          </a>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+      <p><strong>There are no posts</strong></p>
+  {% endif %}
+{% endblock %}
