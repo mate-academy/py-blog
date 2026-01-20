@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create a post</title>
+</head>
+<body>
+    <h1>Create a new post</h1>
+    {% load crispy_forms_tags %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit">Publish</button>
+    </form>
+    <a href="{% url 'blog:index' %}">Return to home page</a>
+</body>
+</html>
