@@ -27,6 +27,9 @@
 
 <main class="container">
     {% block content %}{% endblock %}
+    {% block pagination %}
+        {% include "includes/pagination.html" %}
+      {% endblock %}
 </main>
 
 </body>
