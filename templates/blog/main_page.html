@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 class="mb-5 mt-5">Welcome to our superblog!</h1>
+  <hr class="blue-hr">
+
+  {% if post_list %}
+
+  <div class="list-group">
+    {% for post in post_list %}
+    <div class="list-group-item list-group-item-action flex-column align-items-start mb-1">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">
+
+          <a class="post-detail-link" href="{% url 'blog:post-detail' post.pk %}">{{ post.title }}</a>
+          <span class="badge badge-primary ml-2">
+            <span class="fs-875em">Author:</span>
+            <span class="fs-bold">{{ post.owner }}</span>
+          </span>
+
+        </h5>
+        <small class="text-muted fs-875em">{{ post.created_time }}</small>
+      </div>
+      <p class="mb-1 pt-3 pb-2 post-content">{{ post.content|truncatewords:80|urlize }}</p>
+      <small class="text-muted fs-875em ml-3">Comments: <i class="fs-bold">{{ post.num_comments }}</i></small>
+    </div>
+    <hr class="blue-hr">
+    {% endfor %}
+    </div>
+  {% else %}
+    <p>Sorry! No blogs found in the repository of wisdom</p>
+  {% endif %}
+{% endblock %}
