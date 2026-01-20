@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+    {% if post_list %}
+      {% for post in post_list %}
+      <div class="card" style="width: 80rem;">
+        <div class="card-body">
+          <h5 class="card-title"><a href="{% url "blog:post-detail" pk=post.id %} ">{{ post.title }}</a></h5>
+          <h6 class="card-subtitle mb-2 text-muted">Author: {{ post.owner }}</h6>
+          <p class="card-text">{{ post.content|truncatewords:20 }}</p>
+          <p class="card-text">  {{ post.created_time }} <strong>Comments: {{ post.comments.count }}</strong></p>
+        </div>
+      </div>
+    
+      
+      {% endfor %}
+    
+
+    {% else %}
+        <p>There are no posts in the blog.</p>
+    {% endif %}
+{% endblock %}
