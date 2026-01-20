@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container mt-4">
+    <h1 class="mb-4">All Posts</h1>
+
+    {% for post in post_list %}
+      <div class="card mb-4 card-body">
+        <h4 class="card-title">
+          <a href="{% url 'blog:post-detail' pk=post.id %}" style="text-decoration: none">
+            {{ post.title }}
+          </a>
+        </h4>
+
+        <p class="card-text">
+          {{ post.content|truncatewords:40 }}
+        </p>
+
+        <div class="d-flex justify-content-between align-items-center">
+          <small class="text-muted">
+            By {{ post.owner }} on {{ post.created_time }}
+          </small>
+          <span class="badge badge-primary">
+          {{ post.comments.count }} comment{{ post.comments.count|pluralize }}
+          </span>
+        </div>
+      </div>
+
+    {% empty %}
+      <p>No posts available.</p>
+    {% endfor %}
+
+  </div>
+
+{% endblock %}
