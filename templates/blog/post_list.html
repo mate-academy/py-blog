@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Home Page</h1>
+<hr>
+{% for post in post_list %}
+<h2><a href="{% url 'blog:post-detail'  post.id %}">{{ post.title }}</a></h2>
+<div>
+    {{ post.content }} <br>
+    <p>Author: <strong><em>{{ post.owner }}</em></strong></p>
+    <p>Number of comments: {{ post.commentaries.count }}</p>
+</div>
+<br>
+{{blog}}
+{% empty %}
+There is no posts
+{% endfor%}
+{% endblock %}
