@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Blog | Read post</title>
+{% endblock %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p class="info">{{ post.owner }} - {{ post.created_time }}</p><br>
+
+  <div class="comments">
+    <p class="post">{{ post.content }}</p><br>
+    {% if post.commentaries.all %}
+      <h3>Comments:</h3>
+      {% for comment in post.commentaries.all %}
+        <div class="comment">
+          <p class="left info">{{ comment.user }}</p>
+          <p>{{ comment.content }}</p>
+          <p class="right info">{{ comment.created_time }}</p>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>This post is not commented yet.</p>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        <p class="login">Wanna leave <a href="{% url 'blog:commentary-create' %}">a comment</a>?</p>
+      {% else %}
+        <p class="login">Please <a href="{% url 'login' %}?next={{ request.path }}">log in</a> to leave a comment.</p>
+    {% endif %}
+  </div>
+
+{% endblock %}
