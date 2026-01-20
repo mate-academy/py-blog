@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="width-70rem">
+    <div>
+      <h2>{{ post.title }}</h2>
+      <h6 class="mb-2 text-muted">@{{ post.owner.username }} at {{ post.created_time|date:"Y-m-d H:i" }}</h6>
+      <p>{{ post.content }}</p>
+    </div>
+
+    <div class="card">
+      {% if post.commentaries.all %}
+        <div class="card-header">
+          <strong>{{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}</strong>
+        </div>
+        <ul class="list-group list-group-flush">
+          {% for commentary in post.commentaries.all %}
+            <li class="list-group-item">
+              @{{ commentary.user.username }}: {{ commentary.content }}<br>
+              <span class="text-muted comment">{{ commentary.created_time|date:"Y-m-d H:i" }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p class="card-header"><strong>No comments yet</strong></p>
+      {% endif %}
+    </div>
+
+
+    {% if user.is_authenticated %}
+      <p><strong>Add a new comment</strong></p>
+      <form action="" method="post" novalidate>
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit"
+               class="btn btn-secondary"
+               value="Add comment">
+      </form>
+    {% else %}
+      <p> Please <strong>
+        <a href="{% url 'login' %}">login</a>
+      </strong> to add a comment</p>
+    {% endif %}
+  </div>
+{% endblock %}

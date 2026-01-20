@@ -1,0 +1,74 @@
+body {
+    margin: 20px 10px 10px 10px;
+}
+
+.badge {
+    color: white;
+}
+
+.pagination {
+    margin: 20px 0;
+}
+
+span.badge.bg-primary {
+    font-weight: normal;
+}
+
+.bg-primary {
+   background-color: slategrey!important;
+}
+
+div.width-70rem {
+    max-width: 70rem;
+}
+
+div.width-20rem {
+    max-width: 20rem;
+}
+
+div.card {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    background-color: rgb(233 240 247);
+}
+
+.page-link {
+    color: slategrey;
+}
+
+.page-link:hover {
+    color: slategrey;
+}
+
+.page-item.active .page-link {
+    background-color: slategrey;
+    border-color: slategrey;
+}
+
+.text-muted.comment {
+    font-size: 0.8rem;
+}
+
+.posts-title {
+    color: slategrey;
+}
+
+.sidebar-link {
+    font-weight: bold;
+    color: black;
+    margin: 10px 0;
+}
+
+.sidebar-nav {
+    padding: 0;
+    margin-top: 40px;
+    list-style: none;
+}
+
+label.requiredField {
+    display: none;
+}
+
+img.comment-icon {
+    height: 20px;
+}
