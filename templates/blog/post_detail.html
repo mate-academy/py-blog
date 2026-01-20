@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block title %}
+  <title>{{ post.title }} - Blog</title>
+{% endblock %}
+
+{% block content %}
+  <div class="content-area">
+    <!-- Деталі публікації -->
+    <article class="post-detail">
+      <div class="post-header">
+        <h1 class="post-title-detail">{{ post.title }}</h1>
+        <div class="post-meta-detail">
+          <div class="meta-item">
+            <i class="fas fa-user"></i>
+            <strong>{{ post.owner.first_name }} {{ post.owner.last_name }}</strong>
+          </div>
+          <div class="meta-item">
+            <i class="fas fa-calendar"></i>
+            {{ post.created_time|date:"d.m.Y H:i" }}
+          </div>
+          <div class="meta-item">
+            <i class="fas fa-comments"></i>
+            Comments: {{ post.comments.count }}
+          </div>
+        </div>
+      </div>
+
+      <div class="post-content-detail">
+        {{ post.content|linebreaks }}
+      </div>
+    </article>
+    <hr class="section-divider">
+
+    <!-- Секція коментарів -->
+    <section class="comments-section">
+      <h3 class="comments-title">
+        <i class="fas fa-comments"></i>
+        Comments:
+      </h3>
+
+      <!-- Список коментарів -->
+      {% if post.comments.all %}
+        <div class="comments-list">
+          {% for comment in post.comments.all %}
+            <div class="comment-item">
+              <div class="comment-header">
+                <div class="comment-author">
+                  <i class="fas fa-user-circle"></i>
+                  <strong>{{ comment.user.first_name }} {{ comment.user.last_name }}</strong>
+                </div>
+                <div class="comment-date">
+                  <i class="fas fa-clock"></i>
+                  {{ comment.created_time|date:"d.m.Y H:i" }}
+                </div>
+              </div>
+              <div class="comment-content">
+                {{ comment.content|linebreaks }}
+                {% if comment.user == user %}
+                  <a href="{% url 'blog:comment-delete' post_pk=post.pk pk=comment.pk %}"
+                     class="btn btn-sm btn-outline-danger mt-2">
+                    Delete
+                  </a>
+                  {% if comment.user == user %}
+                    <a href="{% url 'blog:comment-update' post_pk=post.pk pk=comment.pk %}"
+                       class="btn btn-sm btn-outline-primary mt-2">
+                      Update
+                    </a>
+                  {% endif %}
+                {% endif %}
+              </div>
+
+            </div>
+
+          {% endfor %}
+        </div>
+
+      {% else %}
+        <div class="no-comments">
+          <i class="fas fa-comment-slash"></i>
+          <p>No comments yet! Be first!</p>
+        </div>
+      {% endif %}
+
+      <!-- Форма додавання коментаря -->
+      {% if user.is_authenticated %}
+        <div class="comment-form mt-4">
+          <h5 class="mb-3"><i class="fas fa-edit"></i> Add a new comment</h5>
+
+          <form method="post" action="{% url 'blog:comment-create' pk=post.pk %}">
+            {% csrf_token %}
+            <div class="mb-3">
+
+              <textarea name="content" rows="4" class="form-control"
+                        placeholder="Write your comment here..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add comment</button>
+          </form>
+        </div>
+      {% else %}
+        <div class="alert alert-warning mt-4">
+          <i class="fas fa-sign-in-alt"></i>
+          <a href="{% url 'login' %}">Log in</a> to leave a comment.
+        </div>
+      {% endif %}
+    </section>
+  </div>
+{% endblock %}
