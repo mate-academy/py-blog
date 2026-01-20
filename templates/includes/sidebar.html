@@ -1,0 +1,9 @@
+<div class="list-unstyled">
+  {% if user.is_authenticated %}
+    <div class="list-group-item"><li>User: {{ user.username }}</li></div>
+    <div class="list-group-item"><li><a href="{% url 'logout' %}">Logout</a></li></div>
+  {% else %}
+    <div class="list-group-item"><li><a href="{% url 'login' %}">Login</a></li></div>
+  {% endif %}
+  <div class="list-group-item"><a href="{% url 'blog:index' %}">Home</a></div>
+</div>

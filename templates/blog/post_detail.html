@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="container p-3 my-3 border">
+    <h1><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h1>
+    <p>
+      autor: {{ post.owner.username }} <br>
+      created: {{ post.created_time }}
+    </p>
+    <div class="p-3 mb-2 bg-light text-dark"><p class="font-italic">{{ post.content }}</p></div>
+    {% if post.commentaries.all %}
+      <strong>Commentaries: </strong>
+      {% for comment in post.commentaries.all %}
+          <div class="p-3 mb-2 text-dark">{{ comment }}</div>
+      {% endfor %}
+    {% else %}
+      No commentaries!
+    {% endif %}
+    {% if user.is_authenticated %}
+
+      <form action="{% url "blog:commentary-create" pk=post.id %}" method="post" novalidate>
+        {% csrf_token %}
+        {{ form|crispy }}
+        <label>
+          <textarea name="comment" style="width: 800px;"> </textarea>
+        </label>
+        <br>
+        <input class="btn btn-outline-primary" type="submit" value="Add a commentary">
+        <input type="hidden" name="next" value="{{ next }}"/>
+      </form>
+    {% else %}
+      <div class="list-group-item">
+        <a href="{% url 'login' %}">Login to add commentaries</a>
+      </div>
+
+    {% endif %}
+
+  </div>
+{% endblock %}
