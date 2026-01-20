@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Blog</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="row mx-2">
+    <div class="col-2"></div>
+    <div class="col-8">
+      <h1 class="mb-4">Posts</h1>
+      {% for post in post_list %}
+        <a href="{% url "blog:post-detail" pk=post.id %}">{{ post.title }}</a>
+        <p class="text-muted">{{ post.owner.username }} at {{ post.created_time.month }}, {{ post.created_time.day }}, {{ post.created_time.year }}, {{ post.created_time.time }}</p>
+        <p>{{ post.content }}</p>
+        <p class="text-muted">Comments: {{ post.commentaries.count }}</p>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+      {% include "includes/pagination.html" %}
+  </div>
+</body>
+</html>
