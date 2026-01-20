@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block sidebar %}
+  {% include "includes/sidebar.html" %}
+{% endblock %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.owner }} at {{ post.created_time }}</p>
+  <hr>
+  <p>{{ post.content }}</p>
+  <hr>
+  {% if post.comments.all %}
+    <p><strong>{{ post.comments.count }} comment{{ post.comments.count|pluralize }}</strong></p>
+    <ul>
+      {% for comment in comments %}
+        <p><strong>{{ comment.user }}</strong> {{ comment.created_time }}</p>
+        <p>{{ comment.content }}</p>
+        <hr>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>0 comments</p>
+    <p>There are no comments yet.</p>
+  {% endif %}
+  {% if user.is_authenticated %}
+    <form action="" method="post" novalidate>
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="submit" value="Add comment">
+    </form>
+  {% else %}
+    <p>You can't leave a comment without being <a href="{% url "login" %}">logged in</a></p>
+  {% endif %}
+{% endblock %}
