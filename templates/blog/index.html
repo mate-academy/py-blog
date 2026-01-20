@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>WELCOME IN OUR BLOG</h1>
+  <hr>
+
+  <div class="container-fluid">
+    {% for post in posts %}
+      <div class="post">
+        <h3 class="media"><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h3>
+        <h6>by <a href="#">{{ post.owner }}</a></h6>
+        <div class="media-body">{{ post.content }}
+          <p>{{ post.created_time }}</p>
+          <p>commentary: {{ post.commentary.count }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  {% block pagination %}
+    {% include "includes/paginator.html" %}
+  {% endblock %}
+{% endblock %}
