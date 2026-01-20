@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}
+<title>{{ post.title }}</title>
+{% endblock %}
+
+{% block content %}
+  <p>{{ post.title }}</p>
+  <p class="date">
+    Published {{ post.created_time }} by {{ post.owner }}
+  </p>
+  {{ post.content|linebreaks }}
+  {% if not post.comments.all %}
+  No comment yet
+    <br><br>
+  {% else %}
+    {% for comment in post.comments.all %}
+      <p>
+        <strong>
+        Comments #{{ forloop.counter }},
+        User: {{ comment.user }},
+        Date: {{ comment.created_time }}
+        </strong>
+      </p>
+      <div class="container">
+      {{ comment.content|linebreaks }}
+      <hr>
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  {% if user.is_authenticated %}
+      <form method="post" >
+        {% csrf_token %}
+        {{ commentary_form }}
+        <input type="submit" class="btn btn-primary">
+      </form>
+      {% else %}
+      <strong>To leave a comment you must log</strong>
+    {% endif %}
+    <br>
+  <a href="{% url "blog:index" %}" class="btn btn-secondary">Home page</a>
+  <a href="{% url "blog:post-update" post.pk%}" class="btn btn-warning">Edit post</a>
+  <a href="{% url "blog:post-delete" post.pk%}" class="btn btn-danger">Delete post</a>
+{% endblock %}
