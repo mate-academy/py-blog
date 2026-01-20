@@ -1,0 +1,39 @@
+{% load static crispy_forms_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>{{ post.title }}</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+<div class="container">
+  <a href="{% url 'blog:index' %}">← Back</a>
+
+  <article class="post">
+    <h1>{{ post.title }}</h1>
+    <div class="meta">
+      {{ post.owner.username }} • {{ post.created_time|date:"M d, Y, P" }}
+    </div>
+    <p>{{ post.content }}</p>
+  </article>
+
+  <h3>{{ post.comments.count }} comment{{ post.comments.count|pluralize }}</h3>
+  {% for c in post.comments.all %}
+    <div class="comment">
+      <strong>{{ c.user.username }}</strong>
+      <span class="meta"> • {{ c.created_time|date:"M d, Y, P" }}</span>
+      <div>{{ c.content }}</div>
+    </div>
+  {% empty %}
+    <p>There are no comments yet.</p>
+  {% endfor %}
+
+  <h3>Add a new comment</h3>
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+  </form>
+</div>
+</body>
+</html>

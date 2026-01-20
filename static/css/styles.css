@@ -1,0 +1,36 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 860px;
+    margin: 40px auto;
+    padding: 0 16px;
+}
+
+.post {
+    background: #fff;
+    border: 1px solid #e6e6e6;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 16px;
+}
+
+.meta {
+    font-size: 14px;
+    opacity: .7;
+    margin-top: 6px;
+}
+
+.comment {
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px 0;
+    background: #fafafa;
+}
+
+.pagination a, .pagination span {
+    margin: 0 4px;
+    text-decoration: none;
+}
