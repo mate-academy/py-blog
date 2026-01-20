@@ -1,0 +1,12 @@
+body {
+    margin-top: 20px;
+}
+
+.post-box {
+    margin: 5px 0;
+    border: black solid 2px;
+    width: 66%;
+    text-align: center;
+    height: 50px;
+    background-color: oldlace;
+}

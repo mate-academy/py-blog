@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <i>{{ post.owner }} at {{ post.created_time }}</i>
+  <div class="col-10"><p style="margin-top: 30px">{{ post.content }}</p></div>
+  <br>
+  <b>Comments: {{ post.commentaries.count }}</b>
+  {% if post.commentaries %}
+    {% for comment in post.commentaries.all %}
+      <div style="background-color: #c4dce8; width: 500px; padding: 10px">
+        <i>{{ comment.user }} at {{ comment.created_time }}</i>
+        <br>
+        <b>{{ comment.content }}</b>
+      </div>
+      <br>
+    {% endfor %}
+  {% endif %}
+  {% if user.is_authenticated %}
+    <b>Add new comment</b>
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ commentary_form|crispy }}
+      <input class="btn btn-primary" type="submit" value="Add comment">
+    </form>
+    {% else %}
+    <form action="{% url "login" %}" method="get">
+      You have to
+      <input type="submit" value="Login" class="btn btn-primary"> to add comments
+    </form>
+  {% endif %}
+{% endblock %}
