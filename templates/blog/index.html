@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Main page</title>
+{% endblock %}
+
+{% block content %}
+
+  {% for post in post_list %}
+    <div class="post">
+      <div class="post-title">
+        <h3><a href="{% url "blog:post-detail" pk=post.id %}">{{ post.title }}</a></h3>
+        <p><b>@{{ post.owner.username }}</b> at {{ post.created_time.date }}, {{ post.created_time.time }}</p>
+      </div>
+
+      <div class="post-content">
+        <p>{{ post.content }}</p>
+      </div>
+
+      <br>
+
+      <div class="post-comments">
+        <p>{{ post.commentary_set.count }} comment{{ post.commentary_set.count|pluralize }}</p>
+      </div>
+    </div>
+  {% endfor %}
+
+{% endblock %}
