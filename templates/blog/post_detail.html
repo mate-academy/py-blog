@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="container mt-4">
+    <div class="card">
+      <div class="card-body">
+        <h1 class="card-title">{{ post.title }}</h1>
+        <p class="card-subtitle"><strong>{{ post.owner.username }} at {{ post.created_time }}</strong></p>
+        <br>
+        <p class="card-text">{{ post.content }}</p>
+        {% if post.comments.all %}
+          <div class="card mt-3">
+            <div class="card-body">
+              <h5 class="card-title">Comments</h5>
+              {% for comment in post.comments.all %}
+                <div class="card mt-2">
+                  <div class="card-body">
+                    <p class="card-subtitle"><strong>{{ comment.user.username }} at {{ comment.created_time }}</strong></p>
+                    <br>
+                    <p class="card-text">{{ comment.content }}</p>
+                  </div>
+                </div>
+              {% endfor %}
+              {% if user.is_authenticated %}
+                <form action="" method="post" novalidate>
+                  {% csrf_token %}
+                  {{ form|crispy }}
+                  <input type="submit" value="Add your comment!" class="btn btn-primary">
+                </form>
+              {% else %}
+                <br>
+                <a href="{% url 'login' %}">login</a> to comment!
+              {% endif %}
+            </div>
+          </div>
+        {% else %}
+          <p>No comments yet, be the first to comment!</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
