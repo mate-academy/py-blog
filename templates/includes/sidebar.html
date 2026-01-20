@@ -1,0 +1,14 @@
+<div class="post-content">
+  <ul style="list-style: none">
+ {% if user.is_authenticated %}
+    <li>User: {{ user.get_username }}</li>
+    <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
+  {% else %}
+    <li><a href="{% url "login" %}?next={% firstof request.path '/' %}">Login</a></li>
+  {% endif %}
+
+  <br>
+
+  <li><a href="{% url 'blog:index' %}">Home</a></li>
+  </ul>
+</div>

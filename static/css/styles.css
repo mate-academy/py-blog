@@ -1,0 +1,16 @@
+.post-list {
+    margin: 20px;
+}
+.post-content{
+    background-color: lavender;
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+.post-owner{
+    font-size: 80%;
+}
+
+body{
+    padding-top: 10px;
+}
