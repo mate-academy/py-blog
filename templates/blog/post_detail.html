@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+	<h1>Created by: {{ post.owner }}</h1>
+	<hr>
+	<h2>{{ post.content }}</h2>
+	<hr>
+	<h3>
+		posted at: {{ post.created_time }}
+	</h3>
+	<hr>
+	<h4>
+		Comments: <br>
+		{% for comment in post.comments.all %}
+			<strong>{{ comment.user }}: </strong>
+			{{ comment.content }}
+			<br>
+			<hr>
+		{% endfor %}
+
+	</h4>
+	<h5><a href="{% url "blog:comment-create" pk=post.pk %}">Comment</a></h5>
+	<h5><a href="{% url "blog:index" %}">Return</a></h5>
+{% endblock %}
