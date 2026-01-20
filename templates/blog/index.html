@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}
+	<title>Blog Home</title>
+{% endblock %}
+
+{% block content %}
+  <h1>Welcome to the Best Blog!</h1>
+  <br>
+  <p><strong>All posts:</strong></p>
+
+  {% for post in post_list %}
+    <article class="article">
+    <h2><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h2>
+    <p><i>Posted by {{ post.owner.username }} at {{ post.created_time }}</i></p>
+    <p>{{ post.content }}</p>
+    <p>{{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}</p>
+    </article>
+    <br>
+  {% endfor %}
+
+{% endblock %}
