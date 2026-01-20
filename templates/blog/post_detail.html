@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>{{ post_detail.title }}</h1>
+  <p>By <a>{{ post_detail.owner.first_name }} {{ post_detail.owner.last_name }} at {{ post_detail.created_time }}</a>
+  </p>
+  <p class="lh-base">{{ post_detail.content }}</p>
+
+  <h5>Comments: {{ post_detail.comment.count }}</h5>
+  {% for comment in comments %}
+    <ul class="list-group">
+      <li class="list-group-item"><strong>{{ comment.user.username }}</strong> ({{ comment.created_time }}):</li>
+      <li class="list-group-item">{{ comment.content }}</li>
+    </ul>
+  {% empty %}
+    <p>No comments yet.</p>
+  {% endfor %}
+
+  <hr>
+
+  {% if user.is_authenticated %}
+    <section>
+      <h2>Leave a comment</h2>
+      <form method="post" action="{% url 'blog:post-detail' pk=post_detail.pk %}">
+        {% csrf_token %}
+        {{ comment_form|crispy }}
+        <button type="submit" class="btn btn-primary">Post Comment</button>
+      </form>
+    </section>
+  {% else %}
+    <p><a href="{% url 'login' %}">Log in</a> to leave a comment.</p>
+  {% endif %}
+
+{% endblock %}
