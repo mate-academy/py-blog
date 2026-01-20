@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>
+    Newest blogs:
+    <a  style="float: right" href="{% url 'blog:post-create' %}">+</a>
+  </h1>
+  {% if post_list %}
+    <ul>
+      {% for post in post_list %}
+        <li>
+          <h3>
+            <a href="{% url 'blog:post-detail' pk=post.id %}">
+              {{ post.title }}
+            </a>
+          </h3>
+          <p>{{ post.created_time }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+
+{% endblock %}
