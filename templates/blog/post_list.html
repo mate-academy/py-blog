@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <h2>All post:</h2>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+      integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+      crossorigin="anonymous">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body>
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+{% if post_list %}
+  <ul>
+    {% for post in post_list %}
+      <li>
+        <a href={% url "blog:post-detail" pk=post.id %}>{{ post.title }}</a>
+        <br>
+        {{ post.content }}
+        <br>
+        {{ post.created_time }} {{ post.owner }} Numbers of post{{ post.comm_post.count|pluralize }}: {{ post.comm_post.count }}
+        <hr>
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}
+{% include "includes/pagination.html" %}
+
+</body>
+
+</html>
+
