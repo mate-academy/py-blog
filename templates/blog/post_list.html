@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{%  block content %}
+    <div class="index">
+    <h1>Post List</h1>
+    {% for posts in page_obj %}
+        <ul>
+        <div class="ppp">
+            <p> <strong>{{ posts.title }} </strong>( {{ posts.owner }}, {{ posts.created_time }} )</p>
+        </div>
+
+        <li>{{ posts.content }}</li>
+            <br>
+        Comments ({{ posts.comments.count }})
+        </ul>
+    {% endfor %}
+    {% include "include/pagination.html" %}
+    </div>
+{%  endblock %}
