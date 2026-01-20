@@ -19,18 +19,16 @@ class PostListTest(TestCase):
     def test_main_page_paginated_correctly(self):
         response = self.client.get(MAIN_PAGE_URL)
 
-        self.assertEqual(
-            len(response.context["post_list"]), PAGINATION
-        )
+        self.assertEqual(len(response.context["posts"]), PAGINATION)
 
     def test_main_page_ordered_by_created_time(self):
         response = self.client.get(MAIN_PAGE_URL)
-        post_list = Post.objects.all().order_by("-created_time")
-        post_context = response.context["post_list"]
+        posts = Post.objects.all().order_by("-created_time")
+        post_context = response.context["posts"]
 
         self.assertEqual(
             list(post_context),
-            list(post_list[: len(post_context)]),
+            list(posts[: len(post_context)]),
         )
 
 
@@ -44,4 +42,3 @@ class PostDetailTest(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "blog/post_detail.html")
-

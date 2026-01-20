@@ -1,0 +1,80 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Home</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Blog Posts</h1>
+        {% for post in posts %}
+            <div class="post">
+                <a class="post-title" href="{% url 'post-detail' post.pk %}">{{ post.title }}</a>
+                <div class="post-meta">
+                    by {{ post.owner }} | {{ post.created_time|date:'Y-m-d H:i' }} | {{ post.commentary_set.count }} comments
+                </div>
+                <div class="post-content">
+                    {{ post.content|truncatewords:40 }}
+                </div>
+            </div>
+            <hr>
+        {% empty %}
+            <p>No posts available.</p>
+        {% endfor %}
+        <div class="pagination">
+            {% if is_paginated %}
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                {% endif %}
+                <span class="current">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Home</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Blog Posts</h1>
+        {% for post in posts %}
+            <div class="post">
+                <a class="post-title" href="{% url 'post-detail' post.pk %}">{{ post.title }}</a>
+                <div class="post-meta">
+                    by {{ post.owner }} | {{ post.created_time|date:'Y-m-d H:i' }} | {{ post.commentary_set.count }} comments
+                </div>
+                <div class="post-content">
+                    {{ post.content|truncatewords:40 }}
+                </div>
+            </div>
+            <hr>
+        {% empty %}
+            <p>No posts available.</p>
+        {% endfor %}
+        <div class="pagination">
+            {% if is_paginated %}
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                {% endif %}
+                <span class="current">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}">Next</a>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
