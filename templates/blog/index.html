@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container top-container">
+    <div class="row">
+      {% block blog_logo %}
+        {% include "includes/blog_logo.html" %}
+      {% endblock %}
+
+      <div class="col-8 col-offset-2">
+        <h1>BLOG</h1>
+        <p>Welcome to the blog about different things!</p>
+      </div>
+      <div class="col-2">
+        {% block log_in_out %}
+          {% include "includes/log_in_out.html" %}
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+    {% if post_list %}
+      {% for post in page_obj %}
+
+      <div class="card align-content-md-center" style="margin-bottom: 5px;">
+        <div class="card-header">
+          {{ post.created_time|date:"d M, Y" }};  <i style="">By {{ post.owner }}</i>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">
+            <a href="{%  url 'blog:post-detail' pk=post.id %}">
+              {{ post.title }}
+            </a>
+          </h5>
+          <div class="card-text">{{ post.content|truncatechars:400 }}</div>
+        </div>
+        <div style="text-align: right; padding-right: 10px">
+          {% if post.comment_count > 0 %}
+              {{ post.comment_count }} comment{{ post.comment_count|pluralize }}
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    {% endif %}
+
+  {% block pagination %}
+    {% include "includes/pagination.html" %}
+  {% endblock %}
+
+{% endblock %}
