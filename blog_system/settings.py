@@ -122,5 +122,5 @@ AUTH_USER_MODEL = "blog.User"
 STATIC_URL = "static/"
 
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
+    BASE_DIR / "static",
 ]

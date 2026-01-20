@@ -11,18 +11,18 @@ from blog.models import Post
 def index(request):
     all_posts = Post.objects.all()
     paginator = Paginator(all_posts, 5)
-    page_number = request.GET.get('page')
+    page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
     context = {
-        'list_posts': page_obj,
-        'is_paginated': page_obj.has_other_pages(),
-        'page_obj': page_obj,
-        'post_list': page_obj,
-        'paginator': paginator,
+        "list_posts": page_obj,
+        "is_paginated": page_obj.has_other_pages(),
+        "page_obj": page_obj,
+        "post_list": page_obj,
+        "paginator": paginator,
     }
 
-    return render(request, 'blog/index.html', context)
+    return render(request, "blog/index.html", context)
 
 
 class PostDetailView(generic.DetailView):
@@ -31,8 +31,8 @@ class PostDetailView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        if 'form' not in context:
-            context['form'] = CommentaryForm()
+        if "form" not in context:
+            context["form"] = CommentaryForm()
         return context
 
     def post(self, request, *args, **kwargs):
@@ -43,8 +43,8 @@ class PostDetailView(generic.DetailView):
             comment.post = self.object
             comment.user = request.user
             comment.save()
-            return redirect('blog:post-detail', pk=self.object.pk)
+            return redirect("blog:post-detail", pk=self.object.pk)
         else:
             context = self.get_context_data()
-            context['form'] = form
+            context["form"] = form
             return self.render_to_response(context)
