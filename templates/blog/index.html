@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Blog Home</h1>
+  <p>Welcome to Best Blog Ever!</p>
+  <h2>Posts</h2>
+  {% if post_list %}
+    <ul>
+      {% for post in post_list %}
+        <li>
+          <p><strong>Post title:</strong> <a href="{% url "blog:post-detail" pk=post.id %}">{{ post.title }}</a></p>
+          <p><strong>Post content:</strong> {{ post.content }}</p>
+          <p><strong>Post author:</strong> {{ post.owner.username }}</p>
+          <p><strong>Post created:</strong> {{ post.created_time }}</p>
+          <p><strong>Comments:</strong> {{ post.commentaries.count }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No posts created yet</p>
+  {% endif %}
+
+{% endblock %}
