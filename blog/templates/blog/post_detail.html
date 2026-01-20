@@ -1,0 +1,48 @@
+{% load static %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.title }}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <a href="{% url 'blog:index' %}">← До списку постів</a>
+        <h1>{{ post.title }}</h1>
+        <p>Автор: {{ post.owner.username }}</p>
+        <p>{{ post.content }}</p>
+        <small>Опубліковано: {{ post.created_time|date:"d M Y H:i" }}</small>
+
+        <hr>
+
+        <h2>Коментарі ({{ comments.count }})</h2>
+        {% if comments %}
+            {% for comment in comments %}
+                <div class="comment">
+                    <p><strong>{{ comment.user.username }}</strong> commented on {{ comment.created_time|date:"d M Y H:i" }}</p>
+                    <p>{{ comment.content }}</p>
+                    <hr>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Ще немає коментарів. Будьте першим!</p>
+        {% endif %}
+
+        {# Крок 19: Форма для створення нового коментаря #}
+        <h2>Додати коментар</h2>
+        {% if user.is_authenticated %} {# Перевіряємо, чи користувач авторизований #}
+            <form method="post">
+                {% csrf_token %} {# Токен для захисту від CSRF #}
+                {{ comment_form|crispy }} {# Застосовуємо crispy forms (Крок 20) #}
+                <button type="submit" class="btn btn-primary">Додати коментар</button>
+            </form>
+        {% else %}
+            <p>Будь ласка, <a href="{% url 'admin:login' %}">увійдіть</a>, щоб залишити коментар.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
