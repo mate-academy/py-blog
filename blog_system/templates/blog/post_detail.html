@@ -1,0 +1,41 @@
+{% extends "blog/index.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h2>Komentarze ({{ comments.count }})</h2>
+
+
+    {% for comment in comments %}
+        <div class="comment-item">
+            <p>
+              {% if comment.user %}
+                {{ comment.user.username }}
+              {% else %}
+                Anonim
+              {% endif %}
+                : {{ comment.content }}
+            </p>
+            <p>
+                {{ comment.created_time|date:"Y-m-d H:i" }}
+            </p>
+        </div>
+        <hr>
+    {% empty %}
+        <p>No comments!</p>
+    {% endfor %}
+
+  {% load crispy_forms_tags %} <h2>Add comment</h2>
+
+  {% if user.is_authenticated %}
+      <form method="post" action="{% url 'blog:post-detail' pk=object.pk %}">
+          {% csrf_token %}
+
+          {{ form|crispy }}
+
+          <button type="submit">Wyślij Komentarz</button>
+      </form>
+  {% else %}
+      <p>Proszę się zalogować, aby dodawać komentarze.</p>
+  {% endif %}
+
+{% endblock %}
