@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>
+      Commentary List
+
+    </h1>
+
+    {% if commentary_list %}
+      <table class="table">
+        <tr>
+          <th>ID</th>
+          <th>User</th>
+          <th>Create_time</th>
+          <th>Content</th>
+
+
+        </tr>
+
+        {% for commentary in commentary_list %}
+            <tr>
+              <td>
+                  {{ commentary.id }}
+              </td>
+              <td>
+                  {{ commentary.user }}
+              </td>
+              <td>
+                  {{ commentary.created_time }}
+              </td>
+              <td>
+                  {{ commentary.content }}
+
+          </tr>
+        {% endfor %}
+      </table>
+
+    {% else %}
+        <p>There are no commentaries in the blog.</p>
+    {% endif %}
+{% endblock %}
