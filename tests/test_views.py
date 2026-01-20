@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
-from blog.models import Post, Commentary
+from blog.models import Post
+
 
 MAIN_PAGE_URL = reverse("blog:index")
 PAGINATION = 5
