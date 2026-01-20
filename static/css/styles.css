@@ -1,0 +1,13 @@
+h1 {
+  color: blue;
+  text-align: center;
+  text-decoration: underline;
+}
+
+ul {
+  list-style: none;
+}
+
+.grey {
+  color: grey;
+}
