@@ -1,0 +1,12 @@
+<ul class="header">
+  <li class="list_header">
+    <a class="link_header" href="{% url 'blog:index' %}">Home Page</a>
+  </li>
+  <li class="list_header">
+    {% if user.is_authenticated %}
+      <a class="link_header" href="{% url 'logout' %}">LOGOUT</a>
+    {% else %}
+      <a class="link_header" href="{% url 'login' %}">LOGIN</a>
+    {% endif %}
+  </li>
+</ul>
