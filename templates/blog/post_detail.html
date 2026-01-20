@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card border-0">
+        <div class="card-body">
+          <h1 class="card-title text-center mb-4" style="color: seagreen">{{ post.title }}</h1>
+          <div class="row mb-4">
+            <div class="col-md-4">
+              <p class="lead mb-0"><strong>Owner:</strong> {{ post.owner }}</p>
+            </div>
+            <div class="col-md-4">
+              <p class="lead mb-0"><strong>Created time:</strong> {{ post.created_time}}</p>
+            </div>
+          </div>
+          <p class="card-text">{{ post.content }}</p>
+          <p style="color: blue">Comments to this article:</p>
+          {% for commentary in post.commentaries.all %}
+            <strong>{{ commentary.user }}:</strong>
+            <p>{{ commentary.content|safe }}</p>
+          {% endfor %}
+          <form method="POST">
+            <p><strong>Add your opinion</strong></p>
+            {% csrf_token %}
+            <script src="https://cdn.tiny.cloud/1/izixgmrq96gc558n4izh0k7tkufng805j03w80al3dooh31e/tinymce/5/tinymce.min.js"
+                    referrerpolicy="origin"></script>
+            <textarea name="content" id="mytextarea"></textarea>
+            <script>
+              tinymce.init(
+                {
+                  selector: '#mytextarea',
+                  plugins: 'link image code',
+                  toolbar: 'undo redo | formatselect |' +
+                      ' bold italic backcolor | alignleft aligncenter alignright alignjustify |' +
+                      ' bullist numlist outdent indent | removeformat | link image | code'
+                }
+              );
+            </script>
+            <button type="submit" style="color: blue">Add comment</button>
+          </form>
+          <div class="col-md-4">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
