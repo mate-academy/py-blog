@@ -1,0 +1,10 @@
+.sidebar-nav {
+    padding: 0;
+    list-style: none;
+}
+.page {
+    list-style: none;
+}
+.comment {
+    margin-bottom: 40px;
+}

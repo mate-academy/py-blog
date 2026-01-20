@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Home page</h1>
+  {% if post_list %}
+    <ul class="page">
+      {% for post in post_list %}
+        <li>
+          <p>
+            <span style="font-size: large; font-weight: bold">
+              <a href="{{ post.get_absolut_url }}">{{ post.title }}</a>
+            </span>
+            <br>
+            <span style="font-style: italic">
+              {{ post.owner }} at {{ post.created_time }}
+            </span>
+            <br>
+            {{ post.content }}
+            <br>
+            <span style="font-style: italic">
+              {{ post.comments.count }} comment{{post.comments.count|pluralize }}
+            </span>
+          </p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}
