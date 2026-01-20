@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 class="text-center">{{ post_detail.title }}</h1>
+  <section>
+    <h3>
+      Author: {{ post_detail.owner.first_name }}
+      {{ post_detail.owner.last_name }}</h3>
+    <p>{{ post_detail.created_time }}</p>
+    <p>{{ post_detail.content }}</p>
+    <p>{{ post_detail.commentaries.all.count }}
+      comment{{ post_detail.commentaries.all.count|pluralize }}</p>
+
+  </section>
+
+  <section>
+    {% for commentary in post_detail.commentaries.all %}
+      <div>
+        <b>{{ commentary.user.username }}</b>
+        (created at {{ commentary.created_time }})
+        <p>{{ commentary.content }}</p>
+        <hr>
+      </div>
+    {% endfor %}
+
+    {% if user.is_authenticated %}
+      <form action="{% url 'blog:post-create-commentary' pk=post_detail.id %}"
+            method="post" novalidate>
+        {% csrf_token %}
+
+        <label for="content" class="form-label"><strong>Add a new
+          comment</strong></label><br>
+
+        <label>
+          <textarea class="form-control" style="height: 100px; width: 800px"
+                    name="content"></textarea>
+        </label><br>
+
+        <input class="btn btn-outline-primary" type="submit"
+               value="Add comment">
+      </form>
+
+    {% else %}
+      <br>
+      <a href="{% url 'login' %}" class="btn btn-outline-success">Login to add
+        comments</a>
+    {% endif %}
+  </section>
+  <br>
+
+{% endblock %}
