@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <br>
+  <div class="content">
+    <p>{{ post.content }}</p>
+  </div>
+
+  <div class="comments">
+    {% if post.comments.exists %}
+      <h3>Commentaries:</h3>
+      {% for comment in post.comments.all %}
+        <strong>{{ comment.user.username }}</strong>
+            <span>{{ comment.created_time }}</span>
+        <p>{{ comment.content }}</p>
+        <br>
+      {% endfor %}
+
+    {% else %}
+      <p>No comments yet. Be the first to comment!</p>
+    {% endif %}
+  </div>
+
+   {% if comment_form.errors %}
+        <div class="alert alert-danger">
+            {% for field in comment_form %}
+                {% for error in field.errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+		{% if user.is_authenticated %}
+		<h3>Add a Comment:</h3>
+		<form method="POST">
+				{% csrf_token %}
+{#				{{ comment_form.as_p }}#}
+				{{ comment_form|crispy }}
+				<button type="submit" class="btn btn-success">Submit Comment</button>
+		</form>
+		{% else %}
+			<p><strong>You need to be logged in to post a comment.</strong></p>
+		{% endif %}
+{% endblock %}
