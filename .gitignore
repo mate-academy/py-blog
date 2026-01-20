@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python/
+env/
+venv/
+.venv/ # Якщо ви використовуєте venv
+*.egg-info/
+.pytest_cache/
+.vscode/ # Якщо ви використовуєте VS Code
+
+# Django
+db.sqlite3
+/media/
+/static/ # Якщо collectstatic збирає файли в корені проекту
+*.log
+local_settings.py # Якщо використовуєте для локальних налаштувань
+.env # Якщо використовуєте для змінних оточення
+
+# IDE specific files
+.idea/ # PyCharm
+*.sublime-project
+*.sublime-workspace
+
+# OS generated files
+.DS_Store
+.Trashes
+Thumbs.db
