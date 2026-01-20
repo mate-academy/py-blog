@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 class="mb-4">Blog</h1>
+
+  {% if post_list %}
+    <table class="table table-striped table-hover table-bordered">
+      <thead class="table-dark">
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Content</th>
+        <th scope="col">Author</th>
+        <th scope="col">Published Date</th>
+        <th scope="col">Comments Count</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for post in post_list %}
+        <tr>
+          <td>
+            <a href="{% url 'blog:post-detail' post.id %}" class="text-decoration-none fw-bold">
+              {{ post.title }}
+            </a>
+          </td>
+          <td>{{ post.content|truncatewords:15 }}</td>
+          <td>{{ post.owner.username }}</td>
+          <td>{{ post.created_time|date:"Y-m-d H:i" }}</td>
+          <td>{{ post.comments_count }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="alert alert-info">There are no posts</div>
+  {% endif %}
+{% endblock %}

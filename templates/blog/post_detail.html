@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <!-- Пост -->
+  <div class="mb-4">
+    <h2>{{ object.title }}</h2>
+    <p class="text-muted mb-1">
+      {{ object.owner.username }}
+      <span class="text-secondary">at {{ object.created_time|date:"M. d, Y, g:i a" }}</span>
+    </p>
+    <div class="lead">{{ object.content|safe }}</div>
+  </div>
+
+  <!-- Коментарі -->
+  <h5>{{ object.commentaries.count }} comment{{ object.commentaries.count|pluralize }}</h5>
+  {% if object.commentaries.exists %}
+    {% for comment in object.commentaries.all %}
+      <div class="border rounded p-2 mb-2">
+        <strong>{{ comment.user.username }}</strong>
+        <small class="text-muted">{{ comment.created_time|date:"M. d, Y, g:i a" }}</small>
+        <p class="mb-0">{{ comment.content }}</p>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p class="text-muted">No comments yet.</p>
+  {% endif %}
+
+  <!-- Форма -->
+  <h6>Add a new comment</h6>
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary">Add Comment</button>
+  </form>
+
+  <!-- Кнопка назад -->
+  <div class="mt-4">
+    <a href="{% url 'blog:index' %}" class="btn btn-outline-secondary mt-3">← Back to Posts</a>
+  </div>
+
+{% endblock %}
