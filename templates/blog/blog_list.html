@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+ <h1>Blog</h1>
+  <br>
+
+ <h3 style="text-align: center">List of posts:</h3>
+  <br>
+
+  <div class="container">
+    <div class="posts-list">
+      {% for post in post_list %}
+          <h4><a href="{% url "blog:post-detail" pk=post.id %}" style="display: block;text-align: center;"><strong>{{ post.title }}</strong></a></h4>
+          <p>Publish date: <span style="color: #808080;">{{ post.created_time }}</span></p>
+          <p>Author: <span style="color: #808080;">{{ post.owner.username }}</span></p>
+          <p style="padding: 10px 0; text-align: center">{{ post.content|truncatewords:50 }}</p>
+          <p><span style="color: #808080;">{{ post.comments.count }}
+            comment{{ post.comments.count|pluralize }}</span></p>
+          <hr>
+      {% endfor %}
+    </div>
+  </div>
+
+{% endblock %}
