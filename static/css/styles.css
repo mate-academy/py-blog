@@ -1,0 +1,30 @@
+.content {
+    margin: 30px;
+}
+
+h1 {
+    padding: 10px 10px 0px 0px;
+    color: blue;
+}
+
+table {
+     border: 1px solid black;
+     padding: 10px;
+     margin: 10px 0px;
+}
+
+.post-text {
+    padding: 16px;
+    border: solid black 1px;
+    font-size: 22px;
+}
+
+.comment-author {
+    font-decoration: bold;
+    font-weight: bold;
+}
+
+.comment-add {
+    margin-top: 70px;
+    font-size: 18px;
+}
