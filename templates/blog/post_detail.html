@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <body>
+      <h1>{{ post.title }}</h1>
+      <p>{{ post.content }}</p>
+      <small>Author: {{ post.owner.username }} | Time: {{ post.created_time|date:"d.m.Y H:i" }}</small>
+      <hr>
+      <h3>Comments ({{ post.comments.count }})</h3>
+      {% for comment in post.comments.all %}
+          <div class="comment">
+              <p>{{ comment.content }}</p>
+              <small>от {{ comment.user.username }} | {{ comment.created_time|date:"d.m.Y H:i" }}</small>
+          </div>
+      {% empty %}
+          <p>No Comments.</p>
+      {% endfor %}
+      <hr>
+      <h3>Add Comment</h3>
+      <form method="post">
+          {% csrf_token %}
+          <button type="submit">submit</button>
+      </form>
+      <p><a href="{% url 'blog:index' %}">← Back to all posts</a></p>
+  </body>
+{% endblock %}
