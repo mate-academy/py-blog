@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+  <article class="post-detail">
+    <h2>{{ post.title }}</h2>
+    <p class="content">{{ post.content }}</p>
+    <p class="meta">
+      Автор: <span class="author">{{ post.owner.first_name }}</span> | Дата:
+      <span class="date">{{ post.created_time }}</span>
+    </p>
+  </article>
+
+  <section class="comments-section">
+    <h3>Коментарі ({{ post.commentaries.count }})</h3>
+
+    <ul class="comments-list">
+      {% for commentary in post.commentaries.all %}
+      <li class="comment">
+        <p><strong>{{ commentary.user.first_name }}:</strong> {{ commentary.content }}</p>
+        <p class="comment-meta">{{ commentary.created_time }}</p>
+      </li>
+      {% empty %}
+      <p>Немає коментарів. Будьте першим, хто залишить коментар!</p>
+      {% endfor %}
+    </ul>
+  </section>
+
+{% if user.is_authenticated %}
+  <section class="comment-form-section">
+    <h3>Додати коментар</h3>
+    <form action="" method="POST" novalidate autocomplete="off">
+      {% csrf_token %}
+      {{ form}}
+      <button type="submit">Додати коментар</button>
+    </form>
+  </section>
+{% else %}
+  <h3> Щоб залишити коментар, ви повинні увійти в обліковий запис</h3>
+  <a href="{% url 'login' %}">Натисніть, щоб увійти в обліковий запис</a>
+{% endif %}
+
+{% endblock %}
