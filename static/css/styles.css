@@ -1,0 +1,19 @@
+.logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 40%;
+}
+
+.bar {
+    padding: 0;
+}
+
+.heading {
+    margin: 14vh 0;
+}
+
+.signature {
+    float: right;
+    font-style: italic;
+    margin-right: 10vw;
+}
