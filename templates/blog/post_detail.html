@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2 class="pt-3">{{ post.title }}</h2>
+  <p>By {{ post.owner.username }} on {{ post.created_time|date:"N j, Y" }}</p>
+  <p>{{ post.content }}</p>
+  <br>
+  <p>{{ post.num_comments }} comment{{ post.num_comments|pluralize }}</p>
+  {% for comment in post.commentary.all %}
+    <div class="border border-end-0 p-2">
+      <p>{{ comment.user.username }} on {{ comment.created_time|date:"N j, Y, P" }}</p>
+      <p style="font-weight: 30">{{ comment.content }}</p>
+    </div>
+  {% endfor %}
+
+  <div class="pt-3">
+    <h6>Add a new comment</h6>
+    {% if user.is_authenticated %}
+        <form action="{% url 'blog:post-detail' pk=post.id %}" method="post" novalidate>
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+        </form>
+    {% else %}
+        <p>You must be logged in to post comments.</p>
+    {% endif %}
+</div>
+{% endblock %}
