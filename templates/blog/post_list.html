@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container">
+        <h1>Список постов</h1>
+        {% for post in post_list %}
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <a href="{% url 'blog:post-detail' post.pk %}">{{ post.title }}</a>
+                    </h4>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ post.created_time|date:"d.m.Y H:i" }}</h6>
+                    <p class="card-text">{{ post.content|linebreaksbr|truncatewords:30 }}</p>
+                </div>
+            </div>
+        {% empty %}
+            <div class="alert alert-warning">Постов пока нет.</div>
+        {% endfor %}
+    </div>
+
+    {% include "includes/pagination.html" %}
+{% endblock %}

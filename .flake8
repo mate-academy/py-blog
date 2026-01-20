@@ -9,3 +9,8 @@ exclude =
     venv
     tests
     blog_system/settings.py
+    settings.py
+    manage.py
+    wsgi.py
+    asgi.py
+    apps.py
