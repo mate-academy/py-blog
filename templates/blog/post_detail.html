@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <ul>
+    <h1>{{ post.title }}</h1>
+    <p><i>{{ post.owner }} at {{ post.created_time }}</i></p>
+    <p>{{ post.content }}</p>
+  </ul>
+    {% if post.commentary_set.all %}
+      <ul>
+        <p>{{ post.commentary_set.count }} comment{{ post.commentary_set.count|pluralize }}</p>
+
+        {% for comment in post.commentary_set.all %}
+          <div style="border: ridge">
+            <p><i>{{ comment.user }} {{ comment.created_time }}</i></p>
+            <p>{{ comment.content }}</p>
+          </div>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <ul>
+        <p>There are no comments</p>
+      </ul>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+      <ul>
+        <a href="{% url 'blog:create-comment' pk=post.id %}">Add new comment</a>
+      </ul>
+    {% else %}
+      <ul>
+        <p><strong>You should to be authenticated to add new comment</strong></p>
+      </ul>
+    {% endif %}
+
+{% endblock %}
