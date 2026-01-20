@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <div class="post-heading">
+          <h1>{{ post.title }}</h1>
+          <p class="post-meta">Posted by
+            {{ post.owner.first_name }} {{ post.owner.last_name }}
+            on {{ post.created_time }}
+          </p>
+          <h5 style="color: gray">
+            {{ post.content }}
+          </h5>
+          <div class="card">
+            <div class="card-header">
+              {{ post.num_comments }} comment{{ post.num_comments|pluralize }}
+            </div>
+            <div class="card-body">
+              <blockquote class="blockquote mb-0">
+                {% for comment in post.commentaries.all %}
+                  <p>{{ comment.user.username }} {{ comment.created_time }}</p>
+                  <footer class="blockquote-footer">{{ comment.content }}<cite title="Source Title"></cite>
+                  </footer>
+                  <br>
+                {% endfor %}
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      {% if user.is_authenticated %}
+        <form method="POST" action="" novalidate>
+          {% csrf_token %}
+          {{ form.as_p }}
+          <div class="form-group">
+          </div>
+          <button class="btn btn-primary btn-block">Comment</button>
+        </form>
+        {% else %}
+        <a style="color: red">Only authenticated users can post the comments. Please sign in</a>
+      {% endif %}
+      </div>
+    </div>
+  </div>
+{% endblock %}
