@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Black">
+    <option name="sdkName" value="Python 3.13 (py-blog)" />
+  </component>
+<<<<<<< HEAD
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.11 (py-taxi-service-forms)" project-jdk-type="Python SDK" />
+=======
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.13 (py-blog)" project-jdk-type="Python SDK" />
+>>>>>>> 28d22212fac2cd0fb6e6ef5ce019e7f245630d2a
+</project>
