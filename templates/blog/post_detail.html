@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h3>{{ object.title }}</h3>
+  <p>{{ object.owner.username }} {{ object.created_time }}</p>
+  <p>{{ object.content }}</p>
+  <br><br>
+  {% for comment in object.commentary.all %}
+    <p>
+      {{ comment.content }}
+    </p>
+    <p>{{ comment.user.username }} {{ comment.created_time }}</p>
+    <br>
+  {% empty %}
+    <p>There are no commentary</p>
+  {% endfor %}
+  {% if user.is_authenticated %}
+    {% load crispy_forms_filters %}
+    {% load crispy_forms_tags %}
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="submit">
+    </form>
+  {% else %}
+    <p>You must be logged in to post comment</p>
+  {% endif %}
+{% endblock %}
