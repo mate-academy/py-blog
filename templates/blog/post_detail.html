@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block title %}
+  <title>Post Detail</title>
+{% endblock %}
+
+{% block content %}
+
+  <div class="sticky-top bg-white">
+    <h1><a href="{% url 'blog:index' %}">Home</a>
+      <span class="float-right">
+
+        {% if user.is_authenticated %}
+          {{ user.username }}
+          <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+          <a href="{% url 'login' %}?next={{request.path}}">Login</a>
+        {% endif %}
+      </span>
+    </h1>
+  </div>
+
+  <div class="card" style="width: 80%;">
+    <h3 class="card-title text-center">{{ post.title }}</h3>
+    <div class="card-body">
+      <p class="card-text">{{ post.content }}</p>
+      <p class="text-primary">By {{ post.owner.username }} ({{ post.created_time }})</p>
+    </div>
+  </div>
+  <br>
+  <h3 class="text-center">Comments</h3>
+  {% for comment in post.comments.all %}
+    <div class="card" style="width: 80%;">
+      <strong class="card-title extra-p">{{ comment.user.username }}</strong>
+      <div class="card-body">
+        <p class="card-text">{{ comment.content }}</p>
+        <p class="text-muted">{{ comment.created_time }}</p>
+      </div>
+    </div>
+  {% endfor %}
+  <br>
+  {% if user.is_authenticated %}
+
+    <form action="" method="post" class="text-center">
+      <h3>Leave your comment:</h3>
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="hidden" value="{{ user.id }}" name="user_id">
+      <input type="hidden" value="{{ post.id }}" name="post_id">
+      <br>
+      <div class="form-group">
+        <label>
+          <textarea name="content" class="form-control" rows="3" cols="50"></textarea>
+        </label>
+      </div>
+      <input type="submit" value="Submit" class="btn btn-primary">
+    </form>
+
+    {% else %}
+    <div class="text-center">
+      <a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-primary">
+        Login to leave a comment
+      </a>
+    </div>
+
+
+  {% endif %}
+{% endblock %}
