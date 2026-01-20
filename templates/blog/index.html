@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Last Posts</h1>
+  {% if post_list %}
+    <ul class="list-unstyled">
+    {% for post in post_list %}
+      <li class="content">
+        <a href="{% url 'blog:post-detail' post.id %}" class="title-link"><h2><em>{{ post.title }}</em></h2></a>
+        <p>{{ post.author.username }} at {{ post.created_time|date:"d M Y H:i" }}</p>
+        <div class="content-bordered">
+          <p>{{ post.text }}</p>
+        </div>
+        {% if post.comments__count %}
+          <a href="{% url 'blog:post-detail' post.id %}">{{ post.comments__count }} comment{{ post.comments__count|pluralize }}</a>
+        {% else %}
+          <span><em>No comments yet.</em></span>
+        {% endif %}
+      </li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    <p>No posts yet.</p>
+  {% endif %}
+{% endblock %}
