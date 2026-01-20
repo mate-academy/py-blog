@@ -1,0 +1,39 @@
+body {
+    margin-top: 50px;
+}
+
+h1 {
+    color: #0D4282;
+}
+
+.post {
+    max-width: 80vw;
+    margin: 30px auto 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.post-content {
+    font-size: 18px;
+    text-align: justify;
+    padding: 10px;
+}
+
+.post-title-link {
+    color: inherit;
+}
+
+.pagination {
+    margin-top: 0;
+    justify-content: center;
+}
+
+.comments-section {
+    max-width: 80vw;
+    margin: 30px auto 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
