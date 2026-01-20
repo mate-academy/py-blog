@@ -1,0 +1,62 @@
+# Системні файли
+*.DS_Store
+*.log
+*.pot
+*.pyc
+*.pyo
+*.swp
+*.swo
+Thumbs.db
+.idea/
+.vscode/
+
+# Virtualenv (віртуальне середовище)
+venv/
+env/
+.venv/
+.env/
+
+# База даних
+*.sqlite3
+
+# Міграції (опціонально, якщо не потрібно зберігати в репозиторії)
+**/migrations/*.py
+!**/migrations/__init__.py
+
+# Статичні файли, згенеровані командою collectstatic
+staticfiles/
+static/
+
+# Файли медіа (включаючи завантаження користувачів)
+media/
+
+# Конфіденційні файли
+.env
+*.key
+
+# Скомпільовані файли
+__pycache__/
+*.py[cod]
+*.so
+
+# Celery файли
+celerybeat-schedule
+
+# Coverage (звіти про покриття тестами)
+htmlcov/
+.coverage
+*.cover
+*.py,cover
+
+# Тестові вихідні файли
+.tox/
+.nox/
+*.test
+
+# Файли Docker
+*.env.docker
+docker-compose.override.yml
+
+# Інші специфічні для IDE файли
+*.sublime-project
+*.sublime-workspace

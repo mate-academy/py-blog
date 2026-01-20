@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+	<h3>{{ post.title }}</h3>
+  <p>Authored by {{ post.owner }}</p>
+  <p>{{ post.content }}</p><br>
+  <ul>
+    {% if post.commentary.all %}
+      <h5>Comments:</h5>
+      {% for comment in post.commentary.all %}
+        <li><strong>{{ comment.user.username }}</strong> - {{ comment.content }}</li>
+      {% endfor %}
+    {% else %}
+      <p>This post does not have comments.</p>
+    {% endif %}
+  </ul>
+  <form action="" method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="Submit">
+  </form>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="list-view">
+    <h3>Home page</h3>
+    <ul>
+      {% if post_list %}
+        {% for post in post_list %}
+          <li><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a> - {{ post.created_time }} - {{ post.owner.username }}<br>Num of comments: {{ post.commentary.count }}  </li>
+        {% endfor %}
+      {% endif %}
+    </ul>
+  </div>
+  {% if is_paginated %}
+    {% include "includes/pagination.html" %}
+  {% endif %} 
+{% endblock %}
