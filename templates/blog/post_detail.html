@@ -1,0 +1,28 @@
+{% extends 'base.html'%}
+
+{% load crispy_forms_filters %}
+{% load crispy_forms_field %}
+{% block content %}
+  <h3>Post by {{ post.owner }} from {{ post.created_time }}</h3>
+  <br>
+  <div class="container-md">
+    <p>{{ post.content }}</p>
+  </div>
+  <br>
+  <div class="container-sm">
+    {% for comment in post.commentaries.all %}
+      <p>{{ comment.user.username }}:</p>
+      <p>{{ comment.content }} </p>
+      <p>[{{ comment.created_time }}]</p>
+      <br>
+    {% endfor %}
+  </div>
+  <form action="{% url 'blog:send-commentary' pk=post.id %}" method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <label> Commentary
+      <input type="text" value="" name="commentary">
+    </label>
+    <input type="submit" value="Send">
+  </form>
+{% endblock %}
