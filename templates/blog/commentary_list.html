@@ -1,0 +1,47 @@
+{% load crispy_forms_filters %}
+
+{% if commentary_list %}
+    <br><br>
+    {% with commentary_list.count as total_comments %}
+    <div class="post-heading">
+         <h2 class="subheading" id="comments">{{ total_comments }} comment{{ total_comments|pluralize }}</h2>
+    </div>
+    {% endwith %}    
+    {% for comment in commentary_list.all %}
+      <hr />   
+      <div style="font-size:0.8em;">
+        <b>{{ comment.user.username }}</b> 
+        {{ comment.created_time|date:"l, j F Y, H:i" }}
+      </div> 
+      <div id="comment-content-{{ comment.id }}" style="padding: 10px 5px 10px 40px;font-size:0.87em;">{{ comment.content|linebreaksbr }}</div>
+      {% if user.is_authenticated and comment.user == user %}
+        <div style="text-align: right; font-size: 0.6em">
+          <div style="text-align: left; display:none;" id="comment-form-update-{{ comment.id }}">
+            <form class="comment-action" action="{% url 'blog:comment-update' comment.id %}" method="post">
+              {% csrf_token %}
+              <textarea class="form-control" name="content" rows="3" placeholder="">{{ comment.content }}</textarea>
+              <div style="margin-top:5px">
+                <button class="btn btn-success btn-sm" type="submit">Update</button>
+                <a data-id="{{ comment.id }}" class="comment-update-cancel-link btn btn-primary btn-sm" href="javascript:void(0)">Cancel</a>  
+              </div>
+            </form>
+          </div>
+          <div style="text-align: left; display:none;" id="comment-form-delete-{{ comment.id }}">
+            <form class="comment-action" method="post" action="{% url 'blog:comment-delete' comment.id %}">
+              {% csrf_token %}
+              <div style="font-size:1rem;margin:10px 0;"><strong>Are you sure you want to delete the comment?</strong><br> 
+                {{ comment.content }}
+              </div>
+              <div style="margin-top:5px">
+                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                <a data-id="{{ comment.id }}" class="comment-delete-cancel-link btn btn-primary btn-sm" href="javascript:void(0)">Cancel</a> 
+              </div>
+            </form>
+          </div>
+          <a class ="comment-update-link" data-id="{{ comment.id }}" style="color:#0085A1" href="javascript:void(0)">Update</a>           
+          | 
+          <a class ="comment-delete-link" data-id="{{ comment.id }}" style="color:red" href="javascript:void(0)">Delete</a>
+        </div>
+      {% endif %}
+    {% endfor %}
+{% endif %}
