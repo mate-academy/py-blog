@@ -1,0 +1,36 @@
+body {
+    margin_top: 20px;
+}
+
+.user_login {
+    background-color: cornsilk;
+}
+
+.navigate {
+    margin_top: 30px;
+    padding: 20;
+    list-style: none;
+}
+
+.content {
+    min-width: 500px;
+    max-width: 960px;
+    margin: 0 auto;
+    height: auto;
+    background-color: cornsilk;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid gainsboro;
+
+}
+
+.comment {
+    min-width: 500px;
+    max-width: 960px;
+    margin: 0 auto;
+    height: auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid gainsboro;
+}
