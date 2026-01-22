@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ post.title }} </h1>
+  <p><i>{{ post.owner }}, {{ post.created_time }}</i>
+    <br>
+    {{ post.content }}
+  </p>
+  <table>
+    {% for comment in post.post_comments.all %}
+      <tr>
+        <td><strong>{{ comment.user.username }} {{ comment.created_time }}</strong></td>
+      </tr>
+      <tr>
+        <td>{{ comment.content }}</td>
+      </tr>
+      {% empty %}
+        <p>There are no comments!</p>
+    {% endfor %}
+  </table>
+
+{#  {% load crispy_forms_filters %}#}
+  <h2>Add a Comment</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Add Comment</button>
+    </form>
+{% endblock %}
