@@ -5,6 +5,7 @@ from blog.models import User, Post, Commentary
 
 admin.site.register(User)
 
+
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     list_display = ["owner", "title", "content", "comments_count"]
@@ -25,4 +26,3 @@ class CommentaryAdmin(admin.ModelAdmin):
 
 
 admin.site.unregister(Group)
-
