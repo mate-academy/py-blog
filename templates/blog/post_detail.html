@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <div class="p-4 p-md-5 mb-4 text-white bg-dark rounded">
+      <div class="col-md-10 px-0">
+        <h1 style="color: #3875d7" class="display-4 fst-italic">{{ post.title }}</h1>
+        <p><i>Author: {{ post.owner.first_name }} {{ post.owner.last_name }}</i></p>
+        <p><i>Creation date: {{ post.created_time }}</i></p>
+        <p class="lead my-3">{{ post.content }}</p>
+        <p style="text-align: right"><i>Number of comments: {{ post.commentaries.count }}</i></p>
+      </div>
+    </div>
+  {% if post.commentaries.all %}
+      <h2 style="text-align: center;color: darkgray">Comments</h2>
+    {% for comment in post.commentaries.all %}
+      <div class="p-4 p-md-5 mb-4 text-white bg-dark rounded">
+        <div class="col-md-10 px-0">
+          <h4 class="lead my-1"><i>{{ comment.user }}</i></h4>
+          <p style="font-size: 12px" class="lead my-1"><i>{{ comment.created_time }}</i></p>
+          <p style="font-size: 36px" class="lead my-5">{{ comment.content }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <h2 style="text-align: center;color: darkgray">No comments</h2>
+  {% endif %}
+  {% if user.is_authenticated %}
+    <p><strong>Add a new comment:</strong></p>
+    <div>
+    <form action="{% url "blog:commentary-create" post.id %}" method="post" novalidate>
+      {% csrf_token %}
+      <label>
+        <input type="text" name="content" value="{{ content }}">
+      </label>
+      <input type="hidden" name="post_id" value="{{ post.id }}">
+      <input type="hidden" name="user_id" value="{{ user.id }}">
+      <input type="hidden" name="created_time" value="{{ created_time }}">
+      <br>
+      <input type="submit" class="btn btn-dark" value="Create">
+    </form>
+    </div>
+    {% else %}
+      <p> Please log in, if you want to add a comment.</p>
+    {% endif %}
+{% endblock %}
