@@ -1,0 +1,28 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+<h1>Post detail</h1>
+<h5><b>Author: </b>{{ post.owner }}</h5>
+<h4><b>Creation date: </b>{{ post.created_time }}</h4>
+<h3><b>Title: </b>{{ post.title }}</h3>
+<p>{{ post.content }}</p>
+<h5>Comments</h5>
+<ul>
+  {% for comment in post.comments.all %}
+    <li><p>{{ comment.content }}</p></li>
+  {% empty %}
+    <p>No comments yet.</p>
+  {% endfor %}
+</ul>
+
+<h3>Creating a comment</h3>
+{% load crispy_forms_filters %}
+<form action="" method="post" novalidate>
+  {% csrf_token %}
+  {{ form|crispy }}
+  <input class="btn btn-primary" type="submit" value="Submit">
+</form>
