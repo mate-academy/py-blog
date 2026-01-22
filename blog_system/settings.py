@@ -137,4 +137,6 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+
 CRISPY_TEMPLATE_PACK = "bootstrap4"
