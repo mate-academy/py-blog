@@ -1,0 +1,12 @@
+{% if user.is_authenticated %}
+  <div class="text-end">
+    <h4>
+      Username: <strong>{{ user.username }}</strong>
+    </h4>
+    <form action="{% url 'logout' %}" method="POST">
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ request.path }}">
+      <input class="btn btn-primary" type="submit" value="Logout">
+    </form>
+  </div>
+{% endif %}

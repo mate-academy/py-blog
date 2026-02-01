@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}
+  Main page
+{% endblock %}
+{% block content %}
+  <h1 class="fw-bold text-center mb-4">All Posts</h1>
+
+  <!-- Posts list -->
+  {% if page_obj %}
+    {% for post in page_obj %}
+      <div class="row g-4">
+
+        <div class="col-12">
+          <div class="card shadow-sm h-100">
+            <div class="card-body d-flex flex-column">
+
+              <h3 class="card-title mb-3">
+                <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+              </h3>
+
+              <p class="card-text flex-grow-1">
+                {{ post.content }}
+              </p>
+
+              <hr>
+
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="text-muted small">
+                  <div>Author: <strong>{{ post.owner.first_name }} {{ post.owner.last_name }}</strong></div>
+                  <div>Created at: {{ post.created_time }}</div>
+                </div>
+                {% if post.num_comments %}
+                  <span class="badge bg-primary fs-6">
+                            {{ post.num_comments }} comments
+                        </span>
+                {% else %}
+                  <span class="badge text-bg-light fs-6">
+                            Be the first to leave a comment
+                        </span>
+                {% endif %}
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    {% endfor %}
+  {% else %}
+    <h3>There are no posts created on this blog yet</h3>
+  {% endif %}
+
+{% endblock %}

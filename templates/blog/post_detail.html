@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+
+  <div class="mb-4">
+    <h2>{{ post.title }}</h2>
+    <small class="text-muted">{{ post.owner }} at {{ post.created_time }}</small>
+  </div>
+
+  <!-- Content -->
+  <div class="mb-4 p-4 border rounded bg-light">
+    <p>
+      {{ post.content }}
+    </p>
+  </div>
+
+  <!-- Comments Section -->
+  <div class="mb-4">
+    <h5>Comments</h5>
+    {% for comment in post.comments.all %}
+      <div class="card mb-2">
+        <div class="card-body">
+          <h6 class="card-subtitle mb-2 text-muted">{{ comment.user.username }} {{ comment.created_time }}</h6>
+          <p class="card-text">{{ comment.content }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Add New Comment -->
+  <div>
+    {% if user.is_authenticated %}
+      <h5>Add a new comment</h5>
+      <form method="POST" novalidate>
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" class="btn btn-primary" value="Add comment">
+      </form>
+    {% else %}
+      <p><a href="{% url 'login' %}?next={{ request.path }}">Log in</a> to leave a comment.</p>
+    {% endif %}
+
+  </div>
+{% endblock %}
