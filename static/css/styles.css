@@ -1,0 +1,83 @@
+body {
+    margin-top: 20px;
+}
+.posts {
+    padding: 0;
+    list-style: none;
+}
+
+.green-link {
+  color: #28a745;
+}
+
+.green-link:hover,
+.green-link:focus {
+  color: #1e7e34;
+  text-decoration: none;
+}
+
+.green-link.active {
+  color: #1e7e34;
+}
+
+.pink-link {
+  color: #e83e8c;
+}
+
+.pink-link:hover,
+.pink-link:focus {
+  color: #c8236c;
+  text-decoration: none;
+}
+
+.pink-link.active {
+  color: #c8236c;
+}
+
+.gray-link {
+  color: #adb5bd;
+}
+
+.gray-link:hover,
+.gray-link:focus {
+  color: #868e96;
+  text-decoration: none;
+}
+
+.gray-link.active {
+  color: #868e96;
+}
+
+.pagination .page-link {
+  color: #28a745;              /* bootstrap success */
+  border-color: #28a745;
+}
+
+.pagination .page-link:hover,
+.pagination .page-link:focus {
+  color: #fff;
+  background-color: #1e7e34;
+  border-color: #1e7e34;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #28a745;
+  border-color: #28a745;
+  color: #fff;
+}
+
+.pagination .page-item.disabled .page-link {
+  color: #6c757d;
+  border-color: #dee2e6;
+  background-color: #fff;
+}
+
+.pagination .page-link:active {
+  background-color: #155a24;
+  border-color: #155a24;
+  color: #fff;
+}
+
+.fw-500 {
+  font-weight: 500;
+}

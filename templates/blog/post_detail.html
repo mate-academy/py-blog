@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <h1 class="mt-4">{{ post }}</h1>
+  <p class="text-muted">{{ post.owner }} at {{ post.created_time }}</p>
+  <p class="lead">{{ post.content }}</p>
+  <br>
+  {% with cc=post.comments.count %}
+    <p class="fw-500">{{ cc }} comment{{ cc|pluralize }}</p>
+    {% if cc > 0 %}
+      <div class="list-group">
+        {% for comment in post.comments.all %}
+          <div class="list-group-item">
+            <p>
+              {% with oc=post.owner uc=comment.user %}
+                {% if oc != uc %}
+                  <a class="green-link" href="">{{ uc }}</a>
+                {% else %}
+                  <a class="pink-link" href="">{{ oc }}</a>
+                {% endif %}
+                <span class="text-muted">{{ comment.created_time }}</span>
+              {% endwith %}
+            </p>
+            <hr>
+            <p>{{ comment.content }}</p>
+          </div>
+          <br>
+        {% endfor %}
+      </div>
+    {% endif %}
+    <p class="font-weight-bold">Add a new comment</p>
+    <form action="{% url 'blog:comment-create' object.pk %}" method="post">
+      {% csrf_token %}
+      {#      <textarea name="content" rows="3" required></textarea>#}
+      {{ form|crispy }}
+      <input type="submit" value="Add comment">
+    </form>
+  {% endwith %}
+{% endblock %}

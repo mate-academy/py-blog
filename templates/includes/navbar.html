@@ -1,0 +1,20 @@
+<div class="row align-items-center navbar py-3">
+  <div class="col-4">
+    <a class="nav-link pink-link d-inline-block" href="{% url 'blog:index' %}">:3 Home</a>
+  </div>
+  <div class="col-4 text-center">
+    <a class="nav-link pink-link d-inline-block" href="{% url 'blog:post-list' %}">All Posts</a>
+    <a class="nav-link pink-link d-inline-block" href="{% url 'blog:my-posts-view' %}">My Posts</a>
+  </div>
+  <div class="col-4 text-right">
+    {% if user.is_authenticated %}
+      <span style="color: #e83e8c">#{{ user.username }}</span>
+      <form action="{% url 'logout' %}" method="post" class="d-inline">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-success btn-sm">Logout</button>
+      </form>
+    {% else %}
+      <a class="btn btn-outline-success btn-sm" href="{% url 'login' %}">Login</a>
+    {% endif %}
+  </div>
+</div>

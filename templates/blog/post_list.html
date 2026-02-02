@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+  {% if post_list %}
+    <div class="mt-4">
+      <div class="list-group">
+        {% for post in post_list %}
+          <div class="list-group-item">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <h4 class="mb-1">
+                  <a href="{% url 'blog:post-detail' pk=post.id %}" class="green-link">{{ post }}</a>
+                </h4>
+                <p class="text-muted mb-0">
+                  {{ post.created_time }}<br>
+                  {% with cc=post.comments.count %}
+                    {% if cc > 0 %}
+                      {{ cc }} Comment{{ cc|pluralize }}
+                    {% else %}
+                      No Comments
+                    {% endif %}
+                  {% endwith %}
+                </p>
+              </div>
+
+              <a class="gray-link" href="#">{{ post.owner }}</a>
+            </div>
+
+            <div>
+              <p class="mb-0 lead">{{ post.content|truncatechars:200 }}</p>
+            </div>
+          </div>
+
+        {% endfor %}
+      </div>
+    </div>
+  {% else %}
+    <p>There are no posts yet.</p>
+  {% endif %}
+{% endblock %}

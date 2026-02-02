@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1 class="mt-4 text-center">Logged Out</h1>
+  <p class="text-center">
+    <a class="green-link lead" href="{% url 'login' %}">Click here to log in again</a>
+  </p>
+{% endblock %}

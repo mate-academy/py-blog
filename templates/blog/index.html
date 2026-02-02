@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1 class="text-center mt-4">YO!</h1>
+  <p class="text-center">Welcome to the Mega Crazy Blog!</p>
+  <hr>
+  <h3 class="text-center">All Posts:</h3>
+  {% if post_list %}
+    <ul style="list-style: none">
+      {% for post in post_list %}
+        <li>
+          <h4 class="mb-1">
+            <a class="green-link" href="{% url 'blog:post-detail' pk=post.id %}">{{ post }}</a>
+          </h4>
+          <p class="text-muted">{{ post.created_time }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}
