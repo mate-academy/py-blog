@@ -4,8 +4,8 @@ from django.contrib.auth.models import Group
 from blog.models import (
     User,
     Post,
-    Commentary
-) 
+    Commentary,
+)
 
 admin.site.unregister(Group)
 admin.site.register(User)
