@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1 class="index-title">Welcome to the Blog!</h1>
+  <hr>
+  <div class="starter-template">
+    <h2 class="index-h2">Here's what's new:</h2>
+      {% if post_list %}
+        {% for post in post_list %}
+          <div class="div-post blog-post">
+            <h2 class="blog-post-title">
+              <a href="{% url 'blog:post-detail' pk=post.pk %}">
+              {{ post.title }}
+              </a>
+            </h2>
+            <p class="blog-post-meta">
+            {{ post.created_time }} by {{ post.owner.first_name }} {{ post.owner.last_name }}
+            </p>
+            <p class="blog-post-content">
+              {{ post.content }}
+            </p>
+            <hr>
+            <p class="comments-index">Comments: {{ post.comments.count }}</p>
+          </div>
+        {% endfor %}
+
+        {% block pagination %}
+          {% include "includes/pagination.html" %}
+        {% endblock %}
+
+      {% else %}
+        <h3>No posts yet!</h3>
+      {% endif %}
+  </div>
+{% endblock %}

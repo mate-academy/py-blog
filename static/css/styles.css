@@ -1,0 +1,38 @@
+.div-post, .comment-post-details {
+    margin: 20px;
+    padding: 10px;
+    background-color: lightgray;
+    border-radius: 10px;
+}
+
+.comments-index {
+    text-align: right;
+    padding-right: 5%;
+}
+
+.content-base {
+    margin-top: 70px;
+}
+
+.comment-ul {
+    list-style-type: none;
+}
+
+.comment-label {
+    font-size: 30px;
+}
+
+.textarea-comment {
+    margin-bottom: 20px;
+    color: cornflowerblue;
+    background-color: lightgray;
+    border-radius: 10px;
+}
+
+.post-detail-title, .index-title {
+    color: #007bff;
+}
+
+.username {
+    padding-right: 20px;
+}

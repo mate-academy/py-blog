@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1 class="post-detail-title">{{ post.title }}</h1>
+  <p>by {{ post.owner.username }} | {{ post.created_time }} |</p>
+  <hr>
+  <p>{{ post.content }}</p>
+  <hr>
+  <h2>Comments</h2>
+  {% for comment in post.comments.all %}
+    <div class="comment-post-details">
+      <ul class="comment-ul">
+        <li>{{ comment.content }}</li>
+        <li>{{ comment.created_time }} | {{ comment.user.username }}</li>
+      </ul>
+    </div>
+  {% empty %}
+  <div>
+    <p>No comments yet!</p>
+  </div>
+  {% endfor %}
+  {% if user.is_authenticated %}
+    {% include "includes/form.html" %}
+  {% else %}
+    <p>Please <a href="{% url 'login' %}">log in</a> to post a comment.</p>
+  {% endif %}
+{% endblock %}

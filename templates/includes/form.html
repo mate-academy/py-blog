@@ -1,0 +1,13 @@
+{% load crispy_forms_tags %}
+
+{% if user.is_authenticated %}
+  <div class="form">
+    {% crispy form %}
+  </div>
+{% else %}
+  Please
+  <a href="{% url 'login' %}">
+    log in
+  </a>
+  to comment.
+{% endif %}
