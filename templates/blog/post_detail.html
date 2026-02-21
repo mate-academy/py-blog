@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Post</h1>
+<p>Title: {{ post.title }}</p>
+<p>Content: {{ post.content }}</p>
+<p>Content: {{ post.created_time }}</p>
+<p>{{ post.owner.username }}</p>
+
+<h2>Comments:</h2>
+<ul>
+  {% for comment in post.post_commentaries.all %}
+  <li>{{ comment.content }}</li>
+  {% endfor %}
+</ul>
+
+<a href="{% url 'blog:create-comment' pk=post.id %}">Add comment</a>
+{% endblock %}
