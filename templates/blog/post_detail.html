@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h1>Post</h1>
+<p>Title: {{ object.title }}</p>
+<p>Content: {{ object.content }}</p>
+<p>Created: {{ object.created_time }}</p>
+<p>Author: {{ object.author.username }}</p>
+
+<h2>Comments:</h2>
+<ul>
+  {% for comment in object.comments.all %}
+  <li>{{ comment.content }} — {{ comment.user.username }}</li>
+  {% endfor %}
+</ul>
+
+<h2>Add comment:</h2>
+<form method="POST">
+  {% csrf_token %}
+  {{ form|crispy }}
+  <input type="submit" value="Submit">
+</form>
+{% endblock %}
