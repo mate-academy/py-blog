@@ -1,18 +1,24 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 <h1>Post</h1>
-<p>Title: {{ post.title }}</p>
-<p>Content: {{ post.content }}</p>
-<p>Content: {{ post.created_time }}</p>
-<p>{{ post.owner.username }}</p>
+<p>Title: {{ object.title }}</p>
+<p>Content: {{ object.content }}</p>
+<p>Created: {{ object.created_time }}</p>
+<p>Author: {{ object.owner.username }}</p>
 
 <h2>Comments:</h2>
 <ul>
-  {% for comment in post.post_commentaries.all %}
-  <li>{{ comment.content }}</li>
+  {% for comment in object.post_commentaries.all %}
+  <li>{{ comment.content }} — {{ comment.user.username }}</li>
   {% endfor %}
 </ul>
 
-<a href="{% url 'blog:create-comment' pk=post.id %}">Add comment</a>
+<h2>Add comment:</h2>
+<form method="POST">
+  {% csrf_token %}
+  {{ form|crispy }}
+  <input type="submit" value="Submit">
+</form>
 {% endblock %}

@@ -1,7 +1,8 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse
 from django.shortcuts import render
-from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView
+from django.urls import reverse
+from django.views.generic import ListView, DetailView
+from django.views.generic.edit import FormMixin
 
 from blog.forms import FormCommentary
 from blog.models import User, Post, Commentary
@@ -29,12 +30,24 @@ class PostsView(ListView):
     template_name = "blog/index.html"
     ordering = ["-created_time"]
 
-class PostsDetailView(DetailView):
+
+class PostsDetailView(FormMixin, DetailView):
     model = Post
-
-
-class PostsCreateComment(LoginRequiredMixin, CreateView):
-    model = Commentary
     form_class = FormCommentary
-    template_name = "blog/comments_create.html"
-    success_url = reverse_lazy("blog:index")
+
+    def get_success_url(self):
+        return reverse("blog:post-detail", kwargs={"pk": self.object.pk})
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form) -> HttpResponse:
+        form.instance.user = self.request.user
+        form.instance.post = Post.objects.get(pk=self.kwargs.get('pk'))
+        form.save()
+        return super().form_valid(form)
