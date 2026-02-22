@@ -6,15 +6,20 @@ from blog.models import User, Post, Commentary
 
 
 @admin.register(User)
-class UserAdmin(UserAdmin):
-    pass
+class CustomUserAdmin(UserAdmin):
+    class Meta:
+        search_fields = ("username", "email")
 
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ("owner", "title", "content", "created_time")
+    list_display = ("author", "title", "content", "created_time")
     list_filter = ("title", "created_time")
-    search_fields  =("title",)
+    search_fields = ("title",)
+
+    def short_content(self):
+        return self.content[:75] + "..."
+
 
 @admin.register(Commentary)
 class CommentaryAdmin(admin.ModelAdmin):
@@ -23,4 +28,7 @@ class CommentaryAdmin(admin.ModelAdmin):
     search_fields = ("content",)
 
 
-admin.site.unregister(Group)
+try:
+    admin.site.unregister(Group)
+except admin.sites.NotRegistered:
+    pass

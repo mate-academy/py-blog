@@ -6,11 +6,11 @@
 <p>Title: {{ object.title }}</p>
 <p>Content: {{ object.content }}</p>
 <p>Created: {{ object.created_time }}</p>
-<p>Author: {{ object.owner.username }}</p>
+<p>Author: {{ object.author.username }}</p>
 
 <h2>Comments:</h2>
 <ul>
-  {% for comment in object.post_commentaries.all %}
+  {% for comment in object.comments.all %}
   <li>{{ comment.content }} — {{ comment.user.username }}</li>
   {% endfor %}
 </ul>
