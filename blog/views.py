@@ -21,14 +21,15 @@ class PostDetailView(DetailView):
 
 class CommentCreateView(LoginRequiredMixin, CreateView):
     model = Commentary
+    form_class = CommentForm
 
-    def post(self, request, *args, **kwargs):
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            content = form.cleaned_data.get("content")
-            Commentary.objects.create(
-                user=request.user,
-                post=Post.objects.get(pk=kwargs.get("pk")),
-                content=content
-            )
-        return redirect("blog:post-detail", *args, **kwargs)
+    def get(self, request, *args, **kwargs):
+        return redirect("blog:post-detail", pk=self.kwargs.get("pk"))
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        form.instance.post_id = self.kwargs.get("pk")
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy("blog:post-detail", kwargs=self.kwargs)
