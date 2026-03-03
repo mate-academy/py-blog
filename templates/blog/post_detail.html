@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="post-container">
+  <h2 class="post-title">{{post.title}}</h2>
+  <span class="post-info">{{post.owner}} {{post.created_time}}</span>
+
+  <p class="post-content">{{post.content}}</p>
+</div>
+
+<div class="comment-container">
+  <span class="num_comment">{{post.comments.all|length}} comment{{post.comments.all|length|pluralize}}</span>
+
+  {% for comment in post.comments.all %}
+  <div class="comment">
+    <span>{{comment.user}}</span>
+    <span>{{comment.created_time}}</span>
+    <span>{{comment.content}}</span>
+  </div>
+  {% empty %}
+  <p class="no_comment">The post doesn't have comments.</p>
+  {% endfor %}
+</div>
+
+<div class="form-add-comment" >
+  <h4>Add a new comment:</h4>
+  <form method="post" action="{% url 'blog:comment_create' pk=post.id %}">
+    {% csrf_token %}
+    <input type="text" class="comment-text" name="content" id="content">
+    <input type="submit" value="Add">
+  </form>
+</div>
+
+{% endblock %}
