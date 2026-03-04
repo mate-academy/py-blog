@@ -22,6 +22,8 @@ class PostDetailView(generic.DetailView):
         form = CommentForm(request.POST)
 
         if form.is_valid():
+            if not request.user.is_authenticated:
+                return redirect("login")
             comment = form.save(commit=False)
             comment.post = self.object
             comment.user = request.user
