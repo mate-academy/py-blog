@@ -1,0 +1,116 @@
+:root{
+  --border: 1px solid rgba(0,0,0,.12);
+  --radius: 16px;
+  --shadow: 0 10px 30px rgba(0,0,0,.08);
+}
+
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+
+body{
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  line-height:1.65;
+  color:#111;
+  background:#fff;
+}
+
+.container{
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 26px 16px;
+}
+
+.site-header{ margin-bottom: 18px; }
+.site-title{ margin:0; font-size: 28px; letter-spacing:-.4px; }
+.site-link{ text-decoration:none; color:inherit; }
+.site-subtitle{ margin:6px 0 0; font-size:14px; color: rgba(0,0,0,.65); }
+
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 12px;
+}
+
+.nav{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+}
+
+.nav-text{
+  font-size: 13px;
+  color: rgba(0,0,0,.65);
+}
+
+.inline{ display:inline; margin:0; }
+
+/* Card */
+.card{
+  border: var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  background:#fff;
+  box-shadow: var(--shadow);
+  margin: 14px 0;
+}
+
+.card-title{
+  margin:0 0 8px;
+  font-size: 20px;
+  letter-spacing:-.25px;
+}
+
+.meta{
+  margin: 0 0 12px;
+  font-size: 13px;
+  color: rgba(0,0,0,.65);
+}
+
+.text{ margin:0; white-space: pre-line; }
+
+/* Links */
+.link{
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(0,0,0,.25);
+}
+.link:hover{ border-bottom-color: rgba(0,0,0,.55); }
+
+/* Buttons */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  border: var(--border);
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-weight: 650;
+  background:#111;
+  color:#fff;
+  text-decoration:none;
+  cursor:pointer;
+}
+
+.btn-ghost{
+  background:#fff;
+  color:#111;
+}
+
+.btn:hover{
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
+}
+
+/* Forms */
+.form p{ margin: 0 0 12px; }
+.form label{ font-weight: 650; font-size: 13px; }
+.form input, .form textarea{
+  width:100%;
+  margin-top: 6px;
+  border: var(--border);
+  border-radius: 12px;
+  padding: 10px 12px;
+  font: inherit;
+}
+.form textarea{ min-height: 120px; resize: vertical; }
