@@ -18,7 +18,7 @@
     <div class="col-md-20 mb-2">
       <div class="card h-100">
         <div class="card-body">
-          <h5 class="card-title">{{ post.title }}</h5>
+          <a href="{% url 'blog:post-detail' post.id %}"><h5 class="card-title">{{ post.title }}</h5></a>
           <p class="card-text">{{ post.content|truncatechars:100 }}</p>
           <a href="{% url 'blog:post-detail' post.id %}" class="btn btn-primary">Read More</a>
             <small class="text-muted float-right"> {{ post.created_time|date:"F j, Y, g:i a" }} by {{ post.owner.username }}</small>

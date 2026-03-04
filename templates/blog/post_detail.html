@@ -7,7 +7,7 @@
         <div class="card-body">
             <h2 class="mb-4 card-title">{{ post.title }}</h2>
             <p class="card-text">{{ post.content }}</p>
-              <div class="collumn container ms-4">
+              <div class="column container ms-4">
                 {% for comment in post.comments.all %}
                 <div class="row mt-3 border-bottom">
                     <div class="col-md-4">{{ comment.content }}</div>
