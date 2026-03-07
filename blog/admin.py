@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group
-from .models import User, Post, Commentary
+from .models import User, Post, Comment
 
 admin.site.unregister(Group)
 
@@ -14,28 +14,28 @@ class UserAdmin(admin.ModelAdmin):
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ("owner", "title", "content", "created_time")
-    search_fields = ("owner__username", "title", "content")
-    list_filter = ("owner", "created_time")
+    list_display = ("author", "title", "content", "created_time", "comments_count")
+    search_fields = ("author__username", "title", "content")
+    list_filter = ("author", "created_time")
     ordering = ("-created_time",)
 
     def comments_count(self, obj):
         return obj.comments.count()
 
 
-class CommentaryAdmin(admin.ModelAdmin):
-    list_display = ("user", "post", "created_time", "content")
-    search_fields = ("user__username", "post__title", "content")
-    list_filter = ("user", "created_time")
-    ordering = ("-created_time",)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ("author", "post", "created_date", "short_content")
+    search_fields = ("author__username", "post__title", "text")
+    list_filter = ("author", "created_date")
+    ordering = ("-created_date",)
 
     def short_content(self, obj):
-        return (obj.content[:50] + '...') \
-            if len(obj.content) > 50 else obj.content
+        return (obj.text[:50] + '...') \
+            if len(obj.text) > 50 else obj.text
 
     short_content.short_description = 'Content'
 
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Post, PostAdmin)
-admin.site.register(Commentary, CommentaryAdmin)
+admin.site.register(Comment, CommentAdmin)

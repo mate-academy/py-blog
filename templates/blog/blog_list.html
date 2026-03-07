@@ -5,7 +5,7 @@
   {% for post in object_list %}
   <h2><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h2>
   <p>{{ post.content|linebreaksbr }}</p>
-  <p>Author: {{ post.owner.username }} — {{ post.created_time }}</p>
+  <p>Author: {{ post.author.username }} — {{ post.created_time }}</p>
   <p>Comments: {{ post.comments.count }}</p>
   {% empty %}
   <p>No posts!</p>

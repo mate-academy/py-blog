@@ -4,12 +4,12 @@ from django.views import generic
 
 from .form import CommentaryCreateForm
 
-from blog.models import Post, Commentary
+from blog.models import Post, Comment
 
 
 class BlogView(LoginRequiredMixin, generic.ListView):
     model = Post
-    queryset = Post.objects.all()
+    queryset = Post.objects.all().order_by("-created_date")
     template_name = "blog/blog_list.html"
     paginate_by = 5
 
@@ -26,15 +26,12 @@ class PostDetailView(LoginRequiredMixin, generic.DetailView):
 
 
 class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
-    model = Commentary
-    fields = ["content"]
+    model = Comment
+    fields = ["text"]
     template_name = "blog/post_detail.html"
 
     def form_valid(self, form):
-        if not self.request.user.is_authenticated:
-            form.add_error(None, "You must be authenticated to post a comment")
-            return self.form_invalid(form)
-        form.instance.user = self.request.user
+        form.instance.author = self.request.user
         form.instance.post_id = self.kwargs.get("pk")
         return super().form_valid(form)
 

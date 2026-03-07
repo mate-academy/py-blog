@@ -10,14 +10,14 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
     created_time = models.DateTimeField(auto_now_add=True)
-    owner = models.ForeignKey(User,
+    author = models.ForeignKey(User, 
                               on_delete=models.CASCADE, related_name="posts")
 
 
-class Commentary(models.Model):
-    user = models.ForeignKey(User,
+class Comment(models.Model):
+    author = models.ForeignKey(User,
                              on_delete=models.CASCADE, related_name="comments")
-    post = models.ForeignKey(Post,
+    post = models.ForeignKey(Post, 
                              on_delete=models.CASCADE, related_name="comments")
-    created_time = models.DateTimeField(auto_now_add=True)
-    content = models.TextField()
+    created_date = models.DateTimeField(auto_now_add=True)
+    text = models.TextField()

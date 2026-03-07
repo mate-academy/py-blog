@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 {% load crispy_forms_filters %}
 {% block content %}
-{% if post%}
-<h1>{{ post.title }}</h1>
-<p>{{ post.owner }} {{ post.created_time }}</p>
-<p>{{ post.content }}</p>
+{% if object%}
+<h1>{{ object.title }}</h1>
+<p>{{ object.author }} {{ object.created_time }}</p>
+<p>{{ object.content }}</p>
 <br>
-<p>{{ post.comments.count }} comment{{ post.comments.count|pluralize }}</p>
+<p>{{ object.comments.count }} comment{{ object.comments.count|pluralize }}</p>
 {% for comment in object.comments.all %}
   <div class="comment border">
-    <p>{{ comment.user.username }} — {{ comment.created_time }}</p>
+    <p>{{ comment.author.username }} — {{ comment.created_date }}</p>
     <hr>
-    <p>{{ comment.content }}</p>
+    <p>{{ comment.text }}</p>
   </div>
 <br>
 {% empty %}
