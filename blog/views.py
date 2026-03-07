@@ -1,0 +1,40 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
+from django.views import generic
+
+from .form import CommentCreateForm
+
+from blog.models import Post, Comment
+
+
+class BlogView(LoginRequiredMixin, generic.ListView):
+    model = Post
+    queryset = Post.objects.all().order_by("-created_time")
+    template_name = "blog/blog_list.html"
+    paginate_by = 5
+
+
+class PostDetailView(LoginRequiredMixin, generic.DetailView):
+    model = Post
+    template_name = "blog/post_detail.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["form"] = CommentCreateForm()
+        return context
+
+
+class CommentCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Comment
+    fields = ["text"]
+    template_name = "blog/post_detail.html"
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.instance.post_id = self.kwargs.get("pk")
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy("blog:post-detail",
+                            kwargs={"pk": self.kwargs.get("pk")})
