@@ -21,7 +21,7 @@
 
 <h3>Add a new comment:</h3>
 {% if object %}
-<form action="{% url "blog:commentary-create" pk=object.pk %}" method="post">
+<form action="{% url "blog:comment-create" pk=object.pk %}" method="post">
   {% csrf_token %}
   {{ form|crispy }}
   <br>

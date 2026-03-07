@@ -2,14 +2,14 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views import generic
 
-from .form import CommentaryCreateForm
+from .form import CommentCreateForm
 
 from blog.models import Post, Comment
 
 
 class BlogView(LoginRequiredMixin, generic.ListView):
     model = Post
-    queryset = Post.objects.all().order_by("-created_date")
+    queryset = Post.objects.all().order_by("-created_time")
     template_name = "blog/blog_list.html"
     paginate_by = 5
 
@@ -21,11 +21,11 @@ class PostDetailView(LoginRequiredMixin, generic.DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context["form"] = CommentaryCreateForm()
+        context["form"] = CommentCreateForm()
         return context
 
 
-class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
+class CommentCreateView(LoginRequiredMixin, generic.CreateView):
     model = Comment
     fields = ["text"]
     template_name = "blog/post_detail.html"
