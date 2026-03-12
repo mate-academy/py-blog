@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Latest Posts</h1>
+{% for post in post_list %}
+<div class="card mb-3">
+  <div class="card-body">
+    <h2><a href="{% url 'blog:post-detail' pk=post.pk %}">{{ post.title }}</a></h2>
+    <p class="text-muted">By {{ post.owner.username }} on {{ post.created_time }}</p>
+    <p>{{ post.content|truncatewords:30 }}</p>
+    <span class="badge badge-info">Comments: {{ post.comments.count }}</span>
+  </div>
+</div>
+{% endfor %}
+{% include "includes/pagination.html" %}
+{% endblock %}
