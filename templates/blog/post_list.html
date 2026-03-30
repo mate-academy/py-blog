@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <ul class="posts-li">
+    {% for post in post_list %}
+      <li>
+        <div class="post card ">
+          <h2>{{ post.owner }}</h2><p>{{ post.created_time }}</p>
+          <h1><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h1>
+          <p>{{ post.content }}</p>
+          <p>Comments: {{ post.comments.count }}</p>
+        </div>
+
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

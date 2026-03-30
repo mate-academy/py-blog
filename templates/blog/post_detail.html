@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 class="text-center ">{{ post.title }}</h1>
+  <p class="card m-2">{{ post.content }}</p>
+  <h4>Comments:</h4>
+  {% for comment in post.comments.all %}
+    <div class="m-2 card p-2">
+      <h3>{{ comment.user }}</h3>
+      <p>{{ comment.content }}</p>
+    </div>
+  {% endfor %}
+  {% if user.is_authenticated %}
+    <h4>Add your comment:</h4>
+    <form action="" method="post" novalidate id="fort" class="m-2">
+      {% csrf_token %}
+      {% load crispy_forms_tags %}
+      {{ form|crispy }}
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  {% else %}
+    <h4>To leave a comment, please log in.</h4>
+  {% endif %}
+{% endblock %}
