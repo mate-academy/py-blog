@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ post.title }}</title>
+</head>
+<body>
+  <p>
+    <a href="{% url 'blog:index' %}">← Back to all posts</a>
+  </p>
+
+  <article>
+    <h1>{{ post.title }}</h1>
+    <p>
+      <strong>Author:</strong> {{ post.owner.username }}<br>
+      <strong>Created:</strong> {{ post.created_time }}<br>
+      <strong>Comments:</strong> {{ post.comments.count }}
+    </p>
+
+    <div>
+      <p>{{ post.content }}</p>
+    </div>
+  </article>
+
+  <hr>
+
+  <section>
+    <h2>Comments</h2>
+
+    {% if post.comments.count %}
+      <ul>
+        {% for comment in post.comments.all %}
+          <li>
+            <p>
+              <strong>{{ comment.user.username }}</strong>
+              ({{ comment.created_time }})
+            </p>
+            <p>{{ comment.content }}</p>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No comments yet.</p>
+    {% endif %}
+  </section>
+  {% if user.is_authenticated %}
+    <section>
+      {% if user.is_authenticated %}
+        <h2>Leave a comment</h2>
+        <form action="" method="POST">
+          {% csrf_token %}
+          {% load crispy_forms_tags %}
+          {{ form|crispy }}
+          <input type="submit" value="Submit">
+        </form>
+      {% else %}
+        <p>You need to be logged in to leave a comment.</p>
+      {% endif %}
+    </section>
+  {% endif %}
+</body>
+</html>
