@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% block title %}
+      <title>Blog</title>
+    {% endblock %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  </head>
+
+  <body>
+    <ul>
+      {% for post in post_list %}
+        <li>
+          <h2>
+            <a href="{% url 'blog:post-detail' post.id %}">
+              {{ post.title }}
+            </a>
+          </h2>
+
+          <p>{{ post.content }}</p>
+
+          <p>
+            Author: {{ post.owner.username }} |
+            Created: {{ post.created_time }} |
+            Comments: {{ post.comments.count }}
+          </p>
+        </li>
+      {% endfor %}
+    </ul>
+    {% if is_paginated %}
+      <ul class="pagination">
+        {% if page_obj.has_previous %}
+        <li class="page-item"><a href="?page={{ page_obj.previous_page_number }}">prev</a></li>
+        {% endif %}
+        <li class="page-item active"><a href="?page={{ page_obj.number }}">{{ page_obj.number }} of {{ paginator.num_pages }}</a></li>
+        {% if page_obj.has_next %}
+        <li class="page-item">
+          <a href="?page={{ page_obj.next_page_number }}">next</a>
+        </li>
+        {% endif %}
+      </ul>
+    {% endif %}
+
+  </body>
+</html>
+
+
