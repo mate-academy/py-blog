@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>Posts</h1>
+
+    {% for post in page_obj %}
+        <div>
+            <h2>
+                <a href="{% url 'blog:post-detail' post.pk %}">
+                    {{ post.title }}
+                </a>
+            </h2>
+
+            <p>{{ post.content }}</p>
+            <p>Author: {{ post.owner.username }}</p>
+            <p>Created: {{ post.created_time }}</p>
+            <p>Comments: {{ post.comments.count }}</p>
+        </div>
+        <hr>
+    {% endfor %}
+
+    <div>
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">
+                Previous
+            </a>
+        {% endif %}
+
+        <span>Page {{ page_obj.number }}</span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">
+                Next
+            </a>
+        {% endif %}
+    </div>
+</body>
+</html>

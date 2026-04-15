@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ post.title }}</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>{{ post.title }}</h1>
+
+    <p>{{ post.content }}</p>
+    <p>Author: {{ post.owner.username }}</p>
+    <p>Created: {{ post.created_time }}</p>
+
+    <hr>
+
+    <h2>Comments</h2>
+
+    {% for comment in comments %}
+        <div>
+            <p>{{ comment.content }}</p>
+            <p>{{ comment.user.username }}</p>
+            <p>{{ comment.created_time }}</p>
+        </div>
+        <hr>
+    {% empty %}
+        <p>No comments yet</p>
+    {% endfor %}
+
+    <h2>Add Comment</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {% load crispy_forms_tags %}
+        {{ form|crispy }}
+
+        {% if form.non_field_errors %}
+            <div>
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+    </form>
+</body>
+</html>
