@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="post-detail mb-5">
+        <h1>{{ post.title }}</h1>
+        <p class="text-muted">By {{ post.owner.username }} on {{ post.created_time|date:"F d, Y H:i" }}</p>
+        <hr>
+        <div class="content">
+            {{ post.content|linebreaks }}
+        </div>
+    </div>
+
+    <div class="comments-section">
+        <h3>Comments ({{ post.commentaries.count }})</h3>
+        {% for comment in post.commentaries.all %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <p class="card-text">{{ comment.content }}</p>
+                    <p class="text-muted"><small>By {{ comment.user.username }} on {{ comment.created_time|date:"F d, Y H:i" }}</small></p>
+                </div>
+            </div>
+        {% empty %}
+            <p>No comments yet. Be the first to comment!</p>
+        {% endfor %}
+
+        <hr>
+
+        <h4>Leave a comment</h4>
+        
+        <form method="post">
+            {% csrf_token %}
+            {{ commentary_form|crispy }}
+            {% if not user.is_authenticated %}
+                <p class="text-danger small">You must <a href="{% url 'admin:index' %}">Login</a> to post a comment.</p>
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}

@@ -1,7 +1,8 @@
-django
-flake8
+django<5.2
+flake8>=7.0.0
 flake8-quotes
 flake8-variables-names
 pep8-naming
 django-debug-toolbar
-django-crispy-forms
+django-crispy-forms>=2.0
+crispy-bootstrap4>=2024.1

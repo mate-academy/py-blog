@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'blog:index' %}">My Blog</a>
+            <div class="navbar-nav ml-auto">
+                {% if user.is_authenticated %}
+                    <span class="navbar-text mr-3">Hello, {{ user.username }}!</span>
+                {% else %}
+                    <a class="nav-link" href="{% url 'admin:index' %}">Login (Admin)</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer class="mt-5 py-3 bg-light text-center">
+        <p>&copy; 2026 Blog System</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1 class="mb-4">Recent Posts</h1>
+
+    {% for post in post_list %}
+        <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+                <h2 class="card-title">
+                    <a href="{% url 'blog:post-detail' pk=post.pk %}">{{ post.title }}</a>
+                </h2>
+                <p class="text-muted">By {{ post.owner.username }} on {{ post.created_time|date:"F d, Y" }}</p>
+                <p class="card-text">{{ post.content|truncatewords:30 }}</p>
+                <p class="card-text"><small class="text-muted">{{ post.commentaries.count }} comments</small></p>
+            </div>
+        </div>
+    {% empty %}
+        <p>No posts yet.</p>
+    {% endfor %}
+
+    {% if is_paginated %}
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page=1">&laquo; first</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">previous</a></li>
+                {% endif %}
+
+                <li class="page-item active">
+                    <span class="page-link">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                    </span>
+                </li>
+
+                {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">next</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+{% endblock %}
