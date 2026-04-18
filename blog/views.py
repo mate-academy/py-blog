@@ -16,12 +16,14 @@ class IndexView(generic.ListView):
 
 
 class PostDetailView(FormMixin, generic.DetailView):
-    def __init__(self) -> None:
-        super().__init__()
-        self.helper = FormHelper()
     model = Post
     template_name = "blog/post_detail.html"
     form_class = CommentaryForm
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["user"] = self.request.user
+        return kwargs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -39,7 +41,7 @@ class PostDetailView(FormMixin, generic.DetailView):
 
     def form_valid(self, form):
         comment = form.save(commit=False)
-        comment.post = Post.objects.get(pk=self.object.pk)
+        comment.post = self.object
         comment.user = self.request.user
         comment.save()
         return super().form_valid(form)

@@ -31,7 +31,7 @@ class PostAdmin(admin.ModelAdmin):
 
 @admin.register(Commentary)
 class CommentaryAdmin(admin.ModelAdmin):
-    search_fields = ("post",)
+    search_fields = ("post__title",)
     list_filter = ("user",)
 
 
