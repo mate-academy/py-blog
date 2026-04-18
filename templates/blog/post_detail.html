@@ -16,8 +16,8 @@
   <p>{{ post.owner }} at {{ post.created_time }}</p>
   <h4>{{ post.content }}</h4>
   <br>
+{% if post.comments.exists %}
   <p><strong>{{ post.comments.count }} comment(s)</strong></p>
-{% if post.comments %}
   {% for comment in post.comments.all %}
     <div class="container border rounded">
       <p><strong>{{ comment.user }}</strong> {{ comment.created_time }}</p>
@@ -29,6 +29,7 @@
 {% else %}
   <p>There are no comments yet.</p>
 {% endif %}
+{% if user.is_authenticated %}
   <p><strong>Add a new comment</strong></p>
   {% load crispy_forms_filters %}
   <form action="" method="post" novalidate>
@@ -36,6 +37,7 @@
       {{ form|crispy }}
       <input class="btn btn-primary" type="submit" value="Add comment">
     </form>
+{% endif %}
 </div>
 </body>
 </html>

@@ -1,3 +1,4 @@
+from crispy_forms.helper import FormHelper
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views import generic
@@ -15,6 +16,9 @@ class IndexView(generic.ListView):
 
 
 class PostDetailView(FormMixin, generic.DetailView):
+    def __init__(self) -> None:
+        super().__init__()
+        self.helper = FormHelper()
     model = Post
     template_name = "blog/post_detail.html"
     form_class = CommentaryForm
