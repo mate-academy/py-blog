@@ -16,7 +16,7 @@
   {% if user.is_authenticated %}
     <form action="" method="post">
       {% csrf_token %}
-      {% crispy form %}
+      {{ form|crispy }}
       <br>
       <input type="submit" name="Submit">
     </form>

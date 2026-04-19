@@ -9,7 +9,7 @@ admin.site.unregister(Group)
 
 
 @admin.register(User)
-class UserAdmin(UserAdmin):
+class BlogUserAdmin(UserAdmin):
     pass
 
 
