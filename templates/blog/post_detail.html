@@ -1,0 +1,21 @@
+{% load crispy_forms_tags %}
+<h1>{{ post.title }}</h1>
+<p>{{ post.content }}</p>
+<hr>
+<h3>Comments:</h3>
+<ul>
+  {% for comment in post.comments.all %}
+    <li>
+      {{ comment.content }} - <b>{{ comment.user.username }}</b>
+    </li>
+  {% endfor %}
+</ul>
+{% if user.is_authenticated %}
+  <form method="post">
+    {% csrf_token %}
+    {{ comment_form|crispy }}
+    <button type="submit">Add Comment</button>
+  </form>
+{% else %}
+  <p>Please log in to leave a comment.</p>
+{% endif %}

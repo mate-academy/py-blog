@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Blog</title>
+  </head>
+  <body>
+    <h1>Posts</h1>
+    <ul>
+      {% for post in post_list %}
+        <li>
+          <a href="{% url 'blog:post-detail' pk=post.pk %}">{{ post.title }}</a>
+          <p>{{ post.content|truncatechars:100 }}</p>
+          <small>Author: {{ post.owner.username }} | Comments: {{ post.comments.count }}</small>
+        </li>
+      {% endfor %}
+    </ul>
+    {% if is_paginated %}
+      <div>
+        {% if page_obj.has_previous %}
+          <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+        <span>Page {{ page_obj.number }} of {{ paginator.num_pages }}</span>
+        {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}">Next</a>{% endif %}
+      </div>
+    {% endif %}
+  </body>
+</html>
