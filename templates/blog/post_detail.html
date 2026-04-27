@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block header %}
+  <h1>{{ post.title }}</h1>
+{% endblock %}
+
+{% block content %}
+  <div class="post-details" style="margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid #eee;">
+    <p><strong>Author:</strong> {{ post.author.username }}</p>
+    <p><strong>Published:</strong> {{ post.created_time|date:"d M Y, H:i" }}</p>
+    <div class="post-text" style="font-size: 18px; line-height: 1.6;">
+      {{ post.content|linebreaks }}
+    </div>
+  </div>
+
+  <h3>Comments</h3>
+  {% for comment in post.commentaries.all %}
+    <div style="margin: 20px 10px; padding: 10px; background: #f9f9f9; border-radius: 5px;">
+      <p style="font-size: 14px; margin: 0; color: #666;">{{ comment.user.username }}</p>
+      <p style="font-size: 16px; margin: 0">{{ comment.content }}</p>
+    </div>
+  {% empty %}
+    <p>No comments yet.</p>
+  {% endfor %}
+
+  <hr>
+
+  {% if user.is_authenticated %}
+    <form action="{% url 'blog:post-detail' post.id %}" method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="submit" value="⌯⌲" class="btn btn-primary">
+    </form>
+  {% endif %}
+{% endblock %}
