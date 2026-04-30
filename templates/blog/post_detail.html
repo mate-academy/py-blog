@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ post.title }} - Details{% endblock %}
+
+{% block content %}
+<article class="mt-4">
+    <header class="mb-4">
+        <h1 class="font-weight-bold">{{ post.title }}</h1>
+        <div class="text-muted small">
+            Posted by <strong>{{ post.owner.username }}</strong> on {{ post.created_time|date:"M d, Y H:i" }}
+        </div>
+    </header>
+
+    <div class="post-content mb-5" style="white-space: pre-wrap;">
+        {{ post.content }}
+    </div>
+
+    <hr>
+
+    <section class="comments-section mt-5">
+        <h3 class="mb-4">Comments ({{ post.commentary_set.count }})</h3>
+
+        {% for comment in post.commentary_set.all %}
+            <div class="media mb-4 p-3 border rounded shadow-sm">
+                <div class="media-body">
+                    <h6 class="mt-0 font-weight-bold">
+                        {{ comment.user.username }}
+                        <span class="text-muted small ml-2">
+                            {{ comment.created_time|date:"M d, Y H:i" }}
+                        </span>
+                    </h6>
+                    <div class="comment-text mt-2">
+                        {{ comment.content|linebreaks }}
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-muted font-italic">No comments yet. Be the first to comment!</p>
+        {% endfor %}
+    </section>
+
+    <hr>
+
+    <section class="add-comment mt-5 mb-5">
+        <h4 class="mb-3">Leave a comment</h4>
+
+        {% if user.is_authenticated %}
+            <form action="" method="post" class="mt-3">
+                {% csrf_token %}
+
+                {# Використання фільтра crispy для автоматичного стилювання #}
+                {{ comment_form|crispy }}
+
+                <button type="submit" class="btn btn-primary mt-2">Post Comment</button>
+            </form>
+        {% else %}
+            <div class="alert alert-info mt-3">
+                Please <a href="{% url 'login' %}">login</a> to leave a comment.
+            </div>
+        {% endif %}
+    </section>
+
+    <div class="mt-5 mb-5 border-top pt-3">
+        <a href="{% url 'blog:index' %}" class="btn btn-outline-secondary btn-sm">
+            &larr; Back to home
+        </a>
+    </div>
+</article>
+{% endblock %}
