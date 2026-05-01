@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>My blog</h1>
+  {% if object_list %}
+    <ul>
+      {% for obj in object_list %}
+        <li><a href="{{ obj.get_absolute_url }}">{{ obj.title }}</a></li>
+        <p>Author: {{ obj.owner.username }} • {{ obj.created_time }}</p>
+        <p><i>{{ obj.content|truncatechars:100 }}
+          [Comments: {{ obj.num_comments }}]</i></p>
+        <hr>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no posts.</p>
+  {% endif %}
+{% endblock %}
