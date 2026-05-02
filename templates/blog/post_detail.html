@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+
+  <div class="shadow p-3 mb-5 bg-body-tertiary rounded">
+  <a class="btn btn-outline-dark mb-5" href="{% url 'blog:index' %}">BACK</a>
+  <h5 class="pl-5 mx-auto">{{ post.title }}</h5>
+  <p class="pl-5 mx-auto"><em>{{ post.owner }} at {{ post.created_time }}</em></p>
+  <p class="pl-5 mx-auto">{{ post.content }}</p>
+  </div>
+  <h5>Comment{{ counted|pluralize }}: {{counted}}</h5>
+  {% if not post.comments.exists %}
+    <p><em>There are no comments yet.</em></p>
+  {% endif %}
+    <ul class="list-group">
+      {% for comment in post.comments.all %}
+    <li class="list-group-item">
+      <strong>{{ comment.user.username }}: </strong><em>{{ comment.created_time }}</em> 
+      <div>{{ comment.content }}</div>
+        {% if user.is_authenticated and user.id == comment.user.id%}
+      <div>
+        <a class="btn btn-warning" href="{% url 'blog:comment-update' pk=comment.id%}">edit</a>
+      <a class="btn btn-danger" href="{% url 'blog:comment-delete' pk=comment.id%}">delete</a>
+      </div>
+      {% endif %}
+    </li>
+         <br>       
+      {% endfor %}
+  </ul>
+  {% if user.is_authenticated %}
+  <form action="" method="post" novalidate>
+    {% csrf_token %}
+
+    <div class="form-title">
+        <strong>Add a new comment:</strong>
+    </div>
+
+    {{ form|crispy }}
+    <input type="submit" value="Submit">
+  </form>
+{% else %}
+  <p><em>Only authorized users could comment</em></p>
+<a href="{% url 'login' %}?next={{ request.path }}" class="btn btn-info mb-2">
+  Log in
+</a>
+
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  {% if user.is_authenticated %}
+    <ul class="list-group" style="float: right">
+    <li class="list-group-item">User: {{ user.username }}</li>
+    <li class="list-group-item"><form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %} 
+        <button class="btn btn-info" type="submit">Logout</button>
+</form></li> 
+    {% else %}
+    <a class="btn btn-info mb-2" style="float: right" href="{% url 'login' %}">Log in</a>
+  {% endif %}
+    </ul>
+  <h1 class="display-2">POSTS</h1>
+  <form class="form-inline" action="" method="get">
+    {{ search_field|crispy }}
+    <input class="btn btn-secondary" type="submit" value="🔎">
+  </form>
+   <ul class="list-group">
+    {% for post in post_list %}
+    <li class="list-group-item list-group-item-secondary ">
+      <h3><a href="{% url 'blog:post-detail' pk=post.id %}">Title: {{ post.title }}</a></h3>
+      <p>{{ post.content }}</p>
+      <p><strong>Author: </strong>{{ post.owner }}</p>
+      <p><strong>created: </strong>{{ post.created_time }}</p>    
+    <p
+style="background: linear-gradient(135deg, #6366f1, #22c55e); color: #ffffff;"><a class="p-3" style="color: whitesmoke" href="{% url 'blog:post-detail' pk=post.id%}">Comments: {{ post.comments.count }}</a></p>
+    </li>
+      <br>
+    {% endfor %}
+  </ul>
+{% endblock %}
