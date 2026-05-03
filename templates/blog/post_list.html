@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="mt-4">
+    {% if post_list %}
+      {% for post in post_list %}
+        <div class="card mb-3">
+          <div class="card-body">
+            <h4><a href="{% url 'blog:post-detail' pk=post.id %}"> {{ post.title }}</a></h4>
+            <p class="text-muted"> {{ post.owner.username }} at {{ post.created_time }} </p>
+            <p>{{ post.content|truncatewords:25 }}</p>
+            <p>
+              <strong>{{ post.comment_amount }} comment{{ post.comment_amount|pluralize }}</strong>
+            </p>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <p>No posts are available!</p>
+    {% endif %}
+  </div>
+{% endblock %}

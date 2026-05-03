@@ -1,0 +1,28 @@
+<ul class="list-group">
+
+  {% block home-link %}
+    <li class="list-group-item text-center">
+      <a href="{% url 'blog:index' %}">Home</a>
+    </li>
+  {% endblock %}
+
+  {% if user.is_authenticated %}
+    <li class="list-group-item text-center">
+      <strong>{{ user.username }}</strong>
+    </li>
+
+    <li class="list-group-item text-center">
+      <form action="{% url 'logout' %}?next={{ request.path }}" method="post">
+        {% csrf_token %}
+        <button class="btn btn-outline-dark btn-sm">
+          Logout
+        </button>
+      </form>
+    </li>
+  {% else %}
+    <li class="list-group-item text-center">
+      <a href="{% url 'login' %}?next={{ request.path }}">Login</a>
+    </li>
+  {% endif %}
+
+</ul>
