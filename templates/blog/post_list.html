@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="center-wrap">
+  <h1>Posts</h1>
+  {% if post_list %}
+    <ul>
+      {% for post  in post_list %}
+        <li style="list-style: none">
+          <a href="{% url "blog:post-detail" pk=post.id %}" class="link post-title">{{ post.title }}</a>
+          <i class="post-meta">{{ post.owner.username }} at {{ post.created_time }}, {{ post.number_of_comments }} comment{{ post.number_of_comments|pluralize }}</i>
+          <br>
+          <p>{{ post.content|truncatewords:20 }}</p>
+        <hr>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no posts in blog</p>
+  {% endif %}
+</div>
+{% endblock %}
