@@ -1,0 +1,23 @@
+<nav class="sidebar-nav p-3">
+  <ul class="nav flex-column">
+    {% if user.is_authenticated %}
+    <li class="nav-item mb-2">
+      <span class="text-secondary d-block">User:</span>
+      <strong class="text-white">{{ user.username }}</strong>
+    </li>
+    <li class="nav-item">
+      <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-danger btn-sm w-100">Logout</button>
+      </form>
+    </li>
+    {% else %}
+      <li class="nav-item">
+        <a href="{% url 'login' %}" class="btn btn-primary w-100">Login</a>
+      </li>
+    {% endif %}
+    <li class="nav-item">
+      <a href="{% url 'blog:index' %}" class="nav-link link-light ps-0">Home page</a>
+    </li>
+  </ul>
+</nav>
