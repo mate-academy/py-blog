@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Home Page</title>
+{% endblock %}
+
+{% block content %}
+  <h1>Blogs Page</h1>
+  <p>Welcome to the blog!</p>
+  <h3>Here are the available blogs:</h3>
+    {% if post_list %}
+    <ul>
+      {% for post in page_obj %}
+      <li>
+        <h3><a href="{% url 'blog:post-detail' pk=post.id %}" class="text-decoration-none">{{ post.title }} </a></h3>
+        <p>Written by: {{ post.owner }}</p>
+        <p class="text-muted"><strong>{{ post.content }}</strong></p>
+        <p>{{ post.created_time }} Comments: {{ post.commentaries.count }}</p>
+        <br>
+      </li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}
