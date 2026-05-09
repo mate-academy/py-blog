@@ -1,0 +1,18 @@
+body {
+    margin: 20px;
+    padding: 10px;
+    background-color: darkgray;
+}
+
+fieldset {
+    border-radius: 10px;
+    background-color: white;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+legend {
+    padding: 5px;
+    border-radius: 10px;
+    background-color: white;
+}
