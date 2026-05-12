@@ -33,13 +33,15 @@ class PostDetailView(generic.DetailView, generic.edit.FormMixin):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = self.get_form()
+        context["form"] = self.get_form()
         return context
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         if not request.user.is_authenticated:
-            return redirect(reverse("blog:post-detail", kwargs={"pk": self.object.pk}))
+            return redirect(
+                reverse("blog:post-detail", kwargs={"pk": self.object.pk})
+            )
         content = request.POST.get("content")
         if content:
             Commentary.objects.create(
