@@ -30,10 +30,14 @@
         <br>
       {% endfor %}
   {% endif %}
-  <h6><strong>Add a new comment</strong></h6>
-<form method="post" action="{% url 'blog:post-detail' post.id %}">
-  {% csrf_token %}
-  {{ form|crispy }}
-  <button type="submit" class="btn btn-primary mt-2">Add comment</button>
-</form>
+  {% if user.is_authenticated %}
+    <div class="mt-4">
+        <h6><strong>Add a new comment</strong></h6>
+        {% crispy form %}
+    </div>
+  {% else %}
+    <div class="alert alert-info mt-4">
+        <p>Please log in to leave a comment.</p>
+    </div>
+{% endif %}
 {% endblock %}
