@@ -20,7 +20,7 @@ class Post(models.Model):
         related_name="posts",
     )
     title = models.CharField(max_length=255)
-    content = models.TextField(max_length=500)
+    content = models.CharField(max_length=500)
     created_time = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -42,7 +42,7 @@ class Commentary(models.Model):
         related_name="commentaries",
     )
     created_time = models.DateTimeField(auto_now_add=True)
-    content = models.TextField(max_length=500)
+    content = models.CharField(max_length=500)
 
     class Meta:
         ordering = ("-created_time",)
