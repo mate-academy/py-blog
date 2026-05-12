@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  <title>{{ post.title }}</title>
+{% endblock %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p style="font-size: 12px">{{ post.created_time }}</p>
+  <h6 style="text-align: justify">{{ post.content }}</h6>
+  <br>
+  {% if post.comments_count == 0 %}
+    <p>{{ post.comments_count }} comment{{ post.comments_count|pluralize }}<br>
+      There are no comments yet.</p>
+  {% else %}
+    <p>{{ post.comments_count }} comment{{ post.comments_count|pluralize }}</p>
+    <br>
+      {% for comment in post.commentaries.all %}
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+          <td ><span>{{ comment.user.first_name }} {{ comment.user.last_name }}</span>
+              <span style="font-size: 12px">{{ comment.created_time }}</span></td>
+            </tr>
+            <tr>
+              <td>{{ comment.content }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+      {% endfor %}
+  {% endif %}
+  <h6><strong>Add a new comment</strong></h6>
+  <form method="POST" action="{% url 'blog:post-detail' post.id %}">
+    {% csrf_token %}
+    <label>
+      <textarea
+          name="content"
+          class="form-control"
+          rows="3"
+          cols="100%"
+          placeholder="Enter your comment here..." required></textarea>
+    </label>
+      <button type="submit" class="btn btn-primary mt-2">Add comment</button>
+  </form>
+{% endblock %}
