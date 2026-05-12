@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+  <title>{{ post.title }}</title>
+{% endblock %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p style="font-size: 12px">{{ post.created_time }}</p>
+  <h6 style="text-align: justify">{{ post.content }}</h6>
+  <br>
+  {% if post.comments_count == 0 %}
+    <p>{{ post.comments_count }} comment{{ post.comments_count|pluralize }}<br>
+      There are no comments yet.</p>
+  {% else %}
+    <p>{{ post.comments_count }} comment{{ post.comments_count|pluralize }}</p>
+    <br>
+      {% for comment in post.commentaries.all %}
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+          <td ><span>{{ comment.user.first_name }} {{ comment.user.last_name }}</span>
+              <span style="font-size: 12px">{{ comment.created_time }}</span></td>
+            </tr>
+            <tr>
+              <td>{{ comment.content }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <br>
+      {% endfor %}
+  {% endif %}
+  {% if user.is_authenticated %}
+    <div class="mt-4">
+        <h6><strong>Add a new comment</strong></h6>
+        {% crispy form %}
+    </div>
+  {% else %}
+    <div class="alert alert-info mt-4">
+        <p>Please log in to leave a comment.</p>
+    </div>
+{% endif %}
+{% endblock %}
