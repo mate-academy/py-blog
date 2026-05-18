@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1 class="mb-4">All Blog Posts</h1>
+    {% for post in post_list %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h2><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h2>
+                <p class="text-muted">By {{ post.owner.username }} on {{ post.created_time|date:"F d, Y H:i" }}</p>
+                <p>{{ post.content|truncatewords:30 }}</p>
+                <span class="badge badge-secondary">{{ post.comments.count }} Comments</span>
+            </div>
+        </div>
+    {% empty %}
+        <p>No posts available yet.</p>
+    {% endfor %}
+
+    {% if is_paginated %}
+        <nav>
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                    </li>
+                {% endif %}
+                <li class="page-item disabled"><span class="page-link">Page {{ page_obj.number }} of {{ paginator.num_pages }}</span></li>
+                {% if page_obj.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+{% endblock %}

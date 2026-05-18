@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="mb-4">
+        <a href="{% url 'blog:index' %}" class="btn btn-secondary mb-3">Back to Feed</a>
+        <h1>{{ post.title }}</h1>
+        <p class="text-muted">Published by <strong>{{ post.owner.username }}</strong> on {{ post.created_time }}</p>
+        <hr>
+        <p class="lead">{{ post.content|linebreaks }}</p>
+    </div>
+
+    <hr>
+    <h3>Comments ({{ comments.count }})</h3>
+    <div class="mb-4">
+        {% for comment in comments %}
+            <div class="border rounded p-2 my-2 bg-light">
+                <strong>{{ comment.user.username }}</strong> <small class="text-muted">{{ comment.created_time }}</small>
+                <p class="mb-0 mt-1">{{ comment.content }}</p>
+            </div>
+        {% empty %}
+            <p class="text-muted">No comments yet. Be the first to say something!</p>
+        {% endfor %}
+    </div>
+
+    <hr>
+    <h4>Leave a Comment</h4>
+    {% if user.is_authenticated %}
+        <form action="" method="post" novalidate>
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-primary mt-2">Submit Comment</button>
+        </form>
+    {% else %}
+        <div class="alert alert-warning">
+            You must be <a href="{% url 'admin:login' %}?next={{ request.path }}">logged in</a> to leave a comment.
+        </div>
+    {% endif %}
+{% endblock %}
