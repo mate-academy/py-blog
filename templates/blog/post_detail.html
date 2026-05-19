@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+  <article class="post-detail mb-5">
+    <h1 class="display-4">{{ post.title }}</h1>
+    <p class="text-muted">
+      By <strong>{{ post.owner.username }}</strong> on {{ post.created_time|date:"M d, Y" }}
+    </p>
+    <div class="post-content lead">
+      {{ post.content|linebreaks }}
+    </div>
+  </article>
+
+  <hr>
+
+  <section class="comments-list mb-5">
+    <h3 class="mb-4">Comments ({{ comments.count }})</h3>
+
+    {% for comment in comments %}
+      <div class="card mb-3">
+        <div class="card-body">
+          <p class="card-subtitle mb-2 text-muted" style="font-size: 0.85em;">
+            <strong>{{ comment.user.username }}</strong> commented on {{ comment.created_time|date:"M d, Y H:i" }}
+          </p>
+          <p class="card-text">{{ comment.content|linebreaksbr }}</p>
+        </div>
+      </div>
+    {% empty %}
+      <p class="text-muted italic">No comments yet.</p>
+    {% endfor %}
+  </section>
+
+  <hr>
+
+  <section class="add-comment-section mt-5">
+    <h4 class="mb-3">Add a new comment</h4>
+
+    {% if user.is_authenticated %}
+      <form method="post" novalidate>
+        {% csrf_token %}
+
+        {{ form|crispy }}
+
+        <button type="submit" class="btn btn-outline-secondary mt-2">
+          Add comment
+        </button>
+      </form>
+    {% else %}
+      <div class="alert alert-warning mt-3">
+        You must be <a href="#" class="alert-link">logged in</a> to leave a comment.
+      </div>
+    {% endif %}
+  </section>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Main Page — Posts List{% endblock %}
+
+{% block content %}
+  <h1>All Posts</h1>
+
+  {% if post_list %}
+    {% for post in post_list %}
+      <div class="post">
+        <h2 class="post-title">
+          <a href="{% url 'blog:post-detail' pk=post.pk %}">{{ post.title }}</a>
+        </h2>
+
+        <div class="post-meta">
+          Author: <strong>{{ post.owner.username }}</strong> |
+          Published: {{ post.created_time|date:"d.m.Y H:i" }}
+        </div>
+
+        <div class="post-content">
+          <p>{{ post.content|linebreaks }}</p>
+        </div>
+
+        <div class="post-comments">
+          💬 Comments: {{ post.commentary_set.count }}
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No posts available yet. Be the first to add one!</p>
+  {% endif %}
+{% endblock %}
