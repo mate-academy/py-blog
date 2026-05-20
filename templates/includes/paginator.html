@@ -1,0 +1,11 @@
+<div class="d-flex justify-content-center align-items-center gap-3 my-4">
+  {% if page_obj.has_previous %}
+    <a class="btn btn-outline-primary" href="?page={{ page_obj.previous_page_number }}">Prev</a>
+  {% endif %}
+  <span class="text-muted small ml-2 mr-2">
+    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+  </span>
+  {% if page_obj.has_next %}
+    <a class="btn btn-outline-primary" href="?page={{ page_obj.next_page_number }}">Next</a>
+  {% endif %}
+</div>

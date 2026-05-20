@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h2>{{ post.title }}</h2>
+  <div class="text-muted small">
+    <p>
+      {{ post.owner.username }} at
+      {{ post.created_time|date:"d.m.Y H:i" }}
+    </p>
+  </div>
+  <div class="mt-4">
+    <p>{{ post.content }}</p>
+  </div>
+
+  <p class="mt-5 mb-3 fw-bold">{{ post.comments.all|length }} comments</p>
+  {% for comment in post.comments.all %}
+    <div class="border rounded-2 p-3 mb-3 bg-white">
+      <p class="text-muted small mb-2 border-bottom pb-2">
+        <strong>{{ comment.user.username }}</strong>
+        <span class="ms-2 text-secondary">{{ comment.created_time|date:"N d, Y, P" }}</span>
+      </p>
+      <p class="mb-0 text-dark">{{ comment.content }}</p>
+    </div>
+  {% empty %}
+    <p class="text-muted">There are no comments yet.</p>
+  {% endfor %}
+
+  <div class="add_new_comment">
+    <p><strong>Add new comment</strong></p>
+
+    <form action="" method="post" novalidate>
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input type="submit" value="Add comment" class="btn btn-outline-primary mt-2">
+    </form>
+  </div>
+{% endblock %}

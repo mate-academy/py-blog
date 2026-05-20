@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Post: </h1>
+  <br>
+  {% for post in post_list %}
+    <div class="mt-4">
+      <h2><a href="{% url "blog:post-detail" post.pk %}">{{ post.title }}</a></h2>
+      <p>{{ post.content|truncatewords:30 }}</p>
+      <div class="text-muted small">
+        <p>
+          Owner: {{ post.owner.username }} |
+          {{ post.created_time|date:"d.m.Y" }} |
+          Comments: {{ post.comments_count }}
+        </p>
+      </div>
+    </div>
+  {% empty %}
+    <p>Posts doesn't exist.</p>
+  {% endfor %}
+
+  {% include "includes/paginator.html" %}
+{% endblock %}
