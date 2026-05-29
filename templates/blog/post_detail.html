@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %} {% block content %}
+  <div class="border-bottom pb-3 mb-4">
+    <h1 class="display-4">{{ post.title }}</h1>
+    <h6 class="text-muted mb-3">
+      👤 {{ post.owner.username }} | 📅 {{ post.created_time|date:"F d, Y H:i" }}
+    </h6>
+    <div class="lead text-justify font-weight-normal">{{ post.content }}</div>
+  </div>
+
+  <h4 class="mb-3 text-secondary">Comments ({{ post.commentaries.count }})</h4>
+
+  {% if post.commentaries.all %}
+    <div class="mb-4">
+      {% for comment in post.commentaries.all %}
+        <div class="card mb-2 bg-light">
+          <div class="card-body py-2 px-3">
+            <div class="d-flex justify-content-between small text-muted mb-1">
+              <strong>{{ comment.user.username }}</strong>
+              <span>{{ comment.created_time|date:"Y-m-d H:i" }}</span>
+            </div>
+            <p class="card-text m-0 text-dark">{{ comment.content }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="text-muted italic mb-4">No comments yet. Be the first to comment!</p>
+  {% endif %}
+
+  <div class="card shadow-sm mb-5">
+    <div class="card-body">
+      {% if request.user.is_authenticated %}
+        <h5 class="card-title mb-3">Leave a Reply</h5>
+        <form action="{% url 'blog:comment_create' pk=post.id %}" method="post" novalidate>
+          {% csrf_token %}
+
+          {{ form|crispy }}
+
+          <button type="submit" class="btn btn-primary mt-2">Add comment</button>
+        </form>
+      {% else %}
+        <div class="alert alert-warning m-0">
+          You must be <a href="{% url 'login' %}" class="alert-link">logged in</a> to leave a comment.
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

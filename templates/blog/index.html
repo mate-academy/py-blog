@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 class="mb-4 text-secondary">All posts</h1>
+
+  {% if post_list %}
+    {% for post in post_list %}
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <h2 class="card-title">
+            <a href="{% url 'blog:post-detail' pk=post.id %}" class="text-dark text-decoration-none">
+              {{ post.title }}
+            </a>
+          </h2>
+          <h6 class="card-subtitle mb-3 text-muted">
+            👤 {{ post.owner.username }} | 📅 {{ post.created_time|date:"F d, Y H:i" }}
+            <span class="badge badge-pill badge-secondary p-2">
+              💬 Comments: {{ post.commentaries.count }}
+            </span>
+          </h6>
+          <p class="card-text text-justify">{{ post.content|truncatewords:30 }}</p>
+          <a href="{% url 'blog:post-detail' pk=post.id %}" class="btn btn-sm btn-outline-primary">
+            Read more
+          </a>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="alert alert-info">There are no posts yet.</div>
+  {% endif %}
+{% endblock %}

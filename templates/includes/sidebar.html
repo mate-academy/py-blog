@@ -1,0 +1,23 @@
+{% load crispy_forms_tags %}
+
+<div class="list-group mb-4">
+  <a href="{% url 'blog:index' %}" class="list-group-item list-group-item-action font-weight-bold">
+    🏠 Home page
+  </a>
+  
+  {% if user.is_authenticated %}
+    <div class="list-group-item list-group-item-light small text-muted">
+      Logged in as: <strong class="text-dark">{{ user.username }}</strong>
+    </div>
+    <div class="list-group-item">
+      <form action="{% url 'logout' %}" method="post" class="m-0">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-sm btn-block btn-outline-danger">Logout</button>
+      </form>
+    </div>
+  {% else %}
+    <a href="{% url 'login' %}" class="list-group-item list-group-item-action list-group-item-primary text-center">
+      Login
+    </a>
+  {% endif %}
+</div>
