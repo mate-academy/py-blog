@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  {% block title %}
+    <title>Blog</title>
+  {% endblock %}
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css">
+
+  {% load static %}
+
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+
+<body class="bg-light">
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container">
+
+      <a class="navbar-brand fw-bold" href="{% url 'blog:index' %}">
+        📝 My Blog
+      </a>
+
+      <div class="ms-auto">
+        {% include "includs/sidebar.html" %}
+      </div>
+
+    </div>
+  </nav>
+
+  <main class="container py-4">
+
+    {% block content %}
+    {% endblock %}
+
+  </main>
+
+  <div class="container">
+    {% block pagination %}
+      {% include "includs/pagination.html" %}
+    {% endblock %}
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
