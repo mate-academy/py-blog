@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+
+{% block content %}
+  <div class="container py-4">
+    <h1 class="mb-4">Post details</h1>
+
+    <div class="card mb-3">
+      <div class="card-body">
+
+        <h2 class="card-title">
+          {{ post.title }}
+        </h2>
+
+        <p class="card-text">
+          {{ post.content }}
+        </p>
+
+        <p>
+          Author: {{ post.owner }}
+        </p>
+
+        <p>
+          Created: {{ post.created_time }}
+        </p>
+        <p>
+          Comments:
+        </p>
+        <ul class="list-group">
+        {% for comment in post.commentary.all %}
+          <li class="list-group-item disabled">{{ comment.user }} {{ comment.created_time }}</li>
+          <li class="list-group-item">{{ comment.content }}</li>
+        {% endfor %}
+        </ul>
+
+      </div>
+    </div>
+
+    <form action="" method="POST">
+      {% csrf_token %}
+
+      {{ form|crispy }}
+
+      <input type="Submit" value="Comment" class="btn btn-primary">
+    </form>
+
+  </div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container py-4">
+    <h1 class="mb-4">Posts</h1>
+
+    {% for post in post_list %}
+      <div class="card mb-3">
+        <div class="card-body">
+
+          <h2 class="card-title">
+            <a href="{% url 'blog:post-detail' pk=post.id %}">
+              {{ post.title }}
+            </a>
+          </h2>
+
+          <p class="card-text">
+            {{ post.content }}
+          </p>
+
+          <p class="text-muted mb-1">
+            Author: {{ post.owner }}
+          </p>
+
+          <p class="text-muted mb-1">
+            Created: {{ post.created_time }}
+          </p>
+
+          <p class="text-muted">
+            Comments: {{ post.commentary.count }}
+          </p>
+
+        </div>
+      </div>
+
+    {% empty %}
+      <p>No posts are available.</p>
+    {% endfor %}
+  </div>
+{% endblock %}
