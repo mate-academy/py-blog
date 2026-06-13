@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title %} {{post.title}}{% endblock %}
+{% block content %}
+  <h2 class="title">{{post.title}}</h2>
+  <p>{{post.content}}</p>
+  <p>Author: {{post.owner}} | Created: {{post.created_time}}</p>
+  <hr>
+  <h3>Comments:</h3>
+  <ul>
+    {% for comment in object.commentaries.all %}
+      <li class="comment">
+        <h4>{{comment.user.username}}</h4>
+        <p>{{comment.content}}</p>
+        <p>{{comment.created_time}}</p>
+      </li>
+    {% endfor %}
+  </ul>
+  <hr>
+  <h3>Leave a comment</h3>
+  {% if user.is_authenticated %}
+    <form method="post">
+      {% csrf_token %}
+      {{ commentary_form|crispy}}
+      <br>
+      <button type="submit">Send</button>
+    </form>
+  {% else %}
+    <p>Only authorized users can leave a comment</p>
+  {% endif %}
+{% endblock %}

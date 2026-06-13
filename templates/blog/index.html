@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Posts{% endblock %}
+{% block content %}
+  <ul>
+    {% for post in page_obj %}
+      <li class="post">
+        <h2><a href="{% url 'blog:post-detail' post.pk %}">{{post.title}}</a></h2>
+        <p>Author: {{post.owner}} | created: {{post.created_time}}</p>
+        <p>{{post.content}}</p>
+        <hr>
+        <p>Comments: {{post.comment_count}}</p>
+      </li>
+    {% endfor %}
+  </ul>
+  {% include 'includes/pagination.html' %}
+{% endblock %}

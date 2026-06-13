@@ -1,0 +1,93 @@
+html, body{
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+}
+
+header{
+    padding: 20px 0;
+    background-color: lightblue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo{
+    text-align: center;
+}
+
+.home{
+    position: absolute;
+    left: 20px;
+    text-decoration: none;
+    color: black;
+    font-size: 30px;
+}
+
+footer{
+    flex: 1 0 auto;
+    padding: 20px 0;
+    background-color: lightblue;
+    text-align: center;
+    margin-top: 20px;
+    border-top: 2px solid black;
+}
+
+.post{
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 20px;
+    margin-right: 50px;
+}
+
+ul{
+    list-style-type: none;
+}
+
+.button {
+  padding: 8px 16px;
+  background: #3498db;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.button.disabled {
+  background: #ccc;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.box{
+    padding: 8px 16px;
+    background: white;
+    color: black;
+    text-decoration: none;
+    border-radius: 6px;
+    border: lightslategray 2px solid;
+    pointer-events: none;
+}
+
+.pagination{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title{
+    text-align: center;
+}
+
+.comment{
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 20px;
+    margin-right: 50px;
+}

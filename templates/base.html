@@ -1,0 +1,28 @@
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}BLOG{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <a class="home" href="{% url 'blog:index' %}">Home</a>
+    <h1 class="logo">BLOG</h1>
+  </header>
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+  <footer>
+    <p>
+      Blog website
+      <br>
+      by Artem Turchyn
+      <br>
+      <small>Used: Django</small>
+    </p>
+  </footer>
+</body>
+</html>
