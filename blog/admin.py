@@ -8,7 +8,7 @@ admin.site.unregister(Group)
 
 
 @admin.register(User)
-class UserAdmin(UserAdmin):
+class CustomUserAdmin(UserAdmin):
     pass
 
 
