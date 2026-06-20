@@ -1,3 +1,7 @@
+body {
+    padding: 10px 0;
+}
+
 .truncate-10-lines {
     display: -webkit-box;
     -webkit-line-clamp: 5;

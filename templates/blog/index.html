@@ -5,15 +5,16 @@
   <ul class="list-group list-group-flush">
     {% for post in post_list %}
       <li class="list-group-item mb-3">
-        <div class="d-flex justify-content-between ">
+        <div class="d-flex justify-content-between align-items-center">
           <div class="d-flex align-items-baseline">
-            <h4 class=""><a href="#">{{ post.title }}</a></h4>
+            <h4 class=""><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h4>
             <p class="text-muted ml-2 mb-0 pb-0">by {{ post.owner }}</p>
           </div>
           <p class="text-muted ml-2 mb-0 pb-0">{{ post.created_time }}</p>
         </div>
         <p class="truncate-10-lines mx-3">{{ post.content }}</p>
-        <p class="text-muted ml-2 mb-0 pb-0">Comments: {{ post.commentaries.count }}</p>
+        <p class="text-muted ml-2 mb-0 pb-0">{{ post.commentaries.count }}
+          comment{{ post.commentaries.count|pluralize }}</p>
       </li>
     {% empty %}
       <li class="list-group-item">
