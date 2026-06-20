@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-baseline">
+      <h1 class="">{{ post.title }}</h1>
+      <p class="text-muted ml-2 mb-0 pb-0">by {{ post.owner }}</p>
+    </div>
+    <p class="text-muted ml-2 mb-0 pb-0">{{ post.created_time }}</p>
+  </div>
+  <p class="mx-3">{{ post.content }}</p>
+  <p class="text-muted ml-2 mb-1 pb-0">{{ post.commentaries.count }}
+    comment{{ post.commentaries.count|pluralize }}</p>
+  {% for commentary in post.commentaries.all %}
+    <ul class="list-group mb-3">
+      <li class="list-group-item">
+        <div class="d-flex align-items-baseline">
+          <span class="font-weight-bold">{{ commentary.user }}</span>
+          <span class="text-muted ml-2 mb-0 pb-0">{{ commentary.created_time }}</span>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <span class="mx-3">{{ commentary.content }}</span>
+      </li>
+    </ul>
+  {% empty %}
+    <p class="text-muted ml-2 mb-0 pb-0">There are no comments yet.</p>
+  {% endfor %}
+  {% if user.is_authenticated %}
+    <form action="" method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <input class="btn btn-outline-secondary" type="submit" value="Comment">
+    </form>
+  {% else %}
+    <p class="text-muted ml-2">Only registered users can add comments.</p>
+  {% endif %}
+{% endblock %}
