@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<div class="mt-4">
+    <a href="{% url 'blog:index' %}" class="btn btn-outline-secondary mb-4">&larr; Back to list</a>
+
+    <article class="blog-post mb-5">
+        <h1 class="font-weight-normal">{{ post.title }}</h1>
+        <p class="small">{{ post.owner.username }} at {{ post.created_time|date:"N d, Y, g:i a." }}</p>
+        <p class="lead font-weight-normal" style="white-space: pre-line;">{{ post.content }}</p>
+    </article>
+
+    <div class="mb-4">
+        <h5 class="mb-2 font-weight-normal">{{ post.comments.count }} comment{{ post.comments.count|pluralize }}</h5>
+        {% for comment in post.comments.all %}
+            <div class="card mb-3 shadow-sm">
+                <div class="card-body">
+                    <p class="text-muted small mb-2"><strong>{{ comment.user.username }}</strong> {{ comment.created_time|date:"N d, Y, g:i a." }}</p>
+                    <p class="card-text mb-0">{{ comment.content }}</p>
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-muted">No comments yet.</p>
+        {% endfor %}
+    </div>
+
+    <div class="mt-4">
+        <div class="card p-4 bg-light shadow-sm">
+        {% if user.is_authenticated %}
+
+            <form method="POST" action="">
+                {% csrf_token %}
+
+                <div class="form-group mb-3">
+                    <label for="comment" class="mb-2 font-weight-bold">Add a new comment</label>
+                    <textarea class="form-control" rows="3" id="comment" name="comment" placeholder="Enter your comment here..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Add comment</button>
+            </form>
+        {% else %}
+            <div class="alert alert-warning mb-0">
+                Only authorized users can post comments.
+            </div>
+        {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
