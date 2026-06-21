@@ -1,0 +1,17 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.card:hover {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .15);
+    transition: box-shadow .2s ease;
+}
+
+.card-title a {
+    text-decoration: none;
+}
+
+.card-title a:hover {
+    color: #0056b3 !important;
+    text-decoration: underline;
+}

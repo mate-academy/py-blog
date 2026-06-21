@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block content %}
+<a href="{% url 'blog:index' %}" class="btn btn-outline-secondary btn-sm mb-3">&laquo; Back to posts</a>
+
+<div class="card shadow-sm mb-4">
+  <div class="card-body">
+    <h1 class="card-title">{{ object.title }}</h1>
+    <p class="text-muted">
+      <strong>{{ object.owner }}</strong> &middot; {{ object.created_time|date:"M d, Y H:i" }}
+    </p>
+    <hr>
+    <p class="card-text" style="white-space: pre-wrap;">{{ object.content }}</p>
+  </div>
+</div>
+
+<h3 class="mb-3">
+  Comments
+  <span class="badge badge-secondary">{{ object.commentary_set.count }}</span>
+</h3>
+
+{% for comment in object.commentary_set.all %}
+<div class="card mb-2">
+  <div class="card-body py-2 px-3">
+    <div class="d-flex justify-content-between">
+      <strong>{{ comment.user }}</strong>
+      <small class="text-muted">{{ comment.created_time|date:"M d, Y H:i" }}</small>
+    </div>
+    <p class="mb-0 mt-1">{{ comment.content }}</p>
+  </div>
+</div>
+{% empty %}
+<div class="alert alert-light">No comments yet.</div>
+{% endfor %}
+
+<div class="mt-4">
+  <h4>Add a comment</h4>
+  {% if user.is_authenticated %}
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary mt-2">Submit</button>
+  </form>
+  {% else %}
+  <div class="alert alert-warning">
+    Please <a href="{% url 'admin:index' %}">log in</a> to add a comment.
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

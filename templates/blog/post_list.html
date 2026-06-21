@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Blog — Home{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Latest Posts</h1>
+
+{% for post in post_list %}
+<div class="card mb-3 shadow-sm">
+  <div class="card-body">
+    <h5 class="card-title">
+      <a href="{% url 'blog:post-detail' post.pk %}" class="text-dark">{{ post.title }}</a>
+    </h5>
+    <p class="card-text text-truncate" style="max-width: 100%;">{{ post.content }}</p>
+    <div class="d-flex justify-content-between align-items-center">
+      <small class="text-muted">
+        <strong>{{ post.owner }}</strong> &middot; {{ post.created_time|date:"M d, Y H:i" }}
+      </small>
+      <span class="badge badge-secondary">
+        {{ post.commentary_set.count }} comment{{ post.commentary_set.count|pluralize }}
+      </span>
+    </div>
+  </div>
+</div>
+{% empty %}
+<div class="alert alert-info">No posts yet.</div>
+{% endfor %}
+
+{% if is_paginated %}
+<nav class="mt-4">
+  <ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo; Previous</a>
+      </li>
+    {% else %}
+      <li class="page-item disabled"><span class="page-link">&laquo; Previous</span></li>
+    {% endif %}
+
+    {% for num in page_obj.paginator.page_range %}
+      {% if page_obj.number == num %}
+        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+      {% else %}
+        <li class="page-item"><a class="page-link" href="?page={{ num }}">{{ num }}</a></li>
+      {% endif %}
+    {% endfor %}
+
+    {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next &raquo;</a>
+      </li>
+    {% else %}
+      <li class="page-item disabled"><span class="page-link">Next &raquo;</span></li>
+    {% endif %}
+  </ul>
+</nav>
+{% endif %}
+{% endblock %}
