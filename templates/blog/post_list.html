@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  <h1>Post list</h1>
+{% endblock %}
+
+{% block content %}
+  {% if post_list %}
+    <ul class="no-style-list list-group">
+    {% for post in post_list %}
+      <li class="mb-4">
+        <div class="content-box"> <h5><a class="not-underlined" href="{% url 'blog:post-detail' post.id %} ">{{ post.title }}</a></h5>
+        <span class="small muted">{{ post.owner }} at {{ post.created_time }}</span> <hr class="my-2">
+        {{ post.content }}
+        </div>
+      </li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no post so far</p>
+  {% endif %}
+{% endblock %}

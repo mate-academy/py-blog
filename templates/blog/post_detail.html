@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %}
+  <h1 class="bottom-dist">Detail page</h1>
+{% endblock %}
+
+{% block content %}
+  	<h3>{{ post.title }}</h3>
+    <p class="small muted">{{ post.owner }} at {{ post.created_time }}</p>
+    <p class="bottom-dist">{{ post.content }}</p>
+    <p><b>{{ comments|length }} comment{{ comments|length|pluralize:",s" }}</b></p>
+    {% for comment in comments %}
+      <div class="content-box">
+        <p>{{ comment.user.username }} <span class="small muted">{{ comment.created_time }}</span></p>
+        <hr>
+        <p>{{ comment.content }}</p>
+      </div>
+      <br>
+    {% endfor %}
+
+  <p class="top-dist"><b>Add a new comment</b></p>
+  {% if form.errors %}
+    <p class="error">Invalid data</p>
+  {% endif %}
+  <form action="" method="POST" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input class="btn btn-primary top-dist bottom-dist" type="submit" value="Submit">
+  </form>
+  <a class="btn btn-primary" href="{% url 'blog:index' %}">Go back</a>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% block sidebar %}
+  <div class="navigation">
+    {% if user.is_authenticated %}
+      <p>Hello, <a class="logout" href="{% url 'blog:user-detail' user.pk %}">{{ user.username }}</a></p>
+      <form action="{% url 'logout' %}" method="POST">
+        {% csrf_token %}
+        <input class="logout" type="submit" value="Logout">
+      </form>
+    {% else %}
+      <a href="{% url 'login' %}">Login</a>
+    {% endif %}
+    <p><a class="logout" href="{% url 'blog:index' %}">Main page</a></p>
+  </div>
+{% endblock %}
