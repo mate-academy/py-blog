@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+  <h1 class="mb-4">Усі пости</h1>
+
+  {% for post in post_list %}
+    <div class="card mb-3">
+      <div class="card-body">
+        <h2 class="card-title">
+          <a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a>
+        </h2>
+
+        <p class="card-text">{{ post.content|striptags|truncatechars:290 }}
+          <a href="{% url 'blog:post-detail' post.pk %}" class="text-primary" style="font-size: 0.9rem;">
+            Read more...
+          </a>
+        </p>
+      </div>
+
+      <div class="card-footer text-muted">
+        <small>
+          <strong>Автор:</strong> {{ post.owner.username }} |
+          <strong>Створено:</strong> {{ post.created_time|date:"d.m.Y H:i" }} |
+          <strong>Коментарів:</strong> {{ post.commentary.count }}
+        </small>
+      </div>
+    </div>
+  {% empty %}
+      <p>Наразі немає жодного поста.</p>
+  {% endfor %}
+  {% include "includes/pagination.html" %}
+  <p>You have visited this page {{ num_visits }} time{{ num_visits|pluralize }}.</p>
+</div>
+{% endblock %}

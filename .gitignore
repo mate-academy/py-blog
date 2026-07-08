@@ -1,0 +1,23 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+env/
+.venv/
+
+# Database (локальна база даних з вашими тестовими коментарями)
+db.sqlite3
+
+# PyCharm / IDE
+.idea/
+.vscode/
+
+# Environment variables (якщо ви колись додасте файл .env)
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
