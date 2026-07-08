@@ -39,7 +39,7 @@ def post_detail(request, pk):
     else:
         form = CommentaryForm()
 
-    return render(request, 'blog/post_detail.html', {
+    return render(request, "blog/post_detail.html", {
         "post": post,
         "form": form,
     })

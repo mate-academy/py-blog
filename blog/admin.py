@@ -4,9 +4,17 @@ from blog.models import User, Commentary, Post
 
 admin.site.unregister(Group)
 
+
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ("username", "first_name", "last_name", "is_staff", "is_active", "date_joined")
+    list_display = (
+        "username",
+        "first_name",
+        "last_name",
+        "is_staff",
+        "is_active",
+        "date_joined"
+    )
     search_fields = ("username", "first_name", "last_name", "email")
 
 
@@ -16,6 +24,7 @@ class PostAdmin(admin.ModelAdmin):
     search_fields = ("title", "content")
     list_filter = ("owner", "created_time")
     date_hierarchy = "created_time"
+
 
 @admin.register(Commentary)
 class CommentaryAdmin(admin.ModelAdmin):
