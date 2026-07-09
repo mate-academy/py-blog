@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            {% for post in post_list %}
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <h2><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h2>
+                        <p class="text-muted">By {{ post.owner }} on {{ post.created_time|date:"F d, Y" }}</p>
+                        <p class="card-text">{{ post.content|truncatewords:30 }}</p>
+                        <span class="badge badge-secondary">{{ post.comments.count }} comment(s)</span>
+                    </div>
+                </div>
+            {% endfor %}
+
+            {% include "includes/pagination.html" %}
+
+        </div>
+    </div>
+{% endblock %}
