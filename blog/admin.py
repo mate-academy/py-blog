@@ -3,14 +3,14 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
 
 from blog.models import (
-    User,
+    CustomUser,
     Post,
     Commentary
 )
 
 
-@admin.register(User)
-class UserAdmin(UserAdmin):
+@admin.register(CustomUser)
+class CustomUserAdmin(UserAdmin):
     add_fieldsets = UserAdmin.add_fieldsets + (
         (
             (

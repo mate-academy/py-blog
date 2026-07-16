@@ -3,7 +3,7 @@ from django.views import generic
 from django.urls import reverse
 
 from .forms import CommentaryForm
-from .models import Commentary, Post
+from .models import Post
 
 
 class PostListView(generic.ListView):

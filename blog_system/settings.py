@@ -91,7 +91,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = "blog.User"
+AUTH_USER_MODEL = "blog.CustomUser"
 
 LOGIN_REDIRECT_URL = "/"
 
