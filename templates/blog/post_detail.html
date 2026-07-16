@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+
+  <div class="post-detail">
+    <h1>{{ post.title }}</h1>
+    <div class="text-muted small">
+      {{ post.owner }} at {{ post.created_time }}
+    </div>
+    <ul class="post-detail-main post-list list-group shadow-lg">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        {{ post.content }}
+      </li>
+    </ul>
+
+    <p style="font-weight: bold;">{{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}</p>
+    {% if post.commentaries.count %}
+      {% for comment in post.commentaries.all %}
+        <ul class="post-list list-group shadow-lg">
+          <li class="list-group-item d-flex justify-content-between align-items-center">{{ comment.user }} {{ comment.created_time }}</li>
+          <li class="list-group-item d-flex justify-content-between align-items-center">{{ comment.content }}</li>
+        </ul>
+      {% endfor %}
+    {% else %}
+      <p>There are no comments yet.</p>
+    {% endif %}
+    
+    <div style="margin-top: 60px;">
+      {% if user.is_authenticated %}
+      <form action="{% url 'blog:comment-create' pk=post.id %}" method="POST">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" value="Add comment" class="btn btn-primary">
+      </form>
+      {% else %}
+        <h4><i>To leave a comment, log in to your profile.</i></h4>
+        <a class="btn btn-primary" href="{% url 'login' %}?next={{ request.path }}">Login</a>
+      {% endif %}
+    </div>
+  </div>
+
+{% endblock %}
