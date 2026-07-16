@@ -1,0 +1,35 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.post-list {
+    margin-top: 20px;
+    max-width: 70vw;
+}
+
+.footer-post {
+    margin: 10px 0;
+}
+
+.asteriskField {
+    display: none;
+}
+
+.login-form {
+    margin-top: 26vh;
+    max-width: 300px;
+}
+
+.post-detail {
+    margin-top: 80px;
+    margin-bottom: 40px;
+    max-width: 900px;
+}
+
+.post-detail-main {
+    margin-bottom: 70px;
+}
