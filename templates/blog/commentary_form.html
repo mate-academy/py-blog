@@ -1,9 +1,0 @@
-{% load crispy_forms_filters %}
-
-{% block comment_form %}
-  <form action="{% url 'blog:comment-create' %}" method="POST">
-    {% csrf_token %}
-    {{ form|crispy }}
-    <input type="submit" value="Submit">
-  </form>
-{% endblock %}

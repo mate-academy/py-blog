@@ -28,7 +28,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     "blog",
     "crispy_forms",
-    "crispy_bootstrap5"
+    "crispy_bootstrap4"
 ]
 
 MIDDLEWARE = [
@@ -116,9 +116,9 @@ STATICFILES_DIRS = (BASE_DIR / "static",)
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-CRISPY_TEMPLATE_PACK="bootstrap5"
+CRISPY_TEMPLATE_PACK="bootstrap4"
 
-CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 
 INTERNAL_IPS = [
     "127.0.0.1",

@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import generic
 from django.urls import reverse
+from django.shortcuts import redirect
 
 from .forms import CommentaryForm
 from .models import Post
@@ -34,6 +35,9 @@ class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
         form.instance.user = self.request.user
         form.instance.post_id = self.kwargs["pk"]
         return super().form_valid(form)
+
+    def form_invalid(self, form):
+        return redirect(self.get_success_url())
 
     def get_success_url(self):
         return reverse("blog:post-detail", kwargs={"pk": self.kwargs["pk"]})
