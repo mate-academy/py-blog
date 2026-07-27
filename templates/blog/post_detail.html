@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ post.title }} | Blog System{% endblock %}
+
+{% block content %}
+
+  <article class="card shadow-sm mb-4">
+    <div class="card-body p-4">
+      <h1 class="card-title mb-3">{{ post.title }}</h1>
+
+      <div class="text-muted mb-4">
+        By <strong>{{ post.owner.username }}</strong>
+        · {{ post.created_time|date:"M d, Y H:i" }}
+      </div>
+
+      <p class="card-text mb-0">
+        {{ post.content }}
+      </p>
+    </div>
+
+  </article>
+
+  <section>
+    <h2 class="mb-4">
+      Comments
+      <span class="badge badge-secondary">
+        {{ post.commentary_set.count }}
+      </span>
+    </h2>
+
+    {% for comment in post.commentary_set.all %}
+      <div class="card mb-3 shadow-sm">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start">
+            <div>
+              <strong>{{ comment.user.username }}</strong>
+
+              <div class="text-muted small mt-1">
+                {{ comment.created_time|date:"M d, Y H:i" }}
+              </div>
+            </div>
+
+            {% if user.is_authenticated and user == comment.user %}
+              <form method="post"
+                  action="{% url 'blog:comment-delete' pk=comment.pk %}"
+                  class="ml-3">
+                {% csrf_token %}
+
+                <button
+                    type="submit"
+                    class="btn btn-outline-danger btn-sm"
+                >
+                  Delete
+                </button>
+              </form>
+            {% endif %}
+          </div>
+
+          <hr class="my-3">
+
+          <p class="mb-0">
+            {{ comment.content }}
+          </p>
+        </div>
+      </div>
+
+    {% empty %}
+      <div class="alert alert-light border text-muted">
+        There are no comments yet.
+      </div>
+    {% endfor %}
+
+  </section>
+
+  {% if user.is_authenticated %}
+    <section class="card shadow-sm mt-4">
+      <div class="card-body p-4"><h3 class="card-title mb-4">
+        Add a comment </h3>
+
+        <form method="post"
+            action="{% url 'blog:comment-create' pk=post.pk %}">
+          {% csrf_token %}
+          {{ form|crispy }}
+          
+          <button
+              type="submit"
+              class="btn btn-primary mt-2"
+          >
+            Add Comment
+          </button>
+        </form>
+      </div>
+    </section>
+
+  {% else %}
+    <div class="alert alert-info mt-4">
+      Please <a href="{% url 'login' %}">login</a>
+      to leave a comment.
+    </div>
+  {% endif %}
+
+  <div class="mt-4">
+    <a href="{% url 'blog:index' %}"
+        class="btn btn-outline-secondary">
+      Back to posts
+    </a>
+  </div>
+{% endblock %}
