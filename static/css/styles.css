@@ -1,0 +1,26 @@
+body {
+    margin-top: 20px;
+}
+
+.post {
+    margin-bottom: 20px;
+}
+
+.post-meta {
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+.comment {
+    padding: 10px 0;
+    border-top: 1px solid #dee2e6;
+}
+
+.site-title a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.sidebar-nav {
+    padding: 0 20px;
+}
