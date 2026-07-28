@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  {% for comment in post.comments.all %}
+    <p>Comments: {{ comment.content }}</p>
+  {% empty %}
+    <p>No comments yet</p>
+  {% endfor %}
+  <form action="{% url 'blog:create-comment' post.pk %}" method="post" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="Submit">
+  </form>
+{% endblock %}
