@@ -8,20 +8,36 @@ from blog.models import User, Post, Commentary
 
 @admin.register(User)
 class UserAdmin(UserAdmin):
-    list_filter = ["username", "email", "first_name", "last_name",]
-    search_fields = ["username",]
+    list_filter = [
+        "username",
+        "email",
+        "first_name",
+        "last_name",
+    ]
+    search_fields = [
+        "username",
+    ]
 
 
 @admin.register(Post)
 class PostAdmin(ModelAdmin):
-    list_filter = ["owner",]
-    search_fields = ["title",]
+    list_filter = [
+        "owner",
+    ]
+    search_fields = [
+        "title",
+    ]
 
 
 @admin.register(Commentary)
 class CommentaryAdmin(ModelAdmin):
-    list_filter = ["user", "post",]
-    search_fields = ["user__username",]
+    list_filter = [
+        "user",
+        "post",
+    ]
+    search_fields = [
+        "user__username",
+    ]
 
 
 admin.site.unregister(Group)
