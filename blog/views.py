@@ -23,7 +23,9 @@ class PostDetailView(generic.DetailView):
     template_name = "blog/post_detail.html"
 
     def get_queryset(self):
-        return Post.objects.select_related("owner").prefetch_related("comments")
+        return (
+            Post.objects.select_related("owner").prefetch_related("comments")
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -42,4 +44,6 @@ class CommentCreateView(LoginRequiredMixin, generic.CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy("blog:post-detail", kwargs={"pk": self.kwargs["pk"]})
+        return reverse_lazy(
+            "blog:post-detail", kwargs={"pk": self.kwargs["pk"]}
+        )
