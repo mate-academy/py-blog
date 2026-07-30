@@ -1,8 +1,9 @@
 from django.views import generic
 from blog.models import Post, Commentary
 from django.db.models import Count
-from django.urls import reverse_lazy, reverse
-
+from blog.forms import CommentaryForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.urls import reverse_lazy
 
 
 class PostListView(generic.ListView):
@@ -30,20 +31,24 @@ class PostDetailView(generic.DetailView):
             .prefetch_related("comments")
         )
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = CommentaryForm()
+        return context
 
-class CommentCreateView(LoginMixinRequierd, generic.CreateView):
+
+class CommentCreateView(LoginRequiredMixin, generic.CreateView):
     model = Commentary
-    fields = ["content",]
-    success_url = reverse_lazy("blog:post-detail")
+    form_class = CommentaryForm
     template_name = "blog/post_detail.html"
 
-
-    def get_success_url(self):
-        return reverse(
-            "blog:post-detail",
-            kwargs={"pk": self.object.post.pk}
-        )
-
     def form_valid(self, form):
+        form.instance.user = self.request.user
         form.instance.post = Post.objects.get(pk=self.kwargs["pk"])
         return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy(
+            "blog:post-detail",
+            kwargs={"pk": self.kwargs["pk"]}
+        )
