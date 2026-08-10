@@ -12,7 +12,6 @@ class IndexListView(generic.ListView):
     queryset = Post.objects.all().order_by("-created_time")
     paginate_by = 5
     template_name = "blog/index.html"
-    context_object_name = "posts"
 
 
 class PostDetailView(FormMixin, generic.DetailView):
