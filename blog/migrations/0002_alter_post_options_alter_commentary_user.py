@@ -8,17 +8,21 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('blog', '0001_initial'),
+        ("blog", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='post',
-            options={'ordering': ['-created_time']},
+            name="post",
+            options={"ordering": ["-created_time"]},
         ),
         migrations.AlterField(
-            model_name='commentary',
-            name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='user_commentaries', to=settings.AUTH_USER_MODEL),
+            model_name="commentary",
+            name="user",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="user_commentaries",
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
     ]

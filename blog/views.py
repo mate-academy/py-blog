@@ -16,20 +16,23 @@ class PostDetailView(DetailView):
     model = Post
     template_name = "blog/post_detail.html"
 
-
-    # 1. Цей метод додає форму на сторінку, коли ми її просто відкриваємо
+    # 1. Цей метод додає форму на
+    # сторінку, коли ми її просто відкриваємо
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         from django import forms
-        from .models import Commentary
 
-        # Створюємо форму прямо тут «на льоту», щоб не створювати файл forms.py
+        # Створюємо форму прямо тут
+        # «на льоту», щоб не створювати файл forms.py
         class SimpleCommentForm(forms.ModelForm):
             class Meta:
                 model = Commentary
                 fields = ["content"]
                 widgets = {
-                    "content": forms.Textarea(attrs={"rows": 4, "style": "width: 100%; max-width: 600px;"})
+                    "content": forms.Textarea(
+                        attrs={"rows": 4, "style": "width: 100%; "
+                                                   "max-width: 600px;"}
+                    )
                 }
 
         context["form"] = SimpleCommentForm()
@@ -38,7 +41,6 @@ class PostDetailView(DetailView):
     # 2. Цей метод спрацьовує, коли ти тиснеш кнопку "submit"
     def post(self, request, *args, **kwargs):
         from django.shortcuts import redirect
-        from .models import Commentary
 
         post = self.get_object()  # Отримуємо поточний пост
         content = request.POST.get("content")  # Забираємо текст із форми
@@ -48,9 +50,8 @@ class PostDetailView(DetailView):
             Commentary.objects.create(
                 content=content,
                 post=post,
-                user=request.user  # Прив'язуємо автора коментаря
+                user=request.user,  # Прив'язуємо автора коментаря
             )
 
         # Перезавантажуємо цю ж сторінку, щоб побачити новий коментар
         return redirect("blog:post-detail", pk=post.pk)
-
