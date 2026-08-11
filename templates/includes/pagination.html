@@ -1,0 +1,41 @@
+{% if is_paginated %}
+  <div style="margin: 20px 0; display: flex; justify-content: center;">
+    <ul class="pagination" style="display: flex; list-style: none; padding: 0; margin: 0; border-radius: 4px; overflow: hidden; border: 1px solid #e0e0e0;">
+
+      <!-- Кнопка Назад (prev) -->
+      {% if page_obj.has_previous %}
+        <li class="page-item" style="border-right: 1px solid #e0e0e0;">
+          <!-- Пробіл після знаку '=' видалено -->
+          <a href="?page={{ page_obj.previous_page_number }}" class="page-link" style="display: block; padding: 8px 16px; color: #333; text-decoration: none; background-color: #fff; transition: background 0.2s;">
+            prev
+          </a>
+        </li>
+      {% endif %}
+
+      <!-- Поточна сторінка (наприклад, 1 of 3) -->
+      <li class="page-item active" style="background-color: #f8f9fa; color: #333;">
+        <span class="page-link" style="display: block; padding: 8px 16px; font-weight: 500;">
+          {{ page_obj.number }} of {{ paginator.num_pages }}
+        </span>
+      </li>
+
+      <!-- Кнопка Вперед (next) -->
+      {% if page_obj.has_next %}
+        <li class="page-item" style="border-left: 1px solid #e0e0e0;">
+          <!-- Пробіл після знаку '=' видалено -->
+          <a href="?page={{ page_obj.next_page_number }}" class="page-link" style="display: block; padding: 8px 16px; color: #333; text-decoration: none; background-color: #fff; transition: background 0.2s;">
+            next
+          </a>
+        </li>
+      {% endif %}
+
+    </ul>
+  </div>
+
+  <!-- Ефект наведення мишки на кнопки prev / next -->
+  <style>
+    .page-link:hover {
+      background-color: #f0f0f0 !important;
+    }
+  </style>
+{% endif %}

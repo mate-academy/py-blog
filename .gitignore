@@ -1,0 +1,21 @@
+# Віртуальне оточення (папка venv)
+venv/
+.venv/
+env/
+
+# Файли конфігурації PyCharm та VS Code
+.idea/
+.vscode/
+
+# Кеш Python (автоматично згенеровані файли компіляції)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# База даних (у кожного розробника вона має бути своя локальна)
+db.sqlite3
+
+# Системні файли macOS та Windows
+.DS_Store
+Thumbs.db
