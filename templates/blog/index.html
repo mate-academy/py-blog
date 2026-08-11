@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <h1 class="mb-4">List of all posts</h1>
+{% endblock %}
+
+{% block content %}
+
+  {% for post in post_list %}
+
+    <div class="card mb-3">
+      <div class="card-body">
+
+        <h5 class="card-title">
+          <a href="{% url 'blog:post-detail' post.pk %}">{{ post.title }}</a>
+        </h5>
+
+        <p class="card-text text-muted">
+          {{ post.content|truncatewords:15 }}
+        </p>
+
+        {% if post.comments.count %}
+          <h5>Comments: {{ post.comments.count }}</h5>
+        {% else %}
+          <p>No comments</p>
+        {% endif %}
+
+        <small class="text-muted">
+          By {{ post.owner }} • {{ post.created_time }}
+        </small>
+
+      </div>
+    </div>
+
+  {% empty %}
+    <p>No posts yet.</p>
+  {% endfor %}
+{% endblock %}
