@@ -6,24 +6,26 @@
   <br>
   <p>{{ object.content }}</p>
   <br>
-  {% if object.comments %}
-    <h4>Comments:</h4>
-    <br>
-    {% for comment in object.comments.all %}
-      <li class="list-group">
-        <p class="list-group-item">
-          {{ comment.user }}:
-          <br>
-          {{ comment }}
-        </p>
-      </li>
-    {% endfor %}
-    <form action="" method="post">
-      {% csrf_token %}
-      {{ form|crispy }}
-      <button type="submit" class="btn btn-primary">
-        Send
-      </button>
-    </form>
-  {% endif %}
+  <h4>Comments:</h4>
+
+  {% for comment in object.comments.all %}
+    <div class="list-group mb-2">
+      <div class="list-group-item">
+        <strong>{{ comment.user }}</strong>
+        <br>
+        {{ comment.content }}
+      </div>
+    </div>
+  {% empty %}
+    <p>No comments yet.</p>
+  {% endfor %}
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+
+    <button type="submit" class="btn btn-primary">
+      Send
+    </button>
+  </form>
 {% endblock %}

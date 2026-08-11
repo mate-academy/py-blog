@@ -19,7 +19,7 @@
           {{ post.content|truncatewords:15 }}
         </p>
 
-        {% if post.comments.all %}
+        {% if post.comments.count %}
           <h5>Comments: {{ post.comments.count }}</h5>
         {% else %}
           <p>No comments</p>
