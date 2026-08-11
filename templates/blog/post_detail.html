@@ -6,10 +6,10 @@
   <br>
   <p>{{ object.content }}</p>
   <br>
-  {% if post.comments %}
+  {% if object.comments %}
     <h4>Comments:</h4>
     <br>
-    {% for comment in post.comments.all %}
+    {% for comment in object.comments.all %}
       <li class="list-group">
         <p class="list-group-item">
           {{ comment.user }}:
