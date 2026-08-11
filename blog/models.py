@@ -12,7 +12,7 @@ class Post(models.Model):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="posts"  # noqa
     )
     title = models.CharField(max_length=200)
-    content = models.CharField(max_length=500)
+    content = models.TextField()
     created_time = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -32,7 +32,7 @@ class Commentary(models.Model):
         Post, on_delete=models.CASCADE, related_name="commentaries"
     )
     created_time = models.DateTimeField(auto_now_add=True)
-    content = models.CharField(max_length=500)
+    content = models.TextField()
 
     def __str__(self):
         return f"Comment by {self.user.username} on '{self.post.title}': {self.content[:30]}..."  # noqa

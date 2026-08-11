@@ -1,8 +1,8 @@
-from django.urls import reverse_lazy
-from django.views import generic
+from django.shortcuts import redirect
 from django.views.generic import ListView, DetailView
 
-from blog.models import Post, Commentary
+from blog.forms import CommentaryForm
+from blog.models import Post
 
 
 class PostListView(ListView):
@@ -15,43 +15,30 @@ class PostListView(ListView):
 class PostDetailView(DetailView):
     model = Post
     template_name = "blog/post_detail.html"
+    context_object_name = "post"
 
-    # 1. Цей метод додає форму на
-    # сторінку, коли ми її просто відкриваємо
+    # 1. Передаємо ОФІЦІЙНУ форму в шаблон для звичайного перегляду (GET)
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        from django import forms
-
-        # Створюємо форму прямо тут
-        # «на льоту», щоб не створювати файл forms.py
-        class SimpleCommentForm(forms.ModelForm):
-            class Meta:
-                model = Commentary
-                fields = ["content"]
-                widgets = {
-                    "content": forms.Textarea(
-                        attrs={"rows": 4, "style": "width: 100%; "
-                                                   "max-width: 600px;"}
-                    )
-                }
-
-        context["form"] = SimpleCommentForm()
+        context["form"] = CommentaryForm()
         return context
 
-    # 2. Цей метод спрацьовує, коли ти тиснеш кнопку "submit"
+    # 2. Безпечно обробляємо створення коментаря (POST)
     def post(self, request, *args, **kwargs):
-        from django.shortcuts import redirect
+        self.object = self.get_object()  # Отримуємо поточний пост
 
-        post = self.get_object()  # Отримуємо поточний пост
-        content = request.POST.get("content")  # Забираємо текст із форми
+        # Заповнюємо форму даними, які прислав користувач
+        form = CommentaryForm(request.POST)
 
-        if content:
-            # Створюємо коментар у базі даних
-            Commentary.objects.create(
-                content=content,
-                post=post,
-                user=request.user,  # Прив'язуємо автора коментаря
-            )
+        # ПЕРЕВІРКА: чи залогінений користувач І чи форма заповнена правильно
+        if request.user.is_authenticated and form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = self.object  # Прив'язуємо коментар до поста
+            comment.user = request.user  # Прив'язуємо до автора
+            comment.save()  # Тільки тепер зберігаємо в базу даних
+            return redirect("blog:post-detail", pk=self.object.pk)
 
-        # Перезавантажуємо цю ж сторінку, щоб побачити новий коментар
-        return redirect("blog:post-detail", pk=post.pk)
+        # Якщо користувач анонім або форма пуста — повертаємо ту саму сторінку з помилками
+        context = self.get_context_data(object=self.object)
+        context["form"] = form  # Передаємо форму назад, щоб показати помилки
+        return self.render_to_response(context)
