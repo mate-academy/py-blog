@@ -38,7 +38,8 @@ class PostDetailView(DetailView):
             comment.save()  # Тільки тепер зберігаємо в базу даних
             return redirect("blog:post-detail", pk=self.object.pk)
 
-        # Якщо користувач анонім або форма пуста — повертаємо ту саму сторінку з помилками
+        # Якщо користувач анонім або
+        # форма пуста — повертаємо ту саму сторінку з помилками
         context = self.get_context_data(object=self.object)
         context["form"] = form  # Передаємо форму назад, щоб показати помилки
         return self.render_to_response(context)
