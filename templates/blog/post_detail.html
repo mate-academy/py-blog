@@ -21,7 +21,7 @@
   <section class="comments" aria-labelledby="comments-heading">
     <div class="section-heading">
       <h2 id="comments-heading">Discussion</h2>
-      <span>{{ post.commentaries.count }} comment{{ post.commentaries.count|pluralize }}</span>
+      <span>{{ post.commentaries.all|length }} comment{{ post.commentaries.count|pluralize }}</span>
     </div>
 
     <div class="comment-list">
