@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Latest posts · The Python Journal{% endblock %}
+
+{% block content %}
+  <section class="hero">
+    <p class="eyebrow">The developer notebook</p>
+    <h1>Ideas worth building on.</h1>
+    <p class="hero-copy">
+      Practical notes, thoughtful explanations, and conversations from the
+      Python community.
+    </p>
+  </section>
+
+  <section aria-labelledby="latest-posts">
+    <div class="section-heading">
+      <h2 id="latest-posts">Latest posts</h2>
+      <span>{{ page_obj.paginator.count }} article{{ page_obj.paginator.count|pluralize }}</span>
+    </div>
+
+    <div class="post-grid">
+      {% for post in post_list %}
+        <article class="post-card">
+          <p class="post-meta">
+            {{ post.created_time|date:"M j, Y" }}
+            <span aria-hidden="true">·</span>
+            {{ post.owner.get_full_name|default:post.owner.username }}
+          </p>
+          <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
+          <p class="post-excerpt">{{ post.content|truncatewords:34 }}</p>
+          <div class="card-footer-row">
+            <a class="read-more" href="{{ post.get_absolute_url }}">Read article →</a>
+            <span>{{ post.comment_count }} comment{{ post.comment_count|pluralize }}</span>
+          </div>
+        </article>
+      {% empty %}
+        <div class="empty-state">No posts have been published yet.</div>
+      {% endfor %}
+    </div>
+
+    {% include "includes/pagination.html" %}
+  </section>
+{% endblock %}
