@@ -1,0 +1,36 @@
+.list {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+}
+
+.list > li {
+    text-decoration: none;
+    list-style: none;
+    width: 80vw;
+    border: 2px solid grey;
+    padding: 10px;
+    margin: 10px;
+}
+
+.post-detail {
+    width: min(80vw, 900px);
+    margin: 20px auto;
+}
+
+.comment-list > li {
+    list-style: none;
+}
+
+.post-content p:last-child,
+.comment-list .card-body div p:last-child {
+    margin-bottom: 0;
+}
+
+.login-page {
+    width: 100%;
+    max-width: 480px;
+    margin: 64px auto;
+}

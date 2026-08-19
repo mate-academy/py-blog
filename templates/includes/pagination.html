@@ -1,0 +1,36 @@
+{% if is_paginated %}
+  <nav aria-label="Post pagination">
+    <ul class="pagination justify-content-center">
+      <li class="page-item{% if not page_obj.has_previous %} disabled{% endif %}">
+        {% if page_obj.has_previous %}
+          <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        {% else %}
+          <span class="page-link" aria-hidden="true">&laquo;</span>
+        {% endif %}
+      </li>
+
+      {% for page_number in page_obj.paginator.page_range %}
+        <li class="page-item{% if page_number == page_obj.number %} active{% endif %}"
+            {% if page_number == page_obj.number %}aria-current="page"{% endif %}>
+          {% if page_number == page_obj.number %}
+            <span class="page-link">{{ page_number }}</span>
+          {% else %}
+            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+          {% endif %}
+        </li>
+      {% endfor %}
+
+      <li class="page-item{% if not page_obj.has_next %} disabled{% endif %}">
+        {% if page_obj.has_next %}
+          <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        {% else %}
+          <span class="page-link" aria-hidden="true">&raquo;</span>
+        {% endif %}
+      </li>
+    </ul>
+  </nav>
+{% endif %}

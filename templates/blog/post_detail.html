@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+  <title>{{ post.title }} | Blog</title>
+{% endblock %}
+
+{% block content %}
+  <main class="post-detail">
+    <a class="btn btn-outline-secondary btn-sm mb-4" href="{% url 'blog:index' %}">
+      &larr; Back to posts
+    </a>
+
+    <article class="card border-0 shadow-sm mb-5">
+      <div class="card-body p-4 p-md-5">
+        <h1 class="card-title mb-2">{{ post.title }}</h1>
+
+        <p class="text-body-secondary small mb-4">
+          Created {{ post.created_time|date:"M j, Y, P" }}
+          by <strong>{{ post.owner.username }}</strong>
+        </p>
+
+        <div class="post-content">
+          {{ post.content|linebreaks }}
+        </div>
+      </div>
+    </article>
+
+    <section aria-labelledby="comments-heading">
+      <h2 id="comments-heading" class="h3 mb-4">
+        {{ post.comment_count }} comment{{ post.comment_count|pluralize }}
+      </h2>
+
+      <ul class="comment-list list-unstyled p-0">
+        {% for commentary in post.commentaries.all %}
+          <li class="card mb-3">
+            <div class="card-body">
+              <p class="text-body-secondary small mb-2">
+                <strong>{{ commentary.user.username }}</strong>
+                commented on {{ commentary.created_time|date:"M j, Y, P" }}
+              </p>
+              <div class="mb-0">{{ commentary.content|linebreaks }}</div>
+            </div>
+          </li>
+        {% empty %}
+          <li class="alert alert-light border text-body-secondary">
+            No comments yet. Be the first to comment.
+          </li>
+        {% endfor %}
+      </ul>
+
+      {% if user.is_authenticated %}
+        <div class="card border-0 bg-body-tertiary mt-4">
+          <div class="card-body p-4">
+            <h3 class="h5 mb-3">Leave a comment</h3>
+            <form method="post">
+              {% csrf_token %}
+              {{ comment_form|crispy }}
+              <button class="btn btn-primary mt-3" type="submit">
+                Post comment
+              </button>
+            </form>
+          </div>
+        </div>
+      {% else %}
+        <p class="mt-4 text-body-secondary">
+          <a href="{% url 'login' %}?next={{ request.path|urlencode }}">Log in</a>
+          to leave a comment.
+        </p>
+      {% endif %}
+    </section>
+
+  </main>
+{% endblock %}

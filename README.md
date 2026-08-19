@@ -4,7 +4,14 @@ In this task, you will create a simple `Blog` project from start to end.
 
 Let's go through all the steps:
 
-1. Create a virtual environment, activate it, and install django via pip.
+1. Create a virtual environment, activate it, and install the dependencies:
+   ```shell
+   pip install -r requirements.txt
+   ```
+   Copy `.env.example` to `.env` and replace `SECRET_KEY` with a unique secret
+   key. Keep `DEBUG=True` for local development and set it to `False` in
+   production. The project has an insecure fallback key so tests can run
+   without a `.env`; production must always provide its own `SECRET_KEY`.
 2. Start project `blog_system` inside the current directory (add . at the end of the command).
 3. Inside `py-blog` start application `blog`.
 4. Inside `blog/models.py` create models according to this diagram:

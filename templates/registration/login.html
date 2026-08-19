@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Log in | Blog</title>
+{% endblock %}
+
+{% block content %}
+  <main class="login-page px-3">
+    <div class="card border-0 shadow-sm">
+      <div class="card-body p-4 p-md-5">
+        <h1 class="h3 mb-4">Log in</h1>
+
+        {% if form.errors %}
+          <div class="alert alert-danger" role="alert">
+            Your username and password did not match. Please try again.
+          </div>
+        {% endif %}
+
+        {% if next and user.is_authenticated %}
+          <div class="alert alert-warning" role="alert">
+            Your account does not have access to this page.
+          </div>
+        {% endif %}
+
+        <form method="post" action="{% url 'login' %}">
+          {% csrf_token %}
+
+          <div class="mb-3">
+            <label class="form-label" for="{{ form.username.id_for_label }}">
+              Username
+            </label>
+            <input
+              class="form-control"
+              id="{{ form.username.id_for_label }}"
+              name="{{ form.username.html_name }}"
+              type="text"
+              value="{{ form.username.value|default:'' }}"
+              autocomplete="username"
+              autofocus
+              required
+            >
+          </div>
+
+          <div class="mb-4">
+            <label class="form-label" for="{{ form.password.id_for_label }}">
+              Password
+            </label>
+            <input
+              class="form-control"
+              id="{{ form.password.id_for_label }}"
+              name="{{ form.password.html_name }}"
+              type="password"
+              autocomplete="current-password"
+              required
+            >
+          </div>
+
+          <input type="hidden" name="next" value="{{ next }}">
+          <button class="btn btn-primary w-100" type="submit">Log in</button>
+        </form>
+      </div>
+    </div>
+  </main>
+{% endblock %}
+
+{% block pagination %}{% endblock %}

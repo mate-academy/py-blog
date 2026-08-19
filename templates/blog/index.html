@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+  <ul class="list">
+    {% for post in posts %}
+      <li class="shadow-sm rounded mb-4 p-4">
+        <h2 class="title mb-2"><a href="{% url "blog:post-detail" post.pk %}">{{ post.title }}</a></h2>
+
+        <p class="text-muted small mb-4">
+          Created {{ post.created_time|date:"M j, Y, P" }}
+          by <strong>{{ post.owner.username }}</strong>
+        </p>
+
+        <p class="mb-4">
+          {{ post.content|truncatechars:100 }}
+        </p>
+
+        <hr>
+
+        <p class="text-muted small mb-0">
+          Comments: {{ post.comment_count }}
+        </p>
+      </li>
+    {% empty %}
+      <p>There are no posts yet</p>
+    {% endfor %}
+  </ul>
+{% endblock %}
