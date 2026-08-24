@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Login</h1>
+  {% if form.errors %}
+    <p>Invalid credentials</p>
+  {% endif %}
+
+
+  {% if next %}
+    {% if user.is_authenticated %}
+      <p>Welcome back, {{ user.username }}</p>
+    {% else %}
+      <p>Please log in to continue.</p>
+    {% endif %}
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <input type="submit" value="login" class="btn btn-primary">
+    <input type="hidden" name="next" value="{{ next }}">
+
+  </form>
+{% endblock %}

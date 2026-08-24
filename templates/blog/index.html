@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Hello to blog !</h1>
+  <h2>This all correct posts on our site:</h2>
+  <p>Current posts count is: {{ posts.count }}</p>
+  <br>
+    <ul>
+      {% for post in page_obj %}
+        <li>
+          <a href="{% url 'blog:post-detail' post.id %}">{{ post.title }}</a>
+          <p>{{ post.content }}</p>
+          <p>Published on: {{ post.created_time }}</p>
+          <p>Comments: {{ post.commentarys.count }}</p>
+          <p>Owner: {{ post.owner }}</p>
+        </li>
+      {% empty %}
+        <li>No posts yet...</li>
+      {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block pagination %}
+  {% include "pagination.html" %}
+{% endblock %}

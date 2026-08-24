@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  {% if post %}
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.content }}</p>
+
+    <h2>Your Comment:</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button type="submit">Submit Comment</button>
+    </form>
+
+    <h2 id="comments_sort">Comments:</h2>
+
+    <div style="margin-bottom: 15px">
+      <strong>SORTING</strong>
+      <a href="?sort=time_desc">⬇️</a>
+      <a href="?sort=time_asc">⬆️</a>
+      <a href="?sort=alpha_desc">Z-A</a>
+      <a href="?sort=alpha_asc">A-Z</a>
+    </div>
+
+    {% for comment in comments %}
+      <div class="comment">
+        <p>{{ comment.content }}</p>
+        <p>Published on: {{ comment.created_time }}</p>
+        <p>Owner: {{ comment.user }}</p>
+      </div>
+    {% empty %}
+      <p>No comments yet...</p>
+    {% endfor %}
+
+  {% else %}
+    <p>Post not found.</p>
+  {% endif %}
+
+  <button>
+    <a href="{% url 'blog:index' %}">Go to home page</a>
+  </button>
+{% endblock %}

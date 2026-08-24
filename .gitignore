@@ -1,0 +1,15 @@
+# Виртуальное окружение
+venv/
+.venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.sqlite3
+*.db
+.idea/
+.vscode/
+*.swp
+*.log
+.DS_Store
+.env
