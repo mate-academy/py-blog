@@ -1,0 +1,21 @@
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+...
+<h1>{{ post.title }}</h1>
+<p>{{ post.content }}</p>
+<p>Author: {{ post.author.username }}</p>
+<p>Created: {{ post.created_time }}</p>
+<h3>Comments ({{ comments.count }})</h3>
+{% for comment in comments %}
+    <p>{{ comment.author.username }}: {{ comment.content }}</p>
+{% endfor %}
+{% if user.is_authenticated %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit">Add comment</button>
+    </form>
+{% else %}
+    <p>Only authorized users can post comments.</p>
+{% endif %}
