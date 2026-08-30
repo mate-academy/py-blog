@@ -1,21 +1,16 @@
-<!DOCTYPE html>
-<html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Blog</title>
-</head>
-<body>
-    <h1>Welcome in my blog!</h1>
-    {% for post in posts %}
-    <h2><a href="{% url "blog:post-detail" post.pk %}">{{ post.title }}</a>
+{% extends "base.html" %}
+{% load static %}
+{% block title %}My Blog{% endblock %}
+{% block content %}
+  <h1>Welcome in my blog!</h1>
+  {% for post in post_list %}
+    <h2>
+      <a href="{% url 'blog:post-detail' post.pk %}">{{ post.title }}</a>
     </h2>
     <p>{{ post.content }}</p>
-    <p>Author: {{ post.author.username }}</p>
-    <p>Comentary: {{ post.comment_set.count }}</p>
+    <p>Author: {{ post.owner.username }}</p>
+    <p>Commentary: {{ post.commentary_set.count }}</p>
     <p>Post Created: {{ post.created_time }}</p>
     <hr>
-{% endfor %}
-
-</body>
-</html>
+  {% endfor %}
+{% endblock %}
