@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Home Page - Blog System{% endblock %}
+
+{% block content %}
+  <h1 class="mb-4">Latest Posts</h1>
+
+  {% for post in post_list %}
+    <div class="card mb-3 shadow-sm">
+      <div class="card-body">
+        <h2 class="card-title h4">
+          <a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a>
+        </h2>
+        <p class="card-text text-muted small">
+          Author: <strong>{{ post.owner.username }}</strong> | {{ post.created_time|date:"d.m.Y H:i" }}
+        </p>
+        <p class="card-text">{{ post.content|truncatewords:30 }}</p>
+        <div class="d-flex justify-content-between align-items-center">
+          <a href="{% url 'blog:post-detail' pk=post.id %}" class="btn btn-primary btn-sm">Read more</a>
+          <span class="badge badge-secondary">
+            Comments: {{ post.comment_count }}
+          </span>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p>No posts yet.</p>
+  {% endfor %}
+
+  {% include "includes/pagination.html" %}
+{% endblock %}
