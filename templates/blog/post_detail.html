@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Post: {{ post.title }}</h1>
+  <br>
+  {{ post.content }}
+  <br>
+  <h2>Commentaries:</h2>
+  <table class="table">
+    <tr>
+      <th>User</th>
+      <th>Content</th>
+      <th>Created at</th>
+    </tr>
+    {% for comment in post.commentaries.all %}
+      <tr>
+        <td>{{ comment.user.username }}</td>
+        <td>{{ comment.content }}</td>
+        <td>{{ comment.created_time }}</td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="3">No comments yet.</td>
+      </tr>
+    {% endfor %}
+  </table>
+  <br>
+  {% if user.is_authenticated %}
+    <form method="post">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label for="content">Comment</label>
+        <textarea
+            name="content"
+            id="content"
+            class="form-control"
+            rows="4"
+            required
+        ></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary">
+        Add comment
+      </button>
+    </form>
+  {% else %}
+    <p>You need to log in to leave a comment.</p>
+  {% endif %}
+{% endblock %}
