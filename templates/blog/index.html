@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Blog Home</h1>
+  <p>Welcome to Best Blog Ever!</p>
+  <h2>Dynamic content</h2>
+  <p>The Blog service has the following posts:</p>
+  <table class="table">
+    <tr>
+      <th>Title</th>
+      <th>Content</th>
+      <th>Author</th>
+      <th>Created at</th>
+      <th>Number of comments</th>
+    </tr>
+    {% for post in page_obj %}
+      <tr>
+        <td><a href="{% url 'blog:post-detail' pk=post.pk %}">{{ post.title }}</a></td>
+        <td>{{ post.content }}</td>
+        <td>{{ post.owner.first_name }} {{ post.owner.last_name }}</td>
+        <td>{{ post.created_time }}</td>
+        <td>{{ post.commentaries.count }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock %}
