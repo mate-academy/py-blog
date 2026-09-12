@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Blog Home</title>
+{% endblock %}
+
+{% block content %}
+  <header class="hero-section">
+    <h1 class="hero-title">Blog Home</h1>
+    <p class="hero-subtitle">Share your thoughts and read the newest publications.</p>
+  </header>
+
+  <section class="posts-container">
+    <div class="posts-header">
+      <h2>Last publications</h2>
+      <span class="posts-count">
+        {% if post_list %}
+          Posts count: {{ post_list|length }}
+        {% endif %}
+      </span>
+    </div>
+
+    {% if post_list %}
+      <div class="post-grid">
+        {% for post in post_list %}
+          <article class="post-card">
+            <div class="post-card-body">
+              <h3 class="post-title">
+                <a href="{% url 'blog:post-detail' pk=post.pk %}">{{ post.title }}</a>
+              </h3>
+
+              <p class="post-excerpt">{{ post.content }}</p>
+            </div>
+
+            <footer class="post-card-footer">
+              <div class="post-meta">
+                <span class="author">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                  {{ post.owner.username }}
+                </span>
+                <span class="date">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                  {{ post.created_time|date:"d M Y" }}
+                </span>
+              </div>
+
+              <div class="post-stats">
+                <span class="comment-badge">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                  {{ post.commentary.count }}
+                </span>
+              </div>
+            </footer>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty-state">
+        <p>No posts yet.</p>
+      </div>
+    {% endif %}
+  </section>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block title %}
+  <title>{{ post.title }}</title>
+{% endblock %}
+
+{% block content %}
+  <div class="detail-container">
+    <a href="{% url 'blog:index' %}" class="back-link">&larr; Back to list</a>
+
+    <article class="post-full">
+      <h1 class="post-full-title">{{ post.title }}</h1>
+
+      <div class="post-meta">
+        <span class="author">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          {{ post.owner.username }}
+        </span>
+        <span class="date">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          {{ post.created_time|date:"d M Y, H:i" }}
+        </span>
+      </div>
+
+      <div class="post-full-content">
+        {{ post.content|linebreaks }}
+      </div>
+    </article>
+
+    {% if form %}
+      <section class="comment-form-section">
+        <h3>Leave a comment</h3>
+        {% if user.is_authenticated %}
+          <form method="post" action="">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button type="submit" class="btn btn-primary">Post</button>
+          </form>
+        {% endif %}
+      </section>
+    {% endif %}
+
+    <section class="comments-section">
+      <h3>
+        Comments
+        <span class="badge">{{ post.commentary.count }}</span>
+      </h3>
+
+      <div class="comments-list">
+        {% for comment in post.commentary.all %}
+          <div class="comment-card">
+            <div class="comment-header">
+              <span class="comment-author">
+                <strong>{{ comment.user.username }}</strong>
+              </span>
+              <span class="comment-date">
+                {{ comment.created_time|date:"d M Y, H:i" }}
+              </span>
+            </div>
+            <div class="comment-body">
+              {{ comment.content|linebreaks }}
+            </div>
+          </div>
+        {% empty %}
+          <div class="no-comments">
+            <p>No comments yet. Add the first comment!</p>
+          </div>
+        {% endfor %}
+      </div>
+    </section>
+  </div>
+{% endblock %}
