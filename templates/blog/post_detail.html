@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.created_time }}</p>
+  <h3>{{ post.content }}</h3>
+  <small>{{ post.owner.username }}</small>
+  <div class="ml-3">
+    {%  if post.commentary.all %}
+      {% for comment in post.commentary.all %}
+        <small>{{ comment.user.username }} {{ comment.created_time }}</small>
+        <p>{{ comment.content }}</p>
+      {% endfor %}
+    {% else %}
+      <p>No comments</p>
+    {% endif %}
+  </div>
+  <div class="ml-3">
+    <p>Add a new comment</p>
+    {% include 'blog/comment_form.html' %}
+  </div>
+{% endblock %}
