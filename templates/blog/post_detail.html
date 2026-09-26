@@ -1,0 +1,15 @@
+{% load crispy_forms_tags %}
+
+<h1>{{ post.title }}</h1>
+<p>{{ post.content }}</p>
+
+<p>Comments count: {{ post.commentaries.count }}</p>
+
+{% for comment in post.commentaries.all %}
+    <p>{{ comment.content }}</p>
+{% endfor %}
+<form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit">Add comment</button>
+</form>
