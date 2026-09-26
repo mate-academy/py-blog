@@ -1,0 +1,26 @@
+# Python virtual environments
+.venv/
+venv/
+ENV/
+env/
+
+# Byte-compiled / optimized files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE and Editor settings
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Database
+db.sqlite3
+
+# Local environment variables
+.env
+
+# Static & Media collected files
+/static_collected/
+/media/

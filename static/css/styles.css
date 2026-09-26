@@ -1,0 +1,18 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.main-content {
+    min-height: calc(100vh - 160px);
+}
+
+footer {
+    background-color: #212529;
+    color: #adb5bd;
+}
