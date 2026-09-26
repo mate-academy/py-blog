@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Main | Blog{% endblock %}
+
+{% block content %}
+    <h1>Posts</h1>
+
+    {% for post in post_list %}
+    <article>
+    <h2>
+        <a href="{% url 'blog:post-detail' post.pk %}">
+            {{ post.title }}
+        </a>
+    </h2>
+
+    <p>
+        Author: {{ post.owner.username }}
+        | Created: {{ post.created_time|date:"d.m.Y H:i"  }}
+    </p>
+
+    <div>
+        {{ post.content|linebreaks }}
+    </div>
+
+    <p>Comments: {{ post.commentary_set.count }}</p>
+    </article>
+    <hr>
+    {% empty %}
+        <p>There is no posts yet</p>
+    {% endfor %}
+{% endblock %}
