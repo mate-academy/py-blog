@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>Lists Post - Blog</title>
+{% endblock %}
+
+{% block content %}
+  <h1>Lists Post</h1>
+
+  {% if post_list %}
+    <ul>
+      {% for post in post_list %}
+        <li>
+          <h2>
+            <a href="{% url 'blog:post-detail' post.pk %}">{{ post.title }}</a>
+          </h2>
+          <p>{{ post.content }}</p>
+          <p>
+            <small>
+              Author: <strong>{{ post.owner.username }}</strong> |
+              Create: {{ post.created_time|date:"Y-m-d H:i" }} |
+              Commentary: {{ post.commentaries.count }}
+            </small>
+          </p>
+        </li>
+        <hr>
+      {% endfor %}
+    </ul>
+    {% include "includes/pagination.html" with page_obj=post_list %}
+  {% else %}
+    <p>No posts yet.</p>
+  {% endif %}
+{% endblock %}
