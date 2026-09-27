@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ post.title }} · Py·Blog{% endblock %}
+
+{% block content %}
+    <article class="post-full">
+        <h1 class="post-full__title">{{ post.title }}</h1>
+        <p class="post-full__meta">
+            by <strong>{{ post.owner }}</strong>
+            · {{ post.created_time|date:"M d, Y" }} at
+            {{ post.created_time|date:"H:i" }}
+        </p>
+        <div class="post-full__content">{{ post.content }}</div>
+    </article>
+
+    <section class="comments" id="comments">
+        <h2 class="comments__heading">
+            Commentaries
+            <span class="badge">{{ commentary_list|length }}</span>
+        </h2>
+
+        <ol class="comments__list">
+            {% for commentary in commentary_list %}
+                <li class="comment">
+                    <p class="comment__meta">
+                        <strong>{{ commentary.user }}</strong>
+                        · {{ commentary.created_time|date:"M d, Y" }} at
+                        {{ commentary.created_time|date:"H:i" }}
+                    </p>
+                    <div class="comment__body">{{ commentary.content }}</div>
+                </li>
+            {% empty %}
+                <li class="comment comment--empty">
+                    No commentaries yet — start the conversation!
+                </li>
+            {% endfor %}
+        </ol>
+
+        <div class="comments__form">
+            <h3>Leave a commentary</h3>
+            {% if user.is_authenticated %}
+                <p class="form-hint">
+                    Posting as <strong>{{ user }}</strong>.
+                </p>
+            {% else %}
+                <p class="form-hint">
+                    You need to be
+                    <a href="{% url 'login' %}?next={{ request.path }}">logged in</a>
+                    to comment — the form will reject anonymous submissions.
+                </p>
+            {% endif %}
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="button">Submit</button>
+            </form>
+        </div>
+    </section>
+{% endblock %}

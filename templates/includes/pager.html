@@ -1,0 +1,22 @@
+{% if is_paginated %}
+    <nav class="pager" aria-label="Pages">
+        {% if page_obj.has_previous %}
+            <a class="pager__link" href="?page=1">&laquo; First</a>
+            <a class="pager__link"
+               href="?page={{ page_obj.previous_page_number }}">
+                Previous
+            </a>
+        {% endif %}
+        <span class="pager__current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </span>
+        {% if page_obj.has_next %}
+            <a class="pager__link"
+               href="?page={{ page_obj.next_page_number }}">Next</a>
+            <a class="pager__link"
+               href="?page={{ page_obj.paginator.num_pages }}">
+                Last &raquo;
+            </a>
+        {% endif %}
+    </nav>
+{% endif %}
