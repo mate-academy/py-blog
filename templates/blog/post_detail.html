@@ -1,0 +1,39 @@
+{% load crispy_forms_filters %}
+{% load static %}
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <h1>{{ post.title }}</h1>
+  <p>{{ post.content }}</p>
+  <strong>Owner: {{ post.owner.first_name }} {{ post.owner.last_name }}</strong>
+  <br>
+  <p>Time created: {{ post.created_time }}</p>
+  	<ul>
+    {% for com_post in post.commentaries.all %}
+      <li><strong>Owner: {{ com_post.user.first_name }}</strong>, <strong>Created time: {{ com_post.created_time }}</strong> {{ com_post.content }}</li>
+    {% endfor %}
+  </ul>
+
+  {% if user.is_authenticated %}
+  <form method="post" action="{% url 'blog:post-create' post.pk%}">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <br>
+    <input type="submit" value="Submit" class="btn btn-primary">
+  </form>
+    {% else %}
+    <p>Pls <a href="{% url 'login' %}">login</a> to create comment</p>
+  {% endif %}
+</body>
+</html>
