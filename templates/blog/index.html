@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+  <ul>
+    {% if user.is_authenticated %}
+      <li>
+        User: {{ user.username }}
+      </li>
+      <li>
+        <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-link p-0">Logout</button>
+        </form>
+      </li>
+    {% else %}
+      <li>
+        <a href="{% url "login" %}">Login</a>
+      </li>
+    {% endif %}
+  </ul>
+  <h1>Welcome to the club, buddy!</h1>
+  <h2>You have the honor of checking out the latest posts:</h2>
+  {% if post_list %}
+    <ul>
+      {% for post in post_list %}
+        <li>
+          <h3><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h3>
+          <h4>{{ post.owner.username }} at {{ post.created_time }}</h4>
+          <p>{{ post.content }}</p>
+          <p>{{ post.comments_count }} commentar{{ post.comments_count|pluralize:"y,ies" }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>There are no posts yet(((</p>
+  {% endif %}
+{% endblock %}

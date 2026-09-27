@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <h1>{{ post.title }}</h1>
+  <h4>{{ post.owner.username }} at {{ post.created_time }}</h4>
+  <p>{{ post.content }}</p>
+  <p>{{ post.comments_count }} commentar{{ post.comments_count|pluralize:"y,ies" }}</p>
+  {% for comment in post.commentaries.all %}
+    <p><strong>{{ comment.user }}</strong>: {{ comment.content }} ({{ comment.created_time }})</p>
+  {% empty %}
+    <p>There no comments yet.</p>
+  {% endfor %}
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary">Send</button>
+  </form>
+
+{% endblock %}
