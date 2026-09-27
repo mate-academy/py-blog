@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Log in · Py·Blog{% endblock %}
+
+{% block content %}
+    <section class="auth-card">
+        <h1>Log in</h1>
+        <p class="muted">Sign in to join the discussion.</p>
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}">
+            {{ form|crispy }}
+            <button type="submit" class="button">Log in</button>
+        </form>
+    </section>
+{% endblock %}

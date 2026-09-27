@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Latest posts · Py·Blog{% endblock %}
+
+{% block content %}
+    <section class="page-heading">
+        <h1>Latest posts</h1>
+        <p class="muted">{{ page_obj.paginator.count }} posts published</p>
+    </section>
+
+    <div class="post-feed">
+        {% for post in post_list %}
+            <article class="post-card">
+                <h2 class="post-card__title">
+                    <a href="{% url 'blog:post-detail' pk=post.pk %}">
+                        {{ post.title }}
+                    </a>
+                </h2>
+                <p class="post-card__meta">
+                    by <strong>{{ post.owner }}</strong>
+                    · {{ post.created_time|date:"M d, Y" }} at
+                    {{ post.created_time|date:"H:i" }}
+                    · <span class="badge">
+                        {{ post.commentaries_count }} commentaries
+                    </span>
+                </p>
+                <div class="post-card__content">{{ post.content }}</div>
+                <a class="read-more"
+                   href="{% url 'blog:post-detail' pk=post.pk %}">
+                    Read &amp; discuss →
+                </a>
+            </article>
+        {% empty %}
+            <p class="empty-state">No posts yet — be the first to write one!</p>
+        {% endfor %}
+    </div>
+
+    {% include "includes/pager.html" %}
+{% endblock %}
