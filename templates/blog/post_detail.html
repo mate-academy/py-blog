@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}{{ post.title }} — My Blog{% endblock %}
+{% block content %}
+
+<article class="post-detail">
+    <h1>{{ post.title }}</h1>
+    <div class="post-meta">
+        <span>By {{ post.owner.username }}</span>
+        <span>{{ post.created_time|date:"F j, Y, H:i" }}</span>
+    </div>
+    <div class="post-body">
+        {{ post.content|linebreaks }}
+    </div>
+</article>
+
+<section class="comments-section">
+    <h2>
+        Comments ({{ post.comments.count }})
+    </h2>
+
+        <div class="comments-list">
+            {% for comment in post.comments.all %}
+                <div class="comment">
+                    <div class="comment-header">
+                        <strong>
+                            {{ comment.user.username }}
+                        </strong>
+
+                        <span>
+                            {{ comment.created_time|date:"F j, Y, H:i" }}
+                        </span>
+                    </div>
+                    <p>
+                        {{ comment.content }}
+                    </p>
+                </div>
+            {% empty %}
+                <p class="no-comments">
+                    No comments yet. Be the first to comment!
+                </p>
+
+            {% endfor %}
+        </div>
+
+    <div class="comment-form">
+        <h2>Add a comment</h2>
+        {% if user.is_authenticated %}
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="submit-button">
+                    Add comment
+                </button>
+            </form>
+
+        {% else %}
+
+            <p class="login-message">
+                You must be logged in to leave a comment.
+            </p>
+
+            <a href="{% url 'login' %}" class="login-button">
+                Login to comment
+            </a>
+
+        {% endif %}
+
+    </div>
+</section>
+
+
+<a href="{% url 'blog:index' %}" class="back-link">
+    ← Back to all posts
+</a>
+
+{% endblock %}

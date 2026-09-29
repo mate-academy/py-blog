@@ -1,0 +1,31 @@
+# Virtual env
+venv/
+.venv/
+env/
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+# IDEs
+.idea/
+*.iml
+.vscode/
+# Env files / secrets
+.env
+.env.*
+# Database
+*.sqlite3
+# Static collected files
+/staticfiles/
+# Pytest / coverage
+.pytest_cache/
+htmlcov/
+coverage.xml
+# OS
+.DS_Store
+Thumbs.db
+# MISC
+pip-wheel-metadata/
+.mypy_cache/
+.ruff_cache/
+*.log
