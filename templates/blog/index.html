@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>Blog Home</title>
+{% endblock %}
+
+{% block sidebar %}
+
+{% endblock %}
+{% block content %}
+  <h1 class="heading-text">Here are all available posts:</h1>
+    <table class="table align-middle table-bordered">
+      <thead>
+        <tr>
+          <td>Title</td>
+          <td class="col-6">Content</td>
+          <td>Date</td>
+          <td>Author</td>
+          <td>Comment Count</td>
+        </tr>
+      </thead>
+      <tbody>
+        {% for post in post_list %}
+          <tr>
+            <td><a href="{% url "blog:post-detail" pk=post.id %}">{{ post.title }}</a></td>
+            <td class="col-6">{{ post.content }}</td>
+            <td>{{ post.created_time }}</td>
+            <td>{{ post.owner }}</td>
+            <td>{{ post.commentaries.count }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+{% endblock %}

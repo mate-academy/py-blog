@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <h1 class="heading-text">{{ post.title }}</h1>
+  <a href="{% url "blog:index" %}">To the list of Posts</a>
+  <p>{{ post.content }}</p>
+  <ol>
+    {% for comment in comments %}
+      <li>
+        <strong>{{ comment.user.username }}</strong>: {{ comment.content }}
+        <br><small>{{ comment.created_time }}</small>
+      </li>
+    {% endfor %}
+  </ol>
+  <h2>Add Your Comment</h2>
+  {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+  {% endif %}
+  <form action="" method="post">
+  {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" name="Submit" class="btn btn-primary">
+  </form>
+{% endblock %}
