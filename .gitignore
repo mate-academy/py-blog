@@ -1,0 +1,38 @@
+# ========================
+# Ambientes Virtuais (VENV)
+# ========================
+venv/
+env/
+.env/
+
+# ========================
+# Arquivos de Cache do Python
+# ========================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ========================
+# Banco de Dados Local
+# ========================
+db.sqlite3
+db.sqlite3-journal
+
+# ========================
+# Variáveis de Ambiente e Segredos
+# ========================
+.env
+*.env
+
+# ========================
+# Arquivos de IDEs (Editores de Código)
+# ========================
+.idea/
+.vscode/
+*.swp
+
+# ========================
+# Arquivos do Sistema Operacional
+# ========================
+.DS_Store
+Thumbs.db

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2 class="mb-4">All Posts</h2>
+
+    {% for post in post_list %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h3 class="card-title">
+                    <a href="{% url 'blog:post-detail' pk=post.pk %}">{{ post.title }}</a>
+                </h3>
+                <h6 class="card-subtitle mb-3 text-muted">
+                    Author: {{ post.owner.username }} | Created: {{ post.created_time|date:"Y-m-d H:i" }}
+                </h6>
+                <p class="card-text">{{ post.content|truncatechars:150 }}</p>
+                <small class="text-primary font-weight-bold">
+                    Commentarys: {{ post.comments.count }}
+                </small>
+            </div>
+        </div>
+    {% empty %}
+        <p>No posts published yet.</p>
+    {% endfor %}
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1" class="btn btn-sm btn-outline-secondary">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-sm btn-outline-secondary">previous</a>
+            {% endif %}
+
+            <span class="current mx-2 font-weight-bold">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="btn btn-sm btn-outline-secondary">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-sm btn-outline-secondary">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+{% endblock %}
