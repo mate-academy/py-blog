@@ -1,0 +1,22 @@
+.comment__body{
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.comment__body hr{
+    width: 95%;
+    margin: 0 auto;
+}
+
+.comment__body p{
+    padding: 5px 0 0 10px;
+}
+
+.comment__content:not(:last-child){
+    border-bottom: 1px solid black;
+}
+
+.form__section label, .form__section textarea{
+    display: block;
+    margin-bottom: 5px;
+}
