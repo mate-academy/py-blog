@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}{{ post.title }} · The Blog{% endblock %}
+{% block content %}
+  <a href="{% url 'blog:index' %}">← All posts</a>
+  <article class="card-panel">
+    <p class="metadata">By {{ post.owner }} · {{ post.created_time|date:"M j, Y, H:i" }}</p>
+    <h1>{{ post.title }}</h1>
+    {{ post.content|linebreaks }}
+  </article>
+  <section id="comments" aria-labelledby="comments-heading">
+    <h2 id="comments-heading">Comments ({{ post.commentaries.count }})</h2>
+    {% for comment in post.commentaries.all %}
+      <article class="comment">
+        <p class="metadata">{{ comment.user }} · {{ comment.created_time|date:"M j, Y, H:i" }}</p>
+        {{ comment.content|linebreaks }}
+      </article>
+    {% empty %}<p>No comments yet. Start the conversation.</p>{% endfor %}
+    <div class="card-panel">
+      <h2>Join the conversation</h2>
+      {% if user.is_authenticated %}
+        <form method="post">{% csrf_token %}{{ form|crispy }}<button class="btn btn-dark">Post comment</button></form>
+      {% else %}
+        {{ form.non_field_errors }}
+        <p><a href="{% url 'login' %}?next={{ request.path|urlencode }}">Log in</a> to leave a comment.</p>
+      {% endif %}
+    </div>
+  </section>
+{% endblock %}

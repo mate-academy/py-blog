@@ -1,0 +1,18 @@
+body { background: #f6f4ef; color: #24332e; font-family: system-ui, sans-serif; }
+a { color: #236b51; }
+.site-header { max-width: 1040px; margin: auto; padding: 30px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #d8ded7; gap: 20px; }
+.brand { font: bold 28px Georgia, serif; color: #24332e; }
+.brand span { display: block; font: 14px system-ui, sans-serif; margin-top: 4px; }
+.site-header nav { display: flex; align-items: center; gap: 16px; }
+.site-header form { margin: 0; }
+main { max-width: 850px; margin: 42px auto; padding: 0 24px; }
+h1, h2 { font-family: Georgia, serif; }
+h1 { margin-bottom: 28px; }
+h2 { font-size: 1.65rem; }
+.eyebrow { letter-spacing: .16em; font-size: .75rem; font-weight: bold; }
+.card-panel { background: white; border: 1px solid #e0e4dd; border-radius: 10px; padding: 28px; margin: 24px 0; overflow-wrap: anywhere; }
+.metadata { color: #68736d; font-size: .85rem; }
+.comment { padding: 20px 0; border-bottom: 1px solid #d8ded7; overflow-wrap: anywhere; }
+.pagination-bar { display: flex; justify-content: space-between; gap: 16px; }
+footer { text-align: center; padding: 32px 24px; color: #68736d; }
+@media (max-width: 540px) { .site-header { align-items: flex-start; } .card-panel { padding: 20px; } h1 { font-size: 2rem; } }

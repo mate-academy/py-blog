@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+  <p class="eyebrow">THE LATEST</p>
+  <h1>Stories &amp; perspectives</h1>
+  {% for post in post_list %}
+    <article class="card-panel">
+      <p class="metadata">By {{ post.owner }} · {{ post.created_time|date:"M j, Y, H:i" }}</p>
+      <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+      <div>{{ post.content|linebreaks }}</div>
+      <a href="{{ post.get_absolute_url }}#comments">{{ post.comment_count }} comment{{ post.comment_count|pluralize }}</a>
+    </article>
+  {% empty %}
+    <p>No posts yet. Check back soon.</p>
+  {% endfor %}
+  {% if is_paginated %}
+    <nav class="pagination-bar" aria-label="Pages">
+      {% if page_obj.has_previous %}<a href="?page={{ page_obj.previous_page_number }}">← Previous</a>{% endif %}
+      <span>Page {{ page_obj.number }} of {{ paginator.num_pages }}</span>
+      {% if page_obj.has_next %}<a href="?page={{ page_obj.next_page_number }}">Next →</a>{% endif %}
+    </nav>
+  {% endif %}
+{% endblock %}

@@ -70,3 +70,26 @@ INSTALLED APPS = [
    "crispy_forms",
 ]
 ```
+
+## Running the completed application
+
+Use Python 3.12 or newer, then run:
+
+```sh
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py loaddata blog_system_db_data.json
+python manage.py createsuperuser
+python manage.py runserver
+```
+
+Visit http://127.0.0.1:8000/ for posts and /admin/ to manage users,
+posts, and comments. Log in with your newly created account to comment.
+The fixture accounts are sample data; create your own account for access.
+
+Run all checks with `python manage.py test` and
+`python manage.py makemigrations --check --dry-run`.
+Local development uses SQLite and console email. Set DJANGO_SECRET_KEY and
+DJANGO_DEBUG=0 and configure deployment hosts before deploying.
