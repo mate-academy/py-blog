@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  <h1>All Posts</h1>
+  {% for post in post_list %}
+    <div class="post">
+      <h2><a href="{% url 'blog:post-detail' pk=post.pk %}">{{ post.title }}</a></h2>
+      <p>{{ post.content|truncatechars:100 }}</p>
+      <p>Author: {{ post.owner.username }} | Comments: {{ post.comments.count }}</p>
+    </div>
+    <hr>
+  {% endfor %}
+{% endblock %}
