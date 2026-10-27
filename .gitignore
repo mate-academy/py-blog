@@ -1,0 +1,19 @@
+# Віртуальне середовище
+venv/
+.venv/
+env/
+
+# Кеш Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Файли конфігурації IDE
+.idea/
+.vscode/
+*.swp
+
+# База даних та локальні налаштування
+db.sqlite3
+.env
