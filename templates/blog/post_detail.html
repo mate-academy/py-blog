@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_filters %}
+
+{% block content%}
+    <h1>{{ post.title }}</h1>
+    <p class="post-author">
+        {{ post.owner }} at {{ post.created_time }}
+    </p>
+    <div class="post-content">
+        {{ post.content }}
+    </div>
+
+    <div class="comments-count">
+        {{  post.commentaries.count }} comment{% if post.commentaries.count != 1 %}s{% endif %}
+    </div>
+    {% for comment in post.commentaries.all %}
+        <div class="custom-comment-card">
+          <div class="custom-comment-header">
+            <div class="custom-comment-header">
+              {{ comment.user }} {{ comment.created_time }}</div>
+              <div class="custom-comment-body">
+                {{ comment.content }}
+              </div>
+          </div>
+        </div>
+      {% endfor %}
+  <h3>Add a new comment</h3>
+  <form method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button type="submit" class="btn btn-primary">Add comment</button>
+  </form>
+{% endblock %}
+
+
