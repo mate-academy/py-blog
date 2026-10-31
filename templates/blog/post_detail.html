@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <p>Post: ({{ post.title }}, {{ post.content }}, {{ post.owner }}, {{ post.created_time }})</p>
+  <h1>Commentaries</h1>
+  <hr>
+  <ul>
+  {% for commentary in post.commentaries.all %}
+    <li>{{ commentary.user }} ({{ commentary.content }} {{ commentary.created_time }})</li>
+    {% empty %}
+    <li>There are no commentaries.</li>
+  {% endfor %}
+  </ul>
+  <form action="" method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input class="btn btn-primary" type="submit" value="Create commentary">
+  </form>
+
+{% endblock %}
