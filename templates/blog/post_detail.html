@@ -1,0 +1,39 @@
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ post.title }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="container my-4">
+    <a href="{% url 'blog:index' %}" class="btn btn-secondary mb-3">&larr; Back to Home</a>
+
+    <h1 class="mb-2">{{ post.title }}</h1>
+    <p class="text-muted">By {{ post.owner.username }} on {{ post.created_time|date:"F j, Y, g:i a" }}</p>
+    <hr>
+    <div class="content mb-4">
+        {{ post.content }}
+    </div>
+
+    <hr>
+    <h3 class="mb-3">Comments ({{ comments.count }})</h3>
+    <div class="list-group mb-4">
+        {% for comment in comments %}
+            <div class="list-group-item mb-2">
+                <p class="mb-1">{{ comment.content }}</p>
+                <small class="text-muted">By <strong>{{ comment.user.username }}</strong> on {{ comment.created_time|date:"F j, Y, g:i a" }}</small>
+            </div>
+        {% empty %}
+            <p class="text-muted">No comments yet. Be the first to comment!</p>
+        {% endfor %}
+    </div>
+
+    <!-- Comment Form using Crispy Forms tag -->
+    <h4 class="mb-3">Leave a Comment</h4>
+    <form method="post">
+        {% csrf_token %}
+        {% crispy form %}
+    </form>
+</body>
+</html>
