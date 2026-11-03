@@ -1,0 +1,37 @@
+body {
+    font-family: sans-serif;
+    justify-content: center;
+    width: 75rem;
+    align-items: center;
+    margin: auto;
+
+}
+
+
+
+.container {
+    box-sizing: border-box;
+    border: gray solid 1px;
+    border-radius: 10px;
+    margin-top: 15px;
+}
+
+.comment-block {
+    background-color: lightgray;
+    padding: 10px;
+    border-radius: 10px;
+    border: gray solid 1px;
+}
+
+
+.comment {
+    margin: 5px;
+}
+
+.content-block {
+    font-size: large;
+    text-align: justify;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    box-sizing: content-box;
+}
