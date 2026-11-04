@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% if user.is_authenticated %}
+  <li>
+    User: {{ user.username }}
+  </li>
+  <li>
+    <form action="{% url 'logout' %}" method="post" style="display: inline;">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-link" style="padding: 0; display: inline; color: blue; text-decoration: underline; background: none; border: none; font: inherit; cursor: pointer;">
+        Logout
+      </button>
+    </form>
+  </li>
+  {% else %}
+    <li>
+      <a href="{% url 'login' %}">Login</a>
+    </li>
+  {% endif %}
+  <br>
+  <div class="posts-list">
+    {% if post_list %}
+      {% for post in post_list %}
+        <article class="post-card">
+          <h2 class="post-title"><a href="{% url 'blog:post-detail' pk=post.id %}">{{ post.title }}</a></h2>
+
+          <div class="post-meta">
+            By <a href="#"><span>{{ post.owner.username }}</span></a> |
+            <time>{{ post.created_time|date:"M d, Y H:i" }}</time>
+          </div>
+
+          <div class="post-content">
+            <p>{{ post.content }}</p>
+          </div>
+
+          <footer class="post-footer">
+            <span class="post-comments"> {{ post.comments.count }} comments</span>
+          </footer>
+        </article> {% endfor %}
+    {% else %}
+      <p>There are no posts yet.</p>
+    {% endif %}
+  </div> {% include "includes/pagination.html" %}
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block content %}
+  <h1>Title: {{ posts }}</h1>
+  <p>Username: {{ post.owner.username }}</p>
+  <p><time>Date created: {{ post.created_time|date:"M d, Y H:i" }}</time></p>
+  <p>Content: {{ post.content }}</p>
+  <h3>Comments ({{ post.comments.count }})</h3>
+  {% for comment in post.comments.all %}
+    <li>
+      <p>
+        <strong>{{ comment.user.username }}</strong>
+        <small class="text-muted">{{ comment.created_time|date:"M d, Y H:i" }}</small>
+        <p>{{ comment.content }}</p>
+      </p>
+    </li>
+    {% empty %}
+      <p>No comments yet. Be the first to comment!</p>
+  {% endfor %}
+  <hr>
+
+  {% if user.is_authenticated %}
+    <h3>Add Commentary</h3>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {{ form|crispy }}
+      <textarea name="content" rows="15" cols="100" placeholder="Add commentary..." required></textarea>
+      <button type="submit" class="btn btn-light">Send</button>
+    </form>
+  {% else %}
+    <p><a href="{% url 'login' %}">Log in</a>to leave a comment</p>
+  {% endif %}
+
+  <a href="{% url 'blog:index' %}">Return</a>
+{% endblock %}
