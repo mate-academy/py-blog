@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+  <article class="post-card">
+    <h1>{{ post.title }}</h1>
+    <p class="post-meta">by {{ post.owner.username }} · {{ post.created_time|date:"d.m.Y H:i" }}</p>
+    <p>{{ post.content|linebreaksbr }}</p>
+  </article>
+
+  <h3 class="mt-4">Comments ({{ post.commentaries.count }})</h3>
+  {% for comment in post.commentaries.all %}
+    <div class="comment">
+      <div class="comment-meta">{{ comment.user.username }} · {{ comment.created_time|date:"d.m.Y H:i" }}</div>
+      <div>{{ comment.content|linebreaksbr }}</div>
+    </div>
+  {% empty %}
+    <p>No comments yet.</p>
+  {% endfor %}
+
+  <div class="comment-form">
+    <h4>Leave a comment</h4>
+    {% if not user.is_authenticated %}
+      <p class="text-muted">Only authorized users can post comments. <a href="{% url 'login' %}?next={{ request.path }}">Log in</a>.</p>
+    {% endif %}
+    <form method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button type="submit" class="btn btn-primary">Add comment</button>
+    </form>
+  </div>
+
+  <p class="mt-4"><a href="{% url 'blog:index' %}">&larr; Back to all posts</a></p>
+{% endblock %}
