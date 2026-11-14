@@ -1,0 +1,19 @@
+#VENVs
+env/
+.venv/
+venv/
+
+#databases
+*.db
+*.sqlite3
+
+#Python cache
+*.py[cod]
+__pycache__/
+
+#IDE cache
+.idea/
+.vscode/
+
+#OS cache
+.DS_Store
