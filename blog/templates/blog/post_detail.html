@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ post.title }}</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <article>
+        <h1>{{ post.title }}</h1>
+        <p>{{ post.content }}</p>
+        <small>{{ post.created_time }}</small>
+    </article>
+    <h2>Comments</h2>
+    {% for commentary in commentaries %}
+    <div>
+        <strong>{{ commentary.user.username }}</strong>: {{ commentary.content }}
+        <small>{{ commentary.created_time }}</small>
+    </div>
+    {% endfor %}
+</body>
+</html>
