@@ -1,13 +1,23 @@
-from django.shortcuts import redirect, render
+from django.db.models import Count
+from django.shortcuts import redirect
 from django.views import generic
 
 from blog.forms import CommentaryForm
 from blog.models import Post, Commentary
 
 
-def index(request):
-    post_list = Post.objects.all().order_by("-created_time")[:5]
-    return render(request, "blog/index.html", {"post_list": post_list})
+class PostListView(generic.ListView):
+    model = Post
+    template_name = "blog/index.html"
+    context_object_name = "post_list"
+    paginate_by = 5
+
+    def get_queryset(self):
+        return (
+            Post.objects.select_related("owner")
+            .annotate(comment_count=Count("commentaries"))
+            .order_by("-created_time")
+        )
 
 
 class PostDetailView(generic.DetailView):

@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blog</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>Blog</h1>
+    {% for post in post_list %}
+    <article>
+        <h2><a href="{% url 'blog:post-detail' post.pk %}">{{ post.title }}</a></h2>
+        <p>{{ post.content|truncatewords:30 }}</p>
+        <small>By {{ post.owner.username }} | {{ post.created_time }}</small>
+        <p>Comments: {{ post.comment_count }}</p>
+    </article>
+    {% endfor %}
+    {% if is_paginated %}
+    <nav aria-label="Post pagination">
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+        <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">Next</a>
+        {% endif %}
+    </nav>
+    {% endif %}
+</body>
+</html>

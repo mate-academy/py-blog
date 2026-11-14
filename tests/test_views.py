@@ -34,6 +34,39 @@ class PostListTest(TestCase):
             list(post_list[: len(post_context)]),
         )
 
+    def test_main_page_second_page_and_navigation(self):
+        owner = Post.objects.first().owner
+        for index in range(PAGINATION + 1):
+            Post.objects.create(
+                owner=owner,
+                title=f"Additional post {index}",
+                content="Additional content",
+            )
+
+        response = self.client.get(MAIN_PAGE_URL, {"page": 2})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context["page_obj"].number, 2)
+        self.assertTrue(response.context["page_obj"].has_previous())
+        self.assertContains(response, "Previous")
+
+    def test_main_page_displays_post_author_and_comment_count(self):
+        post = Post.objects.first()
+        Commentary.objects.create(
+            user=post.owner,
+            post=post,
+            content="A countable comment",
+        )
+
+        response = self.client.get(MAIN_PAGE_URL)
+        displayed_post = next(
+            item for item in response.context["post_list"] if item.pk == post.pk
+        )
+
+        self.assertContains(response, post.owner.username)
+        self.assertContains(response, f"Comments: {post.commentaries.count()}")
+        self.assertEqual(displayed_post.comment_count, post.commentaries.count())
+
 
 class PostDetailTest(TestCase):
     fixtures = [
