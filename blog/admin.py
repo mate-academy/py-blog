@@ -25,4 +25,5 @@ class CommentAdmin(admin.ModelAdmin):
     list_display = ("user", "post", "created_time", "content")
     search_fields = ("content",)
 
+
 admin.site.unregister(Group)
