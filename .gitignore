@@ -1,0 +1,13 @@
+# IDE
+.idea/
+.venv/
+venv/
+.env
+
+# Database
+*.sqlite3
+db.sqlite3
+
+# Python
+__pycache__/
+*.pyc
