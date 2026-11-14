@@ -1,5 +1,8 @@
 # IDE
 .idea/
+.venv/
+venv/
+.env
 
 # Database
 *.sqlite3

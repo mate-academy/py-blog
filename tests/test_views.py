@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
+from django.contrib.auth import get_user_model
 from blog.models import Post, Commentary
 
 MAIN_PAGE_URL = reverse("blog:index")
@@ -44,4 +45,50 @@ class PostDetailTest(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "blog/post_detail.html")
+
+    def test_post_detail_url_uses_posts_path(self):
+        self.assertEqual(reverse("blog:post-detail", args=[1]), "/posts/1/")
+
+    def test_post_detail_displays_post_comments(self):
+        post = Post.objects.get(pk=1)
+        commentary = Commentary.objects.create(
+            user=post.owner,
+            post=post,
+            content="A visible comment",
+        )
+
+        response = self.client.get(reverse("blog:post-detail", args=[post.pk]))
+
+        self.assertContains(response, commentary.content)
+
+    def test_anonymous_user_cannot_create_comment(self):
+        response = self.client.post(
+            reverse("blog:post-detail", args=[1]),
+            {"content": "Anonymous comment"},
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(response.context["form"].is_valid())
+        self.assertFalse(Commentary.objects.filter(content="Anonymous comment").exists())
+
+    def test_authenticated_user_can_create_comment(self):
+        user = get_user_model().objects.create_user(
+            username="commenter",
+            password="test-password",
+        )
+        self.client.force_login(user)
+
+        response = self.client.post(
+            reverse("blog:post-detail", args=[1]),
+            {"content": "Authenticated comment"},
+        )
+
+        self.assertRedirects(response, reverse("blog:post-detail", args=[1]))
+        self.assertTrue(
+            Commentary.objects.filter(
+                post_id=1,
+                user=user,
+                content="Authenticated comment",
+            ).exists()
+        )
 
