@@ -58,4 +58,4 @@ class PostDetailView(DetailView):
             return redirect("blog:post-detail", pk=self.object.pk)
 
         context = self.get_context_data(form=form)
-        return render(request,"blog/post-detail.html", context)
+        return render(request, "blog/post-detail.html", context)
