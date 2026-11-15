@@ -37,6 +37,7 @@ class PostListView(ListView):
     )
 
 
+@method_decorator(login_required, name="post")
 class PostDetailView(DetailView):
     model = Post
 
@@ -50,7 +51,6 @@ class PostDetailView(DetailView):
         context.setdefault("form", CommentaryForm())
         return context
 
-    @method_decorator(login_required)
     def post(self, request, *args, **kwargs):
         form = CommentaryForm(request.POST)
         if form.is_valid():
@@ -58,7 +58,7 @@ class PostDetailView(DetailView):
             comment.post = self.get_object()
             comment.user = request.user
             comment.save()
-            return redirect(self.template_name)
+            return redirect(self.object.get_absolute_url())
 
         context = self.get_context_data(form=form)
         return render(request, self.template_name, context)

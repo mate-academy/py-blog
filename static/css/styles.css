@@ -5,11 +5,11 @@ body {
 .card {
     background-color: white;
     border-radius: 8px;
-    padding: 10px;
-    margin: 10px;
+    padding: 0.25rem;
+    margin: 0.25rem;
 }
 .card * {
-    margin-bottom: 0.5rem;
+    margin: 0.25rem;
 }
 .pagination {
     margin-top: 15px;

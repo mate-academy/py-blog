@@ -4,20 +4,26 @@
   <h2>All blogs</h2>
 
   {% if post_list %}
-    <ul style="list-style: none; margin: 0; padding : 0;">
+    <ul>
       {% for post in post_list %}
         <li class="card">
 
           <h4>
-            <a class="mb-1" href="{% url 'blog:post-detail' post.id %}">
+            <a href="{% url 'blog:post-detail' post.id %}">
               {{ post.title }}
             </a>
           </h4>
 
-          <p class="text-secondary mb-1">
+          <p class="text-secondary">
             {{ post.owner }} at {{ post.created_time|date:"j M Y H:i:s" }}
           </p>
-          <p class="mb-2">Count of comments: {{ post.comments_count }}</p>
+          <p>
+            {{ post.content|truncatewords:15 }}
+            <a href="{% url 'blog:post-detail' post.id %}">(Read more)</a>
+          </p>
+          <p class="font-italic">
+            {{ post.comments_count }} comment{{ post.comments_count|pluralize }}
+          </p>
 
         </li>
       {% endfor %}

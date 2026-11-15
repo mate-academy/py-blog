@@ -14,7 +14,7 @@
   </div>
 
   {% if commentaries %}
-    <h4>Comments:</h4>
+    <h4>{{ commentaries.count }} comment{{ commentaries.count|pluralize }}</h4>
     {% for comment in commentaries %}
       <div class="card">
         <p class="text-secondary">
@@ -37,7 +37,7 @@
     </form>
 
   {% else %}
-    <p class="fw-semibold">Please
+    <p class="font-italic">Please
       <a href="{% url 'login' %}?next={{ request.path }}">login</a>
       to leave a comment
     </p>
