@@ -1,0 +1,21 @@
+body {
+    background-color: #fdfcf2;
+    color: #222;
+}
+.card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 0.25rem;
+    margin: 0.25rem;
+}
+.card * {
+    margin: 0.25rem;
+}
+.pagination {
+    margin-top: 15px;
+    justify-content: center;
+}
+hr {
+    margin: 0;
+    color: gray;
+}

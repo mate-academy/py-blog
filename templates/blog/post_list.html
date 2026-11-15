@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>All blogs</h2>
+
+  {% if post_list %}
+    <ul>
+      {% for post in post_list %}
+        <li class="card">
+
+          <h4>
+            <a href="{% url 'blog:post-detail' post.id %}">
+              {{ post.title }}
+            </a>
+          </h4>
+
+          <p class="text-secondary">
+            {{ post.owner }} at {{ post.created_time|date:"j M Y H:i:s" }}
+          </p>
+          <p>
+            {{ post.content|truncatewords:15 }}
+            <a href="{% url 'blog:post-detail' post.id %}">(Read more)</a>
+          </p>
+          <p class="font-italic">
+            {{ post.comments_count }} comment{{ post.comments_count|pluralize }}
+          </p>
+
+        </li>
+      {% endfor %}
+    </ul>
+    <hr>
+
+  {% else %}
+    <p>No Blogs found!</p>
+  {% endif %}
+
+{% endblock %}
