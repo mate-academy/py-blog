@@ -29,14 +29,12 @@
         <td>
           {{ post.content }}
         </td>
-        {% if user == post.owner %}
         <td>
           {{ post.created_time }}
         </td>
         <td>
           {{ post.commentaries.count }}
         </td>
-        {% endif %}
       </tr>
     {%  endfor %}
   </table>
