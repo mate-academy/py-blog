@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Home page</title>
+{% endblock %}
+
+{% block content %}
+<h1>Post Home</h1>
+<p>Welcome to the Greatest Posts</p>
+<h3>Posts:</h3>
+
+{% if post_list %}
+  <table class="table">
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Content</th>
+      <th>Created time</th>
+      <th>Number of commentaries</th>
+    </tr>
+    {% for post in post_list %}
+      <tr>
+        <td>
+          {{  post.id }}
+        </td>
+        <td>
+          <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+        </td>
+        <td>
+          {{ post.content }}
+        </td>
+        {% if user == post.owner %}
+        <td>
+          {{ post.created_time }}
+        </td>
+        <td>
+          {{ post.commentaries.count }}
+        </td>
+        {% endif %}
+      </tr>
+    {%  endfor %}
+  </table>
+{%  else %}
+  <p>There are no posts!</p>
+{%  endif %}
+{% endblock %}
