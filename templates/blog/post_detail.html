@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{%  load crispy_forms_tags %}
 {% block content %}
   <h1>Title: {{ post.title }}</h1>
   <p>Content: {{ post.content }}</p>
@@ -20,7 +20,7 @@
   <p><strong>Add a new comment</strong></p>
   <form action="" method="post" novalidate>
     {% csrf_token %}
-    {{ form }}
+    {{ form|crispy }}
     <input type="submit" value="Add comment">
   </form>
 {% endblock %}
