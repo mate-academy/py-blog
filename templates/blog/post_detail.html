@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{%  load crispy_forms_tags %}
+{% block content %}
+  <h1>Title: {{ post.title }}</h1>
+  <p>Content: {{ post.content }}</p>
+  <p>Created time: {{ post.created_time }}</p>
+  <div class="ml-3">
+    <h3>Commentaries:</h3>
+    {% for commentary in post.commentaries.all %}
+      <hr>
+      <p class="text-muted">{{ commentary.id }}</p>
+      <p>{{ commentary.user }}: </p>
+      <p>{{ commentary.content }} {{ commentary.created_time }}</p>
+    {% empty %}
+      <p>No commentaries!</p>
+    {% endfor %}
+  </div>
+
+  <br>
+  <p><strong>Add a new comment</strong></p>
+  <form action="" method="post" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="Add comment">
+  </form>
+{% endblock %}
