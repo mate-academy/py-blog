@@ -19,6 +19,6 @@ class PostDetailView(generic.DetailView):
 
 class CommentaryCreateView(LoginRequiredMixin, generic.CreateView):
     model = Commentary
-    fields = ["content"] # "__all__"
+    fields = ["content"]  # "__all__"
     success_url = reverse_lazy("blog:index")
     template_name = "blog/commentary_form.html"
