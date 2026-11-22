@@ -1,0 +1,65 @@
+from django.contrib.auth import login
+from django.contrib.auth.forms import AuthenticationForm
+from django.db.models import Count
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import redirect, render
+from django.views.generic import DetailView, ListView
+
+from blog.forms import CommentaryForm
+from blog.models import Post
+
+
+def login_view(request: HttpRequest) -> HttpResponse:
+    if request.user.is_authenticated:
+        return redirect("index")
+
+    form = AuthenticationForm(
+        request, data=request.POST or None
+    )
+
+    if request.method == "POST" and form.is_valid():
+        login(request, form.get_user())
+        return redirect("index")
+
+    return render(request, "login", {"form": form})
+
+
+class PostListView(ListView):
+    model = Post
+    paginate_by = 5
+    queryset = (
+        Post.objects.select_related("owner")
+        .annotate(
+            comments_count=Count("commentaries")
+        ).order_by("-created_time")
+    )
+
+
+class PostDetailView(DetailView):
+    model = Post
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        post = self.get_object()
+        context["commentaries"] = post.commentaries.select_related(
+            "user"
+        ).order_by("-created_time")
+        context["post"] = post
+        context.setdefault("form", CommentaryForm())
+        return context
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = CommentaryForm(request.POST)
+
+        if not request.user.is_authenticated:
+            form.add_error(None, "Please log in to send a comment")
+
+        elif form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = self.object
+            comment.user = request.user
+            comment.save()
+            return redirect("blog:post-detail", pk=self.object.pk)
+
+        return self.render_to_response(self.get_context_data(form=form))
