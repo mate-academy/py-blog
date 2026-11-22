@@ -49,13 +49,17 @@ class PostDetailView(DetailView):
         return context
 
     def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
         form = CommentaryForm(request.POST)
-        if form.is_valid():
+
+        if not request.user.is_authenticated:
+            form.add_error(None, "Please log in to send a comment")
+
+        elif form.is_valid():
             comment = form.save(commit=False)
-            comment.post = self.get_object()
+            comment.post = self.object
             comment.user = request.user
             comment.save()
             return redirect("blog:post-detail", pk=self.object.pk)
 
-        context = self.get_context_data(form=form)
-        return render(request, "blog/post-detail.html", context)
+        return self.render_to_response(self.get_context_data(form=form))

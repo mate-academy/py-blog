@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h2>All blogs</h2>
+  <h3 class="page-section">All blogs</h3>
 
   {% if post_list %}
-    <ul>
+    <ul class="pl-3">
       {% for post in post_list %}
-        <li class="card">
+        <li class="card mt-2">
 
           <h4>
             <a href="{% url 'blog:post-detail' post.id %}">
@@ -15,10 +15,10 @@
           </h4>
 
           <p class="text-secondary">
-            {{ post.owner }} at {{ post.created_time|date:"j M Y H:i:s" }}
+            <i>{{ post.owner }}</i> at {{ post.created_time|date:"j M Y H:i:s" }}
           </p>
           <p>
-            {{ post.content|truncatewords:15 }}
+            {{ post.content|truncatewords:12 }}
             <a href="{% url 'blog:post-detail' post.id %}">(Read more)</a>
           </p>
           <p class="font-italic">
